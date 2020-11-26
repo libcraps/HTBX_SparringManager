@@ -1,30 +1,26 @@
-﻿using CRI.HitBoxTemplate.Serial;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace CRI.HitBoxTemplate.Example
+namespace SparringManager.SimpleHit
 {
     public class SimpleHitController : MonoBehaviour
     {
         [SerializeField]
-        [Tooltip("Array of the prefab of the objects that will be put at the position of the impact. Each prefab is associated with its corresponding player index.")]
-        private GameObject[] _hitPrefabs;
-
-        private int _playerCount;
+        private GameObject _hitPrefab;
 
         private void OnEnable()
         {
-            ImpactPointControl.onImpact += OnImpact;
+            ImpactManager.onInteractPoint += SetImpactPosition;
         }
 
         private void OnDisable()
         {
-            ImpactPointControl.onImpact -= OnImpact;
+            ImpactManager.onInteractPoint -= SetImpactPosition;
         }
 
-        private void OnImpact(object sender, ImpactPointControlEventArgs e)
+        public void SetImpactPosition(Vector2 position2d_)
         {
-            if (e.playerIndex < _hitPrefabs.Length)
-                Instantiate(_hitPrefabs[e.playerIndex], e.impactPosition, Quaternion.identity);
+            Vector3 pos3d_ = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z + 20f);
+            Instantiate(_hitPrefab, pos3d_, Quaternion.identity, this.gameObject.transform);
         }
     }
 }

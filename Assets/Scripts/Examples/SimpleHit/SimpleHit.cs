@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SparringManager.SimpleHit
+namespace CRI.HitBoxTemplate.Example
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class SimpleHit : MonoBehaviour
