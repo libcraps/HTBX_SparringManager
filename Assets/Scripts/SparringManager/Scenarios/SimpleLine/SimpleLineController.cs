@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace SparringManager.SimpleLine 
 {
-    [RequireComponent(typeof(MeshRenderer))]
     public class SimpleLineController : MonoBehaviour
     {
 

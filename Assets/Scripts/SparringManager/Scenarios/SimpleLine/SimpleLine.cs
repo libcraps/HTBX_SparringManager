@@ -12,6 +12,7 @@ namespace SparringManager.SimpleLine
         private int _deltaTimeMax;
         [SerializeField]
         private int _deltaTimeMin;
+        
         private Rigidbody _lineRigidComponent;
         private float _lineAcceleration = 5.0f; 
         private float _deltaTime;
@@ -29,8 +30,6 @@ namespace SparringManager.SimpleLine
             _tTime = Time.time;
             _previousTime = _tTime;
             _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
-            Debug.Log("delta t " + _deltaTime);
-            Debug.Log("Acceleration " + _lineAcceleration);
         }
 
         void FixedUpdate()
@@ -43,15 +42,15 @@ namespace SparringManager.SimpleLine
                 _previousTime = _tTime;
                 _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
 
-                Debug.Log("delta t " + _deltaTime);
-                Debug.Log("Acceleration " + _lineAcceleration);
             }
             MoveLine(_lineAcceleration);
         }
 
         void MoveLine(float lineHorizontalAcceleration)
         {
-            _lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.VelocityChange);
+            //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
+
+            _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
     }
 }
