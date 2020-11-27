@@ -1,36 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using SparringManager;
 using UnityEngine;
 
-namespace SparringManager.SimpleLine 
+namespace SparringManager.SimpleLine
 {
-    [RequireComponent(typeof(MeshRenderer))]
     public class SimpleLine : MonoBehaviour
     {
-
-        [SerializeField]
-        private MeshRenderer _simpleLine;
-
-        //[SerializeField]
-        private float LineSpeed = 5f;
-
-        private float _pos2D;
-        private Rigidbody LineRigidComponent;
-
+        private Rigidbody _lineRigidComponent;
+        private MeshRenderer _lineRender;
+        private float posLineX;
+        private float posLineY;
+        private float posLineZ;
+        private float _lineSpeed = 5.0f;
+        private Random _randomTime;
         // Start is called before the first frame update
         void Start()
         {
-            Debug.Log("Debut de Simple Line");
-            LineRigidComponent = _simpleLine.GetComponent<Rigidbody>();
-            Instantiate(_simpleLine);
+            _lineRigidComponent = GetComponent<Rigidbody>();
+            _lineRender  = GetComponent<MeshRenderer>();
         }
 
-        // Update is called once per frame
         void FixedUpdate()
         {
-            LineRigidComponent.velocity = new Vector3(0, LineSpeed, 0);
+            MoveLine(_lineSpeed);
         }
 
-    }   
+        void MoveLine(float lineHorizontalSpeed)
+        {
+            Debug.Log("moving line");
+            _lineRigidComponent.velocity = new Vector3(lineHorizontalSpeed, 0, 0);
+        }
+
+        void RandomMovementSpeed(float timeChangeDir)
+        {
+
+        }
+    }
 }
+        
