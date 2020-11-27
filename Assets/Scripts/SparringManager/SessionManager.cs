@@ -7,11 +7,11 @@ namespace SparringManager
     public class SessionManager : MonoBehaviour
     {
         [SerializeField]
-        private GameObject scenarioSimpleHit;
+        private GameObject scenario;
 
         void Start()
         {
-            Instantiate(scenarioSimpleHit, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
+            Instantiate(scenario, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
         }
     }
 }
