@@ -11,6 +11,7 @@ namespace SparringManager.SimpleLine
 
         [SerializeField]
         private MeshRenderer _simpleLine;
+
         private Vector3 _pos3d;
 
         // Start is called before the first frame update
