@@ -6,22 +6,22 @@ namespace SparringManager.SimpleLine
 {
     public class SimpleLine : MonoBehaviour
     {
+        
         [SerializeField]
         private int _accelerationMax;
         [SerializeField]
         private int _deltaTimeMax;
         [SerializeField]
         private int _deltaTimeMin;
-        
-        private Rigidbody _lineRigidComponent;
-        private float _lineAcceleration = 5.0f; 
+
+        private float _previousTime;
+        private float _tTime;
         private float _deltaTime;
+        private float _lineAcceleration; 
         private System.Random _randomTime = new System.Random();
         private System.Random _randomAcceleration = new System.Random();
-        private float _previousTime;
-        private float _tTime = 0f;
-
-
+        private Rigidbody _lineRigidComponent;
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -42,14 +42,16 @@ namespace SparringManager.SimpleLine
                 _previousTime = _tTime;
                 _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
 
+                Debug.Log("Acceleration : " + _lineAcceleration);
+                Debug.Log("Deta T : " + _deltaTime);
             }
+
             MoveLine(_lineAcceleration);
         }
 
         void MoveLine(float lineHorizontalAcceleration)
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
-
             _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
     }
