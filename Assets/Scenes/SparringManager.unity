@@ -211,6 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenario: {fileID: 4281324017865965865, guid: 81bcf515e42e28b499dc2c872ec52c77,
     type: 3}
+  _timer: 6
 --- !u!114 &411570569
 MonoBehaviour:
   m_ObjectHideFlags: 0

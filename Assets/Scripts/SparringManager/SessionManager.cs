@@ -9,9 +9,24 @@ namespace SparringManager
         [SerializeField]
         private GameObject scenario;
 
+        [SerializeReference]
+        public float _timer;
+
+        private float _tTime;
+
         void Start()
         {
-            Instantiate(scenario, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
+            _tTime = Time.time;
+            float variable = _timer; 
+            Debug.Log("SessionManager timer " + _timer);
+            Destroy(Instantiate(scenario, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timer);
+            
         }
+
+        public float Timer()
+        {
+            return _timer;
+        }
+
     }
 }

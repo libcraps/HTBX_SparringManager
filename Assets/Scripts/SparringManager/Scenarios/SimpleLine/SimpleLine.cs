@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using SparringManager;
 using UnityEngine;
 
 namespace SparringManager.SimpleLine
@@ -21,15 +21,26 @@ namespace SparringManager.SimpleLine
         private System.Random _randomTime = new System.Random();
         private System.Random _randomAcceleration = new System.Random();
         private Rigidbody _lineRigidComponent;
-        
+
         // Start is called before the first frame update
         void Start()
         {
             _lineRigidComponent = GetComponent<Rigidbody>();
 
+            GameObject gameObject = GameObject.Find(this.gameObject.transform.parent.name);
+            SessionManager session = gameObject.GetComponent<SessionManager>();
+            float _timer = session._timer;
+            
+            Debug.Log(this.gameObject.name + " timer " + _timer);
+
             _tTime = Time.time;
             _previousTime = _tTime;
             _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
+            _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+
+            
+            Debug.Log("Acceleration : " + _lineAcceleration);
+            Debug.Log("Deta T : " + _deltaTime);
         }
 
         void FixedUpdate()
@@ -53,6 +64,11 @@ namespace SparringManager.SimpleLine
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
             _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
+        }
+
+        void OnDestroy()
+        {
+            Debug.Log(this.gameObject.name + "has been destroyed");
         }
     }
 }
