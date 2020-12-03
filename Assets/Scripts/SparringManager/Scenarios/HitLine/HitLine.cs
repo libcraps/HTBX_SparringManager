@@ -1,12 +1,11 @@
 ﻿using System.Collections;
-using SparringManager;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace SparringManager.SimpleLine
+namespace SparringManager.HitLine
 {
-    public class SimpleLine : MonoBehaviour
+    public class HitLine : MonoBehaviour
     {
-        
         [SerializeField]
         private int _accelerationMax;
         [SerializeField]
