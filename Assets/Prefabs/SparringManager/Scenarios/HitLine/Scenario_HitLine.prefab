@@ -85,8 +85,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitLine: {fileID: 1783334052419977111, guid: f9beb69511a1d37498998e40625322f2,
     type: 3}
-  _accelerationMax: 10
+  _accelerationMax: 15
   _deltaTimeMax: 6
-  _deltaTimeMin: 1
-  _deltaHit: 0.5
+  _deltaTimeMin: 3
+  _deltaHit: 1
   _timeBeforeHit: 6
