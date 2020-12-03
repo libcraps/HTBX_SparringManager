@@ -22,6 +22,8 @@ namespace SparringManager.SimpleLine
         private System.Random _randomAcceleration = new System.Random();
         private Rigidbody _lineRigidComponent;
 
+        
+
         // Start is called before the first frame update
         void Start()
         {
@@ -58,6 +60,7 @@ namespace SparringManager.SimpleLine
             }
 
             MoveLine(_lineAcceleration);
+            LineInCameraRange();
         }
 
         void MoveLine(float lineHorizontalAcceleration)
@@ -66,6 +69,35 @@ namespace SparringManager.SimpleLine
             _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
 
+        void LineInCameraRange()
+        {
+            Vector3 linePos3d;
+            Vector3 renderCameraPos3d;
+
+            GameObject gameObject = GameObject.Find(this.gameObject.transform.parent.name);
+            Debug.Log(this.gameObject.transform.parent.name);
+            Camera renderCamera = gameObject.GetComponent<Camera>();
+            float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
+
+            renderCameraPos3d.x = renderCamera.transform.position.x;
+            renderCameraPos3d.y = renderCamera.transform.position.y;
+            renderCameraPos3d.z = renderCamera.transform.position.z;
+            
+            linePos3d.x = this.gameObject.transform.position.x;
+            linePos3d.y = this.gameObject.transform.position.y;
+            linePos3d.z = this.gameObject.transform.position.z;
+
+            if (linePos3d.x > renderCameraPos3d.x + rangeSize)
+            {
+                linePos3d.x -= 2* rangeSize;
+            } 
+            else if (linePos3d.x < renderCameraPos3d.x - rangeSize)
+            {
+                linePos3d.x += 2* rangeSize;
+            }
+
+            this.gameObject.transform.position = linePos3d;
+        }
         void OnDestroy()
         {
             Debug.Log(this.gameObject.name + "has been destroyed");

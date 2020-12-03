@@ -16,6 +16,7 @@ namespace SparringManager.SimpleLine
 
             float _timer = session._timer;
             Debug.Log(this.gameObject.name + " timer " + _timer);
+            
             Vector3 _pos3d;
             
             _pos3d.x = this.gameObject.transform.position.x;

@@ -17,7 +17,7 @@ namespace SparringManager
         void Start()
         {
             _tTime = Time.time;
-            float variable = _timer; 
+
             Debug.Log("SessionManager timer " + _timer);
             Destroy(Instantiate(scenario, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timer);
             
