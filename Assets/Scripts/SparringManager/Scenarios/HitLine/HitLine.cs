@@ -6,12 +6,13 @@ namespace SparringManager.HitLine
 {
     public class HitLine : MonoBehaviour
     {
-        [SerializeField]
+        private GameObject _hitLine;
         private int _accelerationMax;
-        [SerializeField]
+
         private int _deltaTimeMax;
-        [SerializeField]
         private int _deltaTimeMin;
+        private int _deltaHit;
+        private int _timeBeforeHit;
         private float _previousTime;
         private float _tTime;
         private float _deltaTime;
@@ -20,16 +21,27 @@ namespace SparringManager.HitLine
         private System.Random _randomAcceleration = new System.Random();
         private Rigidbody _lineRigidComponent;
 
-        
-
         // Start is called before the first frame update
         void Start()
         {
             _lineRigidComponent = GetComponent<Rigidbody>();
 
             //We get the component SessionsManager from the render camera to gte access to the timer
-            GameObject gameObject = GameObject.Find(this.gameObject.transform.parent.name);
-            SessionManager session = gameObject.GetComponent<SessionManager>();
+            GameObject _Session = GameObject.Find(this.gameObject.transform.parent.name);
+            SessionManager session = _Session.GetComponent<SessionManager>();
+
+            //We get the component SimpleLineController from the render camera to gte access to the timer
+            GameObject _HitLineController = GameObject.Find("Scenario_" + this.gameObject.name);
+            HitLineController hitLineController = _HitLineController.GetComponent<HitLineController>();
+
+            _accelerationMax = hitLineController._accelerationMax;
+            _deltaTimeMax = hitLineController._deltaTimeMax;
+            _deltaTimeMin = hitLineController._deltaTimeMin;
+
+            _deltaHit = hitLineController._deltaHit;
+            _timeBeforeHit = hitLineController._timeBeforeHit;
+
+            Debug.Log(_accelerationMax);
             float _timer = session._timer;
             
             Debug.Log(this.gameObject.name + " timer " + _timer);
@@ -40,7 +52,6 @@ namespace SparringManager.HitLine
             _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
             _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
 
-            
             Debug.Log("Acceleration : " + _lineAcceleration);
             Debug.Log("Deta T : " + _deltaTime);
         }
@@ -54,9 +65,6 @@ namespace SparringManager.HitLine
                 _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
                 _previousTime = _tTime;
                 _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
-
-                Debug.Log("Acceleration : " + _lineAcceleration);
-                Debug.Log("Deta T : " + _deltaTime);
             }
 
             MoveLine(_lineAcceleration);
