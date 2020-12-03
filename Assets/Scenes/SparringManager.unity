@@ -209,9 +209,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03e67d0bcb8145b4197cc57013327b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenario: {fileID: 4281324017865965865, guid: 81bcf515e42e28b499dc2c872ec52c77,
+  scenario: {fileID: 4281324017865965865, guid: bc6228a0d76633e4196c772526c00620,
     type: 3}
-  _timer: 25
+  _timer: 10
 --- !u!114 &411570569
 MonoBehaviour:
   m_ObjectHideFlags: 0
