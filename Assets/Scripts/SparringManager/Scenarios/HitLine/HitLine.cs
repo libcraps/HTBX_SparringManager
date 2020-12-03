@@ -8,10 +8,6 @@ namespace SparringManager.HitLine
     {
         private GameObject _hitLine;
         private int _accelerationMax;
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
         private int _deltaTimeMax;
         private int _deltaTimeMin;
         private int _deltaHit;
@@ -109,7 +105,7 @@ namespace SparringManager.HitLine
 
             this.gameObject.transform.position = linePos3d;
         }
-        voi
+
         void OnDestroy()
         {
             Debug.Log(this.gameObject.name + "has been destroyed");

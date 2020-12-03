@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 995074010347548186}
   - component: {fileID: 4776698309030663375}
-  - component: {fileID: 7131158850347511575}
+  - component: {fileID: 1399947875907897093}
   m_Layer: 0
   m_Name: Scenario_HitLine
   m_TagString: Untagged
@@ -71,7 +71,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &7131158850347511575
+--- !u!114 &1399947875907897093
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,9 +85,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitLine: {fileID: 1783334052419977111, guid: f9beb69511a1d37498998e40625322f2,
     type: 3}
-<<<<<<< Updated upstream
-=======
   _accelerationMax: 10
-  _deltaTimeMax: 3
+  _deltaTimeMax: 6
   _deltaTimeMin: 1
->>>>>>> Stashed changes
+  _deltaHit: 0
+  _timeBeforeHit: 0
