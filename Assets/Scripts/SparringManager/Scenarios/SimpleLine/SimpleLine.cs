@@ -7,11 +7,9 @@ namespace SparringManager.SimpleLine
     public class SimpleLine : MonoBehaviour
     {
         
-        [SerializeField]
+        private GameObject _simpleLine;
         private int _accelerationMax;
-        [SerializeField]
         private int _deltaTimeMax;
-        [SerializeField]
         private int _deltaTimeMin;
         private float _previousTime;
         private float _tTime;
@@ -29,8 +27,18 @@ namespace SparringManager.SimpleLine
             _lineRigidComponent = GetComponent<Rigidbody>();
 
             //We get the component SessionsManager from the render camera to gte access to the timer
-            GameObject gameObject = GameObject.Find(this.gameObject.transform.parent.name);
-            SessionManager session = gameObject.GetComponent<SessionManager>();
+            GameObject _Session = GameObject.Find(this.gameObject.transform.parent.name);
+            SessionManager session = _Session.GetComponent<SessionManager>();
+
+            //We get the component SimpleLineController from the render camera to gte access to the timer
+            GameObject _SimpleLineController = GameObject.Find("Scenario_" + this.gameObject.name);
+            SimpleLineController simpleLineController = _SimpleLineController.GetComponent<SimpleLineController>();
+
+            _accelerationMax = simpleLineController._accelerationMax;
+            _deltaTimeMax = simpleLineController._deltaTimeMax;
+            _deltaTimeMin = simpleLineController._deltaTimeMin;
+
+            Debug.Log(_accelerationMax);
             float _timer = session._timer;
             
             Debug.Log(this.gameObject.name + " timer " + _timer);
@@ -41,7 +49,6 @@ namespace SparringManager.SimpleLine
             _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
             _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
 
-            
             Debug.Log("Acceleration : " + _lineAcceleration);
             Debug.Log("Deta T : " + _deltaTime);
         }
@@ -55,9 +62,6 @@ namespace SparringManager.SimpleLine
                 _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
                 _previousTime = _tTime;
                 _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
-
-                Debug.Log("Acceleration : " + _lineAcceleration);
-                Debug.Log("Deta T : " + _deltaTime);
             }
 
             MoveLine(_lineAcceleration);

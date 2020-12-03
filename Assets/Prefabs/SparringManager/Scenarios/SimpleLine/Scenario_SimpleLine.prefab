@@ -85,4 +85,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _simpleLine: {fileID: 1783334052419977111, guid: c4923aab62d736d418abd16552fa40ad,
     type: 3}
-  _timer: 3
+  _accelerationMax: 10
+  _deltaTimeMax: 3
+  _deltaTimeMin: 1

@@ -8,6 +8,12 @@ namespace SparringManager.SimpleLine
 
         [SerializeField]
         private GameObject _simpleLine;
+        [SerializeField]
+        public int _accelerationMax;
+        [SerializeField]
+        public int _deltaTimeMax;
+        [SerializeField]
+        public int _deltaTimeMin;
 
         void Start()
         {
