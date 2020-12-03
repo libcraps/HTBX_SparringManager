@@ -15,9 +15,9 @@ namespace SparringManager.HitLine
         [SerializeField]
         public int _deltaTimeMin;
         [SerializeField]
-        public int _deltaHit;
+        public float _deltaHit;
         [SerializeField]
-        public int _timeBeforeHit;
+        public float _timeBeforeHit;
 
         void Start()
         {

@@ -10,12 +10,13 @@ namespace SparringManager.HitLine
         private int _accelerationMax;
         private int _deltaTimeMax;
         private int _deltaTimeMin;
-        private int _deltaHit;
-        private int _timeBeforeHit;
+        private float _deltaHit;
+        private float _timeBeforeHit;
         private float _previousTime;
+        private float _previousHitTime;
         private float _tTime;
         private float _deltaTime;
-        private float _lineAcceleration; 
+        private float _lineAcceleration;
         private System.Random _randomTime = new System.Random();
         private System.Random _randomAcceleration = new System.Random();
         private Rigidbody _lineRigidComponent;
@@ -48,6 +49,7 @@ namespace SparringManager.HitLine
             //initialisation de l'accélération et du temps
             _tTime = Time.time;
             _previousTime = _tTime;
+            _previousHitTime = _tTime;
             _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
             _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
 
@@ -59,13 +61,8 @@ namespace SparringManager.HitLine
         {
             _tTime = Time.time;
 
-            if ((_tTime - _previousTime) > _deltaTime)
-            {
-                _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
-                _previousTime = _tTime;
-                _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
-            }
-
+            SetHit(_tTime);
+            RandomizeLineMovement(_tTime);
             MoveLine(_lineAcceleration);
             LineInCameraRange();
         }
@@ -106,6 +103,29 @@ namespace SparringManager.HitLine
             this.gameObject.transform.position = linePos3d;
         }
 
+        void SetHit(float _tTime)
+        {
+            
+            if (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit)
+            {
+                GetComponent<MeshRenderer>().material.color = Color.red;
+                //rajouter un getImpact et récupérer temps de réaction
+            }
+            else
+            {
+                GetComponent<MeshRenderer>().material.color = Color.white;
+            }
+        }
+
+        void RandomizeLineMovement(float _tTime)
+        {
+            if ((_tTime - _previousTime) > _deltaTime)
+            {
+                _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+                _previousTime = _tTime;
+                _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
+            }
+        }
         void OnDestroy()
         {
             Debug.Log(this.gameObject.name + "has been destroyed");
