@@ -22,11 +22,5 @@ namespace SparringManager
             Destroy(Instantiate(scenario, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timer);
             
         }
-
-        public float Timer()
-        {
-            return _timer;
-        }
-
     }
 }

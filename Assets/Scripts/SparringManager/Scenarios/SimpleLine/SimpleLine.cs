@@ -79,8 +79,8 @@ namespace SparringManager.SimpleLine
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
 
-            GameObject gameObject = GameObject.Find(this.gameObject.transform.parent.name);
-            Camera renderCamera = gameObject.GetComponent<Camera>();
+            GameObject _Camera = GameObject.Find(this.gameObject.transform.parent.name);
+            Camera renderCamera = _Camera.GetComponent<Camera>();
             float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
 
             renderCameraPos3d.x = renderCamera.transform.position.x;
@@ -105,7 +105,7 @@ namespace SparringManager.SimpleLine
         }
         void OnDestroy()
         {
-            Debug.Log(this.gameObject.name + "has been destroyed");
+            Debug.Log(this.gameObject.name + " has been destroyed");
         }
     }
 }

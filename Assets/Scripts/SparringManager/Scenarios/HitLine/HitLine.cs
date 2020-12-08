@@ -20,6 +20,7 @@ namespace SparringManager.HitLine
         private System.Random _randomTime = new System.Random();
         private System.Random _randomAcceleration = new System.Random();
         private Rigidbody _lineRigidComponent;
+        private static HitLineController hitLineController;
 
         // Start is called before the first frame update
         void Start()
@@ -37,7 +38,6 @@ namespace SparringManager.HitLine
             _accelerationMax = hitLineController._accelerationMax;
             _deltaTimeMax = hitLineController._deltaTimeMax;
             _deltaTimeMin = hitLineController._deltaTimeMin;
-
             _deltaHit = hitLineController._deltaHit;
             _timeBeforeHit = hitLineController._timeBeforeHit;
 
@@ -73,6 +73,32 @@ namespace SparringManager.HitLine
             _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
 
+        void SetHit(float _tTime)
+        {
+            GameObject _HitLineController = GameObject.Find("Scenario_" + this.gameObject.name);
+            HitLineController hitLineController = _HitLineController.GetComponent<HitLineController>();
+
+            bool _hitted = hitLineController._hitted;
+            bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
+
+            if (canHit && _hitted == false)
+            {
+                GetComponent<MeshRenderer>().material.color = Color.red;
+            }
+            else
+            {
+                GetComponent<MeshRenderer>().material.color = Color.white;
+            }
+        }
+        void RandomizeLineMovement(float _tTime)
+        {
+            if ((_tTime - _previousTime) > _deltaTime)
+            {
+                _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+                _previousTime = _tTime;
+                _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
+            }
+        }
         void LineInCameraRange()
         {
             Vector3 linePos3d;
@@ -102,33 +128,11 @@ namespace SparringManager.HitLine
 
             this.gameObject.transform.position = linePos3d;
         }
-
-        void SetHit(float _tTime)
-        {
-            
-            if (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit)
-            {
-                GetComponent<MeshRenderer>().material.color = Color.red;
-                //rajouter un getImpact et récupérer temps de réaction
-            }
-            else
-            {
-                GetComponent<MeshRenderer>().material.color = Color.white;
-            }
-        }
-
-        void RandomizeLineMovement(float _tTime)
-        {
-            if ((_tTime - _previousTime) > _deltaTime)
-            {
-                _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
-                _previousTime = _tTime;
-                _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
-            }
-        }
         void OnDestroy()
         {
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
+
+
     }
 }

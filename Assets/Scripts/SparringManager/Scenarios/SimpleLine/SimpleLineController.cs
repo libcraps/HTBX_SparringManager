@@ -17,8 +17,8 @@ namespace SparringManager.SimpleLine
 
         void Start()
         {
-            GameObject gameObject = GameObject.Find(this.gameObject.transform.parent.name);
-            SessionManager session = gameObject.GetComponent<SessionManager>();
+            GameObject _Session = GameObject.Find(this.gameObject.transform.parent.name);
+            SessionManager session = _Session.GetComponent<SessionManager>();
 
             float _timer = session._timer;
             Debug.Log(this.gameObject.name + " timer " + _timer);
@@ -33,7 +33,7 @@ namespace SparringManager.SimpleLine
         }
         void OnDestroy()
         {
-            Debug.Log(this.gameObject.name + "has been destroyed");
+            Debug.Log(this.gameObject.name + " has been destroyed");
         }
     }   
 }
