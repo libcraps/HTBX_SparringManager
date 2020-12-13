@@ -64,9 +64,9 @@ namespace SparringManager.HitLine
             }
 
             //en attendant le raycast
-            bool onTarget = ((position2d_.x < GameObject.Find("HitLine(Clone)").transform.position.x + 20) && (position2d_.x > GameObject.Find("HitLine(Clone)").transform.position.x - 20));
-            bool canHit = (tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit);
+            //bool onTarget = ((position2d_.x < GameObject.Find("HitLine(Clone)").transform.position.x + 20) && (position2d_.x > GameObject.Find("HitLine(Clone)").transform.position.x - 20));
 
+            bool canHit = (tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit);
             RaycastHit hit;
             Vector3 rayCastOrigin = new Vector3 (position2d_.x, position2d_.y, this.gameObject.transform.position.z);
             Vector3 rayCastDirection = new Vector3 (0,0,1);

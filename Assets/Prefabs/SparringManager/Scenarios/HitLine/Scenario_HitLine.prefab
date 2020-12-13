@@ -89,6 +89,6 @@ MonoBehaviour:
   _accelerationMax: 25
   _deltaTimeMax: 3
   _deltaTimeMin: 1
-  _deltaHit: 1
+  _deltaHit: 3
   _timeBeforeHit: 4
   _hitted: 0
