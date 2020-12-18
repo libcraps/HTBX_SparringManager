@@ -20,26 +20,26 @@ namespace SparringManager.HitLine
         private System.Random _randomTime = new System.Random();
         private System.Random _randomAcceleration = new System.Random();
         private Rigidbody _lineRigidComponent;
-        private static HitLineController hitLineController;
 
-        // Start is called before the first frame update
         void Start()
         {
             _lineRigidComponent = GetComponent<Rigidbody>();
 
-            //We get the component SessionsManager from the render camera to gte access to the timer
-            GameObject _Session = GameObject.Find(this.gameObject.transform.parent.name);
-            SessionManager session = _Session.GetComponent<SessionManager>();
-
-            //We get the component SimpleLineController from the render camera to gte access to the timer
-            GameObject _HitLineController = GameObject.Find("Scenario_" + this.gameObject.name);
+            //We get the component HitLineController from the render camera to gte access to the != variables
+            GameObject _HitLineController = GameObject.Find(this.gameObject.transform.parent.name);
             HitLineController hitLineController = _HitLineController.GetComponent<HitLineController>();
 
-            _accelerationMax = hitLineController._accelerationMax;
-            _deltaTimeMax = hitLineController._deltaTimeMax;
-            _deltaTimeMin = hitLineController._deltaTimeMin;
-            _deltaHit = hitLineController._deltaHit;
-            _timeBeforeHit = hitLineController._timeBeforeHit;
+            //We get the component SessionsManager from the render camera to gte access to the timer
+            GameObject _Session = GameObject.Find(_HitLineController.gameObject.transform.parent.name);
+            SessionManager session = _Session.GetComponent<SessionManager>();
+
+            HitLineStruct hitLineControllerStruct = hitLineController._hitLineStruct;
+
+            _accelerationMax = hitLineControllerStruct._accelerationMax;
+            _deltaTimeMax = hitLineControllerStruct._deltaTimeMax;
+            _deltaTimeMin = hitLineControllerStruct._deltaTimeMin;
+            _deltaHit = hitLineControllerStruct._deltaHit;
+            _timeBeforeHit = hitLineControllerStruct._timeBeforeHit;
 
             Debug.Log(_accelerationMax);
             float _timer = session._timer;
@@ -104,7 +104,8 @@ namespace SparringManager.HitLine
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
 
-            GameObject gameObject = GameObject.Find(this.gameObject.transform.parent.name);
+            GameObject _HitLineController = GameObject.Find(this.gameObject.transform.parent.name);
+            GameObject gameObject = GameObject.Find(_HitLineController.gameObject.transform.parent.name);
             Camera renderCamera = gameObject.GetComponent<Camera>();
             float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
 

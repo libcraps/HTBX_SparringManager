@@ -19,24 +19,23 @@ namespace SparringManager.SimpleLine
         private System.Random _randomAcceleration = new System.Random();
         private Rigidbody _lineRigidComponent;
 
-        
-
-        // Start is called before the first frame update
         void Start()
         {
             _lineRigidComponent = GetComponent<Rigidbody>();
 
-            //We get the component SessionsManager from the render camera to gte access to the timer
-            GameObject _Session = GameObject.Find(this.gameObject.transform.parent.name);
-            SessionManager session = _Session.GetComponent<SessionManager>();
-
-            //We get the component SimpleLineController from the render camera to gte access to the timer
-            GameObject _SimpleLineController = GameObject.Find("Scenario_" + this.gameObject.name);
+            //We get the component SimpleLineController from the render camera to gte access to the != variables of the scenario
+            GameObject _SimpleLineController = GameObject.Find(this.gameObject.transform.parent.name);
             SimpleLineController simpleLineController = _SimpleLineController.GetComponent<SimpleLineController>();
 
-            _accelerationMax = simpleLineController._accelerationMax;
-            _deltaTimeMax = simpleLineController._deltaTimeMax;
-            _deltaTimeMin = simpleLineController._deltaTimeMin;
+            //We get the component SessionsManager from the render camera to gte access to the timer
+            GameObject _Session = GameObject.Find(_SimpleLineController.gameObject.transform.parent.name);
+            SessionManager session = _Session.GetComponent<SessionManager>();
+
+            SimpleLineStruct simpleLineControllerStruct = simpleLineController._simpleLineStruct;
+
+            _accelerationMax = simpleLineControllerStruct._accelerationMax;
+            _deltaTimeMax = simpleLineControllerStruct._deltaTimeMax;
+            _deltaTimeMin = simpleLineControllerStruct._deltaTimeMin;
 
             Debug.Log(_accelerationMax);
             float _timer = session._timer;
@@ -79,7 +78,8 @@ namespace SparringManager.SimpleLine
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
 
-            GameObject _Camera = GameObject.Find(this.gameObject.transform.parent.name);
+            GameObject _SimpleLineController = GameObject.Find(this.gameObject.transform.parent.name);
+            GameObject _Camera = GameObject.Find(_SimpleLineController.gameObject.transform.parent.name);
             Camera renderCamera = _Camera.GetComponent<Camera>();
             float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
 

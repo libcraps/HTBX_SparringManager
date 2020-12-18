@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
+using SparringManager.SimpleLine;
 using UnityEngine;
 
 namespace SparringManager
@@ -7,20 +9,22 @@ namespace SparringManager
     public class SessionManager : MonoBehaviour
     {
         [SerializeField]
-        private GameObject scenario;
+        private GameObject[] scenarios;
 
-        [SerializeReference]
+        [SerializeField]
         public float _timer;
 
-        private float _tTime;
+        //[SerializeField]
+        //private StructScenarios[] scenar;
 
         void Start()
         {
-            _tTime = Time.time;
-
-            Debug.Log("SessionManager timer " + _timer);
-            Destroy(Instantiate(scenario, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timer);
-            
+            float _tTime = Time.time;
+            for (int i = 0; i < scenarios.Length; i++)
+            {
+                Debug.Log("SessionManager timer " + _timer);
+                Destroy(Instantiate(scenarios[0], this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timer);
+            }
         }
     }
 }

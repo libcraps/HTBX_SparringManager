@@ -83,12 +83,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 035c367ef28172146929b69f8126ee8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPrefab: {fileID: 0}
-  _hitLine: {fileID: 1783334052419977111, guid: f9beb69511a1d37498998e40625322f2,
-    type: 3}
-  _accelerationMax: 25
-  _deltaTimeMax: 3
-  _deltaTimeMin: 1
-  _deltaHit: 3
-  _timeBeforeHit: 4
+  _hitLineStruct:
+    _hitPrefab: {fileID: 0}
+    _hitLine: {fileID: 1783334052419977111, guid: f9beb69511a1d37498998e40625322f2,
+      type: 3}
+    _accelerationMax: 0
+    _deltaTimeMax: 0
+    _deltaTimeMin: 0
+    _deltaHit: 2
+    _timeBeforeHit: 5
   _hitted: 0

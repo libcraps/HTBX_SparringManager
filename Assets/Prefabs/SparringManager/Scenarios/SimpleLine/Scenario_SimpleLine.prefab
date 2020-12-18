@@ -83,8 +83,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e49b7cd17f55e2143ab7b695236e6166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _simpleLine: {fileID: 1783334052419977111, guid: c4923aab62d736d418abd16552fa40ad,
-    type: 3}
-  _accelerationMax: 10
-  _deltaTimeMax: 3
-  _deltaTimeMin: 1
+  _simpleLineStruct:
+    _simpleLine: {fileID: 1783334052419977111, guid: c4923aab62d736d418abd16552fa40ad,
+      type: 3}
+    _accelerationMax: 0
+    _deltaTimeMax: 0
+    _deltaTimeMin: 0

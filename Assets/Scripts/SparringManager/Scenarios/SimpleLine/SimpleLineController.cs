@@ -7,13 +7,7 @@ namespace SparringManager.SimpleLine
     {
 
         [SerializeField]
-        private GameObject _simpleLine;
-        [SerializeField]
-        public int _accelerationMax;
-        [SerializeField]
-        public int _deltaTimeMax;
-        [SerializeField]
-        public int _deltaTimeMin;
+        public SimpleLineStruct _simpleLineStruct;
 
         void Start()
         {
@@ -29,7 +23,7 @@ namespace SparringManager.SimpleLine
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
-            Destroy(Instantiate(_simpleLine, _pos3d, Quaternion.identity, this.gameObject.transform.parent), _timer);
+            Destroy(Instantiate(_simpleLineStruct._simpleLine, _pos3d, Quaternion.identity, this.gameObject.transform), _timer);
         }
         void OnDestroy()
         {
