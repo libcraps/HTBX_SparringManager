@@ -9,10 +9,13 @@ namespace SparringManager
     public class SessionManager : MonoBehaviour
     {
         [SerializeField]
-        private GameObject[] scenarios;
+        private StructScenarios[] scenarios;
 
         [SerializeField]
         public float _timer;
+
+        [SerializeField]
+        private GameObject scenario;
 
         //[SerializeField]
         //private StructScenarios[] scenar;
@@ -20,11 +23,9 @@ namespace SparringManager
         void Start()
         {
             float _tTime = Time.time;
-            for (int i = 0; i < scenarios.Length; i++)
-            {
-                Debug.Log("SessionManager timer " + _timer);
-                Destroy(Instantiate(scenarios[0], this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timer);
-            }
+            Debug.Log("SessionManager timer " + _timer);
+            Destroy(Instantiate(scenario, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), 5); //remplacer 5 par _timer
         }
     }
 }
+//Utiliser update() pour actualiser la génération de nouveaux scénarios quand un est finie

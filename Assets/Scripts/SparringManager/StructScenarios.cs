@@ -12,16 +12,13 @@ namespace SparringManager
         private GameObject scenario;
 
         [SerializeField]
-        private int nbScenarios;
+        private int _timerScenario;
 
-        [SerializeField]
-        private int scenari;
  
-        public StructScenarios(GameObject scenario, int nbScenarios, int scenari)
+        public StructScenarios(GameObject scenario, int time)
         {
             this.scenario = scenario;
-            this.scenari = scenari;
-            this.nbScenarios = nbScenarios;
+            this._timerScenario = time;
         }
     }
 }
