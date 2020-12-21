@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using SparringManager;
 using UnityEngine;
 
 namespace SparringManager.HitLine
@@ -7,25 +8,34 @@ namespace SparringManager.HitLine
     public class HitLineController : MonoBehaviour
     {
 
-        [SerializeField]
-        public HitLineStruct _hitLineStruct;
+        public StructScenarios _hitLineStruct;
 
         private float _reactTime;
+        public float _startScenario;
+        public bool _hitted;
 
-        public bool _hitted = false;
         void Start()
         {
             GameObject _Session = GameObject.Find(this.gameObject.transform.parent.name);
             SessionManager session = _Session.GetComponent<SessionManager>();
 
-            float _timer = session._timer;
+            _hitLineStruct = session.InstantiateScenarioStruct();
+            _startScenario = session._timeStartScenarioI;
+            float _timer = _hitLineStruct._timerScenario;
+
+            
+
+            session.DisplayDataScenari(_hitLineStruct);
+
+
+            Debug.Log("HITTED " + _hitted);
             
             Vector3 _pos3d;
             _pos3d.x = this.gameObject.transform.position.x;
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
-            Destroy(Instantiate(_hitLineStruct._hitLine, _pos3d, Quaternion.identity, this.gameObject.transform), _timer);
+            Destroy(Instantiate(_hitLineStruct._scenarioObjectPrefab, _pos3d, Quaternion.identity, this.gameObject.transform), _timer);
         }
 
         void OnDestroy()
@@ -45,11 +55,10 @@ namespace SparringManager.HitLine
 
         public void GetHit(Vector2 position2d_)
         {
-            float tTime = Time.time;
+            float tTime = Time.time - _startScenario;
             float _timeBeforeHit = _hitLineStruct._timeBeforeHit;
             float _deltaHit = _hitLineStruct._deltaHit;
             GameObject _hitPrefab = _hitLineStruct._hitPrefab;
-
 
             if (_hitPrefab !=null)
             {
@@ -63,11 +72,10 @@ namespace SparringManager.HitLine
 
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
             bool canHit = (tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit);
-
-
+            
             if (rayOnTarget && canHit && _hitted == false)
             {
-                _reactTime = Time.time - _timeBeforeHit;
+                _reactTime = tTime - _timeBeforeHit;
                 _hitted = true;
 
                 Debug.Log("Line touched : " + position2d_);

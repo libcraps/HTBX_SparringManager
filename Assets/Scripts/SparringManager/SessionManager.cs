@@ -9,22 +9,50 @@ namespace SparringManager
     public class SessionManager : MonoBehaviour
     {
         [SerializeField]
-        private StructScenarios[] scenarios;
+        public StructScenarios[] scenarios;
 
-        [SerializeField]
-        public float _timer;
+        private int indexScenario = 0;
 
-        [SerializeField]
-        private GameObject scenario;
+        private StructScenarios _structScenarioI;
+        private GameObject _scenarioPrefabI;
+        private int _timerScenarioI;
+        public float _timeStartScenarioI;
 
-        //[SerializeField]
-        //private StructScenarios[] scenar;
 
         void Start()
         {
+            _structScenarioI = scenarios[0];
+            _scenarioPrefabI = _structScenarioI._scenarioPrefab;
+            _timerScenarioI = _structScenarioI._timerScenario;
+            _timeStartScenarioI = Time.time;
+
+            Debug.Log("SessionManager timer " + _structScenarioI);
+            Destroy(Instantiate(_scenarioPrefabI, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timerScenarioI);
+
+        }
+        private void Update()
+        {
             float _tTime = Time.time;
-            Debug.Log("SessionManager timer " + _timer);
-            Destroy(Instantiate(scenario, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), 5); //remplacer 5 par _timer
+            if (((_tTime - _timeStartScenarioI) > _timerScenarioI) && (indexScenario < (scenarios.Length -1)))
+            {
+                indexScenario += 1;
+                _structScenarioI = scenarios[indexScenario];
+                _scenarioPrefabI = _structScenarioI._scenarioPrefab;
+                _timerScenarioI = _structScenarioI._timerScenario;
+                _timeStartScenarioI = Time.time;
+                Destroy(Instantiate(_scenarioPrefabI, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timerScenarioI);
+            }
+        }
+
+        public StructScenarios InstantiateScenarioStruct()
+        {
+            return scenarios[indexScenario];
+        }
+
+        public void DisplayDataScenari(StructScenarios scenario)
+        {
+            Debug.Log("--- Scenario name : " + scenario._scenarioPrefab.name);
+            Debug.Log("--- Scenario Duration : " + scenario._timerScenario);
         }
     }
 }

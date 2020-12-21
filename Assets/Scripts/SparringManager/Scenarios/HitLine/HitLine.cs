@@ -6,7 +6,6 @@ namespace SparringManager.HitLine
 {
     public class HitLine : MonoBehaviour
     {
-        private GameObject _hitLine;
         private int _accelerationMax;
         private int _deltaTimeMax;
         private int _deltaTimeMin;
@@ -16,6 +15,7 @@ namespace SparringManager.HitLine
         private float _previousHitTime;
         private float _tTime;
         private float _deltaTime;
+        private float _startScenario;
         private float _lineAcceleration;
         private System.Random _randomTime = new System.Random();
         private System.Random _randomAcceleration = new System.Random();
@@ -29,25 +29,20 @@ namespace SparringManager.HitLine
             GameObject _HitLineController = GameObject.Find(this.gameObject.transform.parent.name);
             HitLineController hitLineController = _HitLineController.GetComponent<HitLineController>();
 
-            //We get the component SessionsManager from the render camera to gte access to the timer
-            GameObject _Session = GameObject.Find(_HitLineController.gameObject.transform.parent.name);
-            SessionManager session = _Session.GetComponent<SessionManager>();
-
-            HitLineStruct hitLineControllerStruct = hitLineController._hitLineStruct;
+            StructScenarios hitLineControllerStruct = hitLineController._hitLineStruct;
+            float _timer = hitLineControllerStruct._timerScenario;
 
             _accelerationMax = hitLineControllerStruct._accelerationMax;
             _deltaTimeMax = hitLineControllerStruct._deltaTimeMax;
             _deltaTimeMin = hitLineControllerStruct._deltaTimeMin;
             _deltaHit = hitLineControllerStruct._deltaHit;
+            _startScenario = hitLineController._startScenario;
             _timeBeforeHit = hitLineControllerStruct._timeBeforeHit;
 
-            Debug.Log(_accelerationMax);
-            float _timer = session._timer;
-            
             Debug.Log(this.gameObject.name + " timer " + _timer);
 
             //initialisation de l'accélération et du temps
-            _tTime = Time.time;
+            _tTime = Time.time - _startScenario;
             _previousTime = _tTime;
             _previousHitTime = _tTime;
             _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
@@ -59,7 +54,7 @@ namespace SparringManager.HitLine
 
         void FixedUpdate()
         {
-            _tTime = Time.time;
+            _tTime = Time.time - _startScenario;
 
             SetHit(_tTime);
             RandomizeLineMovement(_tTime);
@@ -117,7 +112,7 @@ namespace SparringManager.HitLine
             linePos3d.y = this.gameObject.transform.position.y;
             linePos3d.z = this.gameObject.transform.position.z;
 
-            //Instruction whether the line get out of the render camera range
+            //Instruction whether the line gets out of the render camera range
             if (linePos3d.x > renderCameraPos3d.x + rangeSize)
             {
                 linePos3d.x -= 2* rangeSize;

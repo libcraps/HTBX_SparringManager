@@ -6,8 +6,6 @@ namespace SparringManager.SimpleLine
 {
     public class SimpleLine : MonoBehaviour
     {
-        
-        private GameObject _simpleLine;
         private int _accelerationMax;
         private int _deltaTimeMax;
         private int _deltaTimeMin;
@@ -27,18 +25,13 @@ namespace SparringManager.SimpleLine
             GameObject _SimpleLineController = GameObject.Find(this.gameObject.transform.parent.name);
             SimpleLineController simpleLineController = _SimpleLineController.GetComponent<SimpleLineController>();
 
-            //We get the component SessionsManager from the render camera to gte access to the timer
-            GameObject _Session = GameObject.Find(_SimpleLineController.gameObject.transform.parent.name);
-            SessionManager session = _Session.GetComponent<SessionManager>();
-
-            SimpleLineStruct simpleLineControllerStruct = simpleLineController._simpleLineStruct;
-
+            //initialisation des variables du scénario
+            StructScenarios simpleLineControllerStruct = simpleLineController._simpleLineStruct;
+            float _timer = simpleLineControllerStruct._timerScenario;
             _accelerationMax = simpleLineControllerStruct._accelerationMax;
             _deltaTimeMax = simpleLineControllerStruct._deltaTimeMax;
             _deltaTimeMin = simpleLineControllerStruct._deltaTimeMin;
 
-            Debug.Log(_accelerationMax);
-            float _timer = session._timer;
             
             Debug.Log(this.gameObject.name + " timer " + _timer);
 
