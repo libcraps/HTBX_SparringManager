@@ -26,7 +26,7 @@ namespace SparringManager.SimpleLine
             SimpleLineController simpleLineController = _SimpleLineController.GetComponent<SimpleLineController>();
 
             //initialisation des variables du scénario
-            StructScenarios simpleLineControllerStruct = simpleLineController._simpleLineStruct;
+            StructScenarios simpleLineControllerStruct = simpleLineController._controllerStruct;
             float _timer = simpleLineControllerStruct._timerScenario;
             _accelerationMax = simpleLineControllerStruct._accelerationMax;
             _deltaTimeMax = simpleLineControllerStruct._deltaTimeMax;

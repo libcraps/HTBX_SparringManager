@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using SparringManager.SimpleLine;
+using SparringManager.HitLine;
 using UnityEngine;
 
 namespace SparringManager
@@ -17,7 +18,6 @@ namespace SparringManager
         private GameObject _scenarioPrefabI;
         private int _timerScenarioI;
         public float _timeStartScenarioI;
-
 
         void Start()
         {
@@ -40,6 +40,7 @@ namespace SparringManager
                 _scenarioPrefabI = _structScenarioI._scenarioPrefab;
                 _timerScenarioI = _structScenarioI._timerScenario;
                 _timeStartScenarioI = Time.time;
+
                 Destroy(Instantiate(_scenarioPrefabI, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timerScenarioI);
             }
         }

@@ -233,6 +233,28 @@ MonoBehaviour:
     _deltaTimeMin: 2
     _deltaHit: 3
     _timeBeforeHit: 2
+  - _hitPrefab: {fileID: 7726583474970102550, guid: 4794520515d32ec4c82475371822dcaa,
+      type: 3}
+    _scenarioPrefab: {fileID: 7392076013187570363, guid: 1f5aea03649a01c4bac9b44cb338704f,
+      type: 3}
+    _scenarioObjectPrefab: {fileID: 0}
+    _timerScenario: 6
+    _accelerationMax: 0
+    _deltaTimeMax: 3
+    _deltaTimeMin: 2
+    _deltaHit: 3
+    _timeBeforeHit: 2
+  - _hitPrefab: {fileID: 0}
+    _scenarioPrefab: {fileID: 4281324017865965865, guid: 81bcf515e42e28b499dc2c872ec52c77,
+      type: 3}
+    _scenarioObjectPrefab: {fileID: 1783334052419977111, guid: c4923aab62d736d418abd16552fa40ad,
+      type: 3}
+    _timerScenario: 5
+    _accelerationMax: 21
+    _deltaTimeMax: 3
+    _deltaTimeMin: 2
+    _deltaHit: 3
+    _timeBeforeHit: 2
   _timeStartScenarioI: 0
 --- !u!114 &411570569
 MonoBehaviour:

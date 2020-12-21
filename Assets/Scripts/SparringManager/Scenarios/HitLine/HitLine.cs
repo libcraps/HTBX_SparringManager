@@ -29,7 +29,7 @@ namespace SparringManager.HitLine
             GameObject _HitLineController = GameObject.Find(this.gameObject.transform.parent.name);
             HitLineController hitLineController = _HitLineController.GetComponent<HitLineController>();
 
-            StructScenarios hitLineControllerStruct = hitLineController._hitLineStruct;
+            StructScenarios hitLineControllerStruct = hitLineController._controllerStruct;
             float _timer = hitLineControllerStruct._timerScenario;
 
             _accelerationMax = hitLineControllerStruct._accelerationMax;

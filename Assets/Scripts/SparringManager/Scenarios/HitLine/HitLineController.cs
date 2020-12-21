@@ -1,14 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using SparringManager;
+﻿using SparringManager;
 using UnityEngine;
 
 namespace SparringManager.HitLine
 {
+    //Classe du Controller du scenario HitLine
     public class HitLineController : MonoBehaviour
     {
+        public StructScenarios _controllerStruct;
 
-        public StructScenarios _hitLineStruct;
+        [SerializeField]
+        private GameObject _scenarioPrefab;
 
         private float _reactTime;
         public float _startScenario;
@@ -19,13 +20,11 @@ namespace SparringManager.HitLine
             GameObject _Session = GameObject.Find(this.gameObject.transform.parent.name);
             SessionManager session = _Session.GetComponent<SessionManager>();
 
-            _hitLineStruct = session.InstantiateScenarioStruct();
+            _controllerStruct = session.InstantiateScenarioStruct();
             _startScenario = session._timeStartScenarioI;
-            float _timer = _hitLineStruct._timerScenario;
+            float _timer = _controllerStruct._timerScenario;
 
-            
-
-            session.DisplayDataScenari(_hitLineStruct);
+            session.DisplayDataScenari(_controllerStruct);
 
 
             Debug.Log("HITTED " + _hitted);
@@ -35,7 +34,13 @@ namespace SparringManager.HitLine
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
-            Destroy(Instantiate(_hitLineStruct._scenarioObjectPrefab, _pos3d, Quaternion.identity, this.gameObject.transform), _timer);
+            Destroy(Instantiate(_scenarioPrefab, _pos3d, Quaternion.identity, this.gameObject.transform), _timer);
+        }
+
+        public void ControllerConstructor(StructScenarios scenarioStructure, float timeStartScenario)
+        {
+            _controllerStruct = scenarioStructure;
+            _startScenario = timeStartScenario;
         }
 
         void OnDestroy()
@@ -56,15 +61,8 @@ namespace SparringManager.HitLine
         public void GetHit(Vector2 position2d_)
         {
             float tTime = Time.time - _startScenario;
-            float _timeBeforeHit = _hitLineStruct._timeBeforeHit;
-            float _deltaHit = _hitLineStruct._deltaHit;
-            GameObject _hitPrefab = _hitLineStruct._hitPrefab;
-
-            if (_hitPrefab !=null)
-            {
-            Vector3 pos3d_ = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z + 20f);
-            Instantiate(_hitPrefab, pos3d_, Quaternion.identity, this.gameObject.transform);
-            }
+            float _timeBeforeHit = _controllerStruct._timeBeforeHit;
+            float _deltaHit = _controllerStruct._deltaHit;
 
             RaycastHit hit;
             Vector3 rayCastOrigin = new Vector3 (position2d_.x, position2d_.y, this.gameObject.transform.position.z);

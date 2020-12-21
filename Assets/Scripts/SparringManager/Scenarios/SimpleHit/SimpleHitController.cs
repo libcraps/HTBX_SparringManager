@@ -5,6 +5,8 @@ namespace SparringManager.SimpleHit
     public class SimpleHitController : MonoBehaviour
     {
         public StructScenarios _simpleHitStruct;
+        [SerializeField]
+        public GameObject _hitPrefab;
 
         private void Start()
         {
@@ -29,7 +31,7 @@ namespace SparringManager.SimpleHit
         public void SetImpactPosition(Vector2 position2d_)
         {
             Vector3 pos3d_ = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z + 20f);
-            Instantiate(_simpleHitStruct._hitPrefab, pos3d_, Quaternion.identity, this.gameObject.transform);
+            Instantiate(_hitPrefab, pos3d_, Quaternion.identity, this.gameObject.transform);
         }
     }
 }

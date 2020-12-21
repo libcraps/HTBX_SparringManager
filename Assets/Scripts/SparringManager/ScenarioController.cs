@@ -1,15 +1,16 @@
-﻿using SparringManager;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace SparringManager.SimpleLine 
+namespace SparringManager 
 {
-    public class SimpleLineController : MonoBehaviour
+    public abstract class ScenarioController : MonoBehaviour
     {
-        public StructScenarios _controllerStruct;
+
+        protected StructScenarios _controllerStruct;
 
         [SerializeField]
-        private GameObject _scenarioPrefab;
-
+        protected GameObject _scenarioPrefab;
         void Start()
         {
             GameObject _Session = GameObject.Find(this.gameObject.transform.parent.name);
@@ -21,9 +22,9 @@ namespace SparringManager.SimpleLine
             session.DisplayDataScenari(_controllerStruct);
 
             Debug.Log(this.gameObject.name + " timer " + _timer);
-            
+
             Vector3 _pos3d;
-            
+            Debug.Log("je suis ScenarioCopntroller");
             _pos3d.x = this.gameObject.transform.position.x;
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
@@ -34,5 +35,11 @@ namespace SparringManager.SimpleLine
         {
             Debug.Log(this.gameObject.name + " has been destroyed");
         }
-    }   
+        public void ControllerConstructor(StructScenarios scenarioStructure)
+        {
+            _controllerStruct = scenarioStructure;
+        }
+
+
+    }
 }
