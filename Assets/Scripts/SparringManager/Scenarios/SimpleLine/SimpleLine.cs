@@ -17,16 +17,17 @@ namespace SparringManager.SimpleLine
         private System.Random _randomAcceleration = new System.Random();
         private Rigidbody _lineRigidComponent;
 
+        private ScenarioController _scenario;
+        private StructScenarios simpleLineControllerStruct;
+
         void Start()
         {
             _lineRigidComponent = GetComponent<Rigidbody>();
-
-            //We get the component SimpleLineController from the render camera to gte access to the != variables of the scenario
-            GameObject _SimpleLineController = GameObject.Find(this.gameObject.transform.parent.name);
-            SimpleLineController simpleLineController = _SimpleLineController.GetComponent<SimpleLineController>();
-
+            _scenario = this.gameObject.transform.parent.GetComponent<ScenarioController>();
+            Debug.Log("scenario controlleur struct     " + _scenario._controllerStruct._timeBeforeHit);
             //initialisation des variables du scénario
-            StructScenarios simpleLineControllerStruct = simpleLineController._controllerStruct;
+            simpleLineControllerStruct = _scenario._controllerStruct;
+
             float _timer = simpleLineControllerStruct._timerScenario;
             _accelerationMax = simpleLineControllerStruct._accelerationMax;
             _deltaTimeMax = simpleLineControllerStruct._deltaTimeMax;

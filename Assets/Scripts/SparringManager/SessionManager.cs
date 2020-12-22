@@ -10,7 +10,7 @@ namespace SparringManager
     public class SessionManager : MonoBehaviour
     {
         [SerializeField]
-        public StructScenarios[] scenarios;
+        private StructScenarios[] scenarios;
 
         private int indexScenario = 0;
 
@@ -18,17 +18,21 @@ namespace SparringManager
         private GameObject _scenarioPrefabI;
         private int _timerScenarioI;
         public float _timeStartScenarioI;
+        private ScenarioController scen;
 
         void Start()
         {
-            _structScenarioI = scenarios[0];
+            _structScenarioI = scenarios[indexScenario];
             _scenarioPrefabI = _structScenarioI._scenarioPrefab;
             _timerScenarioI = _structScenarioI._timerScenario;
             _timeStartScenarioI = Time.time;
 
             Debug.Log("SessionManager timer " + _structScenarioI);
-            Destroy(Instantiate(_scenarioPrefabI, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timerScenarioI);
 
+            _scenarioPrefabI.AddComponent<ScenarioController>();
+            scen = _scenarioPrefabI.GetComponent<ScenarioController>();
+            scen._controllerStruct = _structScenarioI;
+            Destroy(Instantiate(_scenarioPrefabI, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timerScenarioI);
         }
         private void Update()
         {
@@ -42,6 +46,7 @@ namespace SparringManager
                 _timeStartScenarioI = Time.time;
 
                 Destroy(Instantiate(_scenarioPrefabI, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timerScenarioI);
+                
             }
         }
 
@@ -54,6 +59,10 @@ namespace SparringManager
         {
             Debug.Log("--- Scenario name : " + scenario._scenarioPrefab.name);
             Debug.Log("--- Scenario Duration : " + scenario._timerScenario);
+        }
+        public void InstantiateAndBuildScenario()
+        {
+
         }
     }
 }
