@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 995074010347548186}
   - component: {fileID: 4776698309030663375}
   - component: {fileID: 8914600081304052774}
-  - component: {fileID: 527036968967163869}
+  - component: {fileID: 8438902623530922904}
   m_Layer: 0
   m_Name: Scenario_SimpleLine
   m_TagString: Untagged
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scenarioPrefab: {fileID: 1783334052419977111, guid: c4923aab62d736d418abd16552fa40ad,
     type: 3}
---- !u!114 &527036968967163869
+--- !u!114 &8438902623530922904
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,4 +106,5 @@ MonoBehaviour:
     _deltaTimeMin: 0
     _deltaHit: 0
     _timeBeforeHit: 0
-  _scenarioPrefab: {fileID: 0}
+    _startScenario: 0
+    _hitted: 0

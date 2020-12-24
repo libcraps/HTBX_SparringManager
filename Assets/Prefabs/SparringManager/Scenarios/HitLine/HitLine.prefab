@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1783334052419977108}
   - component: {fileID: 7430206276994596526}
   - component: {fileID: -3922440892297237614}
+  - component: {fileID: 8285896553130163234}
   m_Layer: 0
   m_Name: HitLine
   m_TagString: Untagged
@@ -123,3 +124,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6af1d9e575ed85848854e7c7092d73d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8285896553130163234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783334052419977111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b2c639998aa984280a05beef7c6b01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controllerStruct:
+    _scenarioPrefab: {fileID: 0}
+    _timerScenario: 6
+    _accelerationMax: 15
+    _deltaTimeMax: 2
+    _deltaTimeMin: 1
+    _deltaHit: 3
+    _timeBeforeHit: 2
+    _startScenario: 10.006093
+    _hitted: 0

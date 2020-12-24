@@ -9,7 +9,7 @@ namespace SparringManager
     public struct StructScenarios
     {
         
-        [SerializeField]
+        [SerializeField] //Scenatio_Name prefab
         public GameObject _scenarioPrefab;
         [SerializeField]
         public int _timerScenario;
@@ -23,6 +23,10 @@ namespace SparringManager
         public float _deltaHit;
         [SerializeField]
         public float _timeBeforeHit;
+
+        public float _startScenario;
+        public bool _hitted;
+
         
         public StructScenarios(GameObject Prefab, GameObject hitPrefab, GameObject ObjectPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, int timer)
         {
@@ -34,6 +38,8 @@ namespace SparringManager
             this._timeBeforeHit = timeHit;
             this._deltaHit = deltaHit;
             this._timerScenario = timer;
+            _startScenario= 0;
+            _hitted = false;
             
         }
     }

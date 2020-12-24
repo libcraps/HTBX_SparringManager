@@ -12,27 +12,20 @@ namespace SparringManager
         [SerializeField]
         private StructScenarios[] scenarios;
 
-        private int indexScenario = 0;
+        private int indexScenario;
 
-        private StructScenarios _structScenarioI;
-        private GameObject _scenarioPrefabI;
+        //Variables temporaires de scénarios
         private int _timerScenarioI;
         public float _timeStartScenarioI;
-        private ScenarioController scen;
 
         void Start()
         {
-            _structScenarioI = scenarios[indexScenario];
-            _scenarioPrefabI = _structScenarioI._scenarioPrefab;
-            _timerScenarioI = _structScenarioI._timerScenario;
+            indexScenario = 0;
+
+            _timerScenarioI = scenarios[indexScenario]._timerScenario;
             _timeStartScenarioI = Time.time;
 
-            Debug.Log("SessionManager timer " + _structScenarioI);
-
-            _scenarioPrefabI.AddComponent<ScenarioController>();
-            scen = _scenarioPrefabI.GetComponent<ScenarioController>();
-            scen._controllerStruct = _structScenarioI;
-            Destroy(Instantiate(_scenarioPrefabI, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timerScenarioI);
+            SessionManager.InstantiateAndBuildScenario(scenarios[indexScenario], this.gameObject, this.gameObject.transform.position);
         }
         private void Update()
         {
@@ -40,13 +33,11 @@ namespace SparringManager
             if (((_tTime - _timeStartScenarioI) > _timerScenarioI) && (indexScenario < (scenarios.Length -1)))
             {
                 indexScenario += 1;
-                _structScenarioI = scenarios[indexScenario];
-                _scenarioPrefabI = _structScenarioI._scenarioPrefab;
-                _timerScenarioI = _structScenarioI._timerScenario;
+
+                _timerScenarioI = scenarios[indexScenario]._timerScenario;
                 _timeStartScenarioI = Time.time;
 
-                Destroy(Instantiate(_scenarioPrefabI, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform), _timerScenarioI);
-                
+                SessionManager.InstantiateAndBuildScenario(scenarios[indexScenario], this.gameObject, this.gameObject.transform.position);
             }
         }
 
@@ -60,9 +51,37 @@ namespace SparringManager
             Debug.Log("--- Scenario name : " + scenario._scenarioPrefab.name);
             Debug.Log("--- Scenario Duration : " + scenario._timerScenario);
         }
-        public void InstantiateAndBuildScenario()
+        public static void InstantiateAndBuildScenario(StructScenarios strucObject, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
         {
+            /*
+             * Function that instatiate an object, the prefab of this object is in the structureScenarios, 
+             * it contains all the data that is usefull for the scenarios
+             * 
+             * referenceGameObject : is often this.gameObject
+             */
+            if (prefabObject == false)
+            {
+                prefabObject = strucObject._scenarioPrefab;
+            }
 
+            if (_pos3d == null)
+            {
+                _pos3d = referenceGameObject.transform.position;
+            }
+            if (strucObject._startScenario == 0)
+            {
+                strucObject._startScenario = Time.time;
+            }
+
+            float _timerScenarioI = strucObject._timerScenario;
+            ScenarioController scenarioControllerComponent;
+
+            prefabObject.AddComponent<ScenarioController>();
+            scenarioControllerComponent = prefabObject.GetComponent<ScenarioController>();
+            scenarioControllerComponent._controllerStruct = strucObject;
+            Destroy(Instantiate(prefabObject, _pos3d, Quaternion.identity, referenceGameObject.transform), _timerScenarioI);
+
+            Debug.Log(prefabObject.name + " has been instantiated");
         }
     }
 }

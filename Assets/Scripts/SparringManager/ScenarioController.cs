@@ -11,8 +11,6 @@ namespace SparringManager
 
         public int a { get; set; }
 
-        [SerializeField]
-        protected GameObject _scenarioPrefab;
         public void ControllerConstructor(StructScenarios scenarioStructure)
         {
             _controllerStruct = scenarioStructure;

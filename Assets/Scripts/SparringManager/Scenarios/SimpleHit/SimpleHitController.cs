@@ -4,18 +4,15 @@ namespace SparringManager.SimpleHit
 {
     public class SimpleHitController : MonoBehaviour
     {
-        public StructScenarios _simpleHitStruct;
+        private StructScenarios _simpleHitStruct;
+        private ScenarioController _scenarioControllerComponent;
         [SerializeField]
         public GameObject _hitPrefab;
 
         private void Start()
         {
-            GameObject _Session = GameObject.Find(this.gameObject.transform.parent.name);
-            SessionManager session = _Session.GetComponent<SessionManager>();
-
-            _simpleHitStruct = session.InstantiateScenarioStruct();
-
-            session.DisplayDataScenari(_simpleHitStruct);
+            _scenarioControllerComponent = GetComponent<ScenarioController>();
+            _simpleHitStruct = _scenarioControllerComponent._controllerStruct;
         }
 
         private void OnEnable()
@@ -31,7 +28,7 @@ namespace SparringManager.SimpleHit
         public void SetImpactPosition(Vector2 position2d_)
         {
             Vector3 pos3d_ = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z + 20f);
-            Instantiate(_hitPrefab, pos3d_, Quaternion.identity, this.gameObject.transform);
+            SessionManager.InstantiateAndBuildScenario(_simpleHitStruct, this.gameObject, pos3d_, _hitPrefab);
         }
     }
 }

@@ -12,26 +12,28 @@ namespace SparringManager.SimpleLine
         private float _previousTime;
         private float _tTime;
         private float _deltaTime;
-        private float _lineAcceleration; 
+        private float _lineAcceleration;
+        private float _startScenario;
         private System.Random _randomTime = new System.Random();
         private System.Random _randomAcceleration = new System.Random();
-        private Rigidbody _lineRigidComponent;
 
-        private ScenarioController _scenario;
+        private Rigidbody _lineRigidComponent;
+        private ScenarioController _scenarioControllerComponent;
         private StructScenarios simpleLineControllerStruct;
 
         void Start()
         {
             _lineRigidComponent = GetComponent<Rigidbody>();
-            _scenario = this.gameObject.transform.parent.GetComponent<ScenarioController>();
-            Debug.Log("scenario controlleur struct     " + _scenario._controllerStruct._timeBeforeHit);
+
             //initialisation des variables du scénario
-            simpleLineControllerStruct = _scenario._controllerStruct;
+            _scenarioControllerComponent = GetComponent<ScenarioController>();
+            simpleLineControllerStruct = _scenarioControllerComponent._controllerStruct;
 
             float _timer = simpleLineControllerStruct._timerScenario;
             _accelerationMax = simpleLineControllerStruct._accelerationMax;
             _deltaTimeMax = simpleLineControllerStruct._deltaTimeMax;
             _deltaTimeMin = simpleLineControllerStruct._deltaTimeMin;
+            _startScenario = simpleLineControllerStruct._startScenario;
 
             
             Debug.Log(this.gameObject.name + " timer " + _timer);
@@ -48,15 +50,8 @@ namespace SparringManager.SimpleLine
 
         void FixedUpdate()
         {
-            _tTime = Time.time;
-
-            if ((_tTime - _previousTime) > _deltaTime)
-            {
-                _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
-                _previousTime = _tTime;
-                _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
-            }
-
+            _tTime = Time.time - _startScenario;
+            RandomizeLineMovement(_tTime);
             MoveLine(_lineAcceleration);
             LineInCameraRange();
         }
@@ -96,6 +91,15 @@ namespace SparringManager.SimpleLine
             }
 
             this.gameObject.transform.position = linePos3d;
+        }
+        void RandomizeLineMovement(float _tTime)
+        {
+            if ((_tTime - _previousTime) > _deltaTime)
+            {
+                _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+                _previousTime = _tTime;
+                _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
+            }
         }
         void OnDestroy()
         {

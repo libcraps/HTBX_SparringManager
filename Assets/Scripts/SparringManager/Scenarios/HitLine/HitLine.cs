@@ -12,39 +12,38 @@ namespace SparringManager.HitLine
         private float _deltaHit;
         private float _timeBeforeHit;
         private float _previousTime;
-        private float _previousHitTime;
         private float _tTime;
         private float _deltaTime;
         private float _startScenario;
         private float _lineAcceleration;
+        private bool _hitted;
         private System.Random _randomTime = new System.Random();
         private System.Random _randomAcceleration = new System.Random();
         private Rigidbody _lineRigidComponent;
+        private ScenarioController _scenarioControllerComponent;
+        private StructScenarios hitLineControllerStruct;
 
         void Start()
         {
             _lineRigidComponent = GetComponent<Rigidbody>();
+            _scenarioControllerComponent = GetComponent<ScenarioController>();
+            hitLineControllerStruct = _scenarioControllerComponent._controllerStruct;
 
-            //We get the component HitLineController from the render camera to gte access to the != variables
-            GameObject _HitLineController = GameObject.Find(this.gameObject.transform.parent.name);
-            HitLineController hitLineController = _HitLineController.GetComponent<HitLineController>();
-
-            StructScenarios hitLineControllerStruct = hitLineController._controllerStruct;
             float _timer = hitLineControllerStruct._timerScenario;
 
             _accelerationMax = hitLineControllerStruct._accelerationMax;
             _deltaTimeMax = hitLineControllerStruct._deltaTimeMax;
             _deltaTimeMin = hitLineControllerStruct._deltaTimeMin;
             _deltaHit = hitLineControllerStruct._deltaHit;
-            _startScenario = hitLineController._startScenario;
+            _startScenario = hitLineControllerStruct._startScenario;
             _timeBeforeHit = hitLineControllerStruct._timeBeforeHit;
+            _hitted = hitLineControllerStruct._hitted;
 
             Debug.Log(this.gameObject.name + " timer " + _timer);
 
             //initialisation de l'accélération et du temps
             _tTime = Time.time - _startScenario;
             _previousTime = _tTime;
-            _previousHitTime = _tTime;
             _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
             _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
 
@@ -56,7 +55,8 @@ namespace SparringManager.HitLine
         {
             _tTime = Time.time - _startScenario;
 
-            SetHit(_tTime);
+            
+            SetHit(_tTime, hitLineControllerStruct._hitted);
             RandomizeLineMovement(_tTime);
             MoveLine(_lineAcceleration);
             LineInCameraRange();
@@ -68,12 +68,8 @@ namespace SparringManager.HitLine
             _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
 
-        void SetHit(float _tTime)
+        void SetHit(float _tTime, bool _hitted)
         {
-            GameObject _HitLineController = GameObject.Find("Scenario_" + this.gameObject.name);
-            HitLineController hitLineController = _HitLineController.GetComponent<HitLineController>();
-
-            bool _hitted = hitLineController._hitted;
             bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
 
             if (canHit && _hitted == false)
