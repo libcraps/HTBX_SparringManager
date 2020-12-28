@@ -17,6 +17,7 @@ namespace SparringManager.DataManager
         {
             DataBase = new ArrayList();
             ArrayList dataScenarioI = new ArrayList();
+            /*
             //Pass the filepath and filename to the StreamWriter Constructor
             StreamWriter sw = new StreamWriter("C:\\Users\\Pierre\\Documents\\Text.csv");
             //Write a line of text
@@ -24,7 +25,7 @@ namespace SparringManager.DataManager
             //Write a second line of text
             sw.WriteLine("From the StreamWriter class");
             //Close the file
-            sw.Close();
+            sw.Close();*/
         }
 
         public static void AddData<T>(T Data, ArrayList DataBase)
@@ -34,6 +35,11 @@ namespace SparringManager.DataManager
         private void WriteCSV()
         {
             
+        }
+        public override string ToString()
+        {
+            Debug.Log("Nombre de scenarios instancier : " + DataBase.Count);
+            return base.ToString();
         }
     }
 }

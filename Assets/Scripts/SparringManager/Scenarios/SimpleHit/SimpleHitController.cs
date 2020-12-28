@@ -5,14 +5,14 @@ namespace SparringManager.SimpleHit
     public class SimpleHitController : MonoBehaviour
     {
         private StructScenarios _simpleHitStruct;
-        private ScenarioController _scenarioControllerComponent;
+        private ScenarioController scenarioControllerComponent;
         [SerializeField]
         public GameObject _hitPrefab;
 
         private void Start()
         {
-            _scenarioControllerComponent = GetComponent<ScenarioController>();
-            _simpleHitStruct = _scenarioControllerComponent._controllerStruct;
+            scenarioControllerComponent = GetComponent<ScenarioController>();
+            _simpleHitStruct = scenarioControllerComponent._controllerStruct;
         }
 
         private void OnEnable()

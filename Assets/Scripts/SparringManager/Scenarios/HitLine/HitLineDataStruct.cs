@@ -18,5 +18,14 @@ namespace SparringManager.DataManager.HitLine
             this.timeListSession = timeListSession;
             this.followingTarget = followingTarget;
         }
+
+        public override string ToString()
+        {
+            Debug.Log("HitLineData structure : ");
+            Debug.Log("Hitted : " + hitted);
+            Debug.Log("Reaction Time : " + reactionTime);
+            Debug.Log("List length : " + timeListSession.Count);
+            return "HitLine Data";
+        }
     }
 }

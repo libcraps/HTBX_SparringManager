@@ -17,7 +17,7 @@ namespace SparringManager
 
         //Variables temporaires de scénarios
         private int _timerScenarioI;
-        public float _timeStartScenarioI;
+        private float _timeStartScenarioI;
 
         void Start()
         {
@@ -27,13 +27,11 @@ namespace SparringManager
             nameSenarioI = scenarios[indexScenario]._scenarioPrefab.name;
             _timeStartScenarioI = Time.time;
             
-
             SessionManager.InstantiateAndBuildScenario(scenarios[indexScenario], this.gameObject, this.gameObject.transform.position);
         }
         private void Update()
         {
-            float _tTime = Time.time;
-            if (((_tTime - _timeStartScenarioI) > _timerScenarioI) && (indexScenario < (scenarios.Length -1)))
+            if (((Time.time - _timeStartScenarioI) > _timerScenarioI) && (indexScenario < (scenarios.Length -1)))
             {
                 indexScenario += 1;
 
@@ -70,12 +68,10 @@ namespace SparringManager
             }
             */
 
-            float _timerScenarioI = strucObject._timerScenario;
-            ScenarioController scenarioControllerComponent;
+            ScenarioController scenarioControllerComponent = prefabObject.GetComponent<ScenarioController>(); ;
 
-            scenarioControllerComponent = prefabObject.GetComponent<ScenarioController>();
             scenarioControllerComponent._controllerStruct = strucObject;
-            Destroy(Instantiate(prefabObject, _pos3d, Quaternion.identity, referenceGameObject.transform), _timerScenarioI);
+            Destroy(Instantiate(prefabObject, _pos3d, Quaternion.identity, referenceGameObject.transform), strucObject._timerScenario);
 
             Debug.Log(prefabObject.name + " has been instantiated");
         }

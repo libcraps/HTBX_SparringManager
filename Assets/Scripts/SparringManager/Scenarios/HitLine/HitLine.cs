@@ -17,19 +17,20 @@ namespace SparringManager.HitLine
         private float _deltaTime;
         private float _startScenario;
         private float _lineAcceleration;
-        private System.Random _randomTime = new System.Random();
-        private System.Random _randomAcceleration = new System.Random();
-        private Rigidbody _lineRigidComponent;
-        private ScenarioController _scenarioControllerComponent;
+        private System.Random randomTime = new System.Random();
+        private System.Random randomAcceleration = new System.Random();
+        private Rigidbody lineRigidComponent;
+        private ScenarioController scenarioControllerComponent;
         private StructScenarios hitLineControllerStruct;
+
         public static List<float> mouvementConsign;
         public static List<float> timeListScenario;
 
         void Start()
         {
-            _lineRigidComponent = GetComponent<Rigidbody>();
-            _scenarioControllerComponent = GetComponent<ScenarioController>();
-            hitLineControllerStruct = _scenarioControllerComponent._controllerStruct;
+            lineRigidComponent = GetComponent<Rigidbody>();
+            scenarioControllerComponent = GetComponent<ScenarioController>();
+            hitLineControllerStruct = scenarioControllerComponent._controllerStruct;
 
             mouvementConsign = new List<float>();
             timeListScenario = new List<float>();
@@ -49,8 +50,8 @@ namespace SparringManager.HitLine
             //initialisation de l'accélération et du temps
             _tTime = Time.time - _startScenario;
             _previousTime = _tTime;
-            _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
-            _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+            _deltaTime = randomTime.Next(_deltaTimeMin, _deltaTimeMax);
+            _lineAcceleration = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
 
             Debug.Log("Acceleration : " + _lineAcceleration);
             Debug.Log("Deta T : " + _deltaTime);
@@ -69,7 +70,7 @@ namespace SparringManager.HitLine
         void MoveLine(float lineHorizontalAcceleration)
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
-            _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
+            lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
 
         private void GetConsigne(float time, float pos)
@@ -94,9 +95,9 @@ namespace SparringManager.HitLine
         {
             if ((_tTime - _previousTime) > _deltaTime)
             {
-                _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+                _lineAcceleration = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
                 _previousTime = _tTime;
-                _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
+                _deltaTime = randomTime.Next(_deltaTimeMin, _deltaTimeMax);
             }
         }
         void LineInCameraRange()

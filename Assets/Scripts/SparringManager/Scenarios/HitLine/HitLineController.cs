@@ -9,12 +9,11 @@ namespace SparringManager.HitLine
     //Classe du Controller du scenario HitLine
     public class HitLineController : MonoBehaviour
     {
-        private StructScenarios _controllerStruct;
+        private StructScenarios controllerStruct;
         private HitLineDataStruct hitLineData;
 
-        private ScenarioController _scenarioControllerComponent;
+        private ScenarioController scenarioControllerComponent;
         
-
         [SerializeField]
         private GameObject _scenarioPrefab;
 
@@ -25,8 +24,8 @@ namespace SparringManager.HitLine
 
         void Start()
         {
-            _scenarioControllerComponent = GetComponent<ScenarioController>();
-            _controllerStruct = _scenarioControllerComponent._controllerStruct;
+            scenarioControllerComponent = GetComponent<ScenarioController>();
+            controllerStruct = scenarioControllerComponent._controllerStruct;
             _startScenario = Time.time;
 
             Vector3 _pos3d;
@@ -34,7 +33,7 @@ namespace SparringManager.HitLine
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
-            SessionManager.InstantiateAndBuildScenario(_controllerStruct, this.gameObject, _pos3d, _scenarioPrefab);
+            SessionManager.InstantiateAndBuildScenario(controllerStruct, this.gameObject, _pos3d, _scenarioPrefab);
         }
 
         void OnDestroy()
@@ -50,6 +49,7 @@ namespace SparringManager.HitLine
         {
             hitLineData = new HitLineDataStruct(_hitted, _reactTime, HitLine.mouvementConsign, HitLine.timeListScenario);
             DataManager.DataManager.DataBase.Add(hitLineData);
+            Debug.Log(DataManager.DataManager.DataBase[0]);
         }
 
         private void OnEnable()
@@ -65,8 +65,8 @@ namespace SparringManager.HitLine
         public void GetHit(Vector2 position2d_)
         {
             float tTime = Time.time - _startScenario;
-            float _timeBeforeHit = _controllerStruct._timeBeforeHit;
-            float _deltaHit = _controllerStruct._deltaHit;
+            float _timeBeforeHit = controllerStruct._timeBeforeHit;
+            float _deltaHit = controllerStruct._deltaHit;
 
             RaycastHit hit;
             Vector3 rayCastOrigin = new Vector3 (position2d_.x, position2d_.y, this.gameObject.transform.position.z);
