@@ -16,7 +16,6 @@ namespace SparringManager.HitLine
         private float _deltaTime;
         private float _startScenario;
         private float _lineAcceleration;
-        private bool _hitted;
         private System.Random _randomTime = new System.Random();
         private System.Random _randomAcceleration = new System.Random();
         private Rigidbody _lineRigidComponent;
@@ -28,16 +27,16 @@ namespace SparringManager.HitLine
             _lineRigidComponent = GetComponent<Rigidbody>();
             _scenarioControllerComponent = GetComponent<ScenarioController>();
             hitLineControllerStruct = _scenarioControllerComponent._controllerStruct;
-
+        
             float _timer = hitLineControllerStruct._timerScenario;
 
             _accelerationMax = hitLineControllerStruct._accelerationMax;
             _deltaTimeMax = hitLineControllerStruct._deltaTimeMax;
             _deltaTimeMin = hitLineControllerStruct._deltaTimeMin;
             _deltaHit = hitLineControllerStruct._deltaHit;
-            _startScenario = hitLineControllerStruct._startScenario;
             _timeBeforeHit = hitLineControllerStruct._timeBeforeHit;
-            _hitted = hitLineControllerStruct._hitted;
+
+            _startScenario = Time.time;
 
             Debug.Log(this.gameObject.name + " timer " + _timer);
 
@@ -54,9 +53,7 @@ namespace SparringManager.HitLine
         void FixedUpdate()
         {
             _tTime = Time.time - _startScenario;
-
-            
-            SetHit(_tTime, hitLineControllerStruct._hitted);
+            SetHit(_tTime);
             RandomizeLineMovement(_tTime);
             MoveLine(_lineAcceleration);
             LineInCameraRange();
@@ -68,11 +65,11 @@ namespace SparringManager.HitLine
             _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
 
-        void SetHit(float _tTime, bool _hitted)
+        void SetHit(float _tTime)
         {
             bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
 
-            if (canHit && _hitted == false)
+            if (canHit && HitLineController._hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
             {
                 GetComponent<MeshRenderer>().material.color = Color.red;
             }
@@ -123,8 +120,7 @@ namespace SparringManager.HitLine
         void OnDestroy()
         {
             Debug.Log(this.gameObject.name + "has been destroyed");
+
         }
-
-
     }
 }

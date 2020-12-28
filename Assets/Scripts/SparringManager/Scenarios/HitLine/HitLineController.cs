@@ -1,4 +1,5 @@
 ﻿using SparringManager;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SparringManager.HitLine
@@ -14,13 +15,15 @@ namespace SparringManager.HitLine
 
         private float _reactTime;
         private float _startScenario;
-        private bool _hitted;
+
+        public static bool _hitted = false;
 
         void Start()
         {
             _scenarioControllerComponent = GetComponent<ScenarioController>();
             _controllerStruct = _scenarioControllerComponent._controllerStruct;
-            
+            _startScenario = Time.time;
+
             Vector3 _pos3d;
             _pos3d.x = this.gameObject.transform.position.x;
             _pos3d.y = this.gameObject.transform.position.y;
@@ -32,6 +35,7 @@ namespace SparringManager.HitLine
         void OnDestroy()
         {
             Debug.Log(this.gameObject.name + "has been destroyed");
+            _hitted = false;
         }
 
         private void OnEnable()
@@ -49,7 +53,6 @@ namespace SparringManager.HitLine
             float tTime = Time.time - _startScenario;
             float _timeBeforeHit = _controllerStruct._timeBeforeHit;
             float _deltaHit = _controllerStruct._deltaHit;
-            
 
             RaycastHit hit;
             Vector3 rayCastOrigin = new Vector3 (position2d_.x, position2d_.y, this.gameObject.transform.position.z);
@@ -58,10 +61,10 @@ namespace SparringManager.HitLine
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
             bool canHit = (tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit);
             
-            if (rayOnTarget && canHit && _controllerStruct._hitted == false)
+            if (rayOnTarget && canHit && _hitted == false)
             {
                 _reactTime = tTime - _timeBeforeHit;
-                _controllerStruct._hitted = true;
+                _hitted = true;
 
                 Debug.Log("Line touched : " + position2d_);
                 Debug.Log("React time : " + _reactTime);

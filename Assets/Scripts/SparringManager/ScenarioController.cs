@@ -9,8 +9,7 @@ namespace SparringManager
 
         public StructScenarios _controllerStruct;
 
-        public int a { get; set; }
-
+        /*
         public void ControllerConstructor(StructScenarios scenarioStructure)
         {
             _controllerStruct = scenarioStructure;
@@ -20,5 +19,7 @@ namespace SparringManager
         {
             Debug.Log("Bonjourno");
         }
+        */
+
     }
 }

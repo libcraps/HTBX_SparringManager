@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using SparringManager;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SparringManager.SimpleLine
@@ -33,13 +34,12 @@ namespace SparringManager.SimpleLine
             _accelerationMax = simpleLineControllerStruct._accelerationMax;
             _deltaTimeMax = simpleLineControllerStruct._deltaTimeMax;
             _deltaTimeMin = simpleLineControllerStruct._deltaTimeMin;
-            _startScenario = simpleLineControllerStruct._startScenario;
+            _startScenario = Time.time;
 
-            
             Debug.Log(this.gameObject.name + " timer " + _timer);
 
             //initialisation de l'accélération et du temps
-            _tTime = Time.time;
+            _tTime = Time.time - _startScenario;
             _previousTime = _tTime;
             _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
             _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
@@ -89,7 +89,6 @@ namespace SparringManager.SimpleLine
             {
                 linePos3d.x += 2* rangeSize;
             }
-
             this.gameObject.transform.position = linePos3d;
         }
         void RandomizeLineMovement(float _tTime)
