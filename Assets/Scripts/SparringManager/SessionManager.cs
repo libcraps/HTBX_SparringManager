@@ -12,7 +12,8 @@ namespace SparringManager
         [SerializeField]
         private StructScenarios[] scenarios;
 
-        private int indexScenario;
+        public static int indexScenario;
+        public static string nameSenarioI;
 
         //Variables temporaires de scénarios
         private int _timerScenarioI;
@@ -23,7 +24,9 @@ namespace SparringManager
             indexScenario = 0;
 
             _timerScenarioI = scenarios[indexScenario]._timerScenario;
+            nameSenarioI = scenarios[indexScenario]._scenarioPrefab.name;
             _timeStartScenarioI = Time.time;
+            
 
             SessionManager.InstantiateAndBuildScenario(scenarios[indexScenario], this.gameObject, this.gameObject.transform.position);
         }

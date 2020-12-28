@@ -6,20 +6,9 @@ namespace SparringManager
 {
     public class ScenarioController : MonoBehaviour
     {
-
-        public StructScenarios _controllerStruct;
-
         /*
-        public void ControllerConstructor(StructScenarios scenarioStructure)
-        {
-            _controllerStruct = scenarioStructure;
-        }
-
-        public void affiche()
-        {
-            Debug.Log("Bonjourno");
-        }
-        */
-
+         * Classe contenant la structure d'un scnério, On l'ajoute à chaque composant et est modifié pdt session avec les paramètres de base
+         */
+        public StructScenarios _controllerStruct;
     }
 }

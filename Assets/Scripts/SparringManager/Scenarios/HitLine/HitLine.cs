@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using SparringManager.DataManager;
 using UnityEngine;
 
 namespace SparringManager.HitLine
@@ -21,12 +22,17 @@ namespace SparringManager.HitLine
         private Rigidbody _lineRigidComponent;
         private ScenarioController _scenarioControllerComponent;
         private StructScenarios hitLineControllerStruct;
+        public static List<float> mouvementConsign;
+        public static List<float> timeListScenario;
 
         void Start()
         {
             _lineRigidComponent = GetComponent<Rigidbody>();
             _scenarioControllerComponent = GetComponent<ScenarioController>();
             hitLineControllerStruct = _scenarioControllerComponent._controllerStruct;
+
+            mouvementConsign = new List<float>();
+            timeListScenario = new List<float>();
         
             float _timer = hitLineControllerStruct._timerScenario;
 
@@ -54,6 +60,7 @@ namespace SparringManager.HitLine
         {
             _tTime = Time.time - _startScenario;
             SetHit(_tTime);
+            GetConsigne(_tTime, this.gameObject.transform.position.x);
             RandomizeLineMovement(_tTime);
             MoveLine(_lineAcceleration);
             LineInCameraRange();
@@ -65,6 +72,11 @@ namespace SparringManager.HitLine
             _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
 
+        private void GetConsigne(float time, float pos)
+        {
+            mouvementConsign.Add(pos);
+            timeListScenario.Add(time);
+        }
         void SetHit(float _tTime)
         {
             bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
@@ -120,7 +132,6 @@ namespace SparringManager.HitLine
         void OnDestroy()
         {
             Debug.Log(this.gameObject.name + "has been destroyed");
-
         }
     }
 }

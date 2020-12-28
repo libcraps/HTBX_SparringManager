@@ -1,4 +1,6 @@
 ﻿using SparringManager;
+using SparringManager.DataManager;
+using SparringManager.DataManager.HitLine;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +10,10 @@ namespace SparringManager.HitLine
     public class HitLineController : MonoBehaviour
     {
         private StructScenarios _controllerStruct;
+        private HitLineDataStruct hitLineData;
+
         private ScenarioController _scenarioControllerComponent;
+        
 
         [SerializeField]
         private GameObject _scenarioPrefab;
@@ -34,8 +39,17 @@ namespace SparringManager.HitLine
 
         void OnDestroy()
         {
-            Debug.Log(this.gameObject.name + "has been destroyed");
+            GetData();
+            _reactTime = 0;
             _hitted = false;
+
+            Debug.Log(this.gameObject.name + "has been destroyed");
+        }
+
+        void GetData()
+        {
+            hitLineData = new HitLineDataStruct(_hitted, _reactTime, HitLine.mouvementConsign, HitLine.timeListScenario);
+            DataManager.DataManager.DataBase.Add(hitLineData);
         }
 
         private void OnEnable()
