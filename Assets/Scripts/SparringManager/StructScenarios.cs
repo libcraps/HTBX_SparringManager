@@ -26,7 +26,6 @@ namespace SparringManager
 
         public StructScenarios(GameObject Prefab, GameObject hitPrefab, GameObject ObjectPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, int timer)
         {
-            
             this._scenarioPrefab = Prefab;
             this._accelerationMax = acceleration;
             this._deltaTimeMin = deltaMin;
@@ -34,7 +33,6 @@ namespace SparringManager
             this._timeBeforeHit = timeHit;
             this._deltaHit = deltaHit;
             this._timerScenario = timer;
-            
         }
     }
 }

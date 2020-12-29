@@ -2,6 +2,9 @@
 using SparringManager.DataManager;
 using SparringManager.DataManager.HitLine;
 using System.Collections.Generic;
+using System.IO;
+using System.Data;
+using System.Text;
 using UnityEngine;
 
 namespace SparringManager.HitLine
@@ -49,7 +52,8 @@ namespace SparringManager.HitLine
         {
             hitLineData = new HitLineDataStruct(_hitted, _reactTime, HitLine.mouvementConsign, HitLine.timeListScenario);
             DataManager.DataManager.DataBase.Add(hitLineData);
-            Debug.Log(DataManager.DataManager.DataBase[0]);
+            DataManager.DataManager.ToCSV(hitLineData.HitLineDataBase, "C:\\Users\\Pierre\\Documents\\Tableau.csv");
+            Debug.Log(DataManager.DataManager.DataBase);
         }
 
         private void OnEnable()
@@ -84,6 +88,7 @@ namespace SparringManager.HitLine
                 Debug.Log("React time : " + _reactTime);
             }
         }
+        
 
     }
 }
