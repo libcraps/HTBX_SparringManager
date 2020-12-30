@@ -39,23 +39,6 @@ namespace SparringManager.HitLine
             SessionManager.InstantiateAndBuildScenario(controllerStruct, this.gameObject, _pos3d, _scenarioPrefab);
         }
 
-        void OnDestroy()
-        {
-            GetData();
-            _reactTime = 0;
-            _hitted = false;
-
-            Debug.Log(this.gameObject.name + "has been destroyed");
-        }
-
-        void GetData()
-        {
-            hitLineData = new HitLineDataStruct(_hitted, _reactTime, HitLine.mouvementConsign, HitLine.timeListScenario);
-            DataManager.DataManager.DataBase.Add(hitLineData);
-            DataManager.DataManager.ToCSV(hitLineData.HitLineDataBase, "C:\\Users\\Pierre\\Documents\\Tableau.csv");
-            Debug.Log(DataManager.DataManager.DataBase);
-        }
-
         private void OnEnable()
         {
             ImpactManager.onInteractPoint += GetHit;
@@ -73,12 +56,12 @@ namespace SparringManager.HitLine
             float _deltaHit = controllerStruct._deltaHit;
 
             RaycastHit hit;
-            Vector3 rayCastOrigin = new Vector3 (position2d_.x, position2d_.y, this.gameObject.transform.position.z);
-            Vector3 rayCastDirection = new Vector3 (0,0,1);
+            Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z);
+            Vector3 rayCastDirection = new Vector3(0, 0, 1);
 
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
             bool canHit = (tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit);
-            
+
             if (rayOnTarget && canHit && _hitted == false)
             {
                 _reactTime = tTime - _timeBeforeHit;
@@ -88,6 +71,24 @@ namespace SparringManager.HitLine
                 Debug.Log("React time : " + _reactTime);
             }
         }
+
+        void OnDestroy()
+        {
+            GetData();
+            DataManager.DataManager.ToCSV(hitLineData.HitLineDataBase, "C:\\Users\\Pierre\\Documents\\Tableau.csv");
+            _reactTime = 0;
+            _hitted = false;
+            Debug.Log(this.gameObject.name + "has been destroyed");
+        }
+
+        void GetData()
+        {
+            hitLineData = new HitLineDataStruct(_hitted, _reactTime, HitLine.mouvementConsign, HitLine.timeListScenario);
+            DataManager.DataManager.DataBase.Add(hitLineData);            
+            Debug.Log(DataManager.DataManager.DataBase);
+        }
+
+
         
 
     }

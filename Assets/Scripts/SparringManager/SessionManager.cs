@@ -15,6 +15,8 @@ namespace SparringManager
         public static int indexScenario;
         public static string nameSenarioI;
 
+        string path;
+
         //Variables temporaires de scénarios
         private int _timerScenarioI;
         private float _timeStartScenarioI;
@@ -77,4 +79,3 @@ namespace SparringManager
         }
     }
 }
-//Utiliser update() pour actualiser la génération de nouveaux scénarios quand un est finie
