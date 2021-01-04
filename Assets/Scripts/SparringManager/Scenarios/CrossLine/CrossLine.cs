@@ -16,7 +16,8 @@ namespace SparringManager.CrossLine
         private float _tTime;
         private float _deltaTime;
         private float _startScenario;
-        private float _lineAcceleration;
+        private float _lineHorizontalAcceleration;
+        private float _lineVerticalAcceleration;
         private System.Random randomTime = new System.Random();
         private System.Random randomAcceleration = new System.Random();
         private Rigidbody lineRigidComponent;
@@ -51,9 +52,10 @@ namespace SparringManager.CrossLine
             _tTime = Time.time - _startScenario;
             _previousTime = _tTime;
             _deltaTime = randomTime.Next(_deltaTimeMin, _deltaTimeMax);
-            _lineAcceleration = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+            _lineHorizontalAcceleration = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+            _lineVerticalAcceleration= randomAcceleration.Next(-_accelerationMax, _accelerationMax);
 
-            Debug.Log("Acceleration : " + _lineAcceleration);
+            Debug.Log("Acceleration : " + _lineVerticalAcceleration);
             Debug.Log("Deta T : " + _deltaTime);
         }
 
@@ -63,14 +65,14 @@ namespace SparringManager.CrossLine
             SetHit(_tTime);
             GetConsigne(_tTime, this.gameObject.transform.position.x);
             RandomizeLineMovement(_tTime);
-            MoveLine(_lineAcceleration);
+            MoveLine(_lineHorizontalAcceleration, _lineVerticalAcceleration);
             LineInCameraRange();
         }
 
-        void MoveLine(float lineHorizontalAcceleration)
+        void MoveLine(float lineHorizontalAcceleration, float lineVerticalAccelearation)
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
-            lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
+            lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, lineVerticalAccelearation, 0);
         }
 
         private void GetConsigne(float time, float pos)
@@ -95,7 +97,8 @@ namespace SparringManager.CrossLine
         {
             if ((_tTime - _previousTime) > _deltaTime)
             {
-                _lineAcceleration = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+                _lineHorizontalAcceleration = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+                _lineVerticalAcceleration = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
                 _previousTime = _tTime;
                 _deltaTime = randomTime.Next(_deltaTimeMin, _deltaTimeMax);
             }
@@ -106,7 +109,6 @@ namespace SparringManager.CrossLine
             Vector3 renderCameraPos3d;
 
             GameObject cameraObject = GameObject.Find("RenderCamera_Hitbox1");
-            Debug.Log("caemrag,e   " + cameraObject);
             Camera renderCamera = cameraObject.GetComponent<Camera>();
             float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
 
