@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SparringManager.HitLine
+namespace SparringManager.CrossLine
 {
     [System.Serializable]
     public struct CrossLineStruct

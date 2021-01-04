@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using SparringManager.SimpleLine;
 using SparringManager.HitLine;
+using SparringManager.CrossLine;
 using UnityEngine;
 
 namespace SparringManager
