@@ -6,9 +6,9 @@ namespace SparringManager.CrossLine
     //Classe du Controller du scenario CrossLine
     public class CrossLineController : MonoBehaviour
     {
-        private StructScenarios controllerStruct;
-        private CrossLineStruct crossLineStruct;
-        private CrossLineDataStruct CrossLineData;
+        private StructScenarios _controllerStruct;
+        private CrossLineStruct _crossLineStruct;
+        private CrossLineDataStruct _crossLineData;
 
         private ScenarioController scenarioControllerComponent;
         
@@ -23,8 +23,8 @@ namespace SparringManager.CrossLine
         void Start()
         {
             scenarioControllerComponent = GetComponent<ScenarioController>();
-            controllerStruct = scenarioControllerComponent._controllerStruct;
-            crossLineStruct = scenarioControllerComponent._controllerStruct.CrossLineStruct;
+            _controllerStruct = scenarioControllerComponent._controllerStruct;
+            _crossLineStruct = scenarioControllerComponent._controllerStruct.CrossLineStruct;
             _startScenario = Time.time;
 
             Vector3 _pos3d;
@@ -32,7 +32,7 @@ namespace SparringManager.CrossLine
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
-            SessionManager.InstantiateAndBuildScenario(controllerStruct, this.gameObject, _pos3d, _scenarioComposant);
+            SessionManager.InstantiateAndBuildScenario(_controllerStruct, this.gameObject, _pos3d, _scenarioComposant);
         }
 
         private void OnEnable()
@@ -48,8 +48,8 @@ namespace SparringManager.CrossLine
         public void GetHit(Vector2 position2d_)
         {
             float tTime = Time.time - _startScenario;
-            float _timeBeforeHit = crossLineStruct._timeBeforeHit;
-            float _deltaHit = crossLineStruct._deltaHit;
+            float _timeBeforeHit = _crossLineStruct._timeBeforeHit;
+            float _deltaHit = _crossLineStruct._deltaHit;
 
             RaycastHit hit;
             Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z);
@@ -71,7 +71,7 @@ namespace SparringManager.CrossLine
         void OnDestroy()
         {
             GetData();
-            DataManager.DataManager.ToCSV(CrossLineData.DataBase, "C:\\Users\\Pierre\\Documents\\Tableau.csv");
+            DataManager.DataManager.ToCSV(_crossLineData.DataBase, "C:\\Users\\IIFR\\Documents\\GitHub\\Hitbox_Test\\HTBX_SparringManager\\_data\\Tableau.csv");
             _reactTime = 0;
             _hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
@@ -79,8 +79,8 @@ namespace SparringManager.CrossLine
 
         void GetData()
         {
-            CrossLineData = new CrossLineDataStruct(_hitted, _reactTime, CrossLine.mouvementConsign, CrossLine.timeListScenario);
-            DataManager.DataManager.DataBase.Add(CrossLineData);            
+            _crossLineData = new CrossLineDataStruct(_hitted, _reactTime, CrossLine.mouvementConsign, CrossLine.timeListScenario);
+            DataManager.DataManager.DataBase.Add(_crossLineData);            
             Debug.Log(DataManager.DataManager.DataBase);
         }
 

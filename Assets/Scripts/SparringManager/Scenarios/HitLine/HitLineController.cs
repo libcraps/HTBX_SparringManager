@@ -76,7 +76,8 @@ namespace SparringManager.HitLine
         void OnDestroy()
         {
             GetData();
-            DataManager.DataManager.ToCSV(hitLineData.HitLineDataBase, "C:\\Users\\Pierre\\Documents\\Tableau.csv");
+            DataManager.DataManager.ToCSV(hitLineData.HitLineDataBase, "C:\\Users\\IIFR\\Documents\\GitHub\\Hitbox_Test\\HTBX_SparringManager\\_data\\Tableau.csv");
+            //DataManager.DataManager.ToCSV(hitLineData.HitLineDataBase, "..\\..\\..\\_data\\Tableau.csv");
             _reactTime = 0;
             _hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");

@@ -13,8 +13,8 @@ namespace SparringManager
         [SerializeField]
         private StructScenarios[] scenarios;
 
-        public static int indexScenario;
-        public static string nameSenarioI;
+        private int indexScenario;
+        private string nameSenarioI;
 
         string path;
 
@@ -30,7 +30,7 @@ namespace SparringManager
             nameSenarioI = scenarios[indexScenario]._scenarioPrefab.name;
             _timeStartScenarioI = Time.time;
             
-            SessionManager.InstantiateAndBuildScenario(scenarios[indexScenario], this.gameObject, this.gameObject.transform.position);
+            InstantiateAndBuildScenario(scenarios[indexScenario], this.gameObject, this.gameObject.transform.position);
         }
         private void Update()
         {
@@ -41,7 +41,7 @@ namespace SparringManager
                 _timerScenarioI = scenarios[indexScenario]._timerScenario;
                 _timeStartScenarioI = Time.time;
 
-                SessionManager.InstantiateAndBuildScenario(scenarios[indexScenario], this.gameObject, this.gameObject.transform.position);
+                InstantiateAndBuildScenario(scenarios[indexScenario], this.gameObject, this.gameObject.transform.position);
             }
         }
 
@@ -64,14 +64,7 @@ namespace SparringManager
                 _pos3d = referenceGameObject.transform.position;
             }
 
-            /*
-            if (strucObject._startScenario == 0)
-            {
-                strucObject._startScenario = Time.time;
-            }
-            */
-
-            ScenarioController scenarioControllerComponent = prefabObject.GetComponent<ScenarioController>(); ;
+            ScenarioController scenarioControllerComponent = prefabObject.GetComponent<ScenarioController>();
 
             scenarioControllerComponent._controllerStruct = strucObject;
             Destroy(Instantiate(prefabObject, _pos3d, Quaternion.identity, referenceGameObject.transform), strucObject._timerScenario);

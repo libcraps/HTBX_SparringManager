@@ -9,7 +9,7 @@ namespace SparringManager.SimpleHit
     {
         public SimpleHitStruct(int i)
         {
- 
+            
         }
     }
 }
