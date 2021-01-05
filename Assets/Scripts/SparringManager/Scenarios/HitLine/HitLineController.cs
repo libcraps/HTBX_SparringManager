@@ -13,8 +13,6 @@ namespace SparringManager.HitLine
     public class HitLineController : MonoBehaviour
     {
         private StructScenarios controllerStruct;
-        private HitLineDataStruct hitLineData;
-
         private ScenarioController scenarioControllerComponent;
         
         [SerializeField]
@@ -23,12 +21,15 @@ namespace SparringManager.HitLine
         private float _reactTime;
         private float _startScenario;
 
+        private HitLineStruct hitLineControllerStruct;
+        private HitLineDataStruct hitLineData;
         public static bool _hitted = false;
 
         void Start()
         {
             scenarioControllerComponent = GetComponent<ScenarioController>();
             controllerStruct = scenarioControllerComponent._controllerStruct;
+            hitLineControllerStruct = controllerStruct.HitLineStruct;
             _startScenario = Time.time;
 
             Vector3 _pos3d;
@@ -52,8 +53,8 @@ namespace SparringManager.HitLine
         public void GetHit(Vector2 position2d_)
         {
             float tTime = Time.time - _startScenario;
-            float _timeBeforeHit = controllerStruct._timeBeforeHit;
-            float _deltaHit = controllerStruct._deltaHit;
+            float _timeBeforeHit = hitLineControllerStruct._timeBeforeHit;
+            float _deltaHit = hitLineControllerStruct._deltaHit;
 
             RaycastHit hit;
             Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z);

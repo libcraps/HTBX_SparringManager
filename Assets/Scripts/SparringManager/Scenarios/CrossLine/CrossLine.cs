@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using SparringManager.DataManager;
+using SparringManager.DataManager.CrossLine;
 using UnityEngine;
 
 namespace SparringManager.CrossLine
@@ -16,27 +17,32 @@ namespace SparringManager.CrossLine
         private float _tTime;
         private float _deltaTime;
         private float _startScenario;
-        private float _lineHorizontalAcceleration;
-        private float _lineVerticalAcceleration;
+        private float[] _lineAcceleration;
         private System.Random randomTime = new System.Random();
         private System.Random randomAcceleration = new System.Random();
         private Rigidbody lineRigidComponent;
         private ScenarioController scenarioControllerComponent;
-        private StructScenarios crossLineControllerStruct;
+        private StructScenarios controllerStruct;
 
         public static List<float> mouvementConsign;
         public static List<float> timeListScenario;
 
+        private CrossLineStruct crossLineControllerStruct;
+        public static bool _hitted = false;
+
         void Start()
         {
             lineRigidComponent = GetComponent<Rigidbody>();
+
             scenarioControllerComponent = GetComponent<ScenarioController>();
-            crossLineControllerStruct = scenarioControllerComponent._controllerStruct;
+            controllerStruct = scenarioControllerComponent._controllerStruct;
+            crossLineControllerStruct = controllerStruct.CrossLineStruct;
 
             mouvementConsign = new List<float>();
             timeListScenario = new List<float>();
+            _lineAcceleration = new float[2];
         
-            float _timer = crossLineControllerStruct._timerScenario;
+            float _timer = controllerStruct._timerScenario;
 
             _accelerationMax = crossLineControllerStruct._accelerationMax;
             _deltaTimeMax = crossLineControllerStruct._deltaTimeMax;
@@ -52,10 +58,9 @@ namespace SparringManager.CrossLine
             _tTime = Time.time - _startScenario;
             _previousTime = _tTime;
             _deltaTime = randomTime.Next(_deltaTimeMin, _deltaTimeMax);
-            _lineHorizontalAcceleration = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
-            _lineVerticalAcceleration= randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+            _lineAcceleration[0] = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+            _lineAcceleration[1] = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
 
-            Debug.Log("Acceleration : " + _lineVerticalAcceleration);
             Debug.Log("Deta T : " + _deltaTime);
         }
 
@@ -65,7 +70,7 @@ namespace SparringManager.CrossLine
             SetHit(_tTime);
             GetConsigne(_tTime, this.gameObject.transform.position.x);
             RandomizeLineMovement(_tTime);
-            MoveLine(_lineHorizontalAcceleration, _lineVerticalAcceleration);
+            MoveLine(_lineAcceleration[0], _lineAcceleration[1]);
             LineInCameraRange();
         }
 
@@ -83,23 +88,27 @@ namespace SparringManager.CrossLine
         void SetHit(float _tTime)
         {
             bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
+            GameObject VertLineObject = GameObject.Find(this.gameObject.transform.GetChild(0).name);
+            GameObject HorizLineObject = GameObject.Find(this.gameObject.transform.GetChild(1).name);
 
             if (canHit && CrossLineController._hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
             {
-                GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+                VertLineObject.GetComponent<MeshRenderer>().material.color = Color.red;
+                HorizLineObject.GetComponent<MeshRenderer>().material.color = Color.red;
             }
             else
             {
-                GetComponentInChildren<MeshRenderer>().material.color = Color.white;
+                VertLineObject.GetComponent<MeshRenderer>().material.color = Color.white;
+                HorizLineObject.GetComponent<MeshRenderer>().material.color = Color.white;
             }
         }
-        void RandomizeLineMovement(float _tTime)
+        void RandomizeLineMovement(float tTime)
         {
-            if ((_tTime - _previousTime) > _deltaTime)
+            if ((tTime - _previousTime) > _deltaTime)
             {
-                _lineHorizontalAcceleration = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
-                _lineVerticalAcceleration = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
-                _previousTime = _tTime;
+                _lineAcceleration[0] = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+                _lineAcceleration[1] = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+                _previousTime = tTime;
                 _deltaTime = randomTime.Next(_deltaTimeMin, _deltaTimeMax);
             }
         }
@@ -123,11 +132,20 @@ namespace SparringManager.CrossLine
             //Instruction whether the line gets out of the render camera range
             if (linePos3d.x > renderCameraPos3d.x + rangeSize)
             {
-                linePos3d.x -= 2* rangeSize;
+                linePos3d.y -= 2* rangeSize;
             } 
             else if (linePos3d.x < renderCameraPos3d.x - rangeSize)
             {
-                linePos3d.x += 2* rangeSize;
+                linePos3d.y += 2* rangeSize;
+            }
+            //Instruction whether the line gets out of the render camera range
+            if (linePos3d.y > renderCameraPos3d.y + rangeSize)
+            {
+                linePos3d.y -= 2 * rangeSize;
+            }
+            else if (linePos3d.y < renderCameraPos3d.y - rangeSize)
+            {
+                linePos3d.y += 2 * rangeSize;
             }
 
             this.gameObject.transform.position = linePos3d;

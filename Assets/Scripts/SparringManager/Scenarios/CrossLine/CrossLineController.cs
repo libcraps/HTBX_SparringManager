@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace SparringManager.CrossLine
 {
-    //Classe du Controller du scenario HitLine
+    //Classe du Controller du scenario CrossLine
     public class CrossLineController : MonoBehaviour
     {
         private StructScenarios controllerStruct;
+        private CrossLineStruct crossLineStruct;
         private CrossLineDataStruct CrossLineData;
 
         private ScenarioController scenarioControllerComponent;
@@ -23,6 +24,7 @@ namespace SparringManager.CrossLine
         {
             scenarioControllerComponent = GetComponent<ScenarioController>();
             controllerStruct = scenarioControllerComponent._controllerStruct;
+            crossLineStruct = scenarioControllerComponent._controllerStruct.CrossLineStruct;
             _startScenario = Time.time;
 
             Vector3 _pos3d;
@@ -46,8 +48,8 @@ namespace SparringManager.CrossLine
         public void GetHit(Vector2 position2d_)
         {
             float tTime = Time.time - _startScenario;
-            float _timeBeforeHit = controllerStruct._timeBeforeHit;
-            float _deltaHit = controllerStruct._deltaHit;
+            float _timeBeforeHit = crossLineStruct._timeBeforeHit;
+            float _deltaHit = crossLineStruct._deltaHit;
 
             RaycastHit hit;
             Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z);

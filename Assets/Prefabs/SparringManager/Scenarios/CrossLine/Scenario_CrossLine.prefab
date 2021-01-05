@@ -87,11 +87,30 @@ MonoBehaviour:
   _controllerStruct:
     _scenarioPrefab: {fileID: 4281324017865965865}
     _timerScenario: 10
-    _accelerationMax: 25
-    _deltaTimeMax: 10
-    _deltaTimeMin: 9
-    _deltaHit: 2
-    _timeBeforeHit: 3
+    SimpleLineStruct:
+      _simpleLine: {fileID: 0}
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
+      _timerScenario: 0
+    SimpleHitStruct:
+      _hitPrefab: {fileID: 0}
+    HitLineStruct:
+      _hitPrefab: {fileID: 0}
+      _hitLine: {fileID: 0}
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
+      _deltaHit: 0
+      _timeBeforeHit: 0
+    CrossLineStruct:
+      _hitPrefab: {fileID: 0}
+      _crossLine: {fileID: 0}
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
+      _deltaHit: 0
+      _timeBeforeHit: 0
 --- !u!114 &8105932139079414912
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709b45a27c5c03449a26fcabf63cea98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scenarioPrefab: {fileID: 1783334052419977111, guid: c4923aab62d736d418abd16552fa40ad,
+  _scenarioComposant: {fileID: 1783334052419977111, guid: c4923aab62d736d418abd16552fa40ad,
     type: 3}
 --- !u!114 &8003701153739847990
 MonoBehaviour:
@@ -101,10 +101,27 @@ MonoBehaviour:
   _controllerStruct:
     _scenarioPrefab: {fileID: 4281324017865965865}
     _timerScenario: 2
-    _accelerationMax: 25
-    _deltaTimeMax: 10
-    _deltaTimeMin: 9
-    _deltaHit: 0
-    _timeBeforeHit: 0
-    _startScenario: 0
-    _hitted: 0
+    SimpleLineStruct:
+      _simpleLine: {fileID: 0}
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
+      _timerScenario: 0
+    SimpleHitStruct:
+      _hitPrefab: {fileID: 0}
+    HitLineStruct:
+      _hitPrefab: {fileID: 0}
+      _hitLine: {fileID: 0}
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
+      _deltaHit: 0
+      _timeBeforeHit: 0
+    CrossLineStruct:
+      _hitPrefab: {fileID: 0}
+      _crossLine: {fileID: 0}
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
+      _deltaHit: 0
+      _timeBeforeHit: 0

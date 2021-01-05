@@ -7,12 +7,9 @@ namespace SparringManager.SimpleHit
     [System.Serializable]
     public struct SimpleHitStruct
     {
-        [SerializeField]
-        public GameObject _hitPrefab;
-
-        public SimpleHitStruct(GameObject prefab)
+        public SimpleHitStruct(int i)
         {
-            this._hitPrefab = prefab;
+ 
         }
     }
 }

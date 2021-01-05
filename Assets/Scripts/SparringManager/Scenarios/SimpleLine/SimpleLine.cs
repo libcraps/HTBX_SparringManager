@@ -20,7 +20,8 @@ namespace SparringManager.SimpleLine
 
         private Rigidbody _lineRigidComponent;
         private ScenarioController _scenarioControllerComponent;
-        private StructScenarios simpleLineControllerStruct;
+        private StructScenarios controllerStruct;
+        private SimpleLineStruct simpleLineControllerStruct;
 
         void Start()
         {
@@ -28,9 +29,10 @@ namespace SparringManager.SimpleLine
 
             //initialisation des variables du scénario
             _scenarioControllerComponent = GetComponent<ScenarioController>();
-            simpleLineControllerStruct = _scenarioControllerComponent._controllerStruct;
+            controllerStruct = _scenarioControllerComponent._controllerStruct;
+            simpleLineControllerStruct = controllerStruct.SimpleLineStruct;
 
-            float _timer = simpleLineControllerStruct._timerScenario;
+            float _timer = controllerStruct._timerScenario;
             _accelerationMax = simpleLineControllerStruct._accelerationMax;
             _deltaTimeMax = simpleLineControllerStruct._deltaTimeMax;
             _deltaTimeMin = simpleLineControllerStruct._deltaTimeMin;

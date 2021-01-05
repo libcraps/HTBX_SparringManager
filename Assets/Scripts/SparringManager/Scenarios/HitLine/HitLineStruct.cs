@@ -5,12 +5,10 @@ using UnityEngine;
 namespace SparringManager.HitLine
 {
     [System.Serializable]
-    public struct CrossLineStruct
+    public struct HitLineStruct
     {
         [SerializeField]
         public GameObject _hitPrefab;
-        [SerializeField]
-        public GameObject _hitLine;
         [SerializeField]
         public int _accelerationMax;
         [SerializeField]
@@ -22,9 +20,8 @@ namespace SparringManager.HitLine
         [SerializeField]
         public float _timeBeforeHit;
 
-        public CrossLineStruct(GameObject linePrefab,GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit)
+        public HitLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit)
         {
-            this._hitLine = linePrefab;
             this._hitPrefab = hitPrefab;
             this._accelerationMax = acceleration;
             this._deltaTimeMin = deltaMin;

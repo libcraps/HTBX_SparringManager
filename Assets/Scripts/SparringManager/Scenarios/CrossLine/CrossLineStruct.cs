@@ -10,8 +10,6 @@ namespace SparringManager.CrossLine
         [SerializeField]
         public GameObject _hitPrefab;
         [SerializeField]
-        public GameObject _hitLine;
-        [SerializeField]
         public int _accelerationMax;
         [SerializeField]
         public int _deltaTimeMax;
@@ -22,9 +20,8 @@ namespace SparringManager.CrossLine
         [SerializeField]
         public float _timeBeforeHit;
 
-        public CrossLineStruct(GameObject linePrefab,GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit)
+        public CrossLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit)
         {
-            this._hitLine = linePrefab;
             this._hitPrefab = hitPrefab;
             this._accelerationMax = acceleration;
             this._deltaTimeMin = deltaMin;

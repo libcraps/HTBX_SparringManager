@@ -21,7 +21,8 @@ namespace SparringManager.HitLine
         private System.Random randomAcceleration = new System.Random();
         private Rigidbody lineRigidComponent;
         private ScenarioController scenarioControllerComponent;
-        private StructScenarios hitLineControllerStruct;
+        private StructScenarios controllerStruct;
+        private HitLineStruct hitLineControllerStruct;
 
         public static List<float> mouvementConsign;
         public static List<float> timeListScenario;
@@ -30,12 +31,13 @@ namespace SparringManager.HitLine
         {
             lineRigidComponent = GetComponent<Rigidbody>();
             scenarioControllerComponent = GetComponent<ScenarioController>();
-            hitLineControllerStruct = scenarioControllerComponent._controllerStruct;
+            controllerStruct = scenarioControllerComponent._controllerStruct;
+            hitLineControllerStruct = controllerStruct.HitLineStruct;
 
             mouvementConsign = new List<float>();
             timeListScenario = new List<float>();
         
-            float _timer = hitLineControllerStruct._timerScenario;
+            float _timer = controllerStruct._timerScenario;
 
             _accelerationMax = hitLineControllerStruct._accelerationMax;
             _deltaTimeMax = hitLineControllerStruct._deltaTimeMax;
