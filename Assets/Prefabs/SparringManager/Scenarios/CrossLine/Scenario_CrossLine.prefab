@@ -86,12 +86,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controllerStruct:
     _scenarioPrefab: {fileID: 4281324017865965865}
-    _timerScenario: 2
+    _timerScenario: 10
     _accelerationMax: 25
     _deltaTimeMax: 10
     _deltaTimeMin: 9
-    _deltaHit: 0
-    _timeBeforeHit: 0
+    _deltaHit: 2
+    _timeBeforeHit: 3
 --- !u!114 &8105932139079414912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,5 +104,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ffe3ad157639cb42bf1bb0619043e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scenarioPrefab: {fileID: 1783334052419977111, guid: 138c55495a8edd54ebc170ac7640d448,
+  _scenarioComposant: {fileID: 6681613717435480839, guid: 7e5448389c430d740ad5689b409522fd,
     type: 3}

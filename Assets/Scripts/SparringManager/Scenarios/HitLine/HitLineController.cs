@@ -18,7 +18,7 @@ namespace SparringManager.HitLine
         private ScenarioController scenarioControllerComponent;
         
         [SerializeField]
-        private GameObject _scenarioPrefab;
+        private GameObject _scenarioComposant;
 
         private float _reactTime;
         private float _startScenario;
@@ -36,7 +36,7 @@ namespace SparringManager.HitLine
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
-            SessionManager.InstantiateAndBuildScenario(controllerStruct, this.gameObject, _pos3d, _scenarioPrefab);
+            SessionManager.InstantiateAndBuildScenario(controllerStruct, this.gameObject, _pos3d, _scenarioComposant);
         }
 
         private void OnEnable()

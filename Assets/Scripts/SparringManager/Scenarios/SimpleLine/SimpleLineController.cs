@@ -9,7 +9,7 @@ namespace SparringManager.SimpleLine
         private ScenarioController _scenarioControllerComponent;
 
         [SerializeField]
-        private GameObject _scenarioPrefab;
+        private GameObject _scenarioComposant;
 
         void Start()
         {
@@ -22,7 +22,7 @@ namespace SparringManager.SimpleLine
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
-            SessionManager.InstantiateAndBuildScenario(_controllerStruct, this.gameObject, _pos3d, _scenarioPrefab);
+            SessionManager.InstantiateAndBuildScenario(_controllerStruct, this.gameObject, _pos3d, _scenarioComposant);
         }
         void OnDestroy()
         {

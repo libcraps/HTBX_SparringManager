@@ -86,11 +86,11 @@ namespace SparringManager.CrossLine
 
             if (canHit && CrossLineController._hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
             {
-                GetComponent<MeshRenderer>().material.color = Color.red;
+                GetComponentInChildren<MeshRenderer>().material.color = Color.red;
             }
             else
             {
-                GetComponent<MeshRenderer>().material.color = Color.white;
+                GetComponentInChildren<MeshRenderer>().material.color = Color.white;
             }
         }
         void RandomizeLineMovement(float _tTime)
