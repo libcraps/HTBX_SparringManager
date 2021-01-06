@@ -5,8 +5,30 @@ using UnityEngine;
 
 namespace SparringManager.HitLine
 {
+    /* Class nof the CrossLine Scenario
+     * 
+     *  Summary :
+     *  This Scenario represents a line that can move lateraly and set a hit for the player
+     *  This class animate the line
+     *  
+     *  Importants Attributs :
+     *      scenariocontroller scenariocontrollercomponent : It is the component ScenarioController of the prefab object, it allows us to stock specific parameters of the scenario (acceleration, delta hit, etc...) -> it is in the structure controllerstruct
+     *      StructScenarios controllerStruct : It is the structure that contains the StructScenarios scenarios[i] (in this structure we can find the structure hitLineStruct that contains the structure HitLineStruct)
+     *      HitLineStruct hitLineControllerStruct : It is the structure that contain ONLY the HitLineScenario's parameters
+     *      
+     *  Methods :
+     *  void Start() :
+     *  void onDestroy() :
+     *  void FixedUpdate() :
+     *  void MoveLine() :
+     *  void GetConsigne() :
+     *  void SetHit() :
+     *  void RandomizeLineMovement() :
+     *  Void LineInCameraRange() :
+     */
     public class HitLine : MonoBehaviour
     {
+        //Usefull parameters of the scenario, they are in the crossLineStructure
         private int _accelerationMax;
         private int _deltaTimeMax;
         private int _deltaTimeMin;
@@ -15,20 +37,25 @@ namespace SparringManager.HitLine
         private float _previousTime;
         private float _tTime;
         private float _deltaTime;
+
         private float _startScenario;
         private float _lineAcceleration;
         private System.Random randomTime = new System.Random();
         private System.Random randomAcceleration = new System.Random();
         private Rigidbody lineRigidComponent;
+
         private ScenarioController scenarioControllerComponent;
         private StructScenarios controllerStruct;
         private HitLineStruct hitLineControllerStruct;
 
+        //List of the data that we will export 
         public static List<float> mouvementConsign;
         public static List<float> timeListScenario;
 
         void Start()
         {
+
+            //Initialize the scene
             lineRigidComponent = GetComponent<Rigidbody>();
             scenarioControllerComponent = GetComponent<ScenarioController>();
             controllerStruct = scenarioControllerComponent._controllerStruct;
@@ -39,6 +66,7 @@ namespace SparringManager.HitLine
         
             float _timer = controllerStruct._timerScenario;
 
+            //Initialisation of the parameters
             _accelerationMax = hitLineControllerStruct._accelerationMax;
             _deltaTimeMax = hitLineControllerStruct._deltaTimeMax;
             _deltaTimeMin = hitLineControllerStruct._deltaTimeMin;
@@ -49,7 +77,7 @@ namespace SparringManager.HitLine
 
             Debug.Log(this.gameObject.name + " timer " + _timer);
 
-            //initialisation de l'accélération et du temps
+            //Initialisation of the time and the acceleration
             _tTime = Time.time - _startScenario;
             _previousTime = _tTime;
             _deltaTime = randomTime.Next(_deltaTimeMin, _deltaTimeMax);
@@ -61,6 +89,8 @@ namespace SparringManager.HitLine
 
         void FixedUpdate()
         {
+
+            //Update the "situation" of the line
             _tTime = Time.time - _startScenario;
             SetHit(_tTime);
             GetConsigne(_tTime, this.gameObject.transform.position.x);
@@ -82,6 +112,7 @@ namespace SparringManager.HitLine
         }
         void SetHit(float _tTime)
         {
+            //change the color of the line if the player have to hit
             bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
 
             if (canHit && HitLineController._hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
@@ -95,6 +126,7 @@ namespace SparringManager.HitLine
         }
         void RandomizeLineMovement(float _tTime)
         {
+            //Randomize the movement of the line every deltaTime seconds
             if ((_tTime - _previousTime) > _deltaTime)
             {
                 _lineAcceleration = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
@@ -104,6 +136,9 @@ namespace SparringManager.HitLine
         }
         void LineInCameraRange()
         {
+            /* 
+             * This method keeps the line in the camera range
+             */
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
 

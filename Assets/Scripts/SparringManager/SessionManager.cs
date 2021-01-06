@@ -11,7 +11,7 @@ namespace SparringManager
     public class SessionManager : MonoBehaviour
     {
         [SerializeField]
-        private StructScenarios[] scenarios;
+        private StructScenarios[] scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
 
         private int indexScenario;
         private string nameSenarioI;
@@ -48,25 +48,27 @@ namespace SparringManager
         public static void InstantiateAndBuildScenario(StructScenarios strucObject, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
         {
             /*
-             * Function that instatiate an object, the prefab of this object is in the structureScenarios, 
-             * it contains all the data that is usefull for the scenarios
+             * Function that instatiate an object, the prefab of this object is in the structureScenarios, it contains all the data that is usefull for the scenarios
              * 
-             * referenceGameObject : is often this.gameObject
+             * Parameters :
+             *      strucObject : structure that contains parameters of the scenario, the type is the same for everyone because it allows us to unified the type and to choose a more specified type after
+             *      referenceGameObject : use to choose the parent of our object, it often this.gameObjetct
+             *      _pos3D : position where we want to instantiate our object
+             *      prefabGameObject : it is here to be able to use this fonction for scenario composants (because the scenario_controller is in the structure and the scenario composent in the scenario controller)
              */
 
             if (prefabObject == false)
             {
-                prefabObject = strucObject._scenarioPrefab;
+                prefabObject = strucObject._scenarioPrefab; //if we don't specified the prefab we used the prefab that is in the structure (so the prefab of the scenario)
             }
 
             if (_pos3d == null)
             {
-                _pos3d = referenceGameObject.transform.position;
+                _pos3d = referenceGameObject.transform.position; //if the position isn't specified we place the object a the same place of the reference
             }
 
             ScenarioController scenarioControllerComponent = prefabObject.GetComponent<ScenarioController>();
-
-            scenarioControllerComponent._controllerStruct = strucObject;
+            scenarioControllerComponent._controllerStruct = strucObject; //we attribute the structure to the scenario component 
             Destroy(Instantiate(prefabObject, _pos3d, Quaternion.identity, referenceGameObject.transform), strucObject._timerScenario);
 
             Debug.Log(prefabObject.name + " has been instantiated");

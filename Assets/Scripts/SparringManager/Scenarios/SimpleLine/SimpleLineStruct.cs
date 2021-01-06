@@ -7,6 +7,7 @@ namespace SparringManager.SimpleLine
     [System.Serializable]
     public struct SimpleLineStruct
     {
+        //Parameters of the SimpleLineStruct scenario
         [SerializeField]
         public int _accelerationMax;
         [SerializeField]

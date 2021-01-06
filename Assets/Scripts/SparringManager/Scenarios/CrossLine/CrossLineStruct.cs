@@ -7,6 +7,7 @@ namespace SparringManager.CrossLine
     [System.Serializable]
     public struct CrossLineStruct
     {
+        //Paramters of the CrossLine structure
         [SerializeField]
         private GameObject _hitPrefab;
         [SerializeField]

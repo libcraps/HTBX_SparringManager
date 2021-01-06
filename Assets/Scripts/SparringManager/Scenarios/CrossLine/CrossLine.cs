@@ -6,9 +6,31 @@ using UnityEngine;
 
 namespace SparringManager.CrossLine
 {
+     /* Class nof the CrossLine Scenario
+     * 
+     *  Summary :
+     *  This Scenario is similar to HitLin except that it represents a cross that can move right/left and upside/down
+     *  This class animate the cross
+     *  
+     *  Importants Attributs :
+     *      scenariocontroller scenariocontrollercomponent : It is the component ScenarioController of the prefab object, it allows us to stock specific parameters of the scenario (acceleration, delta hit, etc...) -> it is in the structure controllerstruct
+     *      StructScenarios controllerStruct : It is the structure that contains the StructScenarios scenarios[i] (in this structure we can find the structure crossLineStruct that contains the structure CrossLineStruct)
+     *      CrossLineStruct crossLineControllerStruct : It is the structure that contain ONLY the CrossLineScenario's parameters
+     *      
+     *  Methods :
+     *  void Start() :
+     *  void onDestroy() :
+     *  void FixedUpdate() :
+     *  void MoveLine() :
+     *  void GetConsigne() :
+     *  void SetHit() :
+     *  void RandomizeLineMovement() :
+     *  Void LineInCameraRange() :
+     */
     public class CrossLine : MonoBehaviour
     {
-        
+
+        //Usefull parameters of the scenario, they are in the crossLineStructure
         private int _deltaTimeMax;
         private int _deltaTimeMin;
         private float _deltaHit;
@@ -16,9 +38,9 @@ namespace SparringManager.CrossLine
         private float _previousTime;
         private float _tTime;
         private float _deltaTime;
-        private float _startScenario;
         private int _accelerationMax;
 
+        private float _startScenario;
         private float[] _lineAcceleration;
         private System.Random randomTime = new System.Random();
         private System.Random randomAcceleration = new System.Random();
@@ -26,6 +48,7 @@ namespace SparringManager.CrossLine
         private ScenarioController scenarioControllerComponent;
         private StructScenarios controllerStruct;
 
+        //list of the data that we will export
         public static List<float> mouvementConsign;
         public static List<float> timeListScenario;
 
@@ -34,7 +57,8 @@ namespace SparringManager.CrossLine
 
         void Start()
         {
-            lineRigidComponent = GetComponent<Rigidbody>();
+            //Initialize the scene
+            lineRigidComponent = GetComponent<Rigidbody>(); //this component allows us to move the line
 
             scenarioControllerComponent = GetComponent<ScenarioController>();
             controllerStruct = scenarioControllerComponent._controllerStruct;
@@ -43,9 +67,9 @@ namespace SparringManager.CrossLine
             mouvementConsign = new List<float>();
             timeListScenario = new List<float>();
             _lineAcceleration = new float[2];
-        
-            float _timer = controllerStruct._timerScenario;
 
+            //Initialisation of the parameters
+            float _timer = controllerStruct._timerScenario;
             _accelerationMax = crossLineControllerStruct._accelerationMax;
             _deltaTimeMax = crossLineControllerStruct._deltaTimeMax;
             _deltaTimeMin = crossLineControllerStruct._deltaTimeMin;
@@ -56,7 +80,7 @@ namespace SparringManager.CrossLine
 
             Debug.Log(this.gameObject.name + " timer " + _timer);
 
-            //initialisation de l'accélération et du temps
+            //Initialisation of the time and the acceleration
             _tTime = Time.time - _startScenario;
             _previousTime = _tTime;
             _deltaTime = randomTime.Next(_deltaTimeMin, _deltaTimeMax);
@@ -68,6 +92,7 @@ namespace SparringManager.CrossLine
 
         void FixedUpdate()
         {
+            //Update the "situation" of the line
             _tTime = Time.time - _startScenario;
             SetHit(_tTime);
             GetConsigne(_tTime, this.gameObject.transform.position.x);
@@ -89,11 +114,12 @@ namespace SparringManager.CrossLine
         }
         void SetHit(float _tTime)
         {
+            //change the color of the line if the player have to hit
             bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
             GameObject VertLineObject = GameObject.Find(this.gameObject.transform.GetChild(0).name);
             GameObject HorizLineObject = GameObject.Find(this.gameObject.transform.GetChild(1).name);
 
-            if (canHit && CrossLineController._hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
+            if (canHit && CrossLineController._hitted == false) //TODO revoir orga avec adrien car comment c'est fait => d'aller chercher dans classe parente
             {
                 VertLineObject.GetComponent<MeshRenderer>().material.color = Color.red;
                 HorizLineObject.GetComponent<MeshRenderer>().material.color = Color.red;
@@ -106,6 +132,7 @@ namespace SparringManager.CrossLine
         }
         void RandomizeLineMovement(float tTime)
         {
+            //Randomize the movement of the line every deltaTime seconds
             if ((tTime - _previousTime) > _deltaTime)
             {
                 _lineAcceleration[0] = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
@@ -116,6 +143,9 @@ namespace SparringManager.CrossLine
         }
         void LineInCameraRange()
         {
+            /* 
+             * This method keeps the line in the camera range
+             */
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
 
@@ -149,7 +179,6 @@ namespace SparringManager.CrossLine
             {
                 linePos3d.y += 2 * rangeSize;
             }
-
             this.gameObject.transform.position = linePos3d;
         }
         void OnDestroy()

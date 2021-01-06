@@ -5,14 +5,36 @@ using UnityEngine;
 
 namespace SparringManager.SimpleLine
 {
+    /* Class nof the CrossLine Scenario
+     * 
+     *  Summary :
+     *  This Scenario represents a line that can move right/left.
+     *  This class animate the line
+     *  
+     *  Importants Attributs :
+     *      scenariocontroller scenarioControllerComponent : It is the component ScenarioController of the prefab object, it allows us to stock specific parameters of the scenario (acceleration, etc...) -> it is in the structure controllerstruct
+     *      StructScenarios controllerStruct : It is the structure that contains the StructScenarios scenarios[i] (in this structure we can find the structure SimpleLineStruct that contains the structure SimpleLineStruct)
+     *      SimpleLineStruct simpleLineControllerStruct : It is the structure that contain ONLY the SimpleLineScenario's parameters
+     *      
+     *  Methods :
+     *  void Start() :
+     *  void onDestroy() :
+     *  void FixedUpdate() :
+     *  void MoveLine() :
+     *  void GetConsigne() :
+     *  void RandomizeLineMovement() :
+     *  Void LineInCameraRange() :
+     */
     public class SimpleLine : MonoBehaviour
     {
+        //Usefull parameters of the scenario, they are specified in the simpleLineStructure
         private int _accelerationMax;
         private int _deltaTimeMax;
         private int _deltaTimeMin;
         private float _previousTime;
         private float _tTime;
         private float _deltaTime;
+
         private float _lineAcceleration;
         private float _startScenario;
         private System.Random _randomTime = new System.Random();
@@ -27,11 +49,11 @@ namespace SparringManager.SimpleLine
         {
             _lineRigidComponent = GetComponent<Rigidbody>();
 
-            //initialisation des variables du scénario
             _scenarioControllerComponent = GetComponent<ScenarioController>();
             controllerStruct = _scenarioControllerComponent._controllerStruct;
             simpleLineControllerStruct = controllerStruct.SimpleLineStruct;
 
+            //Initialisation of the parameters
             float _timer = controllerStruct._timerScenario;
             _accelerationMax = simpleLineControllerStruct._accelerationMax;
             _deltaTimeMax = simpleLineControllerStruct._deltaTimeMax;
@@ -40,7 +62,7 @@ namespace SparringManager.SimpleLine
 
             Debug.Log(this.gameObject.name + " timer " + _timer);
 
-            //initialisation de l'accélération et du temps
+            //Initialisation of the time and the acceleration
             _tTime = Time.time - _startScenario;
             _previousTime = _tTime;
             _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
@@ -52,6 +74,7 @@ namespace SparringManager.SimpleLine
 
         void FixedUpdate()
         {
+            //Update the "situation" of the line
             _tTime = Time.time - _startScenario;
             RandomizeLineMovement(_tTime);
             MoveLine(_lineAcceleration);
@@ -66,6 +89,9 @@ namespace SparringManager.SimpleLine
 
         void LineInCameraRange()
         {
+           /* 
+            * This method keeps the line in the camera range
+            */
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
 
@@ -95,6 +121,8 @@ namespace SparringManager.SimpleLine
         }
         void RandomizeLineMovement(float _tTime)
         {
+
+            //Randomize the movement of the line every deltaTime seconds
             if ((_tTime - _previousTime) > _deltaTime)
             {
                 _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);

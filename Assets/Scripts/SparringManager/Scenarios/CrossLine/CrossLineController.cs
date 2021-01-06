@@ -3,7 +3,26 @@ using UnityEngine;
 
 namespace SparringManager.CrossLine
 {
-    //Classe du Controller du scenario CrossLine
+   /* Class of the CrossLineController
+    * 
+    *  Summary :
+    *  This class is the  controller of the crossLineScenario
+    *  
+    *  Importants Attributs :
+    *      scenariocontroller scenariocontrollercomponent : It is the component ScenarioController of the prefab object, it allows us to stock specific parameters of the scenario (acceleration, delta hit, etc...) -> it is in the structure controllerstruct
+    *      StructScenarios controllerStruct : It is the structure that contains the StructScenarios scenarios[i] (in this structure we can find the structure crossLineStruct that contains the structure CrossLineStruct)
+    *      CrossLineStruct crossLineControllerStruct : It is the structure that contain ONLY the CrossLineScenario's parameters
+    *      
+    *  Methods :
+    *  void Start() :
+    *  void onDestroy() :
+    *  void FixedUpdate() :
+    *  void MoveLine() :
+    *  void GetConsigne() :
+    *  void SetHit() :
+    *  void RandomizeLineMovement() :
+    *  Void LineInCameraRange() :
+    */
     public class CrossLineController : MonoBehaviour
     {
         private StructScenarios _controllerStruct;

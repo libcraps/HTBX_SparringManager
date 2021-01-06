@@ -2,6 +2,7 @@
 
 namespace SparringManager.SimpleHit
 {
+    //Class of the SimpleHit Scenario
     [RequireComponent(typeof(SpriteRenderer))]
     public class SimpleHit : MonoBehaviour
     {

@@ -7,7 +7,7 @@ namespace SparringManager
     public class ScenarioController : MonoBehaviour
     {
         /*
-         * Classe contenant la structure d'un scénario, On l'ajoute à chaque composant et est modifié pdt session avec les paramètres de base
+         * Class that will be a component of every prefab,it allows us to stock parameters of our scenario
          */
         public StructScenarios _controllerStruct;
     }
