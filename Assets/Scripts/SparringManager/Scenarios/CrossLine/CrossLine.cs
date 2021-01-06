@@ -8,7 +8,7 @@ namespace SparringManager.CrossLine
 {
     public class CrossLine : MonoBehaviour
     {
-        private int _accelerationMax;
+        
         private int _deltaTimeMax;
         private int _deltaTimeMin;
         private float _deltaHit;
@@ -17,6 +17,8 @@ namespace SparringManager.CrossLine
         private float _tTime;
         private float _deltaTime;
         private float _startScenario;
+        private int _accelerationMax;
+
         private float[] _lineAcceleration;
         private System.Random randomTime = new System.Random();
         private System.Random randomAcceleration = new System.Random();

@@ -8,7 +8,7 @@ namespace SparringManager.CrossLine
     public struct CrossLineStruct
     {
         [SerializeField]
-        public GameObject _hitPrefab;
+        private GameObject _hitPrefab;
         [SerializeField]
         public int _accelerationMax;
         [SerializeField]
@@ -19,6 +19,30 @@ namespace SparringManager.CrossLine
         public float _deltaHit;
         [SerializeField]
         public float _timeBeforeHit;
+
+        public GameObject HitPrefab
+        {
+            get
+            {
+                return _hitPrefab;
+            }
+            set
+            {
+                _hitPrefab = value;
+            }
+        }
+
+        public int AccelerationMax
+        {
+            get
+            {
+                return _accelerationMax;
+            }
+            set
+            {
+                _accelerationMax = value;
+            }
+        }
 
         public CrossLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit)
         {
