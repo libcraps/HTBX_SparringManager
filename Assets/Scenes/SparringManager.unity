@@ -225,7 +225,7 @@ MonoBehaviour:
   scenarios:
   - _scenarioPrefab: {fileID: 4281324017865965865, guid: 8a872874b0bd81a49ac9266d974f2a5a,
       type: 3}
-    _timerScenario: 10
+    _timerScenario: 0
     _simpleLineStruct:
       _accelerationMax: 0
       _deltaTimeMax: 0
@@ -246,7 +246,7 @@ MonoBehaviour:
       _timeBeforeHit: 5
   - _scenarioPrefab: {fileID: 4281324017865965865, guid: 30bee1edd9312e54da96df824042ceec,
       type: 3}
-    _timerScenario: 6
+    _timerScenario: 0
     _simpleLineStruct:
       _accelerationMax: 0
       _deltaTimeMax: 0
@@ -267,7 +267,7 @@ MonoBehaviour:
       _timeBeforeHit: 0
   - _scenarioPrefab: {fileID: 7392076013187570363, guid: 1f5aea03649a01c4bac9b44cb338704f,
       type: 3}
-    _timerScenario: 4
+    _timerScenario: 0
     _simpleLineStruct:
       _accelerationMax: 0
       _deltaTimeMax: 0
@@ -290,9 +290,9 @@ MonoBehaviour:
       type: 3}
     _timerScenario: 8
     _simpleLineStruct:
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
+      _accelerationMax: 20
+      _deltaTimeMax: 3
+      _deltaTimeMin: 1
     _hitLineStruct:
       _hitPrefab: {fileID: 0}
       _accelerationMax: 0

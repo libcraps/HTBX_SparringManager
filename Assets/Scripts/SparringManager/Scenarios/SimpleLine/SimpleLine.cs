@@ -28,6 +28,7 @@ namespace SparringManager.SimpleLine
     public class SimpleLine : MonoBehaviour
     {
         //Usefull parameters of the scenario, they are specified in the simpleLineStructure
+        /*
         private int _accelerationMax;
         private int _deltaTimeMax;
         private int _deltaTimeMin;
@@ -39,6 +40,7 @@ namespace SparringManager.SimpleLine
         private float _startScenario;
         private System.Random _randomTime = new System.Random();
         private System.Random _randomAcceleration = new System.Random();
+        */
 
         private Rigidbody _lineRigidComponent;
         private ScenarioController _scenarioControllerComponent;
@@ -48,7 +50,7 @@ namespace SparringManager.SimpleLine
         void Start()
         {
             _lineRigidComponent = GetComponent<Rigidbody>();
-
+            /*
             _scenarioControllerComponent = GetComponent<ScenarioController>();
             controllerStruct = _scenarioControllerComponent.ControllerStruct;
             simpleLineControllerStruct = controllerStruct.SimpleLineStruct;
@@ -70,18 +72,19 @@ namespace SparringManager.SimpleLine
 
             Debug.Log("Acceleration : " + _lineAcceleration);
             Debug.Log("Deta T : " + _deltaTime);
+            */
         }
 
         void FixedUpdate()
         {
             //Update the "situation" of the line
-            _tTime = Time.time - _startScenario;
-            RandomizeLineMovement(_tTime);
-            MoveLine(_lineAcceleration);
+            //_tTime = Time.time - _startScenario;
+            //RandomizeLineMovement(_tTime);
+            //MoveLine(_lineAcceleration);
             LineInCameraRange();
         }
 
-        void MoveLine(float lineHorizontalAcceleration)
+        public void MoveLine(float lineHorizontalAcceleration)
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
             _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
@@ -119,7 +122,8 @@ namespace SparringManager.SimpleLine
             }
             this.gameObject.transform.position = linePos3d;
         }
-        void RandomizeLineMovement(float _tTime)
+        /*
+        public void RandomizeLineMovement(float _tTime)
         {
 
             //Randomize the movement of the line every deltaTime seconds
@@ -130,6 +134,7 @@ namespace SparringManager.SimpleLine
                 _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
             }
         }
+        */
         void OnDestroy()
         {
             Debug.Log(this.gameObject.name + " has been destroyed");
