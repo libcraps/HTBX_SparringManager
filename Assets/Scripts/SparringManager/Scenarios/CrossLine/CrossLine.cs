@@ -31,7 +31,7 @@ namespace SparringManager.CrossLine
     {
         private Rigidbody _lineRigidComponent;
 
-        private float[] _acceleration;
+        private float _acceleration;
         void Start()
         {
             _lineRigidComponent = GetComponent<Rigidbody>(); //this component allows us to move the line
@@ -40,13 +40,12 @@ namespace SparringManager.CrossLine
         void FixedUpdate()
         {
             LineInCameraRange();
-            Debug.Log(_acceleration);
         }
 
-        public void MoveLine(float lineHorizontalAcceleration, float lineVerticalAccelearation)
+        public void MoveLine(float lineHorizontalAcceleration, float lineVerticalAcceleration)
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
-            _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, lineVerticalAccelearation, 0);
+            _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, lineVerticalAcceleration, 0);
         }
 
         public void SetHit(float tTime, float timeBeforeHit, float deltaHit, bool hitted)
@@ -68,7 +67,7 @@ namespace SparringManager.CrossLine
             }
         }
 
-        public void SetLineAcceleration(float[] acceleration)
+        public void SetTargetAcceleration(float acceleration)
         {
             _acceleration = acceleration;
         }

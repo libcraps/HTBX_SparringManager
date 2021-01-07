@@ -91,7 +91,6 @@ namespace SparringManager.CrossLine
 
             Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
             _crossLineComponent = GetComponentInChildren<CrossLine>();
-            _crossLineComponent.SetLineAcceleration(5);
         }
 
         private void FixedUpdate()

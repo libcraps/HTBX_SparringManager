@@ -136,11 +136,12 @@ namespace SparringManager.HitLine
             _hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
+        /*
         void GetData()
         {
 
         }
-
+        */
 
         private void GetConsigne(float time, float pos)
         {

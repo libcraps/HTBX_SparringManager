@@ -28,6 +28,19 @@ namespace SparringManager.HitLine
     {
 
         private Rigidbody _lineRigidComponent;
+        private float _lineAcceleration;
+
+        public float LineAcceleration
+        {
+            get
+            {
+                return _lineAcceleration;
+            }
+            set
+            {
+                _lineAcceleration = value;
+            }
+        }
 
         void Start()
         {
