@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1783334052419977108}
   - component: {fileID: 6626797176267439926}
   - component: {fileID: 7430206276994596526}
-  - component: {fileID: 5360706515430213997}
   m_Layer: 0
   m_Name: SimpleLine
   m_TagString: Untagged
@@ -124,25 +123,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5360706515430213997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1783334052419977111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b2c639998aa984280a05beef7c6b01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _controllerStruct:
-    _scenarioPrefab: {fileID: 0}
-    _timerScenario: 0
-    _accelerationMax: 0
-    _deltaTimeMax: 0
-    _deltaTimeMin: 0
-    _deltaHit: 0
-    _timeBeforeHit: 0
-    _startScenario: 0
-    _hitted: 0

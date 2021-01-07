@@ -34,6 +34,7 @@ namespace SparringManager.CrossLine
         private float _acceleration;
         void Start()
         {
+            _lineRigidComponent = new Rigidbody();
             _lineRigidComponent = GetComponent<Rigidbody>(); //this component allows us to move the line
         }
 

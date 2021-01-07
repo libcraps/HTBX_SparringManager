@@ -225,7 +225,7 @@ MonoBehaviour:
   scenarios:
   - _scenarioPrefab: {fileID: 4281324017865965865, guid: 8a872874b0bd81a49ac9266d974f2a5a,
       type: 3}
-    _timerScenario: 0
+    _timerScenario: 10
     _simpleLineStruct:
       _accelerationMax: 0
       _deltaTimeMax: 0
@@ -267,7 +267,7 @@ MonoBehaviour:
       _timeBeforeHit: 0
   - _scenarioPrefab: {fileID: 7392076013187570363, guid: 1f5aea03649a01c4bac9b44cb338704f,
       type: 3}
-    _timerScenario: 0
+    _timerScenario: 5
     _simpleLineStruct:
       _accelerationMax: 0
       _deltaTimeMax: 0

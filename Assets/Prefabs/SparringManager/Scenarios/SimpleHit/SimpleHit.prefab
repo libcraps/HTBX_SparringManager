@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7726583474970102548}
   - component: {fileID: 7726583474970102549}
   - component: {fileID: 8846976177048860561}
-  - component: {fileID: 2991348476367771980}
   m_Layer: 0
   m_Name: SimpleHit
   m_TagString: Untagged
@@ -96,25 +95,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fadeTime: 1
---- !u!114 &2991348476367771980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7726583474970102550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b2c639998aa984280a05beef7c6b01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _controllerStruct:
-    _scenarioPrefab: {fileID: 0}
-    _timerScenario: 8
-    _accelerationMax: 0
-    _deltaTimeMax: 0
-    _deltaTimeMin: 0
-    _deltaHit: 0
-    _timeBeforeHit: 0
-    _startScenario: 9.840527
-    _hitted: 0

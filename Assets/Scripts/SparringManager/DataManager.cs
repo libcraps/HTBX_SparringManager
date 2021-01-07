@@ -16,6 +16,8 @@ namespace SparringManager.DataManager
         {
             DataBase = new ArrayList();
             ArrayList dataScenarioI = new ArrayList();
+
+            //Possible de récupérer le composant enfant et d'avoir accès aux données
         }
 
         public override string ToString()
