@@ -88,7 +88,6 @@ namespace SparringManager
                 _crossLineStruct = value;
             }
         }
-
         public HitLineStruct HitLineStruct
         {
             get

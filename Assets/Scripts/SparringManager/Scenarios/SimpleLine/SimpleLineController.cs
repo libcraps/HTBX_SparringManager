@@ -8,48 +8,45 @@ namespace SparringManager.SimpleLine
         private int _accelerationMax;
         private int _deltaTimeMax;
         private int _deltaTimeMin;
+        private float _deltaTime;
+        private float _timerScenario;
+
         private float _previousTime;
         private float _tTime;
-        private float _deltaTime;
-
         private float _lineAcceleration;
         private float _startTimeScenario;
-        private System.Random _randomTime = new System.Random();
-        private System.Random _randomAcceleration = new System.Random();
 
         private StructScenarios _controllerStruct;
         private SimpleLineStruct _simpleLineControllerStruct;
         private ScenarioController _scenarioControllerComponent;
-        private SimpleLine _simpleLineComponent;
+        
 
         [SerializeField]
         private GameObject _scenarioComposant;
-
-
+        private SimpleLine _simpleLineComponent;
 
         private void Awake()
         {
-            _tTime = Time.time;
-            _startTimeScenario = Time.time;
-
+            //INITIALISATION OF VARIABLES 
             _scenarioControllerComponent = GetComponent<ScenarioController>();
             _controllerStruct = _scenarioControllerComponent.ControllerStruct;
             _simpleLineControllerStruct = _controllerStruct.SimpleLineStruct;
 
-            //Initialisation of the parameters
-            float _timer = _controllerStruct.TimerScenario;
+            _timerScenario = _controllerStruct.TimerScenario;
             _accelerationMax = _simpleLineControllerStruct.AccelerationMax;
             _deltaTimeMax = _simpleLineControllerStruct.DeltaTimeMax;
             _deltaTimeMin = _simpleLineControllerStruct.DeltaTimeMin;
-            _startTimeScenario = Time.time;
 
-            Debug.Log(this.gameObject.name + " timer " + _timer);
+            Debug.Log(this.gameObject.name + " timer " + _timerScenario);
 
             //Initialisation of the time and the acceleration
+            _startTimeScenario = Time.time;
             _tTime = Time.time - _startTimeScenario;
             _previousTime = _tTime;
-            _deltaTime = _randomTime.Next(_deltaTimeMin, _deltaTimeMax);
-            _lineAcceleration = _randomAcceleration.Next(-_accelerationMax, _accelerationMax);
+
+            System.Random random = new System.Random();
+            _deltaTime = random.Next(_deltaTimeMin, _deltaTimeMax);
+            _lineAcceleration = random.Next(-_accelerationMax, _accelerationMax);
 
             Debug.Log("Acceleration : " + _lineAcceleration);
             Debug.Log("Deta T : " + _deltaTime);
@@ -61,7 +58,8 @@ namespace SparringManager.SimpleLine
             _pos3d.x = this.gameObject.transform.position.x;
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
-            SessionManager.InstantiateAndBuildScenario(_controllerStruct, this.gameObject, _pos3d, _scenarioComposant);
+
+            Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
 
             _simpleLineComponent = GetComponentInChildren<SimpleLine>();
         }
@@ -70,6 +68,7 @@ namespace SparringManager.SimpleLine
         {
             _tTime = Time.time - _startTimeScenario;
             RandomizeParametersLineMovement(_tTime, ref _previousTime, ref _deltaTime, ref _lineAcceleration, _accelerationMax, _deltaTimeMin, _deltaTimeMax);
+
             _simpleLineComponent.MoveLine(_lineAcceleration);
         }
         void OnDestroy()

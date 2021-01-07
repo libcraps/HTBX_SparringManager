@@ -21,101 +21,36 @@ namespace SparringManager.HitLine
      *  void onDestroy() :
      *  void FixedUpdate() :
      *  void MoveLine() :
-     *  void GetConsigne() :
-     *  void SetHit() :
      *  void RandomizeLineMovement() :
      *  Void LineInCameraRange() :
      */
     public class HitLine : MonoBehaviour
     {
-        //Usefull parameters of the scenario, they are in the crossLineStructure
-        private int _accelerationMax;
-        private int _deltaTimeMax;
-        private int _deltaTimeMin;
-        private float _deltaHit;
-        private float _timeBeforeHit;
-        private float _previousTime;
-        private float _tTime;
-        private float _deltaTime;
 
-        private float _startScenario;
-        private float _lineAcceleration;
-        private System.Random randomTime = new System.Random();
-        private System.Random randomAcceleration = new System.Random();
-        private Rigidbody lineRigidComponent;
-
-        private ScenarioController scenarioControllerComponent;
-        private StructScenarios controllerStruct;
-        private HitLineStruct hitLineControllerStruct;
-
-        //List of the data that we will export 
-        public static List<float> mouvementConsign;
-        public static List<float> timeListScenario;
+        private Rigidbody _lineRigidComponent;
 
         void Start()
         {
-
-            //Initialize the scene
-            lineRigidComponent = GetComponent<Rigidbody>();
-            scenarioControllerComponent = GetComponent<ScenarioController>();
-            controllerStruct = scenarioControllerComponent.ControllerStruct;
-            hitLineControllerStruct = controllerStruct.HitLineStruct;
-
-            mouvementConsign = new List<float>();
-            timeListScenario = new List<float>();
-        
-            float _timer = controllerStruct.TimerScenario;
-
-            //Initialisation of the parameters
-            _accelerationMax = hitLineControllerStruct.AccelerationMax;
-            _deltaTimeMax = hitLineControllerStruct.DeltaTimeMax;
-            _deltaTimeMin = hitLineControllerStruct.DeltaTimeMin;
-            _deltaHit = hitLineControllerStruct.DeltaHit;
-            _timeBeforeHit = hitLineControllerStruct.TimeBeforeHit;
-
-            _startScenario = Time.time;
-
-            Debug.Log(this.gameObject.name + " timer " + _timer);
-
-            //Initialisation of the time and the acceleration
-            _tTime = Time.time - _startScenario;
-            _previousTime = _tTime;
-            _deltaTime = randomTime.Next(_deltaTimeMin, _deltaTimeMax);
-            _lineAcceleration = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
-
-            Debug.Log("Acceleration : " + _lineAcceleration);
-            Debug.Log("Deta T : " + _deltaTime);
+            _lineRigidComponent = GetComponent<Rigidbody>();
         }
 
         void FixedUpdate()
         {
-
-            //Update the "situation" of the line
-            _tTime = Time.time - _startScenario;
-            SetHit(_tTime);
-            GetConsigne(_tTime, this.gameObject.transform.position.x);
-            RandomizeLineMovement(_tTime);
-            MoveLine(_lineAcceleration);
             LineInCameraRange();
         }
 
-        void MoveLine(float lineHorizontalAcceleration)
+        public void MoveLine(float lineHorizontalAcceleration)
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
-            lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
+            _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
 
-        private void GetConsigne(float time, float pos)
-        {
-            mouvementConsign.Add(pos);
-            timeListScenario.Add(time);
-        }
-        void SetHit(float _tTime)
+        public void SetHit(float tTime, float timeBeforeHit, float deltaHit, bool hitted)
         {
             //change the color of the line if the player have to hit
-            bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
+            bool canHit = (tTime > timeBeforeHit && (tTime - timeBeforeHit) < deltaHit);
 
-            if (canHit && HitLineController._hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
+            if (canHit && hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
             {
                 GetComponent<MeshRenderer>().material.color = Color.red;
             }
@@ -124,16 +59,7 @@ namespace SparringManager.HitLine
                 GetComponent<MeshRenderer>().material.color = Color.white;
             }
         }
-        void RandomizeLineMovement(float _tTime)
-        {
-            //Randomize the movement of the line every deltaTime seconds
-            if ((_tTime - _previousTime) > _deltaTime)
-            {
-                _lineAcceleration = randomAcceleration.Next(-_accelerationMax, _accelerationMax);
-                _previousTime = _tTime;
-                _deltaTime = randomTime.Next(_deltaTimeMin, _deltaTimeMax);
-            }
-        }
+
         void LineInCameraRange()
         {
             /* 
