@@ -50,7 +50,7 @@ namespace SparringManager.SimpleLine
             _lineRigidComponent = GetComponent<Rigidbody>();
 
             _scenarioControllerComponent = GetComponent<ScenarioController>();
-            controllerStruct = _scenarioControllerComponent._controllerStruct;
+            controllerStruct = _scenarioControllerComponent.ControllerStruct;
             simpleLineControllerStruct = controllerStruct.SimpleLineStruct;
 
             //Initialisation of the parameters

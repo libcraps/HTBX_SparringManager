@@ -58,7 +58,7 @@ namespace SparringManager.HitLine
             //Initialize the scene
             lineRigidComponent = GetComponent<Rigidbody>();
             scenarioControllerComponent = GetComponent<ScenarioController>();
-            controllerStruct = scenarioControllerComponent._controllerStruct;
+            controllerStruct = scenarioControllerComponent.ControllerStruct;
             hitLineControllerStruct = controllerStruct.HitLineStruct;
 
             mouvementConsign = new List<float>();

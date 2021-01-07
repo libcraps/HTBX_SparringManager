@@ -16,7 +16,7 @@ namespace SparringManager.SimpleLine
         {
             //Initialisation des varibales pour lé scénarios
             _scenarioControllerComponent = GetComponent<ScenarioController>();
-            _controllerStruct = _scenarioControllerComponent._controllerStruct;
+            _controllerStruct = _scenarioControllerComponent.ControllerStruct;
 
             Vector3 _pos3d;
             _pos3d.x = this.gameObject.transform.position.x;

@@ -14,14 +14,6 @@ namespace SparringManager.CrossLine
     *      CrossLineStruct crossLineControllerStruct : It is the structure that contain ONLY the CrossLineScenario's parameters
     *      
     *  Methods :
-    *  void Start() :
-    *  void onDestroy() :
-    *  void FixedUpdate() :
-    *  void MoveLine() :
-    *  void GetConsigne() :
-    *  void SetHit() :
-    *  void RandomizeLineMovement() :
-    *  Void LineInCameraRange() :
     */
     public class CrossLineController : MonoBehaviour
     {
@@ -42,8 +34,8 @@ namespace SparringManager.CrossLine
         void Start()
         {
             scenarioControllerComponent = GetComponent<ScenarioController>();
-            _controllerStruct = scenarioControllerComponent._controllerStruct;
-            _crossLineStruct = scenarioControllerComponent._controllerStruct.CrossLineStruct;
+            _controllerStruct = scenarioControllerComponent.ControllerStruct;
+            _crossLineStruct = scenarioControllerComponent.ControllerStruct.CrossLineStruct;
             _startScenario = Time.time;
 
             Vector3 _pos3d;

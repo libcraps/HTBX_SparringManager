@@ -61,7 +61,7 @@ namespace SparringManager.CrossLine
             lineRigidComponent = GetComponent<Rigidbody>(); //this component allows us to move the line
 
             scenarioControllerComponent = GetComponent<ScenarioController>();
-            controllerStruct = scenarioControllerComponent._controllerStruct;
+            controllerStruct = scenarioControllerComponent.ControllerStruct;
             crossLineControllerStruct = controllerStruct.CrossLineStruct;
 
             mouvementConsign = new List<float>();

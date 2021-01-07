@@ -9,14 +9,16 @@ using UnityEngine;
 
 namespace SparringManager.HitLine
 {
-    //Classe du Controller du scenario HitLine
+    /*
+     * Class of the HitLineController, it manage the HitLine and is in interaction with the Session Manager and the DataManager
+     */
     public class HitLineController : MonoBehaviour
     {
         private StructScenarios controllerStruct;
         private ScenarioController scenarioControllerComponent;
         
         [SerializeField]
-        private GameObject _scenarioComposant;
+        private GameObject _scenarioComposant; //HitLine
 
         private float _reactTime;
         private float _startScenario;
@@ -28,7 +30,7 @@ namespace SparringManager.HitLine
         void Start()
         {
             scenarioControllerComponent = GetComponent<ScenarioController>();
-            controllerStruct = scenarioControllerComponent._controllerStruct;
+            controllerStruct = scenarioControllerComponent.ControllerStruct;
             hitLineControllerStruct = controllerStruct.HitLineStruct;
             _startScenario = Time.time;
 

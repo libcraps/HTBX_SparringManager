@@ -24,7 +24,7 @@ namespace SparringManager.SimpleHit
         private void Start()
         {
             scenarioControllerComponent = GetComponent<ScenarioController>();
-            _simpleHitStruct = scenarioControllerComponent._controllerStruct;
+            _simpleHitStruct = scenarioControllerComponent.ControllerStruct;
         }
 
         private void OnEnable()
