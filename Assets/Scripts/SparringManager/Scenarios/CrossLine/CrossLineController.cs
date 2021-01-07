@@ -67,8 +67,8 @@ namespace SparringManager.CrossLine
         public void GetHit(Vector2 position2d_)
         {
             float tTime = Time.time - _startScenario;
-            float _timeBeforeHit = _crossLineStruct._timeBeforeHit;
-            float _deltaHit = _crossLineStruct._deltaHit;
+            float _timeBeforeHit = _crossLineStruct.TimeBeforeHit;
+            float _deltaHit = _crossLineStruct.DeltaHit;
 
             RaycastHit hit;
             Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z);

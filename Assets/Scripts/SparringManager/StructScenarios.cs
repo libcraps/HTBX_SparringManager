@@ -20,25 +20,94 @@ namespace SparringManager
          * 
          */
         [SerializeField] //Scenatio_Name prefab
-        public GameObject _scenarioPrefab;
+        private GameObject _scenarioPrefab;
         [SerializeField]
-        public int _timerScenario;
+        private int _timerScenario;
         [SerializeField]
-        public SimpleLineStruct SimpleLineStruct;
+        private SimpleLineStruct _simpleLineStruct;
         [SerializeField]
-        public SimpleHitStruct SimpleHitStruct;
+        private SimpleHitStruct _simpleHitStruct;
         [SerializeField]
-        public HitLineStruct HitLineStruct;
+        private HitLineStruct _hitLineStruct;
         [SerializeField]
-        public CrossLineStruct CrossLineStruct;
+        private CrossLineStruct _crossLineStruct;
+
+        public GameObject ScenarioPrefab
+        {
+            get
+            {
+                return _scenarioPrefab;
+            }
+            set
+            {
+                _scenarioPrefab = value;
+            }
+        }
+
+        public int TimerScenario
+        {
+            get
+            {
+                return _timerScenario;
+            }
+            set
+            {
+                _timerScenario = value;
+            }
+        }
+        public SimpleHitStruct SimpleHitStruct
+        {
+            get
+            {
+                return _simpleHitStruct;
+            }
+            set
+            {
+                _simpleHitStruct = value;
+            }
+        }
+        public SimpleLineStruct SimpleLineStruct
+        {
+            get
+            {
+                return _simpleLineStruct;
+            }
+            set
+            {
+                _simpleLineStruct = value;
+            }
+        }
+        public CrossLineStruct CrossLineStruct
+        {
+            get
+            {
+                return _crossLineStruct;
+            }
+            set
+            {
+                _crossLineStruct = value;
+            }
+        }
+
+        public HitLineStruct HitLineStruct
+        {
+            get
+            {
+                return _hitLineStruct;
+            }
+            set
+            {
+                _hitLineStruct = value;
+            }
+        }
 
         public StructScenarios(GameObject Prefab, SimpleLineStruct simpleLineStruct, SimpleHitStruct simpleHitStruct, HitLineStruct hitLineStruct, CrossLineStruct crossLineStruct, int timer)
         {
             this._scenarioPrefab = Prefab;
-            this.SimpleLineStruct = simpleLineStruct;
-            this.SimpleHitStruct = simpleHitStruct;
-            this.CrossLineStruct = crossLineStruct;
-            this.HitLineStruct = hitLineStruct;
+            this._simpleLineStruct = simpleLineStruct;
+            this._simpleHitStruct = simpleHitStruct;
+            this._crossLineStruct = crossLineStruct;
+            this._hitLineStruct = hitLineStruct;
             this._timerScenario = timer;
         }
     }

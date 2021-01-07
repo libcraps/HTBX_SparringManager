@@ -26,19 +26,19 @@ namespace SparringManager
         {
             indexScenario = 0;
 
-            _timerScenarioI = scenarios[indexScenario]._timerScenario;
-            nameSenarioI = scenarios[indexScenario]._scenarioPrefab.name;
+            _timerScenarioI = scenarios[indexScenario].TimerScenario;
+            nameSenarioI = scenarios[indexScenario].ScenarioPrefab.name;
             _timeStartScenarioI = Time.time;
             
-            InstantiateAndBuildScenario(scenarios[indexScenario], this.gameObject, this.gameObject.transform.position);
+            InstantiateAndBuildScenario(scenarios[indexScenario], this.gameObject, this.gameObject.transform.position); 
         }
         private void Update()
         {
-            if (((Time.time - _timeStartScenarioI) > _timerScenarioI) && (indexScenario < (scenarios.Length -1)))
+            if (((Time.time - _timeStartScenarioI) > _timerScenarioI) && (indexScenario < (scenarios.Length -1))) //If the last scenario ended and there is scenarios left
             {
                 indexScenario += 1;
 
-                _timerScenarioI = scenarios[indexScenario]._timerScenario;
+                _timerScenarioI = scenarios[indexScenario].TimerScenario;
                 _timeStartScenarioI = Time.time;
 
                 InstantiateAndBuildScenario(scenarios[indexScenario], this.gameObject, this.gameObject.transform.position);
@@ -59,7 +59,7 @@ namespace SparringManager
 
             if (prefabObject == false)
             {
-                prefabObject = strucObject._scenarioPrefab; //if we don't specified the prefab we used the prefab that is in the structure (so the prefab of the scenario)
+                prefabObject = strucObject.ScenarioPrefab; //if we don't specified the prefab we used the prefab that is in the structure (so the prefab of the scenario)
             }
 
             if (_pos3d == null)
@@ -69,7 +69,7 @@ namespace SparringManager
 
             ScenarioController scenarioControllerComponent = prefabObject.GetComponent<ScenarioController>();
             scenarioControllerComponent._controllerStruct = strucObject; //we attribute the structure to the scenario component 
-            Destroy(Instantiate(prefabObject, _pos3d, Quaternion.identity, referenceGameObject.transform), strucObject._timerScenario);
+            Destroy(Instantiate(prefabObject, _pos3d, Quaternion.identity, referenceGameObject.transform), strucObject.TimerScenario);
 
             Debug.Log(prefabObject.name + " has been instantiated");
         }

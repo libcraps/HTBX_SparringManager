@@ -69,12 +69,12 @@ namespace SparringManager.CrossLine
             _lineAcceleration = new float[2];
 
             //Initialisation of the parameters
-            float _timer = controllerStruct._timerScenario;
-            _accelerationMax = crossLineControllerStruct._accelerationMax;
-            _deltaTimeMax = crossLineControllerStruct._deltaTimeMax;
-            _deltaTimeMin = crossLineControllerStruct._deltaTimeMin;
-            _deltaHit = crossLineControllerStruct._deltaHit;
-            _timeBeforeHit = crossLineControllerStruct._timeBeforeHit;
+            float _timer = controllerStruct.TimerScenario;
+            _accelerationMax = crossLineControllerStruct.AccelerationMax;
+            _deltaTimeMax = crossLineControllerStruct.DeltaTimeMax;
+            _deltaTimeMin = crossLineControllerStruct.DeltaTimeMin;
+            _deltaHit = crossLineControllerStruct.DeltaHit;
+            _timeBeforeHit = crossLineControllerStruct.TimeBeforeHit;
 
             _startScenario = Time.time;
 

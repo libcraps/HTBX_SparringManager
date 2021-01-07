@@ -54,10 +54,10 @@ namespace SparringManager.SimpleLine
             simpleLineControllerStruct = controllerStruct.SimpleLineStruct;
 
             //Initialisation of the parameters
-            float _timer = controllerStruct._timerScenario;
-            _accelerationMax = simpleLineControllerStruct._accelerationMax;
-            _deltaTimeMax = simpleLineControllerStruct._deltaTimeMax;
-            _deltaTimeMin = simpleLineControllerStruct._deltaTimeMin;
+            float _timer = controllerStruct.TimerScenario;
+            _accelerationMax = simpleLineControllerStruct.AccelerationMax;
+            _deltaTimeMax = simpleLineControllerStruct.DeltaTimeMax;
+            _deltaTimeMin = simpleLineControllerStruct.DeltaTimeMin;
             _startScenario = Time.time;
 
             Debug.Log(this.gameObject.name + " timer " + _timer);

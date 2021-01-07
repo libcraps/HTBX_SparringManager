@@ -64,14 +64,14 @@ namespace SparringManager.HitLine
             mouvementConsign = new List<float>();
             timeListScenario = new List<float>();
         
-            float _timer = controllerStruct._timerScenario;
+            float _timer = controllerStruct.TimerScenario;
 
             //Initialisation of the parameters
-            _accelerationMax = hitLineControllerStruct._accelerationMax;
-            _deltaTimeMax = hitLineControllerStruct._deltaTimeMax;
-            _deltaTimeMin = hitLineControllerStruct._deltaTimeMin;
-            _deltaHit = hitLineControllerStruct._deltaHit;
-            _timeBeforeHit = hitLineControllerStruct._timeBeforeHit;
+            _accelerationMax = hitLineControllerStruct.AccelerationMax;
+            _deltaTimeMax = hitLineControllerStruct.DeltaTimeMax;
+            _deltaTimeMin = hitLineControllerStruct.DeltaTimeMin;
+            _deltaHit = hitLineControllerStruct.DeltaHit;
+            _timeBeforeHit = hitLineControllerStruct.TimeBeforeHit;
 
             _startScenario = Time.time;
 

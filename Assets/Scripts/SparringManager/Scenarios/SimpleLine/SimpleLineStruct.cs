@@ -9,11 +9,46 @@ namespace SparringManager.SimpleLine
     {
         //Parameters of the SimpleLineStruct scenario
         [SerializeField]
-        public int _accelerationMax;
+        private int _accelerationMax;
         [SerializeField]
-        public int _deltaTimeMax;
+        private int _deltaTimeMax;
         [SerializeField]
-        public int _deltaTimeMin;
+        private int _deltaTimeMin;
+
+        public int AccelerationMax
+        {
+            get
+            {
+                return _accelerationMax;
+            }
+            set
+            {
+                _accelerationMax = value;
+            }
+        }
+        public int DeltaTimeMax
+        {
+            get
+            {
+                return _deltaTimeMax;
+            }
+            set
+            {
+                _deltaTimeMax  = value;
+            }
+        }
+        public int DeltaTimeMin
+        {
+            get
+            {
+                return _deltaTimeMin;
+            }
+            set
+            {
+                _deltaTimeMin = value;
+            }
+        }
+
 
         public SimpleLineStruct(int acceleration, int deltaMin, int deltaMax)
         {

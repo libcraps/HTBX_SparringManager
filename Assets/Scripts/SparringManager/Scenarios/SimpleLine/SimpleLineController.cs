@@ -6,7 +6,6 @@ namespace SparringManager.SimpleLine
     public class SimpleLineController : MonoBehaviour
     {
         private StructScenarios _controllerStruct;
-
         private ScenarioController _scenarioControllerComponent;
 
         [SerializeField]

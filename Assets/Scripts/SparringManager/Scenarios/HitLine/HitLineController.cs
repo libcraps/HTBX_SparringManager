@@ -53,8 +53,8 @@ namespace SparringManager.HitLine
         public void GetHit(Vector2 position2d_)
         {
             float tTime = Time.time - _startScenario;
-            float _timeBeforeHit = hitLineControllerStruct._timeBeforeHit;
-            float _deltaHit = hitLineControllerStruct._deltaHit;
+            float _timeBeforeHit = hitLineControllerStruct.TimeBeforeHit;
+            float _deltaHit = hitLineControllerStruct.DeltaHit;
 
             RaycastHit hit;
             Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z);
