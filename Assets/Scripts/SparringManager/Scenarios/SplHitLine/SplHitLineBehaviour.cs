@@ -26,27 +26,10 @@ namespace SparringManager.SplHitLine
      */
     public class SplHitLineBehaviour : MonoBehaviour
     {
-        private GameObject _lineToHit;
-        private Rigidbody _lineRigidComponent;
+
+        //General variables of a MovingLine
         private float _lineAcceleration;
         private int _deltaTimeChangeAcceleration;
-        private float _timeBeforeHit;
-        private float _deltaHit;
-        private float _startTimeScenario;
-
-        private float _previousTime;
-        private float _tTime;
-
-        private bool _upLineToHit;
-        private bool _downLineToHit;
-        private bool _hitted;
-
-        private Vector3 _initScale;
-        private Vector3 _localPos;
-        private int _scaleMaxValue;
-        private float _scaleSpeed;
-        private int _scaleSide; //-1 ou 1
-
         public float LineAcceleration
         {
             get
@@ -69,26 +52,31 @@ namespace SparringManager.SplHitLine
                 _deltaTimeChangeAcceleration = value;
             }
         }
-        public bool UpLineToHit
+
+        //Variables of an Hitting Line
+        private float _timeBeforeHit;
+        private float _deltaHit;
+        private bool _hitted;
+        public float DeltaHit
         {
             get
             {
-                return _upLineToHit;
+                return _deltaHit;
             }
             set
             {
-                _upLineToHit = value;
+                _deltaHit = value;
             }
         }
-        public bool DownLineToHit
+        public float TimeBeforeHit
         {
             get
             {
-                return _downLineToHit;
+                return _timeBeforeHit;
             }
             set
             {
-                _downLineToHit= value;
+                _timeBeforeHit = value;
             }
         }
         public bool Hitted
@@ -100,6 +88,34 @@ namespace SparringManager.SplHitLine
             set
             {
                 _hitted = value;
+            }
+        }
+
+        //Global Time variable
+        private float _startTimeScenario;
+        private float _tTime;
+
+        //Specific variables of SplHitLine
+        // -> Variables presents in the SplHitLineStructure
+        private GameObject _lineToHit;
+        private int _scaleMaxValue;
+        private float _scaleSpeed;
+        private int _scaleSide; //-1 ou 1
+        private bool _fixPosHit; //Boolean to indicate if the line continue to move when the hit is setted
+        // -> other usefull variables
+        private Vector3 _initScale;
+        private int _fixPosHitValue = 1; // if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
+
+        //UseFull only for SplHitLine
+        public GameObject LineToHit
+        {
+            get
+            {
+                return _lineToHit;
+            }
+            set
+            {
+                _lineToHit = value;
             }
         }
         public int ScaleSide
@@ -135,59 +151,35 @@ namespace SparringManager.SplHitLine
                 _scaleSpeed = value;
             }
         }
-        public float DeltaHit
+        public bool FixPosHit
         {
             get
             {
-                return _deltaHit;
+                return _fixPosHit;
             }
             set
             {
-                _deltaHit = value;
-            }
-        }
-        public float TimeBeforeHit
-        {
-            get
-            {
-                return _timeBeforeHit;
-            }
-            set
-            {
-                _timeBeforeHit = value;
-            }
-        }
-        public GameObject LineToHit
-        {
-            get
-            {
-                return _lineToHit;
-            }
-            set
-            {
-                _lineToHit = value;
+                _fixPosHit = value;
             }
         }
 
         void Start()
         {
-            _lineRigidComponent = this.gameObject.GetComponent<Rigidbody>();
+            //Initialisation of the scale
             _initScale = LineToHit.transform.localScale;
             _initScale.x = _initScale.x * _scaleSide;
             LineToHit.transform.localScale = _initScale;
 
-            //Initialisation of the time and the acceleration
+            //Initialisation of the time
             _startTimeScenario = Time.time;
             _tTime = Time.time - _startTimeScenario;
-            _previousTime = _tTime;
-
         }
 
         void FixedUpdate()
         {
             _tTime = Time.time - _startTimeScenario;
             LineInCameraRange();
-            MoveLine(_lineAcceleration);
+            MoveLine(_fixPosHitValue * _lineAcceleration);
             SetHit(_lineToHit);
         }
 
@@ -215,10 +207,15 @@ namespace SparringManager.SplHitLine
             if (canHit && _hitted == false)
             {
                 LineObject.GetComponent<MeshRenderer>().material.color = Color.red;
+
                 if (Mathf.Abs(LineObject.transform.localScale.x) < _scaleMaxValue)
                 {
                     newScale.x += _scaleSide * _scaleSpeed;
                     linePos3d.x += _scaleSide * _scaleSpeed / 2;
+                }
+                if (_fixPosHit == true)
+                {
+                    _fixPosHitValue = 0;
                 }
             }
             else
@@ -229,6 +226,7 @@ namespace SparringManager.SplHitLine
                     newScale.x -= _scaleSpeed * _scaleSide;
                     linePos3d.x -= _scaleSide * _scaleSpeed / 2;
                 }
+                _fixPosHitValue = 1;
             }
 
             LineObject.transform.localScale = newScale;

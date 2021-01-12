@@ -20,6 +20,7 @@ namespace SparringManager.SplHitLine
         private int _deltaTimeMin;
         private float _deltaHit;
         private float _timeBeforeHit;
+        private bool _fixPosHit; //Boolean to indicate if the line continue to move when the hit is setted
 
         private float _previousTime;
         private float _tTime;
@@ -30,6 +31,7 @@ namespace SparringManager.SplHitLine
         private bool _hitted;
         private float _lineAcceleration;
 
+        //Object that contain datas (structures)
         private ScenarioController _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
         private SplHitLineStruct _splHitLineControllerStruct;
@@ -49,7 +51,6 @@ namespace SparringManager.SplHitLine
             _scenarioControllerComponent = GetComponent<ScenarioController>();
             _controllerStruct = _scenarioControllerComponent.ControllerStruct;
             _splHitLineControllerStruct = _controllerStruct.SplHitLineStruct;
-
             SetControllerVariables();
 
             _hitted = false;
@@ -57,6 +58,7 @@ namespace SparringManager.SplHitLine
             timeListScenario = new List<float>();
 
             Debug.Log(this.gameObject.name + " timer " + _timerScenario);
+
             //Initialisation of the time and the acceleration
             _startTimeScenario = Time.time;
             _tTime = Time.time - _startTimeScenario;
@@ -80,6 +82,7 @@ namespace SparringManager.SplHitLine
 
             _splHitLineComponent = this.gameObject.GetComponentInChildren<SplHitLineBehaviour>();
             SetComponentVariables();
+            SetLineToHit(); // We define at the beginning of the scenario which line will be scale and in which direction
         }
 
         private void FixedUpdate()
@@ -139,14 +142,15 @@ namespace SparringManager.SplHitLine
             System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
             if ((_tTime - _previousTime) > _splHitLineComponent.DeltaTimeChangeAcceleration)
-            {
+            {   
                 _splHitLineComponent.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
-                _previousTime = _tTime;
                 _splHitLineComponent.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
+
+                _previousTime = _tTime;
             }
         }
 
-        private void SetHitVariables()
+        private void SetLineToHit()
         {
             /*
              * Methode that defines which part of the line the player will have to hit and in which direction it will scale
@@ -172,11 +176,11 @@ namespace SparringManager.SplHitLine
         }
         private void SetComponentVariables()
         {
-            SetHitVariables(); // We define at the beginning of the scenario which line will be scale and in which direction
             _splHitLineComponent.TimeBeforeHit = _splHitLineControllerStruct.TimeBeforeHit;
             _splHitLineComponent.DeltaHit = _splHitLineControllerStruct.DeltaHit;
             _splHitLineComponent.ScaleMaxValue = _splHitLineControllerStruct.ScaleMaxValue;
             _splHitLineComponent.ScaleSpeed = _splHitLineControllerStruct.ScaleSpeed;
+            _splHitLineComponent.FixPosHit = _splHitLineControllerStruct.FixPosHit;
         }
 
         private void SetControllerVariables()
@@ -187,6 +191,7 @@ namespace SparringManager.SplHitLine
             _deltaTimeMin = _splHitLineControllerStruct.DeltaTimeMin;
             _timeBeforeHit = _splHitLineControllerStruct.TimeBeforeHit;
             _deltaHit = _splHitLineControllerStruct.DeltaHit;
+            _fixPosHit = _splHitLineControllerStruct.FixPosHit;
         }
 
     }

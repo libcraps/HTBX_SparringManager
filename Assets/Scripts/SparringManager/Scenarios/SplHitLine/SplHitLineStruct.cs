@@ -23,6 +23,8 @@ namespace SparringManager.SplHitLine
         private int _scaleMaxValue;
         [SerializeField]
         private float _scaleSpeed;
+        [SerializeField]
+        private bool _fixPosHit;
 
         public int ScaleMaxValue
         {
@@ -112,8 +114,19 @@ namespace SparringManager.SplHitLine
                 _deltaHit = value;
             }
         }
+        public bool FixPosHit
+        {
+            get
+            {
+                return _fixPosHit;
+            }
+            set
+            {
+                _fixPosHit = value;
+            }
+        }
 
-        public SplHitLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, int scaleMaxValue, int scaleSpeed)
+        public SplHitLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, int scaleMaxValue, int scaleSpeed, bool fixPosHit)
         {
             this._hitPrefab = hitPrefab;
             this._accelerationMax = acceleration;
@@ -123,6 +136,7 @@ namespace SparringManager.SplHitLine
             this._deltaHit = deltaHit;
             this._scaleSpeed = scaleSpeed;
             this._scaleMaxValue = scaleMaxValue;
+            this._fixPosHit = fixPosHit;
         }
     }
 }
