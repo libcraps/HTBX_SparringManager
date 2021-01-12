@@ -20,7 +20,6 @@ namespace SparringManager.SplHitLine
         private int _deltaTimeMin;
         private float _deltaHit;
         private float _timeBeforeHit;
-        private bool _fixPosHit; //Boolean to indicate if the line continue to move when the hit is setted
 
         private float _previousTime;
         private float _tTime;
@@ -57,17 +56,12 @@ namespace SparringManager.SplHitLine
             mouvementConsign = new List<float>();
             timeListScenario = new List<float>();
 
-            Debug.Log(this.gameObject.name + " timer " + _timerScenario);
-
             //Initialisation of the time and the acceleration
             _startTimeScenario = Time.time;
             _tTime = Time.time - _startTimeScenario;
             _previousTime = _tTime;
 
-            System.Random random = new System.Random();
-            _deltaTime = random.Next(_deltaTimeMin, _deltaTimeMax);
-            _lineAcceleration = random.Next(-_accelerationMax, _accelerationMax);
-
+            Debug.Log(this.gameObject.name + " for " + _timerScenario + " seconds");
             Debug.Log("Acceleration : " + _lineAcceleration);
             Debug.Log("Deta T : " + _deltaTime);
         }
@@ -191,7 +185,6 @@ namespace SparringManager.SplHitLine
             _deltaTimeMin = _splHitLineControllerStruct.DeltaTimeMin;
             _timeBeforeHit = _splHitLineControllerStruct.TimeBeforeHit;
             _deltaHit = _splHitLineControllerStruct.DeltaHit;
-            _fixPosHit = _splHitLineControllerStruct.FixPosHit;
         }
 
     }

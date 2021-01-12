@@ -173,6 +173,7 @@ namespace SparringManager.SplHitLine
             //Initialisation of the time
             _startTimeScenario = Time.time;
             _tTime = Time.time - _startTimeScenario;
+
         }
 
         void FixedUpdate()
