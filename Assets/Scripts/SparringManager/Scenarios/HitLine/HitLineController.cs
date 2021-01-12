@@ -37,7 +37,7 @@ namespace SparringManager.HitLine
 
         [SerializeField]
         private GameObject _scenarioComposant; //HitLine
-        private HitLine _hitLineComponent;
+        private HitLineBehaviour _hitLineComponent;
 
         //List of the data that we will export 
         private List<float> mouvementConsign;
@@ -82,7 +82,7 @@ namespace SparringManager.HitLine
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
             Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
-            _hitLineComponent = GetComponentInChildren<HitLine>();
+            _hitLineComponent = GetComponentInChildren<HitLineBehaviour>();
         }
 
         private void FixedUpdate()

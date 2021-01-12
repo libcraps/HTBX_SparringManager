@@ -20,7 +20,7 @@ namespace SparringManager.SimpleLine
      *  void MoveLine() :
      *  Void LineInCameraRange() :
      */
-    public class SimpleLine : MonoBehaviour
+    public class SimpleLineBehaviour : MonoBehaviour
     {
 
         private Rigidbody _lineRigidComponent;

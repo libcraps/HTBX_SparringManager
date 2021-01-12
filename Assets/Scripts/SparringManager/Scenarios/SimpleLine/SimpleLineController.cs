@@ -23,7 +23,7 @@ namespace SparringManager.SimpleLine
 
         [SerializeField]
         private GameObject _scenarioComposant;
-        private SimpleLine _simpleLineComponent;
+        private SimpleLineBehaviour _simpleLineComponent;
 
         private void Awake()
         {
@@ -61,7 +61,7 @@ namespace SparringManager.SimpleLine
 
             Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
 
-            _simpleLineComponent = GetComponentInChildren<SimpleLine>();
+            _simpleLineComponent = GetComponentInChildren<SimpleLineBehaviour>();
         }
 
         private void FixedUpdate()

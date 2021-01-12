@@ -1,41 +1,50 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using SparringManager.DataManager;
-using SparringManager.DataManager.CrossLine;
 using UnityEngine;
 
-namespace SparringManager.CrossLine
+namespace SparringManager.HitLine
 {
-     /* Class nof the CrossLine Scenario
+    /* Class nof the CrossLine Scenario
      * 
      *  Summary :
-     *  This Scenario is similar to HitLin except that it represents a cross that can move right/left and upside/down
-     *  This class animate the cross
+     *  This Scenario represents a line that can move lateraly and set a hit for the player
+     *  This class animate the line
      *  
      *  Importants Attributs :
      *      scenariocontroller scenariocontrollercomponent : It is the component ScenarioController of the prefab object, it allows us to stock specific parameters of the scenario (acceleration, delta hit, etc...) -> it is in the structure controllerstruct
-     *      StructScenarios controllerStruct : It is the structure that contains the StructScenarios scenarios[i] (in this structure we can find the structure crossLineStruct that contains the structure CrossLineStruct)
-     *      CrossLineStruct crossLineControllerStruct : It is the structure that contain ONLY the CrossLineScenario's parameters
+     *      StructScenarios controllerStruct : It is the structure that contains the StructScenarios scenarios[i] (in this structure we can find the structure hitLineStruct that contains the structure HitLineStruct)
+     *      HitLineStruct hitLineControllerStruct : It is the structure that contain ONLY the HitLineScenario's parameters
      *      
      *  Methods :
      *  void Start() :
      *  void onDestroy() :
      *  void FixedUpdate() :
      *  void MoveLine() :
-     *  void GetConsigne() :
-     *  void SetHit() :
      *  void RandomizeLineMovement() :
      *  Void LineInCameraRange() :
      */
-    public class CrossLine : MonoBehaviour
+    public class HitLineBehaviour : MonoBehaviour
     {
-        private Rigidbody _lineRigidComponent;
 
-        private float _acceleration;
+        private Rigidbody _lineRigidComponent;
+        private float _lineAcceleration;
+
+        public float LineAcceleration
+        {
+            get
+            {
+                return _lineAcceleration;
+            }
+            set
+            {
+                _lineAcceleration = value;
+            }
+        }
+
         void Start()
         {
-            _lineRigidComponent = new Rigidbody();
-            _lineRigidComponent = GetComponent<Rigidbody>(); //this component allows us to move the line
+            _lineRigidComponent = GetComponent<Rigidbody>();
         }
 
         void FixedUpdate()
@@ -43,36 +52,27 @@ namespace SparringManager.CrossLine
             LineInCameraRange();
         }
 
-        public void MoveLine(float lineHorizontalAcceleration, float lineVerticalAcceleration)
+        public void MoveLine(float lineHorizontalAcceleration)
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
-            _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, lineVerticalAcceleration, 0);
+            _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
 
         public void SetHit(float tTime, float timeBeforeHit, float deltaHit, bool hitted)
         {
             //change the color of the line if the player have to hit
             bool canHit = (tTime > timeBeforeHit && (tTime - timeBeforeHit) < deltaHit);
-            GameObject VertLineObject = GameObject.Find(this.gameObject.transform.GetChild(0).name);
-            GameObject HorizLineObject = GameObject.Find(this.gameObject.transform.GetChild(1).name);
 
-            if (canHit && hitted == false)
+            if (canHit && hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
             {
-                VertLineObject.GetComponent<MeshRenderer>().material.color = Color.red;
-                HorizLineObject.GetComponent<MeshRenderer>().material.color = Color.red;
+                GetComponent<MeshRenderer>().material.color = Color.red;
             }
             else
             {
-                VertLineObject.GetComponent<MeshRenderer>().material.color = Color.white;
-                HorizLineObject.GetComponent<MeshRenderer>().material.color = Color.white;
+                GetComponent<MeshRenderer>().material.color = Color.white;
             }
         }
 
-        public void SetTargetAcceleration(float acceleration)
-        {
-            _acceleration = acceleration;
-        }
-        
         void LineInCameraRange()
         {
             /* 
@@ -81,8 +81,9 @@ namespace SparringManager.CrossLine
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
 
-            GameObject cameraObject = GameObject.Find("RenderCamera_Hitbox1");
-            Camera renderCamera = cameraObject.GetComponent<Camera>();
+            GameObject _HitLineController = GameObject.Find(this.gameObject.transform.parent.name);
+            GameObject gameObject = GameObject.Find(_HitLineController.gameObject.transform.parent.name);
+            Camera renderCamera = gameObject.GetComponent<Camera>();
             float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
 
             renderCameraPos3d.x = renderCamera.transform.position.x;
@@ -96,21 +97,13 @@ namespace SparringManager.CrossLine
             //Instruction whether the line gets out of the render camera range
             if (linePos3d.x > renderCameraPos3d.x + rangeSize)
             {
-                linePos3d.y -= 2* rangeSize;
+                linePos3d.x -= 2* rangeSize;
             } 
             else if (linePos3d.x < renderCameraPos3d.x - rangeSize)
             {
-                linePos3d.y += 2* rangeSize;
+                linePos3d.x += 2* rangeSize;
             }
-            //Instruction whether the line gets out of the render camera range
-            if (linePos3d.y > renderCameraPos3d.y + rangeSize)
-            {
-                linePos3d.y -= 2 * rangeSize;
-            }
-            else if (linePos3d.y < renderCameraPos3d.y - rangeSize)
-            {
-                linePos3d.y += 2 * rangeSize;
-            }
+
             this.gameObject.transform.position = linePos3d;
         }
         void OnDestroy()

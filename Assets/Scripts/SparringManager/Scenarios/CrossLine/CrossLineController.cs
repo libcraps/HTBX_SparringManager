@@ -47,7 +47,7 @@ namespace SparringManager.CrossLine
 
         [SerializeField]
         private GameObject _scenarioComposant;
-        private CrossLine _crossLineComponent;
+        private CrossLineBehaviour _crossLineComponent;
 
         private void Awake()
         {
@@ -90,7 +90,7 @@ namespace SparringManager.CrossLine
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
             Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
-            _crossLineComponent = GetComponentInChildren<CrossLine>();
+            _crossLineComponent = GetComponentInChildren<CrossLineBehaviour>();
         }
 
         private void FixedUpdate()
