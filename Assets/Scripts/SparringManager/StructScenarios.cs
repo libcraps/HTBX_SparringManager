@@ -3,6 +3,7 @@ using SparringManager.SimpleLine;
 using SparringManager.HitLine;
 using SparringManager.SimpleHit;
 using SparringManager.CrossLine;
+using SparringManager.SplHitLine;
 using System.Collections.Generic;
 
 namespace SparringManager
@@ -31,6 +32,8 @@ namespace SparringManager
         private HitLineStruct _hitLineStruct;
         [SerializeField]
         private CrossLineStruct _crossLineStruct;
+        [SerializeField]
+        private SplHitLineStruct _splHitLineStruct;
 
         public GameObject ScenarioPrefab
         {
@@ -100,13 +103,26 @@ namespace SparringManager
             }
         }
 
-        public StructScenarios(GameObject Prefab, SimpleLineStruct simpleLineStruct, SimpleHitStruct simpleHitStruct, HitLineStruct hitLineStruct, CrossLineStruct crossLineStruct, int timer)
+        public SplHitLineStruct SplHitLineStruct
+        {
+            get
+            {
+                return _splHitLineStruct;
+            }
+            set
+            {
+                _splHitLineStruct = value;
+            }
+        }
+
+        public StructScenarios(GameObject Prefab, SimpleLineStruct simpleLineStruct, SimpleHitStruct simpleHitStruct, HitLineStruct hitLineStruct, CrossLineStruct crossLineStruct, SplHitLineStruct splHitLine, int timer)
         {
             this._scenarioPrefab = Prefab;
             this._simpleLineStruct = simpleLineStruct;
             this._simpleHitStruct = simpleHitStruct;
             this._crossLineStruct = crossLineStruct;
             this._hitLineStruct = hitLineStruct;
+            this._splHitLineStruct = splHitLine;
             this._timerScenario = timer;
         }
     }

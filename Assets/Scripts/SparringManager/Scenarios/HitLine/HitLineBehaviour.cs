@@ -29,6 +29,7 @@ namespace SparringManager.HitLine
 
         private Rigidbody _lineRigidComponent;
         private float _lineAcceleration;
+        private float _deltaChangeBehaviour;
 
         public float LineAcceleration
         {
@@ -44,7 +45,7 @@ namespace SparringManager.HitLine
 
         void Start()
         {
-            _lineRigidComponent = GetComponent<Rigidbody>();
+            _lineRigidComponent = this.gameObject.GetComponent<Rigidbody>();
         }
 
         void FixedUpdate()
@@ -55,7 +56,7 @@ namespace SparringManager.HitLine
         public void MoveLine(float lineHorizontalAcceleration)
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
-            _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
+            this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
 
         public void SetHit(float tTime, float timeBeforeHit, float deltaHit, bool hitted)
@@ -65,11 +66,11 @@ namespace SparringManager.HitLine
 
             if (canHit && hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
             {
-                GetComponent<MeshRenderer>().material.color = Color.red;
+                this.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
             }
             else
             {
-                GetComponent<MeshRenderer>().material.color = Color.white;
+                this.gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
             }
         }
 

@@ -35,7 +35,7 @@ namespace SparringManager.CrossLine
         void Start()
         {
             _lineRigidComponent = new Rigidbody();
-            _lineRigidComponent = GetComponent<Rigidbody>(); //this component allows us to move the line
+            _lineRigidComponent = this.gameObject.GetComponent<Rigidbody>(); //this component allows us to move the line
         }
 
         void FixedUpdate()
@@ -68,10 +68,7 @@ namespace SparringManager.CrossLine
             }
         }
 
-        public void SetTargetAcceleration(float acceleration)
-        {
-            _acceleration = acceleration;
-        }
+
         
         void LineInCameraRange()
         {

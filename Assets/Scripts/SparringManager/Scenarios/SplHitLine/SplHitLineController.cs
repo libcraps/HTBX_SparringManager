@@ -7,12 +7,12 @@ using System.Data;
 using System.Text;
 using UnityEngine;
 
-namespace SparringManager.HitLine
+namespace SparringManager.SplHitLine
 {
     /*
-     * Class of the HitLineController, it manage the HitLine and is in interaction with the Session Manager and the DataManager
+     * Class of the SplHitLineController, it manage the HitLine and is in interaction with the Session Manager and the DataManager
      */
-    public class HitLineController : MonoBehaviour
+    public class SplHitLineController : MonoBehaviour
     {
         //Usefull parameters of the scenario, they are in the crossLineStructure
         private int _accelerationMax;
@@ -32,12 +32,12 @@ namespace SparringManager.HitLine
 
         private ScenarioController _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
-        private HitLineStruct _hitLineControllerStruct;
-        private HitLineDataStruct _hitLineData;
+        private SplHitLineStruct _splHitLineControllerStruct;
+        private HitLineDataStruct _splHitLineData;
 
         [SerializeField]
-        private GameObject _scenarioComposant; //HitLine
-        private HitLineBehaviour _hitLineComponent;
+        private GameObject _scenarioComposant; //splHitLine
+        private SplHitLineBehaviour _splHitLineComponent;
 
         //List of the data that we will export 
         private List<float> mouvementConsign;
@@ -48,14 +48,9 @@ namespace SparringManager.HitLine
             //INITIALISATION OF VARIABLES 
             _scenarioControllerComponent = GetComponent<ScenarioController>();
             _controllerStruct = _scenarioControllerComponent.ControllerStruct;
-            _hitLineControllerStruct = _controllerStruct.HitLineStruct;
+            _splHitLineControllerStruct = _controllerStruct.SplHitLineStruct;
 
-            _timerScenario = _controllerStruct.TimerScenario;
-            _accelerationMax = _hitLineControllerStruct.AccelerationMax;
-            _deltaTimeMax = _hitLineControllerStruct.DeltaTimeMax;
-            _deltaTimeMin = _hitLineControllerStruct.DeltaTimeMin;
-            _timeBeforeHit = _hitLineControllerStruct.TimeBeforeHit;
-            _deltaHit = _hitLineControllerStruct.DeltaHit;
+            SetControllerVariables();
 
             _hitted = false;
             mouvementConsign = new List<float>();
@@ -82,19 +77,17 @@ namespace SparringManager.HitLine
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
             Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
-            _hitLineComponent = this.gameObject.GetComponentInChildren<HitLineBehaviour>();
+
+            _splHitLineComponent = this.gameObject.GetComponentInChildren<SplHitLineBehaviour>();
+            SetComponentVariables();
         }
 
         private void FixedUpdate()
         {
             //Update the "situation" of the line
             _tTime = Time.time - _startTimeScenario;
-            RandomizeParametersLineMovement(_tTime, ref _previousTime, ref _deltaTime, ref _lineAcceleration, _accelerationMax, _deltaTimeMin, _deltaTimeMax);
-
-            _hitLineComponent.SetHit(_tTime, _timeBeforeHit, _deltaHit, _hitted);
-            _hitLineComponent.MoveLine(_lineAcceleration);
-
-            GetConsigne(_tTime, _hitLineComponent.transform.position.x);
+            RandomizeParametersLineMovement( _accelerationMax, _deltaTimeMin, _deltaTimeMax);
+            GetConsigne(_tTime, _splHitLineComponent.transform.position.x);
         }
 
         private void OnEnable()
@@ -109,21 +102,19 @@ namespace SparringManager.HitLine
 
         public void GetHit(Vector2 position2d_)
         {
-            float tTime = Time.time - _startTimeScenario;
-            float _timeBeforeHit = _hitLineControllerStruct.TimeBeforeHit;
-            float _deltaHit = _hitLineControllerStruct.DeltaHit;
-
             RaycastHit hit;
             Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z);
             Vector3 rayCastDirection = new Vector3(0, 0, 1);
 
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
-            bool canHit = (tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit);
+            bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
 
             if (rayOnTarget && canHit && _hitted == false)
             {
-                _reactTime = tTime - _timeBeforeHit;
+                _reactTime = _tTime - _timeBeforeHit;
+
                 _hitted = true;
+                _splHitLineComponent.Hitted = true;
 
                 Debug.Log("Line touched : " + position2d_);
                 Debug.Log("React time : " + _reactTime);
@@ -133,33 +124,70 @@ namespace SparringManager.HitLine
         void OnDestroy()
         {
             _reactTime = 0;
-            _hitted = false;
+            _hitted = false; 
+            _splHitLineComponent.Hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
-        /*
-        void GetData()
-        {
-
-        }
-        */
 
         private void GetConsigne(float time, float pos)
         {
             mouvementConsign.Add(pos);
             timeListScenario.Add(time);
         }
-        private void RandomizeParametersLineMovement(float tTime, ref float previousTime, ref float deltaTime, ref float lineAcceleration, int accelerationMax, int deltaTimeMin, int deltaTimeMax)
+        private void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
         {
             System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((tTime - previousTime) > deltaTime)
+            if ((_tTime - _previousTime) > _splHitLineComponent.DeltaTimeChangeAcceleration)
             {
-                lineAcceleration = random.Next(-accelerationMax, accelerationMax);
-                previousTime = tTime;
-                deltaTime = random.Next(deltaTimeMin, deltaTimeMax);
+                _splHitLineComponent.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
+                _previousTime = _tTime;
+                _splHitLineComponent.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
             }
         }
 
+        private void SetHitVariables()
+        {
+            /*
+             * Methode that defines which part of the line the player will have to hit and in which direction it will scale
+             * 
+             */
+            if (_splHitLineComponent.LineToHit == null)
+            {
+                System.Random random = new System.Random();
+                int randomLine = random.Next(2);
+                int randomScaleSide = random.Next(2);
+
+                _splHitLineComponent.LineToHit = GameObject.Find(_splHitLineComponent.transform.GetChild(randomLine).name);
+
+                if (randomScaleSide == 0)
+                {
+                    _splHitLineComponent.ScaleSide = -1;
+                } 
+                else
+                {
+                    _splHitLineComponent.ScaleSide = 1;
+                }
+            }
+        }
+        private void SetComponentVariables()
+        {
+            SetHitVariables(); // We define at the beginning of the scenario which line will be scale and in which direction
+            _splHitLineComponent.TimeBeforeHit = _splHitLineControllerStruct.TimeBeforeHit;
+            _splHitLineComponent.DeltaHit = _splHitLineControllerStruct.DeltaHit;
+            _splHitLineComponent.ScaleMaxValue = _splHitLineControllerStruct.ScaleMaxValue;
+            _splHitLineComponent.ScaleSpeed = _splHitLineControllerStruct.ScaleSpeed;
+        }
+
+        private void SetControllerVariables()
+        {
+            _timerScenario = _controllerStruct.TimerScenario;
+            _accelerationMax = _splHitLineControllerStruct.AccelerationMax;
+            _deltaTimeMax = _splHitLineControllerStruct.DeltaTimeMax;
+            _deltaTimeMin = _splHitLineControllerStruct.DeltaTimeMin;
+            _timeBeforeHit = _splHitLineControllerStruct.TimeBeforeHit;
+            _deltaHit = _splHitLineControllerStruct.DeltaHit;
+        }
 
     }
 }
