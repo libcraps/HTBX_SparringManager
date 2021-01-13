@@ -1,9 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
-using SparringManager.SimpleLine;
-using SparringManager.HitLine;
-using SparringManager.CrossLine;
 using UnityEngine;
 
 namespace SparringManager
@@ -11,9 +8,11 @@ namespace SparringManager
     public class SessionManager : MonoBehaviour
     {
         [SerializeField]
+        private string _name = "Romuald";
+        [SerializeField]
         private StructScenarios[] scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
 
-        private int indexScenario;
+        private int _indexScenario;
         private string nameSenarioI;
 
         string path;
@@ -22,26 +21,40 @@ namespace SparringManager
         private int _timerScenarioI;
         private float _timeStartScenarioI;
 
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+        }
+        public int IndexScenarios
+        {
+            get
+            {
+                return _indexScenario;
+            }
+        }
         void Start()
         {
-            indexScenario = 0;
+            _indexScenario = 0;
 
-            _timerScenarioI = scenarios[indexScenario].TimerScenario;
-            nameSenarioI = scenarios[indexScenario].ScenarioPrefab.name;
+            _timerScenarioI = scenarios[_indexScenario].TimerScenario;
+            nameSenarioI = scenarios[_indexScenario].ScenarioPrefab.name;
             _timeStartScenarioI = Time.time;
             
-            InstantiateAndBuildScenario(scenarios[indexScenario], this.gameObject, this.gameObject.transform.position); 
+            InstantiateAndBuildScenario(scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position); 
         }
         private void Update()
         {
-            if (((Time.time - _timeStartScenarioI) > _timerScenarioI) && (indexScenario < (scenarios.Length -1))) //If the last scenario ended and there is scenarios left
+            if (((Time.time - _timeStartScenarioI) > _timerScenarioI) && (_indexScenario < (scenarios.Length -1))) //If the last scenario ended and there is scenarios left
             {
-                indexScenario += 1;
+                _indexScenario += 1;
 
-                _timerScenarioI = scenarios[indexScenario].TimerScenario;
+                _timerScenarioI = scenarios[_indexScenario].TimerScenario;
                 _timeStartScenarioI = Time.time;
 
-                InstantiateAndBuildScenario(scenarios[indexScenario], this.gameObject, this.gameObject.transform.position);
+                InstantiateAndBuildScenario(scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
             }
         }
 

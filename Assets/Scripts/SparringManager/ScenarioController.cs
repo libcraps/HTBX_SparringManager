@@ -23,5 +23,12 @@ namespace SparringManager
                 _controllerStruct = value;
             }
         }
+
+        public List<string> ToListString()
+        {
+            List<string> listString = new List<string>();
+
+            return listString;
+        }
     }
 }

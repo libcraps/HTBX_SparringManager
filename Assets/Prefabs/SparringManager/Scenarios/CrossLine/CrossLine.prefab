@@ -91,8 +91,13 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
+<<<<<<< Updated upstream
   m_Size: {x: 0.013496716, y: 1.6356335, z: 1}
   m_Center: {x: 0.00011303822, y: -0.01765709, z: 0}
+=======
+  m_Size: {x: 0.020497406, y: 2.2800765, z: 1}
+  m_Center: {x: 0.00045904957, y: 0.034914114, z: 0}
+>>>>>>> Stashed changes
 --- !u!1 &6681613717435480839
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +160,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b903e53ebd1b94245a4bba50afa3e33a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
+=======
+--- !u!114 &3504814324648189875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6681613717435480839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b2c639998aa984280a05beef7c6b01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controllerStruct:
+    _scenarioPrefab: {fileID: 0}
+    _timerScenario: 0
+    _simpleLineStruct:
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
+    _hitLineStruct:
+      _hitPrefab: {fileID: 0}
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
+      _deltaHit: 0
+      _timeBeforeHit: 0
+    _crossLineStruct:
+      _hitPrefab: {fileID: 0}
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
+      _deltaHit: 0
+      _timeBeforeHit: 0
+>>>>>>> Stashed changes
 --- !u!1 &8614765362817902088
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,5 +287,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
+<<<<<<< Updated upstream
   m_Size: {x: 1.6849579, y: 0.012699246, z: 0}
   m_Center: {x: -0.027028037, y: -0.00037242175, z: -270.81836}
+=======
+  m_Size: {x: 2.4665987, y: 0.019082556, z: 1}
+  m_Center: {x: -0.018803312, y: -0.000156943, z: 0}
+>>>>>>> Stashed changes

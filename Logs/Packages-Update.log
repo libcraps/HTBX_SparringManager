@@ -105,7 +105,11 @@ The following packages were updated:
   com.unity.test-framework from version 1.1.18 to 1.1.19
   com.unity.xr.legacyinputhelpers from version 2.1.4 to 2.1.6
 
+<<<<<<< Updated upstream
 === Wed Jan 13 10:42:45 2021
+=======
+=== Mon Jan 11 10:35:44 2021
+>>>>>>> Stashed changes
 
 Packages were changed.
 Update Mode: updateDependencies
