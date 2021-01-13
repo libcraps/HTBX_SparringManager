@@ -30,16 +30,8 @@ namespace SparringManager.DataManager
 
         void Start()
         {
-<<<<<<< Updated upstream
-            DataBase = new ArrayList();
-            ArrayList dataScenarioI = new ArrayList();
-
-            //Possible de récupérer le composant enfant et d'avoir accès aux données
-=======
             _generalData = completeGeneralDataList();
-            _sessionSumUp.Add("General", _generalData);
-
->>>>>>> Stashed changes
+            _sessionSumUp.Add("General", _generalData);s
         }
 
         private void Update()

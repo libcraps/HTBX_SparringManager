@@ -45,12 +45,7 @@ namespace SparringManager.CrossLine
 
         public void MoveLine(float lineHorizontalAcceleration, float lineVerticalAcceleration)
         {
-<<<<<<< Updated upstream:Assets/Scripts/SparringManager/Scenarios/CrossLine/CrossLineBehaviour.cs
-            //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
             this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (lineHorizontalAcceleration, lineVerticalAcceleration, 0);
-=======
-            this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(lineHorizontalAcceleration, lineVerticalAcceleration, 0);
->>>>>>> Stashed changes:Assets/Scripts/SparringManager/Scenarios/CrossLine/CrossLine.cs
         }
 
         public void SetHit(float tTime, float timeBeforeHit, float deltaHit, bool hitted)
