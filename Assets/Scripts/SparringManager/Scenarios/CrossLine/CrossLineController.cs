@@ -24,17 +24,17 @@ namespace SparringManager.CrossLine
      *      float _startTimeScenario : absolut time of the beginning of the scenario
      *      float _tTime : tTime
      *      float _previousTime : Time that we keep in memory every changement of the comportement of the line
-     *      float _reactTime
-     *      float _timerScenario
+     *      float _reactTime : 
+     *      float _timerScenario : Duration of the scenario
      *      
      *      // CONTAINERS
      *      ScenarioController _scenarioControllerComponent : Allows us to stock the StructScenarios structure that comes from SessionManager (scenarios[i])
      *      StructScenarios _controllerStruct : We stock in the _controllerStruct the structure that is in the _scenarioControllerComponent
-     *      SplHitLineStruct _splHitLineControllerStruct : We stock the part SplHitLineStruct of the _controllerStruct
-     *      SplHitLineDataStruct _splHitLineData : Structure that will contain the data of the SplHitline scenario
+     *      CrossLineStruct _crossLineControllerStruct : We stock the part SplHitLineStruct of the _controllerStruct
+     *      CrossLineDataStruct _crossLineData : Structure that will contain the data of the SplHitline scenario
      *      
      *      GameObject _scenarioComposant : Prefab of the line
-     *      SplHitLineBehaviour _splHitLineComponent : SplHitLineBehaviour component of the prefab, it gives u acces ti different variable of the splHitLine Prefab
+     *      CrossLineBehaviour _crossLineComponent : SplHitLineBehaviour component of the prefab, it gives u acces ti different variable of the splHitLine Prefab
      *      
      *      List<float> mouvementConsign : List that contain all the position of the line
      *      List<float> timeListScenario : Time list of the scenario
