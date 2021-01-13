@@ -9,11 +9,47 @@ using UnityEngine;
 
 namespace SparringManager.HitLine
 {
-    /*
-     * Class of the HitLineController, it manage the HitLine and is in interaction with the Session Manager and the DataManager
+    /* Class nof the HitLine Scenario Controller
+     * 
+     *  Summary :
+     *  This class manage the behaviour of the HitLine prefab.
+     *  
+     *  Attributs :
+     *      //Usefull parameters of the scenario, they are in the splhitLineStructure
+     *      int _accelerationMax : Maximum acceleration that the line can have
+     *      int _deltaTimeMax : Maximum time before the line change its acceleration
+     *      int _deltaTimeMin : Minimum time before the line change its acceleration
+     *      float _timeBeforeHit : Time when the hit will be setted
+     *      float _deltaHit : Time during which the player will be able to hit the line
+     *      
+     *      bool _hitted : Boolean that indicates fi the line is hitted or not
+     *      bool _fixPosHit : Boolean that indicates if the line stop during the hit
+     *      int _fixPosHitValue : if the boolean _fixPoshit is true we fix the value to 0 in order to have an acceleration null
+     *      float _startTimeScenario : absolut time of the beginning of the scenario
+     *      float _tTime : tTime
+     *      float _previousTime : Time that we keep in memory every changement of the comportement of the line
+     *      
+     *      // CONTAINERS
+     *      ScenarioController _scenarioControllerComponent : Allows us to stock the StructScenarios structure that comes from SessionManager (scenarios[i])
+     *      StructScenarios _controllerStruct : We stock in the _controllerStruct the structure that is in the _scenarioControllerComponent
+     *      SplHitLineStruct _splHitLineControllerStruct : We stock the part SplHitLineStruct of the _controllerStruct
+     *      SplHitLineDataStruct _splHitLineData : Structure that will contain the data of the SplHitline scenario
+     *      
+     *      GameObject _scenarioComposant : Prefab of the line
+     *      SplHitLineBehaviour _splHitLineComponent : SplHitLineBehaviour component of the prefab, it gives u acces ti different variable of the splHitLine Prefab
+     *      List<float> mouvementConsign : List that contain all the position of the line
+     *      List<float> timeListScenario : Time list of the scenario
+     *      
+     *  Methods :
+     *      GetHit(Vector2 position2d_) :
+     *      GetConsigne(float time, float pos) : 
+     *      RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax) : 
+     *      void SetControllerVariables() : Set variables of the controller
+     *      void SetPrefabComponentVAriables(): Set variables of the prefab component
      */
     public class HitLineController : MonoBehaviour
     {
+        //----------- ATTRIBUTS ----------------------
         //Usefull parameters of the scenario, they are in the hitLineStructure
         private int _accelerationMax;
         private int _deltaTimeMax;
@@ -42,6 +78,8 @@ namespace SparringManager.HitLine
         private List<float> mouvementConsign;
         private List<float> timeListScenario;
 
+        //------------ METHODS -------------------
+        //General Methods
         private void Awake()
         {
             //INITIALISATION OF VARIABLES 
@@ -71,9 +109,8 @@ namespace SparringManager.HitLine
             Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
 
             _hitLineComponent = this.gameObject.GetComponentInChildren<HitLineBehaviour>();
-            SetComponentVariables();
+            SetPrefabComponentVariables();
         }
-
         private void FixedUpdate()
         {
             //Update the "situation" of the line
@@ -81,17 +118,61 @@ namespace SparringManager.HitLine
             RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
             GetConsigne(_tTime, _hitLineComponent.transform.position.x);
         }
+        void OnDestroy()
+        {
+            _reactTime = 0;
+            _hitted = false;
+            _hitLineComponent.Hitted = true;
+            Debug.Log(this.gameObject.name + "has been destroyed");
+        }
 
+        //Method that set variables
+        private void SetPrefabComponentVariables()
+        {
+            _hitLineComponent.TimeBeforeHit = _hitLineControllerStruct.TimeBeforeHit;
+            _hitLineComponent.DeltaHit = _hitLineControllerStruct.DeltaHit;
+            _hitLineComponent.FixPosHit = _hitLineControllerStruct.FixPosHit;
+        }
+        private void SetControllerVariables()
+        {
+            _timerScenario = _controllerStruct.TimerScenario;
+            _accelerationMax = _hitLineControllerStruct.AccelerationMax;
+            _deltaTimeMax = _hitLineControllerStruct.DeltaTimeMax;
+            _deltaTimeMin = _hitLineControllerStruct.DeltaTimeMin;
+            _timeBeforeHit = _hitLineControllerStruct.TimeBeforeHit;
+            _deltaHit = _hitLineControllerStruct.DeltaHit;
+        }
+
+        //Method for the data exportation
+        private void GetConsigne(float time, float pos)
+        {
+            mouvementConsign.Add(pos);
+            timeListScenario.Add(time);
+        }
+
+        //Method that change parameters of a moving object
+        private void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
+        {
+            System.Random random = new System.Random();
+            //Randomize the movement of the line every deltaTime seconds
+            if ((_tTime - _previousTime) > _hitLineComponent.DeltaTimeChangeAcceleration)
+            {
+                _hitLineComponent.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
+                _hitLineComponent.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
+
+                _previousTime = _tTime;
+            }
+        }
+
+        //Method for an hitting object
         private void OnEnable()
         {
             ImpactManager.onInteractPoint += GetHit;
         }
-
         private void OnDisable()
         {
             ImpactManager.onInteractPoint -= GetHit;
         }
-
         public void GetHit(Vector2 position2d_)
         {
             RaycastHit hit;
@@ -111,56 +192,6 @@ namespace SparringManager.HitLine
                 Debug.Log("React time : " + _reactTime);
             }
         }
-
-        void OnDestroy()
-        {
-            _reactTime = 0;
-            _hitted = false;
-            _hitLineComponent.Hitted = true;
-            Debug.Log(this.gameObject.name + "has been destroyed");
-        }
-        /*
-        void GetData()
-        {
-
-        }
-        */
-
-        private void GetConsigne(float time, float pos)
-        {
-            mouvementConsign.Add(pos);
-            timeListScenario.Add(time);
-        }
-        private void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
-        {
-            System.Random random = new System.Random();
-            //Randomize the movement of the line every deltaTime seconds
-            if ((_tTime - _previousTime) > _hitLineComponent.DeltaTimeChangeAcceleration)
-            {
-                _hitLineComponent.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
-                _hitLineComponent.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
-
-                _previousTime = _tTime;
-            }
-        }
-
-        private void SetComponentVariables()
-        {
-            _hitLineComponent.TimeBeforeHit = _hitLineControllerStruct.TimeBeforeHit;
-            _hitLineComponent.DeltaHit = _hitLineControllerStruct.DeltaHit;
-            _hitLineComponent.FixPosHit = _hitLineControllerStruct.FixPosHit;
-        }
-
-        private void SetControllerVariables()
-        {
-            _timerScenario = _controllerStruct.TimerScenario;
-            _accelerationMax = _hitLineControllerStruct.AccelerationMax;
-            _deltaTimeMax = _hitLineControllerStruct.DeltaTimeMax;
-            _deltaTimeMin = _hitLineControllerStruct.DeltaTimeMin;
-            _timeBeforeHit = _hitLineControllerStruct.TimeBeforeHit;
-            _deltaHit = _hitLineControllerStruct.DeltaHit;
-        }
-
 
     }
 }

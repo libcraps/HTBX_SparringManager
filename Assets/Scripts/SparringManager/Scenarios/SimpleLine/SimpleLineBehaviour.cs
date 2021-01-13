@@ -5,20 +5,21 @@ using UnityEngine;
 
 namespace SparringManager.SimpleLine
 {
-    /* Class nof the CrossLine Scenario
+    /* Class nof the SimpleLine prefab
      * 
      *  Summary :
-     *  This Scenario represents a line that can move right/left.
+     *  This class leads the behaviour of the simple line prefab.
+     *  The Line only moves lateraly
      *  
-     *  Importants Attributs :
-     *      RigidBody _LineRigidComponent : GIt Gives to us acces to the RigidBody Component. It allows us to use physics fonction of unity to move the line
+     *  Attributs :
+     *      float _lineAcceleration : Acceleration at a tTime of the Line
+     *      int _deltaTimeChangeAcceleration : Time during which the line will keep tis acceleration
+     *      float _startTimeScenario : absolut time of the beginning of the scenario
+     *      float _tTime : tTime
      *      
      *  Methods :
-     *  void Start() :
-     *  void onDestroy() :
-     *  void FixedUpdate() :
-     *  void MoveLine() :
-     *  Void LineInCameraRange() :
+     *  void MoveLine(int lineAcceleration) : moves the line at the lineAcceleration
+     *  Void LineInCameraRange() : Verifie that the line stay in the camera range
      */
     public class SimpleLineBehaviour : MonoBehaviour
     {

@@ -4,8 +4,49 @@ using UnityEngine;
 
 namespace SparringManager.SimpleLine 
 {
+    /* Class nof the SimpleLine Scenario Controller
+     * 
+     *  Summary :
+     *  This class manage the behaviour of the SimpleLine prefab, the data handling of the scenario.
+     *  
+     *  Attributs :
+     *      //Usefull parameters of the scenario, they are in the splhitLineStructure
+     *      int _accelerationMax : Maximum acceleration that the line can have
+     *      int _deltaTimeMax : Maximum time before the line change its acceleration
+     *      int _deltaTimeMin : Minimum time before the line change its acceleration
+     *      float _timeBeforeHit : Time when the hit will be setted
+     *      float _deltaHit : Time during which the player will be able to hit the line
+     *      
+     *      bool _hitted : Boolean that indicates fi the line is hitted or not
+     *      bool _fixPosHit : Boolean that indicates if the line stop during the hit
+     *      int _fixPosHitValue : if the boolean _fixPoshit is true we fix the value to 0 in order to have an acceleration null
+     *      float _startTimeScenario : absolut time of the beginning of the scenario
+     *      float _tTime : tTime
+     *      float _previousTime : Time that we keep in memory every changement of the comportement of the line
+     *      
+     *      // CONTAINERS
+     *      ScenarioController _scenarioControllerComponent : Allows us to stock the StructScenarios structure that comes from SessionManager (scenarios[i])
+     *      StructScenarios _controllerStruct : We stock in the _controllerStruct the structure that is in the _scenarioControllerComponent
+     *      SplHitLineStruct _splHitLineControllerStruct : We stock the part SplHitLineStruct of the _controllerStruct
+     *      SplHitLineDataStruct _splHitLineData : Structure that will contain the data of the SplHitline scenario
+     *      
+     *      GameObject _scenarioComposant : Prefab of the line
+     *      SplHitLineBehaviour _splHitLineComponent : SplHitLineBehaviour component of the prefab, it gives u acces ti different variable of the splHitLine Prefab
+     *      List<float> mouvementConsign : List that contain all the position of the line
+     *      List<float> timeListScenario : Time list of the scenario
+
+     *      
+     *  Methods :
+     *      GetHit(Vector2 position2d_) :
+     *      GetConsigne(float time, float pos) : 
+     *      RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax) : 
+     *      void SetLineToHit() : Choose which part of the line will be hitted
+     *      void SetControllerVariables() : Set variables of the controller
+     *      void SetPrefabComponentVAriables(): Set variables of the prefab component
+     */
     public class SimpleLineController : MonoBehaviour
     {
+        //----------- ATTRIBUTS ----------------------
         //Usefull parameters of the scenario, they are in the SimpleLineStructure
         private int _accelerationMax;
         private int _deltaTimeMax;
@@ -30,6 +71,8 @@ namespace SparringManager.SimpleLine
         private List<float> mouvementConsign;
         private List<float> timeListScenario;
 
+        //------------ METHODS -------------------
+        //General Methods
         private void Awake()
         {
             //INITIALISATION OF VARIABLES 
@@ -60,7 +103,6 @@ namespace SparringManager.SimpleLine
 
             _simpleLineComponent = GetComponentInChildren<SimpleLineBehaviour>();
         }
-
         private void FixedUpdate()
         {
             _tTime = Time.time - _startTimeScenario;
@@ -69,8 +111,22 @@ namespace SparringManager.SimpleLine
         void OnDestroy()
         {
             Debug.Log(this.gameObject.name + " has been destroyed");
+        }
+
+        //MEthods that set variables        
+        private void SetComponentVariables()
+        {
 
         }
+        private void SetControllerVariables()
+        {
+            _timerScenario = _controllerStruct.TimerScenario;
+            _accelerationMax = _simpleLineControllerStruct.AccelerationMax;
+            _deltaTimeMax = _simpleLineControllerStruct.DeltaTimeMax;
+            _deltaTimeMin = _simpleLineControllerStruct.DeltaTimeMin;
+        }
+
+        //Method that changes parameters of a moving object
         public void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
         {
             System.Random random = new System.Random();
@@ -82,19 +138,6 @@ namespace SparringManager.SimpleLine
 
                 _previousTime = _tTime;
             }
-        }
-
-        private void SetComponentVariables()
-        {
-
-        }
-
-        private void SetControllerVariables()
-        {
-            _timerScenario = _controllerStruct.TimerScenario;
-            _accelerationMax = _simpleLineControllerStruct.AccelerationMax;
-            _deltaTimeMax = _simpleLineControllerStruct.DeltaTimeMax;
-            _deltaTimeMin = _simpleLineControllerStruct.DeltaTimeMin;
         }
     }   
 }

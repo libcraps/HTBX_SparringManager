@@ -6,20 +6,50 @@ using UnityEngine;
 
 namespace SparringManager.CrossLine
 {
-   /* Class of the CrossLineController
-    * 
-    *  Summary :
-    *  This class is the  controller of the crossLineScenario
-    *  
-    *  Importants Attributs :
-    *      scenariocontroller scenariocontrollercomponent : It is the component ScenarioController of the prefab object, it allows us to stock specific parameters of the scenario (acceleration, delta hit, etc...) -> it is in the structure controllerstruct
-    *      StructScenarios controllerStruct : It is the structure that contains the StructScenarios scenarios[i] (in this structure we can find the structure crossLineStruct that contains the structure CrossLineStruct)
-    *      CrossLineStruct crossLineControllerStruct : It is the structure that contain ONLY the CrossLineScenario's parameters
-    *      
-    *  Methods :
-    */
+    /* Class nof the CrossLine Scenario Controller
+     * 
+     *  Summary :
+     *  This class manage the behaviour of the CrossLine prefab.
+     *  The SplHitLine only moves lateraly and vertically and it instantiates an hit at the bottom or the top of the line afeter _timeBeforeHit seconds
+     *  The part of the line scale that the player have to hit scale itself in an aleatory direction
+     *  
+     *  Attributs :
+     *      //Usefull parameters of the scenario, they are in the splhitLineStructure
+     *      int _accelerationMax : Maximum acceleration that the line can have
+     *      int _deltaTimeMax : Maximum time before the line change its acceleration
+     *      int _deltaTimeMin : Minimum time before the line change its acceleration
+     *      float _timeBeforeHit : Time when the hit will be setted
+     *      float _deltaHit : Time during which the player will be able to hit the line
+     *      
+     *      bool _hitted : Boolean that indicates fi the line is hitted or not
+     *      bool _fixPosHit : Boolean that indicates if the line stop during the hit
+     *      int _fixPosHitValue : if the boolean _fixPoshit is true we fix the value to 0 in order to have an acceleration null
+     *      float _startTimeScenario : absolut time of the beginning of the scenario
+     *      float _tTime : tTime
+     *      float _previousTime : Time that we keep in memory every changement of the comportement of the line
+     *      
+     *      // CONTAINERS
+     *      ScenarioController _scenarioControllerComponent : Allows us to stock the StructScenarios structure that comes from SessionManager (scenarios[i])
+     *      StructScenarios _controllerStruct : We stock in the _controllerStruct the structure that is in the _scenarioControllerComponent
+     *      SplHitLineStruct _splHitLineControllerStruct : We stock the part SplHitLineStruct of the _controllerStruct
+     *      SplHitLineDataStruct _splHitLineData : Structure that will contain the data of the SplHitline scenario
+     *      
+     *      GameObject _scenarioComposant : Prefab of the line
+     *      SplHitLineBehaviour _splHitLineComponent : SplHitLineBehaviour component of the prefab, it gives u acces ti different variable of the splHitLine Prefab
+     *      List<float> mouvementConsign : List that contain all the position of the line
+     *      List<float> timeListScenario : Time list of the scenario
+     *      
+     *  Methods :
+     *      GetHit(Vector2 position2d_) :
+     *      GetConsigne(float time, float pos) : 
+     *      RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax) : 
+     *      void SetLineToHit() : Choose which part of the line will be hitted
+     *      void SetControllerVariables() : Set variables of the controller
+     *      void SetPrefabComponentVAriables(): Set variables of the prefab component
+     */
     public class CrossLineController : MonoBehaviour
     {
+        //----------- ATTRIBUTS ----------------------
         //Usefull parameters of the scenario, they are in the crossLineStructure
         private int _accelerationMax;
         private int _deltaTimeMax;
@@ -48,6 +78,8 @@ namespace SparringManager.CrossLine
         private List<float> mouvementConsign;
         private List<float> timeListScenario;
 
+        //------------ METHODS -------------------
+        //General Methods
         private void Awake()
         {
             //INITIALISATION OF VARIABLES 
@@ -67,7 +99,6 @@ namespace SparringManager.CrossLine
 
             Debug.Log(this.gameObject.name + " for " + _timerScenario + " seconds");
         }
-
         void Start()
         {
             Vector3 _pos3d;
@@ -78,26 +109,73 @@ namespace SparringManager.CrossLine
             Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
 
             _crossLineComponent = GetComponentInChildren<CrossLineBehaviour>();
-            SetComponentVariables();
+            SetPrefabComponentVariables();
         }
-
         private void FixedUpdate()
         {
             _tTime = Time.time - _startTimeScenario;
             RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
             GetConsigne(_tTime, _crossLineComponent.transform.position.x);
         }
+        void OnDestroy()
+        {
+            //GetData();
+            //DataManager.DataManager.ToCSV(_crossLineData.DataBase, "C:\\Users\\IIFR\\Documents\\GitHub\\Hitbox_Test\\HTBX_SparringManager\\_data\\Tableau.csv");
+            _reactTime = 0;
+            _hitted = false;
+            _crossLineComponent.Hitted = true;
+            Debug.Log(this.gameObject.name + "has been destroyed");
+        }
 
+        //Methods that set variables
+        private void SetPrefabComponentVariables()
+        {
+            _crossLineComponent.TimeBeforeHit = _crossLineControllerStruct.TimeBeforeHit;
+            _crossLineComponent.DeltaHit = _crossLineControllerStruct.DeltaHit;
+            _crossLineComponent.FixPosHit = _crossLineControllerStruct.FixPosHit;
+        }
+        private void SetControllerVariables()
+        {
+            _timerScenario = _controllerStruct.TimerScenario;
+            _accelerationMax = _crossLineControllerStruct.AccelerationMax;
+            _deltaTimeMax = _crossLineControllerStruct.DeltaTimeMax;
+            _deltaTimeMin = _crossLineControllerStruct.DeltaTimeMin;
+            _timeBeforeHit = _crossLineControllerStruct.TimeBeforeHit;
+            _deltaHit = _crossLineControllerStruct.DeltaHit;
+        }
+
+        //Method for the data exportation
+        private void GetConsigne(float time, float pos)
+        {
+            mouvementConsign.Add(pos);
+            timeListScenario.Add(time);
+        }
+
+        //Method that change parameters of a moving object
+        void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
+        {
+            System.Random random = new System.Random();
+            //Randomize the movement of the line every deltaTime seconds
+            if ((_tTime - _previousTime) > _crossLineComponent.DeltaTimeChangeAcceleration)
+            {
+                _crossLineComponent.LineAcceleration[0] = random.Next(-accelerationMax, accelerationMax);
+                _crossLineComponent.LineAcceleration[1] = random.Next(-accelerationMax, accelerationMax);
+                _crossLineComponent.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
+
+                _previousTime = _tTime;
+
+            }
+        }
+
+        //Method for an hitting object
         private void OnEnable()
         {
             ImpactManager.onInteractPoint += GetHit;
         }
-
         private void OnDisable()
         {
             ImpactManager.onInteractPoint -= GetHit;
         }
-
         public void GetHit(Vector2 position2d_)
         {
             RaycastHit hit;
@@ -117,55 +195,5 @@ namespace SparringManager.CrossLine
                 Debug.Log("React time : " + _reactTime);
             }
         }
-
-        void OnDestroy()
-        {
-            //GetData();
-            //DataManager.DataManager.ToCSV(_crossLineData.DataBase, "C:\\Users\\IIFR\\Documents\\GitHub\\Hitbox_Test\\HTBX_SparringManager\\_data\\Tableau.csv");
-            _reactTime = 0;
-            _hitted = false;
-            _crossLineComponent.Hitted = true;
-            Debug.Log(this.gameObject.name + "has been destroyed");
-        }
-        void GetData()
-        {
-            
-        }
-
-        private void GetConsigne(float time, float pos)
-        {
-            mouvementConsign.Add(pos);
-            timeListScenario.Add(time);
-        }
-        void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
-        {
-            System.Random random = new System.Random();
-            //Randomize the movement of the line every deltaTime seconds
-            if ((_tTime - _previousTime) > _crossLineComponent.DeltaTimeChangeAcceleration)
-            {
-                _crossLineComponent.LineAcceleration[0] = random.Next(-accelerationMax, accelerationMax);
-                _crossLineComponent.LineAcceleration[1] = random.Next(-accelerationMax, accelerationMax);
-                _crossLineComponent.DeltaTimeChangeAcceleration= random.Next(deltaTimeMin, deltaTimeMax);
-
-                _previousTime = _tTime;
-
-            }
-        }
-        private void SetComponentVariables()
-        {
-            _crossLineComponent.TimeBeforeHit = _crossLineControllerStruct.TimeBeforeHit;
-            _crossLineComponent.DeltaHit = _crossLineControllerStruct.DeltaHit;
-            _crossLineComponent.FixPosHit = _crossLineControllerStruct.FixPosHit;
-        }
-        private void SetControllerVariables()
-        {
-            _timerScenario = _controllerStruct.TimerScenario;
-            _accelerationMax = _crossLineControllerStruct.AccelerationMax;
-            _deltaTimeMax = _crossLineControllerStruct.DeltaTimeMax;
-            _deltaTimeMin = _crossLineControllerStruct.DeltaTimeMin;
-            _timeBeforeHit = _crossLineControllerStruct.TimeBeforeHit;
-            _deltaHit = _crossLineControllerStruct.DeltaHit;
-        }
-
     }
 }

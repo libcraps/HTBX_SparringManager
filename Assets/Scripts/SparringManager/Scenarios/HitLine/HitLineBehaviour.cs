@@ -5,30 +5,27 @@ using UnityEngine;
 
 namespace SparringManager.HitLine
 {
-    /* Class nof the HitLine Scenario
+    /* Class of the HitLine Prefab
      * 
      *  Summary :
-     *  This Scenario represents a line that can move lateraly and set a hit for the player
-     *  This class describes the behaviour of the line in order to animate it
+     *  This class leads the behaviour of the HitLine prefab.
+     *  The Line only moves lateraly and it instantiates the hit after _timeBeforeHit seconds. 
      *  
-     *  Importants Attributs :
+     *  Attributs :
      *      float _lineAcceleration : Acceleration at a tTime of the Line
-     *      int _deltaTimeChangeAcceleration : 
+     *      int _deltaTimeChangeAcceleration : Time during which the line will keep tis acceleration
      *      float _timeBeforeHit : Time when the hit will be setted
-     *      float _deltaHit : 
-     *      bool _hitted : 
-     *      bool _fixPosHit : 
-     *      float _startTimeScenario : 
-     *      float _tTime : 
+     *      float _deltaHit : Time during which the player will be able to hit the line
+     *      bool _hitted : Boolean that indicates fi the line is hitted or not
+     *      bool _fixPosHit : Boolean that indicates if the line stop during the hit
+     *      int _fixPosHitValue : if the boolean _fixPoshit is true we fix the value to 0 in order to have an acceleration null
+     *      float _startTimeScenario : absolut time of the beginning of the scenario
+     *      float _tTime : tTime
      *      
      *  Methods :
-     *  void Start() :
-     *  void onDestroy() :
-     *  void FixedUpdate() :
-     *  void MoveLine() :
-     *  void SetHit() :
-     *  void RandomizeLineMovement() :
-     *  Void LineInCameraRange() :
+     *  void MoveLine(int lineAcceleration) : moves the line at the lineAcceleration
+     *  Void LineInCameraRange() : Verifie that the line stay in the camera range
+     *  void SetHit() : Indicates when the playe can hit by changing the color of the line
      */
     public class HitLineBehaviour : MonoBehaviour
     {

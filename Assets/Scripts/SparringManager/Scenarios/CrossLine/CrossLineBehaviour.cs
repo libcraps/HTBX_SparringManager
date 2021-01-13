@@ -6,27 +6,28 @@ using UnityEngine;
 
 namespace SparringManager.CrossLine
 {
-     /* Class nof the CrossLine Scenario
-     * 
-     *  Summary :
-     *  This Scenario is similar to HitLin except that it represents a cross that can move right/left and upside/down
-     *  This class animate the cross
-     *  
-     *  Importants Attributs :
-     *      scenariocontroller scenariocontrollercomponent : It is the component ScenarioController of the prefab object, it allows us to stock specific parameters of the scenario (acceleration, delta hit, etc...) -> it is in the structure controllerstruct
-     *      StructScenarios controllerStruct : It is the structure that contains the StructScenarios scenarios[i] (in this structure we can find the structure crossLineStruct that contains the structure CrossLineStruct)
-     *      CrossLineStruct crossLineControllerStruct : It is the structure that contain ONLY the CrossLineScenario's parameters
-     *      
-     *  Methods :
-     *  void Start() :
-     *  void onDestroy() :
-     *  void FixedUpdate() :
-     *  void MoveLine() :
-     *  void GetConsigne() :
-     *  void SetHit() :
-     *  void RandomizeLineMovement() :
-     *  Void LineInCameraRange() :
-     */
+    /* Class nof the CrossLine Prefab
+    * 
+    *  Summary :
+     *  This class leads the behaviour of the CrossLine prefab.
+     *  The CrossLine moves lateraly and vertically and it instantiates the hit after _timeBeforeHit seconds. 
+    *  
+    *  Attributs :
+    *      float[2] _lineAcceleration : Acceleration at a tTime of the crossline ([0] is ax and [1] i ay)
+    *      int _deltaTimeChangeAcceleration : Time during which the line will keep tis acceleration
+    *      float _timeBeforeHit : Time when the hit will be setted
+    *      float _deltaHit : Time during which the player will be able to hit the line
+    *      bool _hitted : Boolean that indicates fi the line is hitted or not
+    *      bool _fixPosHit : Boolean that indicates if the line stop during the hit
+    *      int _fixPosHitValue : if the boolean _fixPoshit is true we fix the value to 0 in order to have an acceleration null
+    *      float _startTimeScenario : absolut time of the beginning of the scenario
+    *      float _tTime : tTime
+    *      
+    *  Methods :
+    *  void MoveLine(int lineAcceleration) : moves the line at the lineAcceleration
+    *  Void LineInCameraRange() : Verifie that the line stay in the camera range
+    *  void SetHit() : Indicates when the playe can hit by changing the color of the line
+    */
     public class CrossLineBehaviour : MonoBehaviour
     {
         //General variables of a MovingLine

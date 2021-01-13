@@ -5,24 +5,33 @@ using UnityEngine;
 
 namespace SparringManager.SplHitLine
 {
-    /* Class nof the CrossLine Scenario
+    /* Class nof the SplHitLine Prefab
      * 
      *  Summary :
-     *  This Scenario represents a line that can move lateraly and set a hit for the player
-     *  This class animate the line
+     *  This class leads the behaviour of the SplHitLine prefab.
+     *  The SplHitLine only moves lateraly and vertically and it instantiates an hit at the bottom or the top of the line afeter _timeBeforeHit seconds
+     *  The part of the line scale that the player have to hit scale itself in an aleatory direction
      *  
-     *  Importants Attributs :
-     *      scenariocontroller scenariocontrollercomponent : It is the component ScenarioController of the prefab object, it allows us to stock specific parameters of the scenario (acceleration, delta hit, etc...) -> it is in the structure controllerstruct
-     *      StructScenarios controllerStruct : It is the structure that contains the StructScenarios scenarios[i] (in this structure we can find the structure hitLineStruct that contains the structure HitLineStruct)
-     *      HitLineStruct hitLineControllerStruct : It is the structure that contain ONLY the HitLineScenario's parameters
+     *  Attributs :
+     *      float _lineAcceleration : Acceleration at a tTime of the 
+     *      int _deltaTimeChangeAcceleration : Time during which the line will keep tis acceleration
+     *      float _timeBeforeHit : Time when the hit will be setted
+     *      float _deltaHit : Time during which the player will be able to hit the line
+     *      bool _hitted : Boolean that indicates fi the line is hitted or not
+     *      bool _fixPosHit : Boolean that indicates if the line stop during the hit
+     *      int _fixPosHitValue : if the boolean _fixPoshit is true we fix the value to 0 in order to have an acceleration null
+     *      float _startTimeScenario : absolut time of the beginning of the scenario
+     *      float _tTime : tTime
+     *      GameObject _lineToHit : GameObject that representent the part of the line that  will be hitted
+     *      int _scaleMaxValue : Maximum scale that the line can have
+     *      float _scaleSpeed : Speed of the scale
+     *      int _scaleSide : Takes the value -1 or 1 and it indicates in which side the line will scale
+     *      Vector3 _initScale : Initial scale of the line
      *      
      *  Methods :
-     *  void Start() :
-     *  void onDestroy() :
-     *  void FixedUpdate() :
-     *  void MoveLine() :
-     *  void RandomizeLineMovement() :
-     *  Void LineInCameraRange() :
+     *  void MoveLine(int lineAcceleration) : moves the line at the lineAcceleration
+     *  Void LineInCameraRange() : Verifie that the line stay in the camera range
+     *  void SetHit() : Indicates when the playe can hit by changing the color of the line
      */
     public class SplHitLineBehaviour : MonoBehaviour
     {
@@ -187,7 +196,7 @@ namespace SparringManager.SplHitLine
         public void MoveLine(float lineHorizontalAcceleration)
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
-            this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
+            this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(lineHorizontalAcceleration, 0, 0);
         }
 
         public void SetHit(GameObject LineObject)
@@ -250,7 +259,7 @@ namespace SparringManager.SplHitLine
             renderCameraPos3d.x = renderCamera.transform.position.x;
             renderCameraPos3d.y = renderCamera.transform.position.y;
             renderCameraPos3d.z = renderCamera.transform.position.z;
-            
+
             linePos3d.x = this.gameObject.transform.position.x;
             linePos3d.y = this.gameObject.transform.position.y;
             linePos3d.z = this.gameObject.transform.position.z;
@@ -258,11 +267,11 @@ namespace SparringManager.SplHitLine
             //Instruction whether the line gets out of the render camera range
             if (linePos3d.x > renderCameraPos3d.x + rangeSize)
             {
-                linePos3d.x -= 2* rangeSize;
-            } 
+                linePos3d.x -= 2 * rangeSize;
+            }
             else if (linePos3d.x < renderCameraPos3d.x - rangeSize)
             {
-                linePos3d.x += 2* rangeSize;
+                linePos3d.x += 2 * rangeSize;
             }
 
             this.gameObject.transform.position = linePos3d;
