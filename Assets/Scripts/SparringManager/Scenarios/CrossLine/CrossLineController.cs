@@ -20,13 +20,12 @@ namespace SparringManager.CrossLine
      *      int _deltaTimeMin : Minimum time before the line change its acceleration
      *      float _timeBeforeHit : Time when the hit will be setted
      *      float _deltaHit : Time during which the player will be able to hit the line
-     *      
-     *      bool _hitted : Boolean that indicates fi the line is hitted or not
-     *      bool _fixPosHit : Boolean that indicates if the line stop during the hit
-     *      int _fixPosHitValue : if the boolean _fixPoshit is true we fix the value to 0 in order to have an acceleration null
+
      *      float _startTimeScenario : absolut time of the beginning of the scenario
      *      float _tTime : tTime
      *      float _previousTime : Time that we keep in memory every changement of the comportement of the line
+     *      float _reactTime
+     *      float _timerScenario
      *      
      *      // CONTAINERS
      *      ScenarioController _scenarioControllerComponent : Allows us to stock the StructScenarios structure that comes from SessionManager (scenarios[i])
@@ -36,6 +35,7 @@ namespace SparringManager.CrossLine
      *      
      *      GameObject _scenarioComposant : Prefab of the line
      *      SplHitLineBehaviour _splHitLineComponent : SplHitLineBehaviour component of the prefab, it gives u acces ti different variable of the splHitLine Prefab
+     *      
      *      List<float> mouvementConsign : List that contain all the position of the line
      *      List<float> timeListScenario : Time list of the scenario
      *      

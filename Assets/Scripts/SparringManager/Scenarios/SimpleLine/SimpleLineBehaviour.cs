@@ -18,8 +18,8 @@ namespace SparringManager.SimpleLine
      *      float _tTime : tTime
      *      
      *  Methods :
-     *  void MoveLine(int lineAcceleration) : moves the line at the lineAcceleration
-     *  Void LineInCameraRange() : Verifie that the line stay in the camera range
+     *      void MoveLine(int lineAcceleration) : moves the line at the lineAcceleration
+     *      Void LineInCameraRange() : Verifie that the line stay in the camera range
      */
     public class SimpleLineBehaviour : MonoBehaviour
     {
