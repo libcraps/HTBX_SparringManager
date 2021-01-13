@@ -7,6 +7,7 @@ namespace SparringManager
 {
     public class SessionManager : MonoBehaviour
     {
+        //--------- ATTRIBUTS ----------
         [SerializeField]
         private string _name = "Romuald";
         [SerializeField]
@@ -14,8 +15,7 @@ namespace SparringManager
 
         private int _indexScenario;
         private string nameSenarioI;
-
-        string path;
+        private string path;
 
         //Variables temporaires de scénarios
         private int _timerScenarioI;
@@ -35,6 +35,8 @@ namespace SparringManager
                 return _indexScenario;
             }
         }
+
+        //---------- METHODS ---------
         void Start()
         {
             _indexScenario = 0;

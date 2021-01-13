@@ -62,7 +62,6 @@ namespace SparringManager.HitLine
         private float _reactTime;
         private float _startTimeScenario;
         private float _timerScenario;
-        private bool _hitted = false;
 
         //Object that contain datas (structures)
         private ScenarioController _scenarioControllerComponent;
@@ -88,7 +87,6 @@ namespace SparringManager.HitLine
             _hitLineControllerStruct = _controllerStruct.HitLineStruct;
             SetControllerVariables();
 
-            _hitted = false;
             mouvementConsign = new List<float>();
             timeListScenario = new List<float>();
 
@@ -121,8 +119,7 @@ namespace SparringManager.HitLine
         void OnDestroy()
         {
             _reactTime = 0;
-            _hitted = false;
-            _hitLineComponent.Hitted = true;
+            _hitLineComponent.Hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
 
@@ -182,10 +179,9 @@ namespace SparringManager.HitLine
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
             bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
 
-            if (rayOnTarget && canHit && _hitted == false)
+            if (rayOnTarget && canHit && _hitLineComponent.Hitted == false)
             {
                 _reactTime = _tTime - _timeBeforeHit;
-                _hitted = true;
                 _hitLineComponent.Hitted = true;
 
                 Debug.Log("Line touched : " + position2d_);

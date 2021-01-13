@@ -62,7 +62,6 @@ namespace SparringManager.CrossLine
         private float _reactTime;
         private float _startTimeScenario;
         private float _timerScenario;
-        private bool _hitted = false;
 
         //Object that contain datas (structures)
         private ScenarioController _scenarioControllerComponent;
@@ -88,7 +87,6 @@ namespace SparringManager.CrossLine
             _crossLineControllerStruct = _controllerStruct.CrossLineStruct;
             SetControllerVariables();
 
-            _hitted = false;
             mouvementConsign = new List<float>();
             timeListScenario = new List<float>();
 
@@ -122,8 +120,7 @@ namespace SparringManager.CrossLine
             //GetData();
             //DataManager.DataManager.ToCSV(_crossLineData.DataBase, "C:\\Users\\IIFR\\Documents\\GitHub\\Hitbox_Test\\HTBX_SparringManager\\_data\\Tableau.csv");
             _reactTime = 0;
-            _hitted = false;
-            _crossLineComponent.Hitted = true;
+            _crossLineComponent.Hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
 
@@ -185,10 +182,9 @@ namespace SparringManager.CrossLine
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
             bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
 
-            if (rayOnTarget && canHit && _hitted == false)
+            if (rayOnTarget && canHit && _crossLineComponent.Hitted == false)
             {
                 _reactTime = _tTime - _timeBeforeHit;
-                _hitted = true;
                 _crossLineComponent.Hitted = true;
 
                 Debug.Log("Line touched : " + position2d_);
