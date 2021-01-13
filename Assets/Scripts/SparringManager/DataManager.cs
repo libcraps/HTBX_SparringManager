@@ -31,7 +31,7 @@ namespace SparringManager.DataManager
         void Start()
         {
             _generalData = completeGeneralDataList();
-            _sessionSumUp.Add("General", _generalData);s
+            _sessionSumUp.Add("General", _generalData);
         }
 
         private void Update()
