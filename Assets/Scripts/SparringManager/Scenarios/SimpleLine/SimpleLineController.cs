@@ -1,29 +1,34 @@
 ﻿using SparringManager;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SparringManager.SimpleLine 
 {
     public class SimpleLineController : MonoBehaviour
     {
+        //Usefull parameters of the scenario, they are in the SimpleLineStructure
         private int _accelerationMax;
         private int _deltaTimeMax;
         private int _deltaTimeMin;
         private float _deltaTime;
-        private float _timerScenario;
 
         private float _previousTime;
         private float _tTime;
-        private float _lineAcceleration;
         private float _startTimeScenario;
+        private float _timerScenario;
 
+        //Object that contain datas (structures)
         private StructScenarios _controllerStruct;
         private SimpleLineStruct _simpleLineControllerStruct;
         private ScenarioController _scenarioControllerComponent;
-        
 
         [SerializeField]
         private GameObject _scenarioComposant;
         private SimpleLineBehaviour _simpleLineComponent;
+
+        //List of the data that we will export 
+        private List<float> mouvementConsign;
+        private List<float> timeListScenario;
 
         private void Awake()
         {
@@ -31,25 +36,17 @@ namespace SparringManager.SimpleLine
             _scenarioControllerComponent = GetComponent<ScenarioController>();
             _controllerStruct = _scenarioControllerComponent.ControllerStruct;
             _simpleLineControllerStruct = _controllerStruct.SimpleLineStruct;
+            SetControllerVariables();
 
-            _timerScenario = _controllerStruct.TimerScenario;
-            _accelerationMax = _simpleLineControllerStruct.AccelerationMax;
-            _deltaTimeMax = _simpleLineControllerStruct.DeltaTimeMax;
-            _deltaTimeMin = _simpleLineControllerStruct.DeltaTimeMin;
-
-            Debug.Log(this.gameObject.name + " timer " + _timerScenario);
+            mouvementConsign = new List<float>();
+            timeListScenario = new List<float>();
 
             //Initialisation of the time and the acceleration
             _startTimeScenario = Time.time;
             _tTime = Time.time - _startTimeScenario;
             _previousTime = _tTime;
 
-            System.Random random = new System.Random();
-            _deltaTime = random.Next(_deltaTimeMin, _deltaTimeMax);
-            _lineAcceleration = random.Next(-_accelerationMax, _accelerationMax);
-
-            Debug.Log("Acceleration : " + _lineAcceleration);
-            Debug.Log("Deta T : " + _deltaTime);
+            Debug.Log(this.gameObject.name + " for " + _timerScenario + " seconds");
         }
         void Start()
         {
@@ -67,25 +64,37 @@ namespace SparringManager.SimpleLine
         private void FixedUpdate()
         {
             _tTime = Time.time - _startTimeScenario;
-            RandomizeParametersLineMovement(_tTime, ref _previousTime, ref _deltaTime, ref _lineAcceleration, _accelerationMax, _deltaTimeMin, _deltaTimeMax);
-
-            _simpleLineComponent.MoveLine(_lineAcceleration);
+            RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
         }
         void OnDestroy()
         {
             Debug.Log(this.gameObject.name + " has been destroyed");
 
         }
-        public void RandomizeParametersLineMovement(float tTime, ref float previousTime, ref float deltaTime, ref float lineAcceleration, int accelerationMax, int deltaTimeMin, int deltaTimeMax)
+        public void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
         {
             System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((tTime - previousTime) > deltaTime)
+            if ((_tTime - _previousTime) > _simpleLineComponent.DeltaTimeChangeAcceleration)
             {
-                lineAcceleration = random.Next(-accelerationMax, accelerationMax);
-                previousTime = tTime;
-                deltaTime = random.Next(deltaTimeMin, deltaTimeMax);
+                _simpleLineComponent.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
+                _simpleLineComponent.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
+
+                _previousTime = _tTime;
             }
+        }
+
+        private void SetComponentVariables()
+        {
+
+        }
+
+        private void SetControllerVariables()
+        {
+            _timerScenario = _controllerStruct.TimerScenario;
+            _accelerationMax = _simpleLineControllerStruct.AccelerationMax;
+            _deltaTimeMax = _simpleLineControllerStruct.DeltaTimeMax;
+            _deltaTimeMin = _simpleLineControllerStruct.DeltaTimeMin;
         }
     }   
 }

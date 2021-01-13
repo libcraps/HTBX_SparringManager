@@ -5,32 +5,36 @@ using UnityEngine;
 
 namespace SparringManager.HitLine
 {
-    /* Class nof the CrossLine Scenario
+    /* Class nof the HitLine Scenario
      * 
      *  Summary :
      *  This Scenario represents a line that can move lateraly and set a hit for the player
-     *  This class animate the line
+     *  This class describes the behaviour of the line in order to animate it
      *  
      *  Importants Attributs :
-     *      scenariocontroller scenariocontrollercomponent : It is the component ScenarioController of the prefab object, it allows us to stock specific parameters of the scenario (acceleration, delta hit, etc...) -> it is in the structure controllerstruct
-     *      StructScenarios controllerStruct : It is the structure that contains the StructScenarios scenarios[i] (in this structure we can find the structure hitLineStruct that contains the structure HitLineStruct)
-     *      HitLineStruct hitLineControllerStruct : It is the structure that contain ONLY the HitLineScenario's parameters
+     *      float _lineAcceleration : Acceleration at a tTime of the Line
+     *      int _deltaTimeChangeAcceleration : 
+     *      float _timeBeforeHit : Time when the hit will be setted
+     *      float _deltaHit : 
+     *      bool _hitted : 
+     *      bool _fixPosHit : 
+     *      float _startTimeScenario : 
+     *      float _tTime : 
      *      
      *  Methods :
      *  void Start() :
      *  void onDestroy() :
      *  void FixedUpdate() :
      *  void MoveLine() :
+     *  void SetHit() :
      *  void RandomizeLineMovement() :
      *  Void LineInCameraRange() :
      */
     public class HitLineBehaviour : MonoBehaviour
     {
-
-        private Rigidbody _lineRigidComponent;
+        //General variables of a MovingLine
         private float _lineAcceleration;
-        private float _deltaChangeBehaviour;
-
+        private int _deltaTimeChangeAcceleration;
         public float LineAcceleration
         {
             get
@@ -42,35 +46,110 @@ namespace SparringManager.HitLine
                 _lineAcceleration = value;
             }
         }
+        public int DeltaTimeChangeAcceleration
+        {
+            get
+            {
+                return _deltaTimeChangeAcceleration;
+            }
+            set
+            {
+                _deltaTimeChangeAcceleration = value;
+            }
+        }
+
+        //Variables of an Hitting Line
+        private float _timeBeforeHit;
+        private float _deltaHit;
+        private bool _hitted;
+        private bool _fixPosHit; //Boolean to indicate if the line continue to move when the hit is setted
+        private int _fixPosHitValue = 1; // if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
+        public float DeltaHit
+        {
+            get
+            {
+                return _deltaHit;
+            }
+            set
+            {
+                _deltaHit = value;
+            }
+        }
+        public float TimeBeforeHit
+        {
+            get
+            {
+                return _timeBeforeHit;
+            }
+            set
+            {
+                _timeBeforeHit = value;
+            }
+        }
+        public bool Hitted
+        {
+            get
+            {
+                return _hitted;
+            }
+            set
+            {
+                _hitted = value;
+            }
+        }
+        public bool FixPosHit
+        {
+            get
+            {
+                return _fixPosHit;
+            }
+            set
+            {
+                _fixPosHit = value;
+            }
+        }
+
+        //Global Time variable
+        private float _startTimeScenario;
+        private float _tTime;
 
         void Start()
         {
-            _lineRigidComponent = this.gameObject.GetComponent<Rigidbody>();
+            //Initialisation of the time
+            _startTimeScenario = Time.time;
+            _tTime = Time.time - _startTimeScenario;
         }
 
         void FixedUpdate()
         {
+            _tTime = Time.time - _startTimeScenario;
             LineInCameraRange();
+            MoveLine(_fixPosHitValue * _lineAcceleration);
+            SetHit();
         }
 
         public void MoveLine(float lineHorizontalAcceleration)
         {
-            //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
             this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
 
-        public void SetHit(float tTime, float timeBeforeHit, float deltaHit, bool hitted)
+        public void SetHit()
         {
             //change the color of the line if the player have to hit
-            bool canHit = (tTime > timeBeforeHit && (tTime - timeBeforeHit) < deltaHit);
+            bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
 
-            if (canHit && hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
+            if (canHit && _hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
             {
                 this.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+                if (_fixPosHit == true)
+                {
+                    _fixPosHitValue = 0;
+                }
             }
             else
             {
                 this.gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
+                _fixPosHitValue = 1;
             }
         }
 

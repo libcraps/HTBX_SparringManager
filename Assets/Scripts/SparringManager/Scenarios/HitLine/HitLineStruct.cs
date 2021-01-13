@@ -19,6 +19,8 @@ namespace SparringManager.HitLine
         private float _deltaHit;
         [SerializeField]
         private float _timeBeforeHit;
+        [SerializeField]
+        private bool _fixPosHit;
 
         public GameObject HitPrefab
         {
@@ -88,8 +90,19 @@ namespace SparringManager.HitLine
                 _deltaHit = value;
             }
         }
+        public bool FixPosHit
+        {
+            get
+            {
+                return _fixPosHit;
+            }
+            set
+            {
+                _fixPosHit = value;
+            }
+        }
 
-        public HitLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit)
+        public HitLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, bool fixPosHit)
         {
             this._hitPrefab = hitPrefab;
             this._accelerationMax = acceleration;
@@ -97,6 +110,7 @@ namespace SparringManager.HitLine
             this._deltaTimeMax = deltaMax;
             this._timeBeforeHit = timeHit;
             this._deltaHit = deltaHit;
+            this._fixPosHit = fixPosHit;
         }
     }
 }

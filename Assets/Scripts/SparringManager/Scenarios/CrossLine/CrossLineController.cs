@@ -56,7 +56,6 @@ namespace SparringManager.CrossLine
             _crossLineControllerStruct = _controllerStruct.CrossLineStruct;
             SetControllerVariables();
 
-
             _hitted = false;
             mouvementConsign = new List<float>();
             timeListScenario = new List<float>();
@@ -71,7 +70,6 @@ namespace SparringManager.CrossLine
 
         void Start()
         {
-
             Vector3 _pos3d;
             _pos3d.x = this.gameObject.transform.position.x;
             _pos3d.y = this.gameObject.transform.position.y;
@@ -129,11 +127,11 @@ namespace SparringManager.CrossLine
             _crossLineComponent.Hitted = true;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
-
         void GetData()
         {
             
         }
+
         private void GetConsigne(float time, float pos)
         {
             mouvementConsign.Add(pos);
@@ -159,7 +157,6 @@ namespace SparringManager.CrossLine
             _crossLineComponent.DeltaHit = _crossLineControllerStruct.DeltaHit;
             _crossLineComponent.FixPosHit = _crossLineControllerStruct.FixPosHit;
         }
-
         private void SetControllerVariables()
         {
             _timerScenario = _controllerStruct.TimerScenario;

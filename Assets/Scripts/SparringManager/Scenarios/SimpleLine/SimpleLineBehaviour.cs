@@ -22,23 +22,54 @@ namespace SparringManager.SimpleLine
      */
     public class SimpleLineBehaviour : MonoBehaviour
     {
+        //General variables of a MovingLine
+        private float _lineAcceleration;
+        private int _deltaTimeChangeAcceleration;
+        public float LineAcceleration
+        {
+            get
+            {
+                return _lineAcceleration;
+            }
+            set
+            {
+                _lineAcceleration = value;
+            }
+        }
+        public int DeltaTimeChangeAcceleration
+        {
+            get
+            {
+                return _deltaTimeChangeAcceleration;
+            }
+            set
+            {
+                _deltaTimeChangeAcceleration = value;
+            }
+        }
 
-        private Rigidbody _lineRigidComponent;
+        //Global Time variable
+        private float _startTimeScenario;
+        private float _tTime;
 
         void Start()
         {
-            _lineRigidComponent = GetComponent<Rigidbody>();
+            //Initialisation of the time
+            _startTimeScenario = Time.time;
+            _tTime = Time.time - _startTimeScenario;
         }
 
         void FixedUpdate()
         {
+            _tTime = Time.time - _startTimeScenario;
             LineInCameraRange();
+            MoveLine(_lineAcceleration);
         }
 
         public void MoveLine(float lineHorizontalAcceleration)
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
-            _lineRigidComponent.velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
+            this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
         void LineInCameraRange()
         {
