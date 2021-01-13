@@ -20,6 +20,8 @@ namespace SparringManager.CrossLine
         private float _deltaHit;
         [SerializeField]
         private float _timeBeforeHit;
+        [SerializeField]
+        private bool _fixPosHit;
 
         public GameObject HitPrefab
         {
@@ -89,16 +91,28 @@ namespace SparringManager.CrossLine
                 _deltaHit = value;
             }
         }
+        public bool FixPosHit
+        {
+            get
+            {
+                return _fixPosHit;
+            }
+            set
+            {
+                _fixPosHit = value;
+            }
+        }
 
 
-        public CrossLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit)
+        public CrossLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, bool fixPosHit)
         {
             this._hitPrefab = hitPrefab;
             this._accelerationMax = acceleration;
             this._deltaTimeMin = deltaMin;
             this._deltaTimeMax = deltaMax;
             this._timeBeforeHit = timeHit;
-            this._deltaHit = deltaHit;
+            this._deltaHit = deltaHit; 
+            this._fixPosHit = fixPosHit;
         }
     }
 }

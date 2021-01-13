@@ -29,18 +29,102 @@ namespace SparringManager.CrossLine
      */
     public class CrossLineBehaviour : MonoBehaviour
     {
-        private Rigidbody _lineRigidComponent;
+        //General variables of a MovingLine
+        private float[] _lineAcceleration;
+        private int _deltaTimeChangeAcceleration;
+        public float[] LineAcceleration
+        {
+            get
+            {
+                return _lineAcceleration;
+            }
+            set
+            {
+                _lineAcceleration = value;
+            }
+        }
+        public int DeltaTimeChangeAcceleration
+        {
+            get
+            {
+                return _deltaTimeChangeAcceleration;
+            }
+            set
+            {
+                _deltaTimeChangeAcceleration = value;
+            }
+        }
 
-        private float _acceleration;
+        //Variables of an Hitting Line
+        private float _timeBeforeHit;
+        private float _deltaHit;
+        private bool _hitted;
+        private bool _fixPosHit; //Boolean to indicate if the line continue to move when the hit is setted
+        private int _fixPosHitValue = 1; // if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
+        public float DeltaHit
+        {
+            get
+            {
+                return _deltaHit;
+            }
+            set
+            {
+                _deltaHit = value;
+            }
+        }
+        public float TimeBeforeHit
+        {
+            get
+            {
+                return _timeBeforeHit;
+            }
+            set
+            {
+                _timeBeforeHit = value;
+            }
+        }
+        public bool Hitted
+        {
+            get
+            {
+                return _hitted;
+            }
+            set
+            {
+                _hitted = value;
+            }
+        }
+        public bool FixPosHit
+        {
+            get
+            {
+                return _fixPosHit;
+            }
+            set
+            {
+                _fixPosHit = value;
+            }
+        }
+
+        //Global Time variable
+        private float _startTimeScenario;
+        private float _tTime;
+
         void Start()
         {
-            _lineRigidComponent = new Rigidbody();
-            _lineRigidComponent = this.gameObject.GetComponent<Rigidbody>(); //this component allows us to move the line
+            //Initialisation of the time
+            _startTimeScenario = Time.time;
+            _tTime = Time.time - _startTimeScenario;
+
+            _lineAcceleration = new float[2];
         }
 
         void FixedUpdate()
         {
+            _tTime = Time.time - _startTimeScenario;
             LineInCameraRange();
+            MoveLine(_fixPosHitValue * _lineAcceleration[0], _fixPosHitValue * _lineAcceleration[1]);
+            SetHit();
         }
 
         public void MoveLine(float lineHorizontalAcceleration, float lineVerticalAcceleration)
@@ -48,22 +132,27 @@ namespace SparringManager.CrossLine
             this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (lineHorizontalAcceleration, lineVerticalAcceleration, 0);
         }
 
-        public void SetHit(float tTime, float timeBeforeHit, float deltaHit, bool hitted)
+        public void SetHit()
         {
             //change the color of the line if the player have to hit
-            bool canHit = (tTime > timeBeforeHit && (tTime - timeBeforeHit) < deltaHit);
+            bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
             GameObject VertLineObject = GameObject.Find(this.gameObject.transform.GetChild(0).name);
             GameObject HorizLineObject = GameObject.Find(this.gameObject.transform.GetChild(1).name);
 
-            if (canHit && hitted == false)
+            if (canHit && _hitted == false)
             {
                 VertLineObject.GetComponent<MeshRenderer>().material.color = Color.red;
                 HorizLineObject.GetComponent<MeshRenderer>().material.color = Color.red;
+                if (_fixPosHit == true)
+                {
+                    _fixPosHitValue = 0;
+                }
             }
             else
             {
                 VertLineObject.GetComponent<MeshRenderer>().material.color = Color.white;
-                HorizLineObject.GetComponent<MeshRenderer>().material.color = Color.white;
+                HorizLineObject.GetComponent<MeshRenderer>().material.color = Color.white; 
+                _fixPosHitValue = 1;
             }
         }
 

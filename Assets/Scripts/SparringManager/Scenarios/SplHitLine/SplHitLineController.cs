@@ -14,7 +14,7 @@ namespace SparringManager.SplHitLine
      */
     public class SplHitLineController : MonoBehaviour
     {
-        //Usefull parameters of the scenario, they are in the crossLineStructure
+        //Usefull parameters of the scenario, they are in the splhitLineStructure
         private int _accelerationMax;
         private int _deltaTimeMax;
         private int _deltaTimeMin;
@@ -23,12 +23,10 @@ namespace SparringManager.SplHitLine
 
         private float _previousTime;
         private float _tTime;
-        private float _deltaTime;
         private float _reactTime;
         private float _startTimeScenario;
         private float _timerScenario;
         private bool _hitted;
-        private float _lineAcceleration;
 
         //Object that contain datas (structures)
         private ScenarioController _scenarioControllerComponent;
@@ -62,8 +60,6 @@ namespace SparringManager.SplHitLine
             _previousTime = _tTime;
 
             Debug.Log(this.gameObject.name + " for " + _timerScenario + " seconds");
-            Debug.Log("Acceleration : " + _lineAcceleration);
-            Debug.Log("Deta T : " + _deltaTime);
         }
         void Start()
         {

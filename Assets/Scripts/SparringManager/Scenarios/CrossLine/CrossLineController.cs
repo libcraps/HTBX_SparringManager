@@ -27,27 +27,26 @@ namespace SparringManager.CrossLine
         private float _deltaHit;
         private float _timeBeforeHit;
 
-        private float _timerScenario;
         private float _previousTime;
         private float _tTime;
-        private float _deltaTime;
         private float _reactTime;
         private float _startTimeScenario;
-        private float[] _lineAcceleration;
+        private float _timerScenario;
         private bool _hitted = false;
 
+        //Object that contain datas (structures)
         private ScenarioController _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
         private CrossLineStruct _crossLineControllerStruct;
         private CrossLineDataStruct _crossLineData;
 
-        //list of the data that we will export
-        private List<float> mouvementConsign;
-        private List<float> timeListScenario;
-
         [SerializeField]
         private GameObject _scenarioComposant;
         private CrossLineBehaviour _crossLineComponent;
+
+        //list of the data that we will export
+        private List<float> mouvementConsign;
+        private List<float> timeListScenario;
 
         private void Awake()
         {
@@ -55,30 +54,19 @@ namespace SparringManager.CrossLine
             _scenarioControllerComponent = GetComponent<ScenarioController>();
             _controllerStruct = _scenarioControllerComponent.ControllerStruct;
             _crossLineControllerStruct = _controllerStruct.CrossLineStruct;
+            SetControllerVariables();
 
-            _timerScenario = _controllerStruct.TimerScenario;
-            _accelerationMax = _crossLineControllerStruct.AccelerationMax;
-            _deltaTimeMax = _crossLineControllerStruct.DeltaTimeMax;
-            _deltaTimeMin = _crossLineControllerStruct.DeltaTimeMin;
-            _timeBeforeHit = _crossLineControllerStruct.TimeBeforeHit;
-            _deltaHit = _crossLineControllerStruct.DeltaHit;
 
             _hitted = false;
             mouvementConsign = new List<float>();
             timeListScenario = new List<float>();
-            _lineAcceleration = new float[2];
 
-            Debug.Log(this.gameObject.name + " timer " + _timerScenario);
             //Initialisation of the time and the acceleration
             _startTimeScenario = Time.time;
             _tTime = Time.time - _startTimeScenario;
             _previousTime = _tTime;
 
-            System.Random random = new System.Random();
-            _deltaTime = random.Next(_deltaTimeMin, _deltaTimeMax);
-            _lineAcceleration[0] = random.Next(-_accelerationMax, _accelerationMax);
-            _lineAcceleration[1] = random.Next(-_accelerationMax, _accelerationMax);
-
+            Debug.Log(this.gameObject.name + " for " + _timerScenario + " seconds");
         }
 
         void Start()
@@ -90,17 +78,15 @@ namespace SparringManager.CrossLine
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
             Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
+
             _crossLineComponent = GetComponentInChildren<CrossLineBehaviour>();
+            SetComponentVariables();
         }
 
         private void FixedUpdate()
         {
             _tTime = Time.time - _startTimeScenario;
-            RandomizeParametersLineMovement(_tTime, ref _previousTime, ref _deltaTime, ref _lineAcceleration, _accelerationMax, _deltaTimeMin, _deltaTimeMax);
-
-            _crossLineComponent.SetHit(_tTime, _timeBeforeHit, _deltaHit, _hitted);
-            _crossLineComponent.MoveLine(_lineAcceleration[0], _lineAcceleration[1]);
-
+            RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
             GetConsigne(_tTime, _crossLineComponent.transform.position.x);
         }
 
@@ -116,21 +102,18 @@ namespace SparringManager.CrossLine
 
         public void GetHit(Vector2 position2d_)
         {
-            float tTime = Time.time - _startTimeScenario;
-            float _timeBeforeHit = _crossLineControllerStruct.TimeBeforeHit;
-            float _deltaHit = _crossLineControllerStruct.DeltaHit;
-
             RaycastHit hit;
             Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z);
             Vector3 rayCastDirection = new Vector3(0, 0, 1);
 
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
-            bool canHit = (tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit);
+            bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
 
             if (rayOnTarget && canHit && _hitted == false)
             {
-                _reactTime = tTime - _timeBeforeHit;
+                _reactTime = _tTime - _timeBeforeHit;
                 _hitted = true;
+                _crossLineComponent.Hitted = true;
 
                 Debug.Log("Line touched : " + position2d_);
                 Debug.Log("React time : " + _reactTime);
@@ -143,6 +126,7 @@ namespace SparringManager.CrossLine
             //DataManager.DataManager.ToCSV(_crossLineData.DataBase, "C:\\Users\\IIFR\\Documents\\GitHub\\Hitbox_Test\\HTBX_SparringManager\\_data\\Tableau.csv");
             _reactTime = 0;
             _hitted = false;
+            _crossLineComponent.Hitted = true;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
 
@@ -155,17 +139,35 @@ namespace SparringManager.CrossLine
             mouvementConsign.Add(pos);
             timeListScenario.Add(time);
         }
-        void RandomizeParametersLineMovement(float tTime, ref float previousTime, ref float deltaTime, ref float[] lineAcceleration, int accelerationMax, int deltaTimeMin, int deltaTimeMax)
+        void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
         {
             System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((tTime - previousTime) > deltaTime)
+            if ((_tTime - _previousTime) > _crossLineComponent.DeltaTimeChangeAcceleration)
             {
-                lineAcceleration[0] = random.Next(-accelerationMax, accelerationMax);
-                lineAcceleration[1] = random.Next(-accelerationMax, accelerationMax);
-                previousTime = tTime;
-                deltaTime = random.Next(deltaTimeMin, deltaTimeMax);
+                _crossLineComponent.LineAcceleration[0] = random.Next(-accelerationMax, accelerationMax);
+                _crossLineComponent.LineAcceleration[1] = random.Next(-accelerationMax, accelerationMax);
+                _crossLineComponent.DeltaTimeChangeAcceleration= random.Next(deltaTimeMin, deltaTimeMax);
+
+                _previousTime = _tTime;
+
             }
+        }
+        private void SetComponentVariables()
+        {
+            _crossLineComponent.TimeBeforeHit = _crossLineControllerStruct.TimeBeforeHit;
+            _crossLineComponent.DeltaHit = _crossLineControllerStruct.DeltaHit;
+            _crossLineComponent.FixPosHit = _crossLineControllerStruct.FixPosHit;
+        }
+
+        private void SetControllerVariables()
+        {
+            _timerScenario = _controllerStruct.TimerScenario;
+            _accelerationMax = _crossLineControllerStruct.AccelerationMax;
+            _deltaTimeMax = _crossLineControllerStruct.DeltaTimeMax;
+            _deltaTimeMin = _crossLineControllerStruct.DeltaTimeMin;
+            _timeBeforeHit = _crossLineControllerStruct.TimeBeforeHit;
+            _deltaHit = _crossLineControllerStruct.DeltaHit;
         }
 
     }

@@ -26,7 +26,6 @@ namespace SparringManager.SplHitLine
      */
     public class SplHitLineBehaviour : MonoBehaviour
     {
-
         //General variables of a MovingLine
         private float _lineAcceleration;
         private int _deltaTimeChangeAcceleration;
@@ -57,6 +56,9 @@ namespace SparringManager.SplHitLine
         private float _timeBeforeHit;
         private float _deltaHit;
         private bool _hitted;
+        private bool _fixPosHit; //Boolean to indicate if the line continue to move when the hit is setted
+        private int _fixPosHitValue = 1; // if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
+
         public float DeltaHit
         {
             get
@@ -90,6 +92,17 @@ namespace SparringManager.SplHitLine
                 _hitted = value;
             }
         }
+        public bool FixPosHit
+        {
+            get
+            {
+                return _fixPosHit;
+            }
+            set
+            {
+                _fixPosHit = value;
+            }
+        }
 
         //Global Time variable
         private float _startTimeScenario;
@@ -101,11 +114,6 @@ namespace SparringManager.SplHitLine
         private int _scaleMaxValue;
         private float _scaleSpeed;
         private int _scaleSide; //-1 ou 1
-        private bool _fixPosHit; //Boolean to indicate if the line continue to move when the hit is setted
-        // -> other usefull variables
-        private Vector3 _initScale;
-        private int _fixPosHitValue = 1; // if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
-
         //UseFull only for SplHitLine
         public GameObject LineToHit
         {
@@ -151,17 +159,9 @@ namespace SparringManager.SplHitLine
                 _scaleSpeed = value;
             }
         }
-        public bool FixPosHit
-        {
-            get
-            {
-                return _fixPosHit;
-            }
-            set
-            {
-                _fixPosHit = value;
-            }
-        }
+
+        // -> other usefull variables
+        private Vector3 _initScale;
 
         void Start()
         {
