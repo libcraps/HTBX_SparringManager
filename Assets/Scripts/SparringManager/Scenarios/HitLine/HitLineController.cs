@@ -67,28 +67,32 @@ namespace SparringManager.HitLine
         private ScenarioController _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
         private HitLineStruct _hitLineControllerStruct;
-        private HitLineDataStruct _hitLineData;
+        private HitLineDataStruct _hitLineDataStruct;
 
         [SerializeField]
         private GameObject _scenarioComposant; //HitLine Prefab
         private HitLineBehaviour _hitLineComponent;
 
         //List of the data that we will export 
-        private List<float> mouvementConsign;
-        private List<float> timeListScenario;
+        private DataManager.DataManager _dataManagerComponent;
+        private List<float> _mouvementConsign;
+        private List<float> _timeListScenario;
 
         //------------ METHODS -------------------
         //General Methods
         private void Awake()
         {
             //INITIALISATION OF VARIABLES 
+            //Scenario Variables
             _scenarioControllerComponent = GetComponent<ScenarioController>();
             _controllerStruct = _scenarioControllerComponent.ControllerStruct;
             _hitLineControllerStruct = _controllerStruct.HitLineStruct;
             SetControllerVariables();
 
-            mouvementConsign = new List<float>();
-            timeListScenario = new List<float>();
+            //Export Data Variables
+            _dataManagerComponent = GetComponentInParent<DataManager.DataManager>();
+            _mouvementConsign = new List<float>();
+            _timeListScenario = new List<float>();
 
             //Initialisation of the time and the acceleration
             _startTimeScenario = Time.time;
@@ -114,10 +118,14 @@ namespace SparringManager.HitLine
             //Update the "situation" of the line
             _tTime = Time.time - _startTimeScenario;
             RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
+
+            //Stock the tTime data in list
             GetConsigne(_tTime, _hitLineComponent.transform.position.x);
         }
         void OnDestroy()
         {
+            GetExportDataInStructure();
+            ExportDataInDataManager();
             _reactTime = 0;
             _hitLineComponent.Hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
@@ -143,8 +151,21 @@ namespace SparringManager.HitLine
         //Method for the data exportation
         private void GetConsigne(float time, float pos)
         {
-            mouvementConsign.Add(pos);
-            timeListScenario.Add(time);
+            _mouvementConsign.Add(pos);
+            _timeListScenario.Add(time);
+        }
+        private void GetExportDataInStructure()
+        {
+            //Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
+            _hitLineDataStruct.MouvementConsigne = _mouvementConsign;
+            _hitLineDataStruct.TimeListScenario = _timeListScenario;
+            _hitLineDataStruct.Hitted = _hitLineComponent.Hitted;
+            _hitLineDataStruct.ReactionTime = _reactTime;
+        }
+        private void ExportDataInDataManager()
+        {
+            //Export the dataStructure in the datamanager
+            _dataManagerComponent.DataBase.Add(_hitLineDataStruct.HitLineDataTable);
         }
 
         //Method that change parameters of a moving object

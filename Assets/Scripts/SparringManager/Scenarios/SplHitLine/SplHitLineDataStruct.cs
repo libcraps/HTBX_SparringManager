@@ -7,29 +7,76 @@ namespace SparringManager.DataManager.SplHitLine
 {
     public struct SplHitLineDataStruct
     {
-        public bool hitted;
-        public float reactionTime;
-        public List<float> followingTarget;
-        public List<float> timeListSession;
-        public DataTable HitLineDataBase; //Tableau contenant les listes de temps
+        private bool _hitted;
+        private float _reactionTime;
+        private List<float> _mouvementConsigne;
+        private List<float> _timeListScenario;
+        private DataTable _splHitLineDataTable; //Tableau contenant les listes de temps
 
-        public SplHitLineDataStruct(bool hitted, float reactionTime, List<float> followingTarget, List<float> timeListSession, DataTable dataTable = null)
+        public bool Hitted
         {
-            this.hitted = hitted;
-            this.reactionTime = reactionTime;
-            this.timeListSession = timeListSession;
-            this.followingTarget = followingTarget;
-            this.HitLineDataBase = dataTable;
-            this.HitLineDataBase = CreateDataTable(timeListSession, followingTarget);
+            get
+            {
+                return _hitted;
+            }
+            set
+            {
+                _hitted = value;
+            }
+        }
+        public float ReactionTime
+        {
+            get
+            {
+                return _reactionTime;
+            }
+            set
+            {
+                _reactionTime = value;
+            }
+        }
+        public List<float> MouvementConsigne
+        {
+            get
+            {
+                return _mouvementConsigne;
+            }
+            set
+            {
+                _mouvementConsigne = value;
+            }
+        }
+        public List<float> TimeListScenario
+        {
+            get
+            {
+                return _timeListScenario;
+            }
+            set
+            {
+                _timeListScenario = value;
+            }
+        }
+        public DataTable SplHitLineDataTable
+        {
+            get
+            {
+                _splHitLineDataTable = CreateDataTable(_timeListScenario, _mouvementConsigne);
+                return _splHitLineDataTable;
+            }
+            set
+            {
+                _splHitLineDataTable = value;
+            }
         }
 
-        public override string ToString()
+        public SplHitLineDataStruct(bool hitted, float reactionTime, List<float> mouvementConsigne, List<float> timeListSession, DataTable dataTable = null)
         {
-            Debug.Log("HitLineData structure : ");
-            Debug.Log("Hitted : " + hitted);
-            Debug.Log("Reaction Time : " + reactionTime);
-            Debug.Log("List length : " + timeListSession.Count);
-            return "HitLine Data";
+            this._hitted = hitted;
+            this._reactionTime = reactionTime;
+            this._timeListScenario = timeListSession;
+            this._mouvementConsigne = mouvementConsigne;
+            this._splHitLineDataTable = dataTable;
         }
 
         public DataTable CreateDataTable(List<float> timeListSession, List<float> mouvementConsign)

@@ -56,10 +56,11 @@ namespace SparringManager.HitLine
         }
 
         //Variables of an Hitting Line
+        //-> variables setted in the
         private float _timeBeforeHit;
         private float _deltaHit;
-        private bool _hitted;
         private bool _fixPosHit; //Boolean to indicate if the line continue to move when the hit is setted
+        private bool _hitted;
         private int _fixPosHitValue = 1; // if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
         public float DeltaHit
         {
@@ -116,7 +117,6 @@ namespace SparringManager.HitLine
             _startTimeScenario = Time.time;
             _tTime = Time.time - _startTimeScenario;
         }
-
         void FixedUpdate()
         {
             _tTime = Time.time - _startTimeScenario;
@@ -129,7 +129,6 @@ namespace SparringManager.HitLine
         {
             this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
-
         public void SetHit()
         {
             //change the color of the line if the player have to hit
@@ -149,7 +148,6 @@ namespace SparringManager.HitLine
                 _fixPosHitValue = 1;
             }
         }
-
         void LineInCameraRange()
         {
             /* 

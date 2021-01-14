@@ -1,6 +1,4 @@
-﻿using SparringManager;
-using SparringManager.DataManager;
-using SparringManager.DataManager.SplHitLine;
+﻿using SparringManager.DataManager.SplHitLine;
 using System.Collections.Generic;
 using System.IO;
 using System.Data;
@@ -51,7 +49,7 @@ namespace SparringManager.SplHitLine
      */
     public class SplHitLineController : MonoBehaviour
     {
-        //----------- ATTRIBUTS ----------------------
+//--------------------------    ATTRIBUTS     ----------------------------------------
         //Usefull parameters of the scenario, they are in the splhitLineStructure
         private int _accelerationMax;
         private int _deltaTimeMax;
@@ -64,35 +62,37 @@ namespace SparringManager.SplHitLine
         private float _reactTime;
         private float _startTimeScenario;
         private float _timerScenario;
-        private bool _hitted;
 
         //Object that contain datas (structures)
         private ScenarioController _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
         private SplHitLineStruct _splHitLineControllerStruct;
-        private SplHitLineDataStruct _splHitLineData;
+        private SplHitLineDataStruct _splHitLineDataStruct;
 
         [SerializeField]
         private GameObject _scenarioComposant; //splHitLine
         private SplHitLineBehaviour _splHitLineComponent;
 
         //List of the data that we will export 
-        private List<float> mouvementConsign;
-        private List<float> timeListScenario;
+        private DataManager.DataManager _dataManagerComponent;
+        private List<float> _mouvementConsigne;
+        private List<float> _timeListScenario;
 
-        //------------ METHODS -------------------
-        //General Methods
+//--------------------------    METHODS     ----------------------------------------
+// ---> General Methods
         private void Awake()
         {
             //INITIALISATION OF VARIABLES 
+            //Scenario Variables
             _scenarioControllerComponent = GetComponent<ScenarioController>();
             _controllerStruct = _scenarioControllerComponent.ControllerStruct;
             _splHitLineControllerStruct = _controllerStruct.SplHitLineStruct;
             SetControllerVariables();
 
-            _hitted = false;
-            mouvementConsign = new List<float>();
-            timeListScenario = new List<float>();
+            //Export Data Variables
+            _dataManagerComponent = GetComponentInParent<DataManager.DataManager>();
+            _mouvementConsigne = new List<float>();
+            _timeListScenario = new List<float>();
 
             //Initialisation of the time and the acceleration
             _startTimeScenario = Time.time;
@@ -119,17 +119,20 @@ namespace SparringManager.SplHitLine
             //Update the "situation" of the line
             _tTime = Time.time - _startTimeScenario;
             RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
+
+            //Stock the tTime data in lists
             GetConsigne(_tTime, _splHitLineComponent.transform.position.x);
         }
         void OnDestroy()
         {
+            GetExportDataInStructure();
+            ExportDataInDataManager();
             _reactTime = 0;
-            _hitted = false;
             _splHitLineComponent.Hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
 
-        //Methods that set variables
+// ---> Methods that set variables
         private void SetPrefabComponentVariables()
         {
             _splHitLineComponent.TimeBeforeHit = _splHitLineControllerStruct.TimeBeforeHit;
@@ -148,14 +151,27 @@ namespace SparringManager.SplHitLine
             _deltaHit = _splHitLineControllerStruct.DeltaHit;
         }
 
-        //Method for the data exportation
+// ---> Methods for the data exportation
         private void GetConsigne(float time, float pos)
         {
-            mouvementConsign.Add(pos);
-            timeListScenario.Add(time);
+            _mouvementConsigne.Add(pos);
+            _timeListScenario.Add(time);
+        }
+        private void GetExportDataInStructure()
+        {
+            //Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
+            _splHitLineDataStruct.MouvementConsigne = _mouvementConsigne;
+            _splHitLineDataStruct.TimeListScenario = _timeListScenario;
+            _splHitLineDataStruct.Hitted = _splHitLineComponent.Hitted;
+            _splHitLineDataStruct.ReactionTime = _reactTime;
+        }
+        private void ExportDataInDataManager()
+        {
+            //Export the dataStructure in the datamanager
+            _dataManagerComponent.DataBase.Add(_splHitLineDataStruct.SplHitLineDataTable);
         }
 
-        //Method that change parameters of a moving object
+// ---> Method that change parameters of a moving object
         private void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
         {
             System.Random random = new System.Random();
@@ -169,7 +185,7 @@ namespace SparringManager.SplHitLine
             }
         }
 
-        //Method for an hitting object
+// ---> Method for an hitting object
         private void OnEnable()
         {
             ImpactManager.onInteractPoint += GetHit;
@@ -187,11 +203,10 @@ namespace SparringManager.SplHitLine
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
             bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
 
-            if (rayOnTarget && canHit && _hitted == false)
+            if (rayOnTarget && canHit && _splHitLineComponent.Hitted == false)
             {
                 _reactTime = _tTime - _timeBeforeHit;
 
-                _hitted = true;
                 _splHitLineComponent.Hitted = true;
 
                 Debug.Log("Line touched : " + position2d_);
@@ -199,7 +214,7 @@ namespace SparringManager.SplHitLine
             }
         }
 
-        //Specific method of the splHitLine scenario
+// ---> Specific method of the splHitLine scenario
         private void SetLineToHit()
         {
             /*

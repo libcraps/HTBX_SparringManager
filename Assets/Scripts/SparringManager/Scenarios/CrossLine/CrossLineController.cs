@@ -67,28 +67,34 @@ namespace SparringManager.CrossLine
         private ScenarioController _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
         private CrossLineStruct _crossLineControllerStruct;
-        private CrossLineDataStruct _crossLineData;
+        private CrossLineDataStruct _crossLineDataStruct;
 
         [SerializeField]
         private GameObject _scenarioComposant;
         private CrossLineBehaviour _crossLineComponent;
 
         //list of the data that we will export
-        private List<float> mouvementConsign;
-        private List<float> timeListScenario;
+        private DataManager.DataManager _dataManagerComponent;
+        private List<float> _mouvementConsigneX;
+        private List<float> _mouvementConsigneY;
+        private List<float> _timeListScenario;
 
         //------------ METHODS -------------------
         //General Methods
         private void Awake()
         {
             //INITIALISATION OF VARIABLES 
+            //Scenario Variables
             _scenarioControllerComponent = GetComponent<ScenarioController>();
             _controllerStruct = _scenarioControllerComponent.ControllerStruct;
             _crossLineControllerStruct = _controllerStruct.CrossLineStruct;
             SetControllerVariables();
 
-            mouvementConsign = new List<float>();
-            timeListScenario = new List<float>();
+            //Export Data Variables
+            _dataManagerComponent = GetComponentInParent<DataManager.DataManager>();
+            _mouvementConsigneX = new List<float>();
+            _mouvementConsigneY = new List<float>();
+            _timeListScenario = new List<float>();
 
             //Initialisation of the time and the acceleration
             _startTimeScenario = Time.time;
@@ -113,12 +119,14 @@ namespace SparringManager.CrossLine
         {
             _tTime = Time.time - _startTimeScenario;
             RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
-            GetConsigne(_tTime, _crossLineComponent.transform.position.x);
+
+            //Stock the tTime data in list
+            GetConsigne(_tTime, _crossLineComponent.transform.position.x, _crossLineComponent.transform.position.y);
         }
         void OnDestroy()
         {
-            //GetData();
-            //DataManager.DataManager.ToCSV(_crossLineData.DataBase, "C:\\Users\\IIFR\\Documents\\GitHub\\Hitbox_Test\\HTBX_SparringManager\\_data\\Tableau.csv");
+            GetExportDataInStructure();
+            ExportDataInDataManager();
             _reactTime = 0;
             _crossLineComponent.Hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
@@ -142,10 +150,25 @@ namespace SparringManager.CrossLine
         }
 
         //Method for the data exportation
-        private void GetConsigne(float time, float pos)
+        private void GetConsigne(float time, float posX, float posY)
         {
-            mouvementConsign.Add(pos);
-            timeListScenario.Add(time);
+            _timeListScenario.Add(time);
+            _mouvementConsigneX.Add(posX);
+            _mouvementConsigneY.Add(posY);
+        }
+        private void GetExportDataInStructure()
+        {
+            //Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
+            _crossLineDataStruct.MouvementConsigneX = _mouvementConsigneX;
+            _crossLineDataStruct.MouvementConsigneY = _mouvementConsigneY;
+            _crossLineDataStruct.TimeListScenario = _timeListScenario;
+            _crossLineDataStruct.Hitted = _crossLineComponent.Hitted;
+            _crossLineDataStruct.ReactionTime = _reactTime;
+        }
+        private void ExportDataInDataManager()
+        {
+            //Export the dataStructure in the datamanager
+            _dataManagerComponent.DataBase.Add(_crossLineDataStruct.CrossLineDataTable);
         }
 
         //Method that change parameters of a moving object

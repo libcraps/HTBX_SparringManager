@@ -11,9 +11,9 @@ namespace SparringManager
         [SerializeField]
         private string _name = "Romuald";
         [SerializeField]
-        private StructScenarios[] scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
+        private StructScenarios[] _scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
 
-        private int _indexScenario;
+        private int _indexScenario = 0;
         private string nameSenarioI;
         private string path;
 
@@ -35,28 +35,43 @@ namespace SparringManager
                 return _indexScenario;
             }
         }
+        public int NbScenarios
+        {
+            get
+            {
+                return _scenarios.Length;
+            }
+        }
+
+        public StructScenarios[] Scenarios
+        {
+            get
+            {
+                return _scenarios;
+            }
+        }
 
         //---------- METHODS ---------
         void Start()
         {
             _indexScenario = 0;
 
-            _timerScenarioI = scenarios[_indexScenario].TimerScenario;
-            nameSenarioI = scenarios[_indexScenario].ScenarioPrefab.name;
+            _timerScenarioI = _scenarios[_indexScenario].TimerScenario;
+            nameSenarioI = _scenarios[_indexScenario].ScenarioPrefab.name;
             _timeStartScenarioI = Time.time;
             
-            InstantiateAndBuildScenario(scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position); 
+            InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position); 
         }
         private void Update()
         {
-            if (((Time.time - _timeStartScenarioI) > _timerScenarioI) && (_indexScenario < (scenarios.Length -1))) //If the last scenario ended and there is scenarios left
+            if (((Time.time - _timeStartScenarioI) > _timerScenarioI) && (_indexScenario < (_scenarios.Length -1))) //If the last scenario ended and there is scenarios left
             {
                 _indexScenario += 1;
 
-                _timerScenarioI = scenarios[_indexScenario].TimerScenario;
+                _timerScenarioI = _scenarios[_indexScenario].TimerScenario;
                 _timeStartScenarioI = Time.time;
 
-                InstantiateAndBuildScenario(scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
+                InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
             }
         }
 

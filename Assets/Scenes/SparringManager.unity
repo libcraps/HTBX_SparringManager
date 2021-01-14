@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -223,14 +223,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: Romuald
-  scenarios:
-  - _scenarioPrefab: {fileID: 4281324017865965865, guid: 36567d5e12548c841a1195cf19e51db4,
+  _scenarios:
+  - _scenarioPrefab: {fileID: 4281324017865965865, guid: 81bcf515e42e28b499dc2c872ec52c77,
       type: 3}
-    _timerScenario: 10
+    _timerScenario: 4
     _simpleLineStruct:
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
+      _accelerationMax: 5
+      _deltaTimeMax: 3
+      _deltaTimeMin: 2
     _hitLineStruct:
       _hitPrefab: {fileID: 0}
       _accelerationMax: 0
@@ -249,28 +249,28 @@ MonoBehaviour:
       _fixPosHit: 0
     _splHitLineStruct:
       _hitPrefab: {fileID: 0}
-      _accelerationMax: 50
-      _deltaTimeMax: 3
-      _deltaTimeMin: 2
-      _deltaHit: 2
-      _timeBeforeHit: 4
-      _scaleMaxValue: 30
-      _scaleSpeed: 0.51
-      _fixPosHit: 1
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
+      _deltaHit: 0
+      _timeBeforeHit: 0
+      _scaleMaxValue: 0
+      _scaleSpeed: 0
+      _fixPosHit: 0
   - _scenarioPrefab: {fileID: 4281324017865965865, guid: 30bee1edd9312e54da96df824042ceec,
       type: 3}
-    _timerScenario: 10
+    _timerScenario: 5
     _simpleLineStruct:
       _accelerationMax: 0
       _deltaTimeMax: 0
       _deltaTimeMin: 0
     _hitLineStruct:
       _hitPrefab: {fileID: 0}
-      _accelerationMax: 25
-      _deltaTimeMax: 5
-      _deltaTimeMin: 3
-      _deltaHit: 2
-      _timeBeforeHit: 5
+      _accelerationMax: 20
+      _deltaTimeMax: 3
+      _deltaTimeMin: 2
+      _deltaHit: 3
+      _timeBeforeHit: 2
       _fixPosHit: 1
     _crossLineStruct:
       _hitPrefab: {fileID: 0}
@@ -292,7 +292,7 @@ MonoBehaviour:
       _fixPosHit: 0
   - _scenarioPrefab: {fileID: 4281324017865965865, guid: 8a872874b0bd81a49ac9266d974f2a5a,
       type: 3}
-    _timerScenario: 10
+    _timerScenario: 8
     _simpleLineStruct:
       _accelerationMax: 0
       _deltaTimeMax: 0
@@ -307,12 +307,12 @@ MonoBehaviour:
       _fixPosHit: 0
     _crossLineStruct:
       _hitPrefab: {fileID: 0}
-      _accelerationMax: 25
+      _accelerationMax: 15
       _deltaTimeMax: 5
       _deltaTimeMin: 4
-      _deltaHit: 3
-      _timeBeforeHit: 4
-      _fixPosHit: 0
+      _deltaHit: 6
+      _timeBeforeHit: 3
+      _fixPosHit: 1
     _splHitLineStruct:
       _hitPrefab: {fileID: 0}
       _accelerationMax: 0
@@ -323,13 +323,13 @@ MonoBehaviour:
       _scaleMaxValue: 0
       _scaleSpeed: 0
       _fixPosHit: 0
-  - _scenarioPrefab: {fileID: 4281324017865965865, guid: 81bcf515e42e28b499dc2c872ec52c77,
+  - _scenarioPrefab: {fileID: 4281324017865965865, guid: 36567d5e12548c841a1195cf19e51db4,
       type: 3}
-    _timerScenario: 8
+    _timerScenario: 7
     _simpleLineStruct:
-      _accelerationMax: 20
-      _deltaTimeMax: 3
-      _deltaTimeMin: 1
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
     _hitLineStruct:
       _hitPrefab: {fileID: 0}
       _accelerationMax: 0
@@ -348,47 +348,14 @@ MonoBehaviour:
       _fixPosHit: 0
     _splHitLineStruct:
       _hitPrefab: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
-      _scaleMaxValue: 0
-      _scaleSpeed: 0
-      _fixPosHit: 0
-  - _scenarioPrefab: {fileID: 4281324017865965865, guid: 81bcf515e42e28b499dc2c872ec52c77,
-      type: 3}
-    _timerScenario: 8
-    _simpleLineStruct:
-      _accelerationMax: 20
-      _deltaTimeMax: 3
-      _deltaTimeMin: 1
-    _hitLineStruct:
-      _hitPrefab: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
-      _fixPosHit: 0
-    _crossLineStruct:
-      _hitPrefab: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
-      _fixPosHit: 0
-    _splHitLineStruct:
-      _hitPrefab: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
-      _scaleMaxValue: 0
-      _scaleSpeed: 0
-      _fixPosHit: 0
+      _accelerationMax: 15
+      _deltaTimeMax: 5
+      _deltaTimeMin: 3
+      _deltaHit: 2
+      _timeBeforeHit: 3
+      _scaleMaxValue: 20
+      _scaleSpeed: 0.1
+      _fixPosHit: 1
 --- !u!114 &411570569
 MonoBehaviour:
   m_ObjectHideFlags: 0
