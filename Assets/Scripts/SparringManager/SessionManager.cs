@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using SparringManager.DataManager;
 using UnityEngine;
 
 namespace SparringManager
@@ -51,6 +52,7 @@ namespace SparringManager
             }
         }
 
+
         //---------- METHODS ---------
         void Start()
         {
@@ -70,6 +72,7 @@ namespace SparringManager
 
                 _timerScenarioI = _scenarios[_indexScenario].TimerScenario;
                 _timeStartScenarioI = Time.time;
+
 
                 InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
             }

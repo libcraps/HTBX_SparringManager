@@ -126,6 +126,7 @@ namespace SparringManager.HitLine
         {
             GetExportDataInStructure();
             ExportDataInDataManager();
+            _dataManagerComponent.EditFile = true;
             _reactTime = 0;
             _hitLineComponent.Hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");

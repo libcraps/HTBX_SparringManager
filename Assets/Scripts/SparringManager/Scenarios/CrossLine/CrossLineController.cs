@@ -127,6 +127,7 @@ namespace SparringManager.CrossLine
         {
             GetExportDataInStructure();
             ExportDataInDataManager();
+            _dataManagerComponent.EditFile = true;
             _reactTime = 0;
             _crossLineComponent.Hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");

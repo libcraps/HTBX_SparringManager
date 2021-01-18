@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace SparringManager.DataManager.SimpleLine
 {
+    /*
+     * Structure for the export data
+     */
     public struct SimpleLineDataStruct
     {
         private List<float> _mouvementConsigne;

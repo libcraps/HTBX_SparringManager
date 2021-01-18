@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace SparringManager.DataManager
 {
-    public class DataManager : MonoBehaviour
+    public class DataManagerMono : MonoBehaviour
     {
 //---------------    ATTRIBUTS    ----------------------
         private SessionManager _SessionManagerComponent;
@@ -52,7 +52,8 @@ namespace SparringManager.DataManager
         private string _nameScenario;
         private int _indexScenario;
 
-        //---------------     METHODS    -----------------------
+//---------------     METHODS    -----------------------
+        //General Methods
         private void Awake()
         {
             //_sessionResume = new List<string>();
@@ -70,6 +71,9 @@ namespace SparringManager.DataManager
         }
         private void FixedUpdate()
         {
+            // TO TRY : mettre un booleen dans les cscnearios controller/ ou dans le data manager: 
+            //genre csv editable qui devient true quand la fonction se finie (dans le on destroy)
+
             if (_editFile == true)
             {
                 //Compléter la liste SumUp avec le scénario actuel
@@ -78,13 +82,12 @@ namespace SparringManager.DataManager
                 ToCSV(_dataBase[_indexScenario-1], _dataPath + _nameScenario + ".csv");
             }
             _editFile = false;
-
-            if (_indexScenario == _SessionManagerComponent.NbScenarios)
-            {
-                _indexScenario += 1;
-            }
         }
 
+        private void OnDestroy()
+        {
+
+        }
 
         //Methods we use to stock data in file
         private void ToCSV(DataTable dtDataTable, string strFilePath)

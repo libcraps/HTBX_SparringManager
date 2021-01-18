@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace SparringManager.DataManager.SplHitLine
 {
+    /*
+     * Structure for the export data
+     */
     public struct SplHitLineDataStruct
     {
         private bool _hitted;
