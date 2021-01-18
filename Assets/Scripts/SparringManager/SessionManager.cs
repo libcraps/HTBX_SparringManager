@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine;
 using System;
-using SparringManager.DataManager;
-using UnityEngine;
 
 namespace SparringManager
 {
     public class SessionManager : MonoBehaviour
     {
-        //--------- ATTRIBUTS ----------
+//----------------------    ATTRIBUTS    --------------------------
         [SerializeField]
         private string _name = "Romuald";
         [SerializeField]
@@ -43,7 +40,6 @@ namespace SparringManager
                 return _scenarios.Length;
             }
         }
-
         public StructScenarios[] Scenarios
         {
             get
@@ -52,33 +48,75 @@ namespace SparringManager
             }
         }
 
+        public bool ChildDestroyed { get; set; }
 
-        //---------- METHODS ---------
+        private DataManager.DataManager _dataManager;
+
+        private string GetNameScenarioI(int index)
+        {
+                return _scenarios[index].ScenarioPrefab.name;
+        }
+        //----------------------    METHODS    -------------------------------
         void Start()
         {
-            _indexScenario = 0;
-
-            _timerScenarioI = _scenarios[_indexScenario].TimerScenario;
-            nameSenarioI = _scenarios[_indexScenario].ScenarioPrefab.name;
-            _timeStartScenarioI = Time.time;
+            _dataManager = GetComponent<DataManager.DataManager>();
             
-            InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position); 
+            ChildDestroyed = true;
+            _indexScenario = 0;
+            //instantiateScenario += InstantiateScenarioEventHandler;
+
+            //InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
+
         }
-        private void Update()
+        /*
+        public static void InstantiateScenarioEventHandler(object sender, EventArgs _scenarios)
         {
-            if (((Time.time - _timeStartScenarioI) > _timerScenarioI) && (_indexScenario < (_scenarios.Length -1))) //If the last scenario ended and there is scenarios left
+            if (_indexScenario < (_scenarios.Length))
             {
-                _indexScenario += 1;
-
-                _timerScenarioI = _scenarios[_indexScenario].TimerScenario;
-                _timeStartScenarioI = Time.time;
-
-
                 InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
+                ChildDestroyed = false;
+                _indexScenario += 1;
             }
         }
+        public static event EventHandler instantiateScenario;
+        public static void OnInstantiateScenario(object sender, EventArgs e)
+        {
+            EventHandler handler = instantiateScenario;
+            if (handler != null)
+            {
+                handler(sender, e);
+            }
+        }*/
 
-        public static void InstantiateAndBuildScenario(StructScenarios strucObject, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
+        private void Update()
+        {
+            if (ChildDestroyed == true) //If the last scenario was destroyed
+            {
+                //Deal with the export of the data in files
+                if (_dataManager.EditFile == true && _dataManager.ExportIntoFile == true)
+                {
+                    _dataManager.ToCSV(_dataManager.DataBase[_indexScenario-1], ".\\_data\\" + GetNameScenarioI(_indexScenario -1) + ".csv");
+                    _dataManager.EditFile = false;
+                }
+
+                //Deal with the instantiation of scenarios
+                if (_indexScenario < (_scenarios.Length))
+                {
+                    InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
+                    ChildDestroyed = false;
+                    _indexScenario += 1;
+                }
+            }
+        }
+        private void OnDestroy()
+        {
+            if (_dataManager.EditFile == true && _dataManager.ExportIntoFile == true)
+            {
+                _dataManager.ToCSV(_dataManager.DataBase[_indexScenario - 1], ".\\_data\\" + GetNameScenarioI(_indexScenario - 1) + ".csv");
+                _dataManager.EditFile = false;
+            }
+        }
+        private static void InstantiateAndBuildScenario(StructScenarios strucObject, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
         {
             /*
              * Function that instatiate an object, the prefab of this object is in the structureScenarios, it contains all the data that is usefull for the scenarios
@@ -106,5 +144,18 @@ namespace SparringManager
 
             Debug.Log(prefabObject.name + " has been instantiated");
         }
+
+        private void ScenarioInstantiationManage()
+        {
+            if (_indexScenario < (_scenarios.Length))
+            {
+                InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
+                ChildDestroyed = false;
+                _indexScenario += 1;
+            }
+        }
+
+        //EVENT TEST
+
     }
 }

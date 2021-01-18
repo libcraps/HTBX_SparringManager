@@ -118,7 +118,9 @@ namespace SparringManager.SimpleLine
         {
             GetExportDataInStructure();
             ExportDataInDataManager();
+
             _dataManagerComponent.EditFile = true;
+            GetComponentInParent<SessionManager>().ChildDestroyed = true;
             Debug.Log(this.gameObject.name + " has been destroyed");
         }
 
