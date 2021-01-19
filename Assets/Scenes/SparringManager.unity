@@ -382,7 +382,7 @@ MonoBehaviour:
       _fixPosHit: 0
     _splHitLineStruct:
       _hitPrefab: {fileID: 0}
-      _accelerationMax: 15
+      _accelerationMax: 50
       _deltaTimeMax: 5
       _deltaTimeMin: 3
       _deltaHit: 2

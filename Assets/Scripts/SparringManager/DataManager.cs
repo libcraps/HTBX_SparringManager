@@ -118,6 +118,52 @@ namespace SparringManager.DataManager
             }
             sw.Close();
         }
+
+        public void ToCSVGlobal(List<DataTable> dtDataBase, Dictionary<string, Dictionary<string, string>> sessionSumUp, string strFilePath)
+        {
+            /*
+             * Stock une table de type DataTable dans un CSV
+             */
+            StreamWriter sw = new StreamWriter(strFilePath, false);
+
+            List<string> sumUpKeys = new List<string>();
+            sumUpKeys = new List<string>(sessionSumUp.Keys);
+
+            
+            for (int j = 1; j < sumUpKeys.Count;j++)
+            {
+                DataTable dtDataTable = dtDataBase[j-1];
+                sw.Write(sumUpKeys[j]);
+                sw.Write(sw.NewLine);
+                //We add the data of the session
+                //headers    
+                for (int i = 0; i < dtDataTable.Columns.Count; i++)
+                {
+                    sw.Write(dtDataTable.Columns[i]);
+                    if (i < dtDataTable.Columns.Count - 1)
+                    {
+                        sw.Write(";");
+                    }
+                }
+                sw.Write(sw.NewLine);
+                foreach (DataRow dr in dtDataTable.Rows)
+                {
+                    for (int i = 0; i < dtDataTable.Columns.Count; i++)
+                    {
+
+                        sw.Write(dr[i].ToString());
+                        if (i < dtDataTable.Columns.Count - 1)
+                        {
+                            sw.Write(";");
+                        }
+                    }
+                    sw.Write(sw.NewLine);
+                }
+                sw.Write(sw.NewLine);
+
+            }
+            sw.Close();
+        }
         public void DicoToTXT(Dictionary<string, Dictionary<string, string>> dico, string strFilePath)
         {
             StreamWriter sw = new StreamWriter(strFilePath, false);

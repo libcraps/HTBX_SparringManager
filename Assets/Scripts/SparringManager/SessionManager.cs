@@ -65,8 +65,6 @@ namespace SparringManager
             _dataManager.GeneraralSectionSumUp.Add("Nb scenarios : ", NbScenarios.ToString());
 
             _dataManager.AddContentToSumUp("General", _dataManager.GeneraralSectionSumUp);
-
-
             _indexScenario = 0;
             ChildDestroyed = true;
 
@@ -82,7 +80,7 @@ namespace SparringManager
                 //Deal with the export of the data in files
                 if (_dataManager.EditFile == true)
                 {
-                    _dataManager.ToCSV(_dataManager.DataBase[_indexScenario-1], _filePath + GetNameScenarioI(_indexScenario -1) + ".csv");
+                    //_dataManager.ToCSV(_dataManager.DataBase[_indexScenario-1], _filePath + GetNameScenarioI(_indexScenario -1) + ".csv");
                     _dataManager.EditFile = false;
                 }
 
@@ -102,7 +100,9 @@ namespace SparringManager
             if (_dataManager.ExportIntoFile == true)
             {
                 _dataManager.DicoToTXT(_dataManager.SessionSumUp, _filePath + "SessionSumUp.txt");
-                _dataManager.ToCSV(_dataManager.DataBase[_indexScenario - 1], ".\\_data\\" + GetNameScenarioI(_indexScenario - 1) + ".csv");
+                //_dataManager.ToCSV(_dataManager.DataBase[_indexScenario - 1], ".\\_data\\" + GetNameScenarioI(_indexScenario - 1) + ".csv");
+                _dataManager.ToCSVGlobal(_dataManager.DataBase, _dataManager.SessionSumUp, ".\\_data\\" + "GlobalSessionData.csv");
+
                 _dataManager.EditFile = false;
             }
         }
