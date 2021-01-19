@@ -357,6 +357,39 @@ MonoBehaviour:
       _scaleMaxValue: 20
       _scaleSpeed: 0.1
       _fixPosHit: 1
+  - _scenarioPrefab: {fileID: 4281324017865965865, guid: 36567d5e12548c841a1195cf19e51db4,
+      type: 3}
+    _timerScenario: 5
+    _simpleLineStruct:
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
+    _hitLineStruct:
+      _hitPrefab: {fileID: 0}
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
+      _deltaHit: 0
+      _timeBeforeHit: 0
+      _fixPosHit: 0
+    _crossLineStruct:
+      _hitPrefab: {fileID: 0}
+      _accelerationMax: 0
+      _deltaTimeMax: 0
+      _deltaTimeMin: 0
+      _deltaHit: 0
+      _timeBeforeHit: 0
+      _fixPosHit: 0
+    _splHitLineStruct:
+      _hitPrefab: {fileID: 0}
+      _accelerationMax: 15
+      _deltaTimeMax: 5
+      _deltaTimeMin: 3
+      _deltaHit: 2
+      _timeBeforeHit: 3
+      _scaleMaxValue: 20
+      _scaleSpeed: 0.5
+      _fixPosHit: 0
 --- !u!114 &411570569
 MonoBehaviour:
   m_ObjectHideFlags: 0

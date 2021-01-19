@@ -86,13 +86,11 @@ namespace SparringManager.DataManager
             _dataBase = new List<DataTable>();
         }
 
-        //Methods we use to stock data in file
+//--> Methods we use to stock data in file
         public void ToCSV(DataTable dtDataTable, string strFilePath)
         {
             /*
              * Stock une table de type DataTable dans un CSV
-             * 
-             * 
              */
             StreamWriter sw = new StreamWriter(strFilePath, false);
             //headers    
@@ -139,8 +137,12 @@ namespace SparringManager.DataManager
             sw.Close();
         }
 
+//--> Methods that manage data conteners
         public Dictionary<string, string> StructToDictionary<StructType>(StructType structure)
         {
+            /* Generic method that go throw a structure and get 
+             * 
+             */
             Dictionary<string, string> dico = new Dictionary<string, string>();
 
             foreach (var field in typeof(StructType).GetProperties())
@@ -150,9 +152,15 @@ namespace SparringManager.DataManager
 
             return dico;
         }
-
         public void AddContentToSumUp(string key, Dictionary<string, string> content)
         {
+            /*
+             * Method that Add to the _sessionSumUp dictionary a new item "content" a the key "key"
+             * 
+             * Arguments : 
+             *      string key : key of the content
+             *      Dictionary<string, string> content : Dictionary of a new content
+             */
             _sessionSumUp.Add(key, content);
         }
         public void GetGeneralContentForSumUp()

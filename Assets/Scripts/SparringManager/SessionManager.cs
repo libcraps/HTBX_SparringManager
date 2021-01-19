@@ -13,12 +13,9 @@ namespace SparringManager
         private StructScenarios[] _scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
 
         private int _indexScenario = 0;
-        private string nameSenarioI;
         private string _filePath = ".\\_data\\";
 
         //Variables temporaires de scénarios
-        private int _timerScenarioI;
-        private float _timeStartScenarioI;
 
         public string Name
         {
@@ -69,12 +66,10 @@ namespace SparringManager
 
             _dataManager.AddContentToSumUp("General", _dataManager.GeneraralSectionSumUp);
 
-            Debug.Log(nameof(DateTime.Now));
+
             _indexScenario = 0;
             ChildDestroyed = true;
 
-            _timerScenarioI = 0;
-            _timeStartScenarioI = Time.time;
             //instantiateScenario += InstantiateScenarioEventHandler;
 
             //InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
