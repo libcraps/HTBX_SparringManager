@@ -56,6 +56,7 @@ namespace SparringManager.SimpleLine
         private float _tTime;
         private float _startTimeScenario;
 
+        public static int nbApparition;
         //Object that contain datas (structures)
         private ScenarioController _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
@@ -75,6 +76,7 @@ namespace SparringManager.SimpleLine
         //General Methods
         private void Awake()
         {
+            nbApparition += 1;
             //INITIALISATION OF VARIABLES 
             //Scenario Variables
             _scenarioControllerComponent = GetComponent<ScenarioController>();
@@ -84,6 +86,8 @@ namespace SparringManager.SimpleLine
 
             //Export Data variables
             _dataManagerComponent = GetComponentInParent<DataManager.DataManager>();
+            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<SimpleLineStruct>(_simpleLineControllerStruct));
+
             _mouvementConsign = new List<float>();
             _timeListScenario = new List<float>();
 

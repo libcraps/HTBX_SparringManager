@@ -63,6 +63,7 @@ namespace SparringManager.CrossLine
         private float _startTimeScenario;
         private float _timerScenario;
 
+        public static int nbApparition;
         //Object that contain datas (structures)
         private ScenarioController _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
@@ -83,6 +84,7 @@ namespace SparringManager.CrossLine
         //General Methods
         private void Awake()
         {
+            nbApparition += 1;
             //INITIALISATION OF VARIABLES 
             //Scenario Variables
             _scenarioControllerComponent = GetComponent<ScenarioController>();
@@ -92,6 +94,9 @@ namespace SparringManager.CrossLine
 
             //Export Data Variables
             _dataManagerComponent = GetComponentInParent<DataManager.DataManager>();
+            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<CrossLineStruct>(_crossLineControllerStruct));
+
+
             _mouvementConsigneX = new List<float>();
             _mouvementConsigneY = new List<float>();
             _timeListScenario = new List<float>();

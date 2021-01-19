@@ -63,6 +63,8 @@ namespace SparringManager.HitLine
         private float _startTimeScenario;
         private float _timerScenario;
 
+        public static int nbApparition = 0;
+
         //Object that contain datas (structures)
         private ScenarioController _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
@@ -82,6 +84,7 @@ namespace SparringManager.HitLine
         //General Methods
         private void Awake()
         {
+            nbApparition += 1;
             //INITIALISATION OF VARIABLES 
             //Scenario Variables
             _scenarioControllerComponent = GetComponent<ScenarioController>();
@@ -91,6 +94,7 @@ namespace SparringManager.HitLine
 
             //Export Data Variables
             _dataManagerComponent = GetComponentInParent<DataManager.DataManager>();
+            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<HitLineStruct>(_hitLineControllerStruct));
             _mouvementConsign = new List<float>();
             _timeListScenario = new List<float>();
 
@@ -103,6 +107,8 @@ namespace SparringManager.HitLine
         }
         void Start()
         {
+ 
+
             Vector3 _pos3d = new Vector3();
             _pos3d.x = this.gameObject.transform.position.x;
             _pos3d.y = this.gameObject.transform.position.y;

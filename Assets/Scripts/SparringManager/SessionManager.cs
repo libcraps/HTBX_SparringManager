@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.IO;
 using System;
 
 namespace SparringManager
@@ -13,7 +14,7 @@ namespace SparringManager
 
         private int _indexScenario = 0;
         private string nameSenarioI;
-        private string path;
+        private string _filePath = ".\\_data\\";
 
         //Variables temporaires de scénarios
         private int _timerScenarioI;
@@ -56,46 +57,37 @@ namespace SparringManager
         {
                 return _scenarios[index].ScenarioPrefab.name;
         }
-        //----------------------    METHODS    -------------------------------
+//----------------------    METHODS    -------------------------------
         void Start()
         {
             _dataManager = GetComponent<DataManager.DataManager>();
-            
-            ChildDestroyed = true;
+
+            _dataManager.GeneraralSectionSumUp.Add("Date : ", DateTime.Now.ToString());
+            _dataManager.GeneraralSectionSumUp.Add("Athlete : ", _name);
+            _dataManager.GeneraralSectionSumUp.Add("File path : ", _filePath);
+            _dataManager.GeneraralSectionSumUp.Add("Nb scenarios : ", NbScenarios.ToString());
+
+            _dataManager.AddContentToSumUp("General", _dataManager.GeneraralSectionSumUp);
+
+            Debug.Log(nameof(DateTime.Now));
             _indexScenario = 0;
+            ChildDestroyed = true;
+
+            _timerScenarioI = 0;
+            _timeStartScenarioI = Time.time;
             //instantiateScenario += InstantiateScenarioEventHandler;
 
             //InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
-
         }
-        /*
-        public static void InstantiateScenarioEventHandler(object sender, EventArgs _scenarios)
-        {
-            if (_indexScenario < (_scenarios.Length))
-            {
-                InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
-                ChildDestroyed = false;
-                _indexScenario += 1;
-            }
-        }
-        public static event EventHandler instantiateScenario;
-        public static void OnInstantiateScenario(object sender, EventArgs e)
-        {
-            EventHandler handler = instantiateScenario;
-            if (handler != null)
-            {
-                handler(sender, e);
-            }
-        }*/
 
         private void Update()
         {
-            if (ChildDestroyed == true) //If the last scenario was destroyed
+            if (ChildDestroyed == true) //(Time.time - _timeStartScenarioI) > _timerScenarioI)
             {
                 //Deal with the export of the data in files
-                if (_dataManager.EditFile == true && _dataManager.ExportIntoFile == true)
+                if (_dataManager.EditFile == true)
                 {
-                    _dataManager.ToCSV(_dataManager.DataBase[_indexScenario-1], ".\\_data\\" + GetNameScenarioI(_indexScenario -1) + ".csv");
+                    _dataManager.ToCSV(_dataManager.DataBase[_indexScenario-1], _filePath + GetNameScenarioI(_indexScenario -1) + ".csv");
                     _dataManager.EditFile = false;
                 }
 
@@ -103,15 +95,18 @@ namespace SparringManager
                 if (_indexScenario < (_scenarios.Length))
                 {
                     InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
+
                     ChildDestroyed = false;
                     _indexScenario += 1;
+
                 }
             }
         }
         private void OnDestroy()
         {
-            if (_dataManager.EditFile == true && _dataManager.ExportIntoFile == true)
+            if (_dataManager.ExportIntoFile == true)
             {
+                _dataManager.DicoToTXT(_dataManager.SessionSumUp, _filePath + "SessionSumUp.txt");
                 _dataManager.ToCSV(_dataManager.DataBase[_indexScenario - 1], ".\\_data\\" + GetNameScenarioI(_indexScenario - 1) + ".csv");
                 _dataManager.EditFile = false;
             }
@@ -144,18 +139,5 @@ namespace SparringManager
 
             Debug.Log(prefabObject.name + " has been instantiated");
         }
-
-        private void ScenarioInstantiationManage()
-        {
-            if (_indexScenario < (_scenarios.Length))
-            {
-                InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
-                ChildDestroyed = false;
-                _indexScenario += 1;
-            }
-        }
-
-        //EVENT TEST
-
     }
 }

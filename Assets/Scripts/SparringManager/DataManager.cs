@@ -10,7 +10,6 @@ namespace SparringManager.DataManager
     public class DataManager : MonoBehaviour
     {
 //--------------------------    ATTRIBUTS    -------------------------------
-
         [SerializeField]
         private bool _exportIntoFile;
         public bool ExportIntoFile
@@ -26,6 +25,10 @@ namespace SparringManager.DataManager
         {
             get
             {
+                if (ExportIntoFile == false)
+                {
+                    _editFile = false;
+                }
                 return _editFile;
             }
             set
@@ -48,19 +51,40 @@ namespace SparringManager.DataManager
         }
 
         //private List<string> _sessionResume; //List that sum up the session that we will put in a text file
-        private Dictionary<string, List<string>> _sessionSumUp;
-        private List<string> _introductionSumUpTXT;
+        private Dictionary<string, Dictionary<string,string>> _sessionSumUp;
+        public Dictionary<string, Dictionary<string, string>> SessionSumUp
+        {
+            get
+            {
+                return _sessionSumUp;
+            }
+            set
+            {
+                _sessionSumUp = value;
+            }
+        }
+
+        private Dictionary<string, string> _generaralSectionSumUp;
+        public Dictionary<string, string> GeneraralSectionSumUp
+        {
+            get
+            {
+                return _generaralSectionSumUp;
+            }
+            set
+            {
+                _generaralSectionSumUp = value;
+            }
+        }
 
 //---------------------------     METHODS    -------------------------------
         private void Start()
         {
             //_sessionResume = new List<string>();
-            _sessionSumUp = new Dictionary<string, List<string>>();
+            _sessionSumUp = new Dictionary<string, Dictionary<string, string>>();
+            _generaralSectionSumUp = new Dictionary<string, string>();
             _dataBase = new List<DataTable>();
-            _introductionSumUpTXT = completeGeneralDataList();
-            _sessionSumUp.Add("General", _introductionSumUpTXT);
         }
-
 
         //Methods we use to stock data in file
         public void ToCSV(DataTable dtDataTable, string strFilePath)
@@ -96,21 +120,45 @@ namespace SparringManager.DataManager
             }
             sw.Close();
         }
-        private void ToTXT()
+        public void DicoToTXT(Dictionary<string, Dictionary<string, string>> dico, string strFilePath)
         {
+            StreamWriter sw = new StreamWriter(strFilePath, false);
 
+            foreach (string globalKey in dico.Keys)
+            {
+                sw.Write("--> " + globalKey + " :");
+                sw.Write(sw.NewLine);
+                
+                foreach(string key in dico[globalKey].Keys)
+                {
+                    sw.Write("  - " + key + " : " + dico[globalKey][key]);
+                    sw.Write(sw.NewLine);
+                }
+                sw.WriteLine(sw.NewLine);
+            }
+            sw.Close();
         }
 
-        private List<string> completeGeneralDataList()
+        public Dictionary<string, string> StructToDictionary<StructType>(StructType structure)
         {
-            List<string> generalData = new List<string>();
-            generalData.Add("Practice Session of the " + DateTime.Now);
-            //generalData.Add("Athlete : " + _SessionManagerComponent.Name);
-            //generalData.Add("Nombre de scenario : " + _SessionManagerComponent.NbScenarios);
+            Dictionary<string, string> dico = new Dictionary<string, string>();
 
-            return generalData;
+            foreach (var field in typeof(StructType).GetProperties())
+            {
+                dico.Add(field.Name, field.GetValue(structure).ToString());
+            }
+
+            return dico;
         }
 
+        public void AddContentToSumUp(string key, Dictionary<string, string> content)
+        {
+            _sessionSumUp.Add(key, content);
+        }
+        public void GetGeneralContentForSumUp()
+        {
+            
+        }
 
     }
 }

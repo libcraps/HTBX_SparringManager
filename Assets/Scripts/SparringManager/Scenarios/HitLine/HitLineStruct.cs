@@ -112,5 +112,17 @@ namespace SparringManager.HitLine
             this._deltaHit = deltaHit;
             this._fixPosHit = fixPosHit;
         }
+
+        public Dictionary<string, string> StructToDictionary()
+        {
+            Dictionary<string, string> dico = new Dictionary<string, string>();
+
+            foreach (var field in typeof(HitLineStruct).GetProperties())
+            {
+                dico.Add(field.Name, field.GetValue(this).ToString());
+            }
+
+            return dico;
+        }
     }
 }
