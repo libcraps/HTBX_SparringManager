@@ -80,7 +80,7 @@ namespace SparringManager.DataManager
 //---------------------------     METHODS    -------------------------------
         private void Start()
         {
-            //_sessionResume = new List<string>();
+            //INITIALISATION OF VARIABLES 
             _sessionSumUp = new Dictionary<string, Dictionary<string, string>>();
             _generaralSectionSumUp = new Dictionary<string, string>();
             _dataBase = new List<DataTable>();
@@ -90,7 +90,7 @@ namespace SparringManager.DataManager
         public void ToCSV(DataTable dtDataTable, string strFilePath)
         {
             /*
-             * Stock une table de type DataTable dans un CSV
+             * Stock une DataTable in a csv
              */
             StreamWriter sw = new StreamWriter(strFilePath, false);
             //headers    
@@ -122,7 +122,7 @@ namespace SparringManager.DataManager
         public void ToCSVGlobal(List<DataTable> dtDataBase, Dictionary<string, Dictionary<string, string>> sessionSumUp, string strFilePath)
         {
             /*
-             * Stock une table de type DataTable dans un CSV
+             * Stock a List of DataTable in a csv
              */
             StreamWriter sw = new StreamWriter(strFilePath, false);
 

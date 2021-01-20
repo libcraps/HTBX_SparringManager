@@ -1,9 +1,30 @@
 ﻿using UnityEngine;
-using System.IO;
 using System;
 
 namespace SparringManager
 {
+    /* Class of the Session Manager
+     * 
+     *  Summary :
+     *  This class manage the session :
+     *      - it instantiates scenarios
+     *      - it deals with the DataManager
+     *  
+     *  Attributs :
+     *      //Usefull parameters of the class
+     *      string _name :  Name of the player 
+     *      StructScenarios[] _scenarios : List of StructScenarios, it contains every parameters of the session of the scenario
+     *      int _indexScenario: index of the current secnario that is playing
+     *      
+     *      bool ChildDestroyed : Boolean that indicates if the session manager can launch the next scenario (it true when the current scenario is destroyed)
+     *      
+     *      //Variables for the DataManager
+     *      string _filePath : Path of the data folder, it is initialized to .\_data\
+     *      DataManager.DataManager _dataManager : DataManager component
+     *      
+     *  Methods :
+     *      void InstantiateAndBuildScenario(StructScenarios strucObject, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
+     */
     public class SessionManager : MonoBehaviour
     {
 //----------------------    ATTRIBUTS    --------------------------
@@ -13,24 +34,14 @@ namespace SparringManager
         private StructScenarios[] _scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
 
         private int _indexScenario = 0;
+ 
+        public bool ChildDestroyed { get; set; }
+
+        //Variables for the DataManager
+        private DataManager.DataManager _dataManager;
         private string _filePath = ".\\_data\\";
 
-        //Variables temporaires de scénarios
-
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-        }
-        public int IndexScenarios
-        {
-            get
-            {
-                return _indexScenario;
-            }
-        }
+        //Properties
         public int NbScenarios
         {
             get
@@ -38,23 +49,8 @@ namespace SparringManager
                 return _scenarios.Length;
             }
         }
-        public StructScenarios[] Scenarios
-        {
-            get
-            {
-                return _scenarios;
-            }
-        }
-
-        public bool ChildDestroyed { get; set; }
-
-        private DataManager.DataManager _dataManager;
-
-        private string GetNameScenarioI(int index)
-        {
-                return _scenarios[index].ScenarioPrefab.name;
-        }
 //----------------------    METHODS    -------------------------------
+// ---> General Methods
         void Start()
         {
             _dataManager = GetComponent<DataManager.DataManager>();
@@ -67,12 +63,7 @@ namespace SparringManager
             _dataManager.AddContentToSumUp("General", _dataManager.GeneraralSectionSumUp);
             _indexScenario = 0;
             ChildDestroyed = true;
-
-            //instantiateScenario += InstantiateScenarioEventHandler;
-
-            //InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
         }
-
         private void Update()
         {
             if (ChildDestroyed == true) //(Time.time - _timeStartScenarioI) > _timerScenarioI)
@@ -106,7 +97,8 @@ namespace SparringManager
                 _dataManager.EditFile = false;
             }
         }
-        private static void InstantiateAndBuildScenario(StructScenarios strucObject, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
+//Method that instantiate a scenario
+        private void InstantiateAndBuildScenario(StructScenarios strucObject, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
         {
             /*
              * Function that instatiate an object, the prefab of this object is in the structureScenarios, it contains all the data that is usefull for the scenarios

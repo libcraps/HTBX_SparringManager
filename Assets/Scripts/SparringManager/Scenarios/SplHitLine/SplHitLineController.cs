@@ -27,6 +27,8 @@ namespace SparringManager.SplHitLine
      *      float _tTime : tTime
      *      float _previousTime : Time that we keep in memory every changement of the comportement of the line
      *      
+     *      static int nbApparition : Integer that counts the number of instantiation of the scenario
+     *      
      *      // CONTAINERS
      *      ScenarioController _scenarioControllerComponent : Allows us to stock the StructScenarios structure that comes from SessionManager (scenarios[i])
      *      StructScenarios _controllerStruct : We stock in the _controllerStruct the structure that is in the _scenarioControllerComponent
@@ -57,12 +59,12 @@ namespace SparringManager.SplHitLine
         private float _deltaHit;
         private float _timeBeforeHit;
 
+        private float _timerScenario;
         private float _previousTime;
         private float _tTime;
         private float _reactTime;
         private float _startTimeScenario;
-        private float _timerScenario;
-
+        
         public static int nbApparition;
 
         //Object that contain datas (structures)
