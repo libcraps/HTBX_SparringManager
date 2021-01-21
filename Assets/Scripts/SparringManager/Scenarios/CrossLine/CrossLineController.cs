@@ -11,7 +11,7 @@ namespace SparringManager.CrossLine
      *  Summary :
      *  This class manage the behaviour of the CrossLine prefab.
      *  The CrossLine moves lateraly and vertically and it instantiates an hit after _timeBeforeHit seconds
-     *  nd the player will have to hit it less than _deltaHit seconds.
+     *  And the player will have to hit it less than _deltaHit seconds.
      *  
      *  Attributs :
      *      //Usefull parameters of the scenario, they are in the splhitLineStructure
