@@ -10,8 +10,8 @@ namespace SparringManager.CrossLine
      * 
      *  Summary :
      *  This class manage the behaviour of the CrossLine prefab.
-     *  The SplHitLine only moves lateraly and vertically and it instantiates an hit at the bottom or the top of the line afeter _timeBeforeHit seconds
-     *  The part of the line scale that the player have to hit scale itself in an aleatory direction
+     *  The CrossLine moves lateraly and vertically and it instantiates an hit after _timeBeforeHit seconds
+     *  nd the player will have to hit it less than _deltaHit seconds.
      *  
      *  Attributs :
      *      //Usefull parameters of the scenario, they are in the splhitLineStructure
@@ -24,7 +24,7 @@ namespace SparringManager.CrossLine
      *      float _startTimeScenario : absolut time of the beginning of the scenario
      *      float _tTime : tTime
      *      float _previousTime : Time that we keep in memory every changement of the comportement of the line
-     *      float _reactTime : 
+     *      float _reactTime : reaction time culculated when a hit is detected
      *      float _timerScenario : Duration of the scenario
      *      
      *      // CONTAINERS
@@ -40,12 +40,21 @@ namespace SparringManager.CrossLine
      *      List<float> timeListScenario : Time list of the scenario
      *      
      *  Methods :
-     *      GetHit(Vector2 position2d_) :
-     *      GetConsigne(float time, float pos) : 
-     *      RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax) : 
-     *      void SetLineToHit() : Choose which part of the line will be hitted
+     *      //Methods that set variables
      *      void SetControllerVariables() : Set variables of the controller
      *      void SetPrefabComponentVAriables(): Set variables of the prefab component
+     *      
+     *      //Method for the data exportation
+     *      void GetConsigne(float time, float pos) : Get the tTime data in a list
+     *      void GetExportDataInStructure() : Put the data that we need in the dataStruture of the controller
+     *      void ExportDataInDataManager() : Export the data into the DataManager
+     *      
+     *      //Method that change parameters of a moving object
+     *      void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax) : Randomize the movement of the cross
+     *      
+     *      Method for an hitting object
+     *      void GetHit(Vector2 position2d_) : Get the Hit of the position2d_ (use events)
+     *      
      */
     public class CrossLineController : MonoBehaviour
     {

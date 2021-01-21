@@ -33,15 +33,19 @@ namespace SparringManager.SimpleLine
      *      
      *      List<float> mouvementConsign : List that contain all the position of the line
      *      List<float> timeListScenario : Time list of the scenario
-
      *      
-     *  Methods :
-     *      GetHit(Vector2 position2d_) :
-     *      GetConsigne(float time, float pos) : 
-     *      RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax) : 
-     *      void SetLineToHit() : Choose which part of the line will be hitted
+     *      Methods :
+     *      //Methods that set variables
      *      void SetControllerVariables() : Set variables of the controller
      *      void SetPrefabComponentVAriables(): Set variables of the prefab component
+     *      
+     *      //Method for the data exportation
+     *      void GetConsigne(float time, float pos) : Get the tTime data in a list
+     *      void GetExportDataInStructure() : Put the data that we need in the dataStruture of the controller
+     *      void ExportDataInDataManager() : Export the data into the DataManager
+     *      
+     *      //Method that change parameters of a moving object
+     *      void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax) : Randomize the movement of the cross
      */
     public class SimpleLineController : MonoBehaviour
     {

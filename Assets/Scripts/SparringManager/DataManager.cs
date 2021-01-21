@@ -7,6 +7,28 @@ using UnityEngine;
 
 namespace SparringManager.DataManager
 {
+    /* Class of the Data Manager
+    * 
+    *  Summary :
+    *  This class manage the session :
+    *      - it instantiates scenarios
+    *      - it deals with the DataManager
+    *  
+    *  Attributs :
+    *      //Usefull parameters of the class
+    *      string _name :  Name of the player 
+    *      StructScenarios[] _scenarios : List of StructScenarios, it contains every parameters of the session of the scenario
+    *      int _indexScenario: index of the current secnario that is playing
+    *      
+    *      bool ChildDestroyed : Boolean that indicates if the session manager can launch the next scenario (it true when the current scenario is destroyed)
+    *      
+    *      //Variables for the DataManager
+    *      string _filePath : Path of the data folder, it is initialized to .\_data\
+    *      DataManager.DataManager _dataManager : DataManager component
+    *      
+    *  Methods :
+    *      void InstantiateAndBuildScenario(StructScenarios strucObject, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
+    */
     public class DataManager : MonoBehaviour
     {
 //--------------------------    ATTRIBUTS    -------------------------------
@@ -118,8 +140,7 @@ namespace SparringManager.DataManager
             }
             sw.Close();
         }
-
-        public void ToCSVGlobal(List<DataTable> dtDataBase, Dictionary<string, Dictionary<string, string>> sessionSumUp, string strFilePath)
+        public void ToCSVGlobal(List<DataTable> dtDataBase, string strFilePath)
         {
             /*
              * Stock a List of DataTable in a csv
@@ -127,7 +148,7 @@ namespace SparringManager.DataManager
             StreamWriter sw = new StreamWriter(strFilePath, false);
 
             List<string> sumUpKeys = new List<string>();
-            sumUpKeys = new List<string>(sessionSumUp.Keys);
+            sumUpKeys = new List<string>(_sessionSumUp.Keys);
 
             
             for (int j = 1; j < sumUpKeys.Count;j++)
@@ -186,8 +207,14 @@ namespace SparringManager.DataManager
 //--> Methods that manage data conteners
         public Dictionary<string, string> StructToDictionary<StructType>(StructType structure)
         {
-            /* Generic method that go throw a structure and get 
+            /* 
+             * Generic method that go throw a structure and get her data into a dictionary
              * 
+             * Arguments :
+             *      StructType structure : StructType is the generique of the function, and structure is the structure that we extract her data
+             *      
+             * Return :
+             *      A dictionary Dictionary<string, string> that contain the data 
              */
             Dictionary<string, string> dico = new Dictionary<string, string>();
 
@@ -208,10 +235,6 @@ namespace SparringManager.DataManager
              *      Dictionary<string, string> content : Dictionary of a new content
              */
             _sessionSumUp.Add(key, content);
-        }
-        public void GetGeneralContentForSumUp()
-        {
-            
         }
 
     }

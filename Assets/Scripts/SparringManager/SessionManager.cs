@@ -33,36 +33,29 @@ namespace SparringManager
         [SerializeField]
         private StructScenarios[] _scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
 
-        private int _indexScenario = 0;
- 
         public bool ChildDestroyed { get; set; }
+        private int _indexScenario = 0;
 
         //Variables for the DataManager
         private DataManager.DataManager _dataManager;
         private string _filePath = ".\\_data\\";
 
-        //Properties
-        public int NbScenarios
-        {
-            get
-            {
-                return _scenarios.Length;
-            }
-        }
+//Properties
+        public int NbScenarios { get { return _scenarios.Length; }}
 //----------------------    METHODS    -------------------------------
 // ---> General Methods
         void Start()
         {
             _dataManager = GetComponent<DataManager.DataManager>();
-
+            //Initialization of the GeeralSectionSumUp
             _dataManager.GeneraralSectionSumUp.Add("Date : ", DateTime.Now.ToString());
             _dataManager.GeneraralSectionSumUp.Add("Athlete : ", _name);
             _dataManager.GeneraralSectionSumUp.Add("File path : ", _filePath);
             _dataManager.GeneraralSectionSumUp.Add("Nb scenarios : ", NbScenarios.ToString());
-
             _dataManager.AddContentToSumUp("General", _dataManager.GeneraralSectionSumUp);
+
             _indexScenario = 0;
-            ChildDestroyed = true;
+            ChildDestroyed = true; //We initialise to true in order to go in the loop
         }
         private void Update()
         {
@@ -72,7 +65,7 @@ namespace SparringManager
                 if (_dataManager.EditFile == true)
                 {
                     //_dataManager.ToCSV(_dataManager.DataBase[_indexScenario-1], _filePath + GetNameScenarioI(_indexScenario -1) + ".csv");
-                    _dataManager.EditFile = false;
+                    //_dataManager.EditFile = false;
                 }
 
                 //Deal with the instantiation of scenarios
@@ -82,17 +75,16 @@ namespace SparringManager
 
                     ChildDestroyed = false;
                     _indexScenario += 1;
-
                 }
             }
         }
         private void OnDestroy()
         {
-            if (_dataManager.ExportIntoFile == true)
+            if (_dataManager.ExportIntoFile == true) //We export the file t the end of the session if t
             {
                 _dataManager.DicoToTXT(_dataManager.SessionSumUp, _filePath + "SessionSumUp.txt");
                 //_dataManager.ToCSV(_dataManager.DataBase[_indexScenario - 1], ".\\_data\\" + GetNameScenarioI(_indexScenario - 1) + ".csv");
-                _dataManager.ToCSVGlobal(_dataManager.DataBase, _dataManager.SessionSumUp, ".\\_data\\" + "GlobalSessionData.csv");
+                _dataManager.ToCSVGlobal(_dataManager.DataBase, ".\\_data\\" + "GlobalSessionData.csv");
 
                 _dataManager.EditFile = false;
             }

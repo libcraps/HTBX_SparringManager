@@ -157,7 +157,6 @@ namespace SparringManager.CrossLine
             }
         }
 
-
         void LineInCameraRange()
         {
             /* 
