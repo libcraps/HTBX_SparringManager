@@ -46,6 +46,7 @@ namespace SparringManager.SimpleLine
      *      
      *      //Method that change parameters of a moving object
      *      void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax) : Randomize the movement of the cross
+     *      
      */
     public class SimpleLineController : MonoBehaviour
     {

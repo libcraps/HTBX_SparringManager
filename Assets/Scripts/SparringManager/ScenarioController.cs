@@ -24,11 +24,5 @@ namespace SparringManager
             }
         }
 
-        public List<string> ToListString()
-        {
-            List<string> listString = new List<string>();
-
-            return listString;
-        }
     }
 }
