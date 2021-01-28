@@ -5,12 +5,13 @@
 //=============================================================================
 
 using UnityEngine;
-using Valve.VR;
 
 namespace Valve.VR
 {
-    public class SteamVR_TrackedObject : MonoBehaviour
+    public class SteamVR_TrackedObject_OnlyTilt : MonoBehaviour
     {
+		public Vector3 posTracker;
+
         public enum EIndex
         {
             None = -1,
@@ -35,9 +36,6 @@ namespace Valve.VR
 
         public EIndex index;
 
-        [Tooltip("If not set, relative to parent")]
-        public Transform origin;
-
         public bool isValid { get; private set; }
 
         private void OnNewPoses(TrackedDevicePose_t[] poses)
@@ -60,23 +58,15 @@ namespace Valve.VR
             isValid = true;
 
             var pose = new SteamVR_Utils.RigidTransform(poses[i].mDeviceToAbsoluteTracking);
+            transform.localRotation = pose.rot;
+			// Keeping tracker position for latyer use in player orientation
+			posTracker = pose.pos;
 
-            if (origin != null)
-            {
-                transform.position = origin.transform.TransformPoint(pose.pos);
-                transform.rotation = origin.rotation * pose.rot;
-            }
-            else
-            {
-                transform.localPosition = pose.pos;
-                Debug.Log(pose.pos);
-                transform.localRotation = pose.rot;
-            }
         }
 
         SteamVR_Events.Action newPosesAction;
 
-        SteamVR_TrackedObject()
+        SteamVR_TrackedObject_OnlyTilt()
         {
             newPosesAction = SteamVR_Events.NewPosesAction(OnNewPoses);
         }

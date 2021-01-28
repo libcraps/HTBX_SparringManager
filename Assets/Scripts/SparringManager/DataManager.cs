@@ -99,7 +99,8 @@ namespace SparringManager.DataManager
             }
         }
 
-//---------------------------     METHODS    -------------------------------
+        //---------------------------     METHODS    -------------------------------
+
         private void Start()
         {
             //INITIALISATION OF VARIABLES 
