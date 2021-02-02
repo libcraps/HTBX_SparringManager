@@ -101,7 +101,7 @@ namespace SparringManager.DataManager
 
         //---------------------------     METHODS    -------------------------------
 
-        private void Start()
+        private void Awake()
         {
             //INITIALISATION OF VARIABLES 
             _sessionSumUp = new Dictionary<string, Dictionary<string, string>>();
@@ -236,6 +236,16 @@ namespace SparringManager.DataManager
              *      Dictionary<string, string> content : Dictionary of a new content
              */
             _sessionSumUp.Add(key, content);
+        }
+
+        public void InitDataManager(string name, string filepath, int NbScenarios)
+        {
+            //Initialization of the GeeralSectionSumUp
+            this.GeneraralSectionSumUp.Add("Date : ", DateTime.Now.ToString());
+            this.GeneraralSectionSumUp.Add("Athlete : ", name);
+            this.GeneraralSectionSumUp.Add("File path : ", filepath);
+            this.GeneraralSectionSumUp.Add("Nb scenarios : ", NbScenarios.ToString());
+            this.AddContentToSumUp("General", this.GeneraralSectionSumUp);
         }
 
     }

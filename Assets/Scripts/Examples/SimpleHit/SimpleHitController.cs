@@ -1,7 +1,7 @@
-﻿using CRI.HitBoxTemplate.Serial;
+﻿using SparringManager.Serial;
 using UnityEngine;
 
-namespace CRI.HitBoxTemplate.Example
+namespace SparringManager.Serial.Example
 {
     public class SimpleHitController : MonoBehaviour
     {

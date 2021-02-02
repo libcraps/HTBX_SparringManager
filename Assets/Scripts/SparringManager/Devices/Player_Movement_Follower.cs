@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CRI.HitBoxTemplate.Example
+namespace SparringManager.Serial.Example
 {
 	public class Player_Movement_Follower : MonoBehaviour
 	{

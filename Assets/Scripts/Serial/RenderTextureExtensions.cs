@@ -4,7 +4,7 @@
 
 using UnityEngine;
 
-namespace CRI.HitBoxTemplate.Serial
+namespace SparringManager.Serial
 {
     public static class RenderTextureExtensions
     {

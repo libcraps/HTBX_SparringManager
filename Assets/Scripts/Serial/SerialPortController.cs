@@ -8,7 +8,7 @@ using System.IO.Ports;
 using System.Threading;
 using UnityEngine;
 
-namespace CRI.HitBoxTemplate.Serial
+namespace SparringManager.Serial
 {
     /// <summary>
     /// This class represent a connection with Arduino through serial.

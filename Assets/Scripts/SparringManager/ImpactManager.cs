@@ -1,5 +1,5 @@
-﻿using CRI.HitBoxTemplate.Serial;
-using CRI.HitBoxTemplate.Example;
+﻿using SparringManager.Serial;
+using SparringManager.Serial.Example;
 using UnityEngine;
 
 namespace SparringManager

@@ -8,7 +8,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace CRI.HitBoxTemplate.Serial
+namespace SparringManager.Serial
 {
     /// <summary>
     /// Event Payload

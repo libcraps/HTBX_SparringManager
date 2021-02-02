@@ -102,7 +102,6 @@ namespace SparringManager
                 _hitLineStruct = value;
             }
         }
-
         public SplHitLineStruct SplHitLineStruct
         {
             get

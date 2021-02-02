@@ -8,7 +8,7 @@ using System.Threading;
 using System;
 using UnityEditor;
 
-namespace CRI.HitBoxTemplate.Serial
+namespace SparringManager.Serial
 {
     /// <summary>
     /// This class represents the arduino connection through serial to manage the leds.

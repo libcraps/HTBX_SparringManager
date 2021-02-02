@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CRI.HitBoxTemplate.Example
+namespace SparringManager.Serial.Example
 {
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(MeshRenderer))]

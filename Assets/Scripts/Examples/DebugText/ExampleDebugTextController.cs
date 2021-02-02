@@ -1,11 +1,11 @@
-﻿using CRI.HitBoxTemplate.Serial;
+﻿using SparringManager.Serial;
 using UnityEngine;
 
-namespace CRI.HitBoxTemplate.Example
+namespace SparringManager.Serial.Example
 {
     public class ExampleDebugTextController : MonoBehaviour
     {
-        public ExampleSerialController serialController;
+        public SerialControllerCameraHitBox serialController;
 
         private void OnEnable()
         {
@@ -27,11 +27,8 @@ namespace CRI.HitBoxTemplate.Example
 
         private void Update()
         {
-            Vector3[] accelerations = serialController.accelerations;
-            for (int i = 0; i < accelerations.Length; i++)
-            {
-                Debug.Log(string.Format("Acceleration Player {0}", accelerations[i]));
-            }
+            Vector3 acceleration = serialController.acceleration;
+            Debug.Log(string.Format("Acceleration Player {0}", acceleration));
         }
     }
 }

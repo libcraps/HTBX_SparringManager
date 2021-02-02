@@ -68,9 +68,12 @@ namespace Valve.VR
             }
             else
             {
+                
                 transform.localPosition = pose.pos;
-                Debug.Log(pose.pos);
+                
                 transform.localRotation = pose.rot;
+                
+                ;
             }
         }
 

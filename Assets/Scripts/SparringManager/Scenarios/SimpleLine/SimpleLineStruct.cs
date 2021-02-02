@@ -9,12 +9,25 @@ namespace SparringManager.SimpleLine
     {
         //Parameters of the SimpleLineStruct scenario
         [SerializeField]
+        private int _timerScenario;
+        [SerializeField]
         private int _accelerationMax;
         [SerializeField]
         private int _deltaTimeMax;
         [SerializeField]
         private int _deltaTimeMin;
 
+        public int TimerScenario
+        {
+            get
+            {
+                return _timerScenario;
+            }
+            set
+            {
+                _timerScenario = value;
+            }
+        }
         public int AccelerationMax
         {
             get
@@ -50,8 +63,9 @@ namespace SparringManager.SimpleLine
         }
 
 
-        public SimpleLineStruct(int acceleration, int deltaMin, int deltaMax)
+        public SimpleLineStruct(int timerScenario, int acceleration, int deltaMin, int deltaMax)
         {
+            this._timerScenario = timerScenario;
             this._accelerationMax = acceleration;
             this._deltaTimeMin = deltaMin;
             this._deltaTimeMax = deltaMax;

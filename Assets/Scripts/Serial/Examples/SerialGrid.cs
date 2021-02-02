@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CRI.HitBoxTemplate.Example
+namespace SparringManager.Serial
 {
     /// <summary>
     /// Settings for a grid of leds or a grid of sensors.

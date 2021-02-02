@@ -9,7 +9,7 @@ using System.IO.Ports;
 using System.Linq;
 using System;
 
-namespace CRI.HitBoxTemplate.Serial
+namespace SparringManager.Serial
 {
     public class SerialTouchController : SerialPortController
     {

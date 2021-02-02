@@ -1,6 +1,7 @@
 ﻿using SparringManager;
 using SparringManager.DataManager;
 using SparringManager.DataManager.HitLine;
+using SparringManager.SimpleLine;
 using System.Collections.Generic;
 using System.IO;
 using System.Data;
@@ -96,8 +97,7 @@ namespace SparringManager.HitLine
             nbApparition += 1;
             //INITIALISATION OF VARIABLES 
             //Scenario Variables
-            _scenarioControllerComponent = GetComponent<ScenarioController>();
-            _controllerStruct = _scenarioControllerComponent.ControllerStruct;
+            _controllerStruct = GetComponent<ScenarioController>().ControllerStruct;
             _hitLineControllerStruct = _controllerStruct.HitLineStruct;
             SetControllerVariables();
 
@@ -126,7 +126,7 @@ namespace SparringManager.HitLine
             Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
 
             _hitLineComponent = this.gameObject.GetComponentInChildren<HitLineBehaviour>();
-            SetPrefabComponentVariables();
+            SetPrefabComponentVariables(_hitLineComponent);
         }
         private void FixedUpdate()
         {
@@ -150,12 +150,12 @@ namespace SparringManager.HitLine
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
 
-        //Method that set variables
-        private void SetPrefabComponentVariables()
+        //Method that set variables.
+        private void SetPrefabComponentVariables(HitLineBehaviour hitLineBehaviour)
         {
-            _hitLineComponent.TimeBeforeHit = _hitLineControllerStruct.TimeBeforeHit;
-            _hitLineComponent.DeltaHit = _hitLineControllerStruct.DeltaHit;
-            _hitLineComponent.FixPosHit = _hitLineControllerStruct.FixPosHit;
+            hitLineBehaviour.TimeBeforeHit = _hitLineControllerStruct.TimeBeforeHit;
+            hitLineBehaviour.DeltaHit = _hitLineControllerStruct.DeltaHit;
+            hitLineBehaviour.FixPosHit = _hitLineControllerStruct.FixPosHit;
         }
         private void SetControllerVariables()
         {

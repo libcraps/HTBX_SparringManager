@@ -5,7 +5,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace CRI.HitBoxTemplate.Serial
+namespace SparringManager.Serial
 {
     public class DatapointControl : MonoBehaviour
     {

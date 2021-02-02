@@ -4,7 +4,7 @@
 
 using UnityEngine;
 
-namespace CRI.HitBoxTemplate.Example
+namespace SparringManager.Serial.Example
 {
     public class MovementController : MonoBehaviour
     {

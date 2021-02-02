@@ -8,6 +8,8 @@ namespace SparringManager.SplHitLine
     public struct SplHitLineStruct
     {
         [SerializeField]
+        private int _timerScenario;
+        [SerializeField]
         private GameObject _hitPrefab;
         [SerializeField]
         private int _accelerationMax;
@@ -26,6 +28,17 @@ namespace SparringManager.SplHitLine
         [SerializeField]
         private bool _fixPosHit;
 
+        public int TimerScenario
+        {
+            get
+            {
+                return _timerScenario;
+            }
+            set
+            {
+                _timerScenario = value;
+            }
+        }
         public int ScaleMaxValue
         {
             get
@@ -126,8 +139,9 @@ namespace SparringManager.SplHitLine
             }
         }
 
-        public SplHitLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, int scaleMaxValue, int scaleSpeed, bool fixPosHit)
+        public SplHitLineStruct(int timerScenario, GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, int scaleMaxValue, int scaleSpeed, bool fixPosHit)
         {
+            this._timerScenario = timerScenario;
             this._hitPrefab = hitPrefab;
             this._accelerationMax = acceleration;
             this._deltaTimeMin = deltaMin;

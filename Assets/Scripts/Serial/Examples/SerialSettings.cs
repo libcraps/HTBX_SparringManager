@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CRI.HitBoxTemplate.Example
+namespace SparringManager.Serial
 {
     [Serializable]
     public struct SerialSettings

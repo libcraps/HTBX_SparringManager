@@ -33,6 +33,9 @@ namespace SparringManager
         [SerializeField]
         private StructScenarios[] _scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
 
+        [SerializeField]
+        private DeviceStructure _device;
+
         public bool ChildDestroyed { get; set; }
         private int _indexScenario = 0;
 
@@ -46,13 +49,9 @@ namespace SparringManager
 // ---> General Methods
         void Start()
         {
+            //DATA MANAGER
             _dataManager = GetComponent<DataManager.DataManager>();
-            //Initialization of the GeeralSectionSumUp
-            _dataManager.GeneraralSectionSumUp.Add("Date : ", DateTime.Now.ToString());
-            _dataManager.GeneraralSectionSumUp.Add("Athlete : ", _name);
-            _dataManager.GeneraralSectionSumUp.Add("File path : ", _filePath);
-            _dataManager.GeneraralSectionSumUp.Add("Nb scenarios : ", NbScenarios.ToString());
-            _dataManager.AddContentToSumUp("General", _dataManager.GeneraralSectionSumUp);
+            _dataManager.InitDataManager(_name, _filePath, NbScenarios);
 
             _indexScenario = 0;
             ChildDestroyed = true; //We initialise to true in order to go in the loop
@@ -61,17 +60,10 @@ namespace SparringManager
         {
             if (ChildDestroyed == true) //(Time.time - _timeStartScenarioI) > _timerScenarioI)
             {
-                //Deal with the export of the data in files
-                if (_dataManager.EditFile == true)
-                {
-                    //_dataManager.ToCSV(_dataManager.DataBase[_indexScenario-1], _filePath + GetNameScenarioI(_indexScenario -1) + ".csv");
-                    //_dataManager.EditFile = false;
-                }
-
                 //Deal with the instantiation of scenarios
                 if (_indexScenario < (_scenarios.Length))
                 {
-                    InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
+                    InstantiateAndBuildScenario(_scenarios[_indexScenario], GameObject.FindGameObjectWithTag("HitboxCamera"), this.gameObject.transform.position);
 
                     ChildDestroyed = false;
                     _indexScenario += 1;
@@ -112,11 +104,62 @@ namespace SparringManager
                 _pos3d = referenceGameObject.transform.position; //if the position isn't specified we place the object a the same place of the reference
             }
 
-            ScenarioController scenarioControllerComponent = prefabObject.GetComponent<ScenarioController>();
-            scenarioControllerComponent.ControllerStruct = strucObject; //we attribute the structure to the scenario component 
+            prefabObject.GetComponent<ScenarioController>().ControllerStruct = strucObject; //we attribute the structure to the scenario component 
+
             Destroy(Instantiate(prefabObject, _pos3d, Quaternion.identity, referenceGameObject.transform), strucObject.TimerScenario);
 
             Debug.Log(prefabObject.name + " has been instantiated");
+        }
+    }
+    [System.Serializable]
+    public struct DeviceStructure
+    {
+        [SerializeField]
+        private bool _viveTracker;
+        [SerializeField]
+        private bool _polar;
+        [SerializeField]
+        private bool _movuino;
+
+        public bool ViveTracker
+        {
+            get
+            {
+                return _viveTracker;
+            }
+            set
+            {
+                _viveTracker = value;
+            }
+        }
+        public bool Polar
+        {
+            get
+            {
+                return _polar;
+            }
+            set
+            {
+                _polar = value;
+            }
+        }
+        public bool Movuino
+        {
+            get
+            {
+                return _movuino;
+            }
+            set
+            {
+                _movuino = value;
+            }
+        }
+
+        public DeviceStructure(bool viveTracker, bool polar, bool movuino)
+        {
+            _viveTracker = viveTracker;
+            _polar = polar;
+            _movuino = movuino;
         }
     }
 }
