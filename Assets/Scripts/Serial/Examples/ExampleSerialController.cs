@@ -54,7 +54,7 @@ public class ExampleSerialController : MonoBehaviour
                 baudRate,
                 readTimeout,
                 handshake,
-                serialSettings.playerCamera
+                serialSettings.PlayerCamera
                 );
             go.GetComponent<SerialTouchController>().Init(p,
                 touchControlGridRows,
@@ -63,7 +63,7 @@ public class ExampleSerialController : MonoBehaviour
                 baudRate,
                 readTimeout,
                 handshake,
-                serialSettings.playerCamera,
+                serialSettings.PlayerCamera,
                 serialSettings.impactThreshold,
                 serialSettings.delayOffHit,
                 serialSettings.displayDatapoints,

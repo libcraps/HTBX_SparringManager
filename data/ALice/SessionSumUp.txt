@@ -1,0 +1,13 @@
+--> General :
+  - Date :  : 04/02/2021 12:40:58
+  - Athlete :  : ALice
+  - File path :  : .\data\ALice\
+  - Nb scenarios :  : 2
+
+
+--> Scenario_SimpleLine(Clone)_3 :
+  - AccelerationMax : 170
+  - DeltaTimeMax : 4
+  - DeltaTimeMin : 3
+
+

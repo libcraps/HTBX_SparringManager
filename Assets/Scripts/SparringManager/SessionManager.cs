@@ -29,7 +29,7 @@ namespace SparringManager
     public class SessionManager : MonoBehaviour
     {
 //----------------------    ATTRIBUTS    --------------------------
-        private string _name = "Romuald";
+        private string _name;
         [SerializeField]
         private StructScenarios[] _scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
 
@@ -39,7 +39,6 @@ namespace SparringManager
 
         //Variables for the DataManager
         private DataManager.DataManager _dataManager;
-        private string _filePath = ".\\_data\\";
 
 //Properties
         public int NbScenarios { get { return _scenarios.Length; }}
@@ -49,7 +48,7 @@ namespace SparringManager
         {
             //DATA MANAGER
             _dataManager = GetComponent<DataManager.DataManager>();
-            _dataManager.InitDataManager(_name, _filePath, NbScenarios);
+            _dataManager.InitSumUp(_name, _dataManager.FilePath, NbScenarios);
 
             _indexScenario = 0;
             ChildDestroyed = true; //We initialise to true in order to go in the loop
@@ -71,16 +70,9 @@ namespace SparringManager
         }
         private void OnDestroy()
         {
-            if (_dataManager.ExportIntoFile == true) //We export the file t the end of the session if t
-            {
-                _dataManager.DicoToTXT(_dataManager.SessionSumUp, _filePath + "SessionSumUp.txt");
-                //_dataManager.ToCSV(_dataManager.DataBase[_indexScenario - 1], ".\\_data\\" + GetNameScenarioI(_indexScenario - 1) + ".csv");
-                _dataManager.ToCSVGlobal(_dataManager.DataBase, ".\\_data\\" + "GlobalSessionData.csv");
 
-                _dataManager.EditFile = false;
-            }
         }
-//Method that instantiate a scenario
+        //Method that instantiate a scenario
         private void InstantiateAndBuildScenario(StructScenarios strucObject, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
         {
             /*
@@ -110,7 +102,7 @@ namespace SparringManager
             Debug.Log(prefabObject.name + " has been instantiated");
         }
 
-        public void Init(StructScenarios[] scenarios, string name)
+        public void Init(StructScenarios[] scenarios, string name, bool export)
         {
             _scenarios = scenarios;
             _name = name;

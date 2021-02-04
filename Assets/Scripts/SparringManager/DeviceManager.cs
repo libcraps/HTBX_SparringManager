@@ -48,31 +48,23 @@ namespace SparringManager
             _posPlayerScene = new Vector3();
             _posPlayerScene = GameObject.Find("PlaneReferenceGymnase").transform.position;
 
-            if (_nbPlayer > 1 && _nbPlayer <5)
+            if (_structHitBox.OnOff == true)
             {
-                Debug.Log(_indexSac);
-                _posPlayerScene.x += _posPlayerScene.x + 2 * (float)Math.Cos(_indexSac * 2 * Math.PI / _nbPlayer);
-                _posPlayerScene.z += _posPlayerScene.z + 2 * (float)Math.Sin(_indexSac * 2 * Math.PI / _nbPlayer);
+                _renderCamera = InstantiatePrefab(_structHitBox.Prefab, _posRenderCamera);
+                _renderCamera.GetComponent<SerialControllerCameraHitBox>().InitSerialController(_structHitBox.SerialSettings, SerialControllerCameraHitBox.i);
             }
-            else if (_nbPlayer == 5)
+
+            if (_structPlayerScene.OnOff == true)
             {
-                
-                _posPlayerScene.x += _posPlayerScene.x + 2 * (float)Math.Cos(_indexSac * 2 * Math.PI / (_nbPlayer-1));
-                _posPlayerScene.z += _posPlayerScene.z + 2 * (float)Math.Sin(_indexSac * 2 * Math.PI / (_nbPlayer-1));
-                Debug.Log("RAAAAAAAAAAAAAA");
-                if (_indexSac == 4)
+                if (_nbPlayer > 1 && _nbPlayer <= 5) //Mettre un sac au milieu si il yen a 5 ???
                 {
-                    Debug.Log("YOOOOOO");
-                    _posPlayerScene = GameObject.Find("PlaneReferenceGymnase").transform.position;
+                    Debug.Log(_indexSac);
+                    _posPlayerScene.x += _posPlayerScene.x + 2 * (float)Math.Cos(_indexSac * 2 * Math.PI / _nbPlayer);
+                    _posPlayerScene.z += _posPlayerScene.z + 2 * (float)Math.Sin(_indexSac * 2 * Math.PI / _nbPlayer);
                 }
+                _playerScene = InstantiatePrefab(_structPlayerScene.Prefab, _posPlayerScene);
             }
 
-
-
-            //TODO if on/off
-            _renderCamera = InstantiatePrefab(_structHitBox.Prefab, _posRenderCamera);
-            _renderCamera.GetComponent<SerialControllerCameraHitBox>().InitSerialController(_structHitBox.SerialSettings, SerialControllerCameraHitBox.i);
-            _playerScene = InstantiatePrefab(_structPlayerScene.Prefab, _posPlayerScene);
 
         }
         private void FixedUpdate()

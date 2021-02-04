@@ -32,7 +32,6 @@ namespace SparringManager.DataManager
     public class DataManager : MonoBehaviour
     {
 //--------------------------    ATTRIBUTS    -------------------------------
-        [SerializeField]
         private bool _exportIntoFile;
         public bool ExportIntoFile
         {
@@ -56,6 +55,19 @@ namespace SparringManager.DataManager
             set
             {
                 _editFile = value;
+            }
+        }
+
+        private string _filePath;
+        public string FilePath
+        {
+            get
+            {
+                return _filePath;
+            }
+            set
+            {
+                _filePath = value;
             }
         }
 
@@ -109,7 +121,26 @@ namespace SparringManager.DataManager
             _dataBase = new List<DataTable>();
         }
 
-//--> Methods we use to stock data in file
+        private void OnDestroy()
+        {
+            
+            if (_exportIntoFile == true) //We export the file t the end of the session if t
+            {
+                Debug.Log(_exportIntoFile);
+                if (!Directory.Exists(_filePath))
+                {
+                    Debug.Log(_filePath);
+                    Directory.CreateDirectory(_filePath);
+                }
+                DicoToTXT(_sessionSumUp, _filePath + "SessionSumUp.txt");
+                //_dataManager.ToCSV(_dataManager.DataBase[_indexScenario - 1], ".\\_data\\" + GetNameScenarioI(_indexScenario - 1) + ".csv");
+                ToCSVGlobal(_dataBase, _filePath+ "GlobalSessionData.csv");
+
+                _editFile = false;
+            }
+        }
+
+        //--> Methods we use to stock data in file
         public void ToCSV(DataTable dtDataTable, string strFilePath)
         {
             /*
@@ -237,8 +268,7 @@ namespace SparringManager.DataManager
              */
             _sessionSumUp.Add(key, content);
         }
-
-        public void InitDataManager(string name, string filepath, int NbScenarios)
+        public void InitSumUp(string name, string filepath, int NbScenarios)
         {
             //Initialization of the GeeralSectionSumUp
             this.GeneraralSectionSumUp.Add("Date : ", DateTime.Now.ToString());
@@ -247,6 +277,11 @@ namespace SparringManager.DataManager
             this.GeneraralSectionSumUp.Add("Nb scenarios : ", NbScenarios.ToString());
             this.AddContentToSumUp("General", this.GeneraralSectionSumUp);
         }
-
+        public void Init(bool export, string filepath)
+        {
+            //Initialization of the GeeralSectionSumUp
+            _exportIntoFile = export;
+            _filePath = filepath;
+        }
     }
 }

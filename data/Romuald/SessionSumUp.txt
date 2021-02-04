@@ -1,0 +1,13 @@
+--> General :
+  - Date :  : 04/02/2021 12:40:58
+  - Athlete :  : Romuald
+  - File path :  : .\data\Romuald\
+  - Nb scenarios :  : 2
+
+
+--> Scenario_SimpleLine(Clone)_2 :
+  - AccelerationMax : 15
+  - DeltaTimeMax : 4
+  - DeltaTimeMin : 3
+
+

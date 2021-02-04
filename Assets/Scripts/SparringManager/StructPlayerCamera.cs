@@ -69,7 +69,6 @@ namespace SparringManager.Structures
             _structPlayerScene = structPlayerScene;
             _scenarios = scenarios;
         }
-
     }
 
     [System.Serializable]

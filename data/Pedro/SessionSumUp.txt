@@ -1,0 +1,13 @@
+--> General :
+  - Date :  : 04/02/2021 12:40:58
+  - Athlete :  : Pedro
+  - File path :  : .\data\Pedro\
+  - Nb scenarios :  : 2
+
+
+--> Scenario_SimpleLine(Clone)_1 :
+  - AccelerationMax : 10
+  - DeltaTimeMax : 4
+  - DeltaTimeMin : 3
+
+

@@ -19,8 +19,8 @@ namespace SparringManager.Serial
         /// <summary>
         /// Camera used to display the screen on the bag.
         /// </summary>
-        [Tooltip("Camera used to display the screen on the bg.")]
-        public Camera playerCamera;
+        
+        private Camera playerCamera; //Camera used to display the screen on the bg.
         /// <summary>
         /// Min value to detect impact
         /// </summary>
@@ -41,6 +41,18 @@ namespace SparringManager.Serial
         /// </summary>
         [Tooltip("If true, the impact point control will ignore all impacts over a black background.")]
         public bool ignoreBlackBackground;
+
+        public Camera PlayerCamera
+        {
+            get
+            {
+                return playerCamera;
+            }
+            set
+            {
+                playerCamera = value;
+            }
+        }
 
         public SerialSettings(string touchSurfacePort,
             string ledControlPort,
