@@ -462,7 +462,7 @@ MonoBehaviour:
         type: 3}
       _timerScenario: 5
       _simpleLineStruct:
-        _accelerationMax: 10
+        _accelerationMax: 0
         _deltaTimeMax: 4
         _deltaTimeMin: 3
       _hitLineStruct:
@@ -647,8 +647,8 @@ MonoBehaviour:
       _timerScenario: 15
       _simpleLineStruct:
         _accelerationMax: 170
-        _deltaTimeMax: 4
-        _deltaTimeMin: 3
+        _deltaTimeMax: 5
+        _deltaTimeMin: 4
       _hitLineStruct:
         _hitPrefab: {fileID: 0}
         _accelerationMax: 0

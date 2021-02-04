@@ -123,7 +123,7 @@ namespace SparringManager.SimpleLine
             RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
 
             //Stock the tTime data in list
-            GetConsigne(_tTime, _simpleLineComponent.transform.position.x);
+            GetConsigne(_tTime, _simpleLineComponent.transform.localPosition.x);
         }
         void OnDestroy()
         {

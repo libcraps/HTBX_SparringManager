@@ -129,7 +129,7 @@ namespace SparringManager.DataManager
                 Debug.Log(_exportIntoFile);
                 if (!Directory.Exists(_filePath))
                 {
-                    Debug.Log(_filePath);
+                    Debug.Log(_filePath + " has been created");
                     Directory.CreateDirectory(_filePath);
                 }
                 DicoToTXT(_sessionSumUp, _filePath + "SessionSumUp.txt");
@@ -182,7 +182,6 @@ namespace SparringManager.DataManager
             List<string> sumUpKeys = new List<string>();
             sumUpKeys = new List<string>(_sessionSumUp.Keys);
 
-            
             for (int j = 1; j < sumUpKeys.Count;j++)
             {
                 DataTable dtDataTable = dtDataBase[j-1];
@@ -213,14 +212,14 @@ namespace SparringManager.DataManager
                     sw.Write(sw.NewLine);
                 }
                 sw.Write(sw.NewLine);
-
             }
             sw.Close();
+            Debug.Log(strFilePath + " has been created");
         }
         public void DicoToTXT(Dictionary<string, Dictionary<string, string>> dico, string strFilePath)
         {
             StreamWriter sw = new StreamWriter(strFilePath, false);
-
+            
             foreach (string globalKey in dico.Keys)
             {
                 sw.Write("--> " + globalKey + " :");
@@ -234,6 +233,7 @@ namespace SparringManager.DataManager
                 sw.WriteLine(sw.NewLine);
             }
             sw.Close();
+            Debug.Log(strFilePath + " has been created");
         }
 
 //--> Methods that manage data conteners

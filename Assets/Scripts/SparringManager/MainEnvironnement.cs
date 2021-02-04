@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using SparringManager.Structures;
-using SparringManager.Scenarios;
 using UnityEngine;
 
 namespace SparringManager
