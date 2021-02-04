@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using SparringManager.Scenarios;
 
 namespace SparringManager.SimpleHit
 {

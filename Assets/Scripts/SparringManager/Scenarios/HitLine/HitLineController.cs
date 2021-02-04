@@ -1,4 +1,5 @@
 ﻿using SparringManager;
+using SparringManager.Scenarios;
 using SparringManager.DataManager;
 using SparringManager.DataManager.HitLine;
 using SparringManager.SimpleLine;

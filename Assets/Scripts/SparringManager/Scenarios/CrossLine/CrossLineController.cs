@@ -1,4 +1,5 @@
 ﻿using SparringManager.DataManager.CrossLine;
+using SparringManager.Scenarios;
 using System;
 using System.Collections;
 using System.Collections.Generic;

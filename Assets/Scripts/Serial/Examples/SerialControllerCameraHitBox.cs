@@ -36,8 +36,9 @@ namespace SparringManager.Serial
         {
             i += 1;
 
-            //test
-            _serialSettings.playerCamera = this.gameObject.GetComponent<Camera>();
+            //test            
+            GameObject cameraObject = GameObject.FindGameObjectWithTag("HitboxCamera");
+            _serialSettings.playerCamera = cameraObject.GetComponent<Camera>();
             //_serialControllers = InitSerialController(_serialSettings, i);
 
         }

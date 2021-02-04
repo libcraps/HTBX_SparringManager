@@ -1,231 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using SparringManager.Structures;
 using SparringManager.Serial;
+using System;
 using UnityEngine;
 
 namespace SparringManager
 {
-    [System.Serializable]
-    public struct StructMovuino
-    {
-        [SerializeField]
-        private GameObject _prefab;
-        [SerializeField]
-        private bool _onOff;
-
-        public GameObject Prefab
-        {
-            get
-            {
-                return _prefab;
-            }
-        }
-
-        public bool OnOff
-        {
-            get
-            {
-                return _onOff;
-            }
-            set
-            {
-                _onOff = value;
-            }
-        }
-
-        public StructMovuino(GameObject prefab, bool onOff)
-        {
-            _prefab = prefab;
-            _onOff = onOff;
-        }
-    }
-    [System.Serializable]
-    public struct StructPolar
-    {
-        [SerializeField]
-        private GameObject _prefab;
-        [SerializeField]
-        private bool _onOff;
-        public GameObject Prefab
-        {
-            get
-            {
-                return _prefab;
-            }
-        }
-
-        public bool OnOff
-        {
-            get
-            {
-                return _onOff;
-            }
-            set
-            {
-                _onOff = value;
-            }
-        }
-        public StructPolar(GameObject prefab, bool onOff)
-        {
-            _prefab = prefab;
-            _onOff = onOff;
-        }
-    }
-    [System.Serializable]
-    public struct StructViveTracker
-    {
-        [SerializeField]
-        private GameObject _prefab;
-        [SerializeField]
-        private bool _onOff;
-        public GameObject Prefab
-        {
-            get
-            {
-                return _prefab;
-            }
-        }
-
-        public bool OnOff
-        {
-            get
-            {
-                return _onOff;
-            }
-            set
-            {
-                _onOff = value;
-            }
-        }
-        public StructViveTracker(GameObject prefab, bool onOff)
-        {
-            _prefab = prefab;
-            _onOff = onOff;
-        }
-    }
-    [System.Serializable]
-    public struct StructHitBox
-    {
-        [SerializeField]
-        private GameObject _prefab;
-        [SerializeField]
-        private SerialSettings _serialSettings;
-        [SerializeField]
-        private bool _onOff;
-
-        public GameObject Prefab
-        {
-            get
-            {
-                return _prefab;
-            }
-        }
-        public SerialSettings SerialSettings
-        {
-            get
-            {
-                return _serialSettings;
-            }
-            set
-            {
-                _serialSettings = value;
-            }
-        }
-        public bool OnOff
-        {
-            get
-            {
-                return _onOff;
-            }
-            set
-            {
-                _onOff = value;
-            }
-        }
-
-        public StructHitBox(GameObject prefab,SerialSettings serialSettings, bool onOff)
-        {
-            _prefab = prefab;
-            _serialSettings = serialSettings;
-            _onOff = onOff;
-        }
-    }
-    [System.Serializable]
-    public struct StructPlayerScene
-    {
-        [SerializeField]
-        private GameObject _prefab;
-        [SerializeField]
-        private bool _onOff;
-        [SerializeField]
-        private StructViveTracker _structViveTracker;
-        [SerializeField]
-        private StructMovuino _structMovuino;
-        [SerializeField]
-        private StructPolar _structPolar;
-
-        public GameObject Prefab
-        {
-            get
-            {
-                return _prefab;
-            }
-        }
-        public bool OnOff
-        {
-            get
-            {
-                return _onOff;
-            }
-            set
-            {
-                _onOff = value;
-            }
-        }
-        public StructViveTracker StructViveTracker
-        {
-            get
-            {
-                return _structViveTracker;
-            }
-            set
-            {
-                _structViveTracker = value;
-            }
-        }
-        public StructMovuino StructMovuino
-        {
-            get
-            {
-                return _structMovuino;
-            }
-            set
-            {
-                _structMovuino = value;
-            }
-        }
-        public StructPolar StructPolar
-        {
-            get
-            {
-                return _structPolar;
-            }
-            set
-            {
-                _structPolar = value;
-            }
-        }
-
-        public StructPlayerScene(GameObject prefab, bool onOff, StructViveTracker viveTracker, StructMovuino movuino, StructPolar polar)
-        {
-            _prefab = prefab;
-            _onOff = onOff;
-            _structViveTracker = viveTracker;
-            _structMovuino = movuino;
-            _structPolar = polar;
-        }
-    }
-
     public class DeviceManager : MonoBehaviour
     {
         [SerializeField]
@@ -233,34 +14,75 @@ namespace SparringManager
         [SerializeField]
         private StructPlayerScene _structPlayerScene;
 
-        private GameObject RenderCamera;
-        private GameObject PlayerScene;
+        private GameObject _renderCamera;
+        private GameObject _playerScene;
+
+        public int _indexSac;
+        private int _nbPlayer;
+
+        public GameObject RenderCamera
+        {
+            get
+            {
+                return _renderCamera;
+            }
+        }
+        public GameObject PlayerScene
+        {
+            get
+            {
+                return _playerScene;
+            }
+        }
 
         Vector3 _posRenderCamera;
         Vector3 _posPlayerScene;
 
         private void Start()
         {
+            _nbPlayer = GetComponentInParent<MainEnvironnement>().NbPlayer;
+            this.gameObject.name += "_"+ _indexSac;
             _posRenderCamera = new Vector3();
             _posRenderCamera = this.gameObject.transform.position;
 
             _posPlayerScene = new Vector3();
-            _posPlayerScene.x = this.gameObject.transform.position.x + 200;
-            _posPlayerScene.y = this.gameObject.transform.position.y;
-            _posPlayerScene.z = this.gameObject.transform.position.z;
+            _posPlayerScene = GameObject.Find("PlaneReferenceGymnase").transform.position;
 
-            RenderCamera = InstantiatePrefab(_structHitBox.Prefab, _posRenderCamera);
-            RenderCamera.GetComponent<SerialControllerCameraHitBox>().InitSerialController(_structHitBox.SerialSettings, SerialControllerCameraHitBox.i);
-            PlayerScene = InstantiatePrefab(_structPlayerScene.Prefab, _posPlayerScene);
-            
+            if (_nbPlayer > 1 && _nbPlayer <5)
+            {
+                Debug.Log(_indexSac);
+                _posPlayerScene.x += _posPlayerScene.x + 2 * (float)Math.Cos(_indexSac * 2 * Math.PI / _nbPlayer);
+                _posPlayerScene.z += _posPlayerScene.z + 2 * (float)Math.Sin(_indexSac * 2 * Math.PI / _nbPlayer);
+            }
+            else if (_nbPlayer == 5)
+            {
+                
+                _posPlayerScene.x += _posPlayerScene.x + 2 * (float)Math.Cos(_indexSac * 2 * Math.PI / (_nbPlayer-1));
+                _posPlayerScene.z += _posPlayerScene.z + 2 * (float)Math.Sin(_indexSac * 2 * Math.PI / (_nbPlayer-1));
+                Debug.Log("RAAAAAAAAAAAAAA");
+                if (_indexSac == 4)
+                {
+                    Debug.Log("YOOOOOO");
+                    _posPlayerScene = GameObject.Find("PlaneReferenceGymnase").transform.position;
+                }
+            }
+
+
+
+            //TODO if on/off
+            _renderCamera = InstantiatePrefab(_structHitBox.Prefab, _posRenderCamera);
+            _renderCamera.GetComponent<SerialControllerCameraHitBox>().InitSerialController(_structHitBox.SerialSettings, SerialControllerCameraHitBox.i);
+            _playerScene = InstantiatePrefab(_structPlayerScene.Prefab, _posPlayerScene);
+
         }
         private void FixedUpdate()
         {
-            if (Input.GetKeyDown(KeyCode.G)) { 
+            if (Input.GetKeyDown(KeyCode.G))
+            {
             }
         }
 
-        public void InitStruct()
+        public void Init(StructHitBox hitBox, StructPlayerScene playerScene, int i)
         {
             /*
              * Constructeur du DeviceManager => ce sera du style
@@ -269,6 +91,10 @@ namespace SparringManager
              * _structViveTracker = arg2 
              * ...
              */
+
+            _structHitBox = hitBox;
+            _structPlayerScene = playerScene;
+            _indexSac = i;
         }
 
         public GameObject InstantiatePrefab(GameObject prefab, Vector3 pos, GameObject parent = null)

@@ -7,7 +7,7 @@ namespace SparringManager
     public class ImpactManager : MonoBehaviour
     {
         private Camera _hitboxCamera; // player camera --> manage real impact
-        [SerializeField]
+        //[SerializeField]
         private Camera _debugCamera;  // debug camera --> manager mouse click (for debug)
 
         public delegate void InteractPointEventHandler(Vector2 interactPoint);
@@ -25,6 +25,7 @@ namespace SparringManager
 
         private void Awake()
         {
+            _debugCamera = GameObject.Find("CoachCamera").GetComponent<Camera>();
             _hitboxCamera = this.gameObject.GetComponent<Camera>(); // get its own camera on awake
         }
 

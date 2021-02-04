@@ -165,7 +165,8 @@ namespace SparringManager.CrossLine
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
 
-            GameObject cameraObject = GameObject.Find("RenderCamera_Hitbox1");
+            GameObject crossLineController = GameObject.Find(this.gameObject.transform.parent.name);
+            GameObject cameraObject = crossLineController.transform.GetComponentInParent<DeviceManager>().RenderCamera;
             Camera renderCamera = cameraObject.GetComponent<Camera>();
             float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
 

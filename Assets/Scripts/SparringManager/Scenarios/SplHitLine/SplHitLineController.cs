@@ -1,4 +1,5 @@
 ﻿using SparringManager.DataManager.SplHitLine;
+using SparringManager.Scenarios;
 using System.Collections.Generic;
 using System.IO;
 using System.Data;

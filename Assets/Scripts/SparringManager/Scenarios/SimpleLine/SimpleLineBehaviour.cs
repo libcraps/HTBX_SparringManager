@@ -25,7 +25,7 @@ namespace SparringManager.SimpleLine
     {
         //General variables of a MovingLine
         private float _lineAcceleration;
-        private int _deltaTimeChangeAcceleration;
+        private int _deltaTimeChangeAcceleration = 0;
         public float LineAcceleration
         {
             get
@@ -64,13 +64,13 @@ namespace SparringManager.SimpleLine
         {
             _tTime = Time.time - _startTimeScenario;
             LineInCameraRange();
-            MoveLine(_lineAcceleration);
+            MoveLine(ref _lineAcceleration);
         }
 
-        void MoveLine(float lineHorizontalAcceleration)
+        void MoveLine(ref float lineHorizontalAcceleration)
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
-            this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
+            this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(lineHorizontalAcceleration, 0, 0);
         }
         void LineInCameraRange()
         {
@@ -79,19 +79,19 @@ namespace SparringManager.SimpleLine
             */
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
-
+            
             GameObject _SimpleLineController = GameObject.Find(this.gameObject.transform.parent.name);
-            GameObject _Camera = GameObject.Find(_SimpleLineController.gameObject.transform.parent.name);
+            GameObject _Camera = _SimpleLineController.GetComponentInParent<DeviceManager>().RenderCamera;
             Camera renderCamera = _Camera.GetComponent<Camera>();
             float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
 
-            renderCameraPos3d.x = renderCamera.transform.position.x;
-            renderCameraPos3d.y = renderCamera.transform.position.y;
-            renderCameraPos3d.z = renderCamera.transform.position.z;
-            
-            linePos3d.x = this.gameObject.transform.position.x;
-            linePos3d.y = this.gameObject.transform.position.y;
-            linePos3d.z = this.gameObject.transform.position.z;
+            renderCameraPos3d.x = renderCamera.transform.localPosition.x;
+            renderCameraPos3d.y = renderCamera.transform.localPosition.y;
+            renderCameraPos3d.z = renderCamera.transform.localPosition.z;
+
+            linePos3d.x = this.gameObject.transform.localPosition.x;
+            linePos3d.y = this.gameObject.transform.localPosition.y;
+            linePos3d.z = this.gameObject.transform.localPosition.z;
 
             //Instruction whether the line get out of the render camera range
             if (linePos3d.x > renderCameraPos3d.x + rangeSize)
@@ -102,7 +102,7 @@ namespace SparringManager.SimpleLine
             {
                 linePos3d.x += 2* rangeSize;
             }
-            this.gameObject.transform.position = linePos3d;
+            this.gameObject.transform.localPosition = linePos3d;
         }
         void OnDestroy()
         {

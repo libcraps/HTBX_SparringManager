@@ -251,18 +251,18 @@ namespace SparringManager.SplHitLine
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
 
-            GameObject _HitLineController = GameObject.Find(this.gameObject.transform.parent.name);
-            GameObject gameObject = GameObject.Find(_HitLineController.gameObject.transform.parent.name);
-            Camera renderCamera = gameObject.GetComponent<Camera>();
+            GameObject _SimpleLineController = GameObject.Find(this.gameObject.transform.parent.name);
+            GameObject _Camera = _SimpleLineController.transform.GetComponentInParent<DeviceManager>().RenderCamera;
+            Camera renderCamera = _Camera.GetComponent<Camera>();
             float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
 
-            renderCameraPos3d.x = renderCamera.transform.position.x;
-            renderCameraPos3d.y = renderCamera.transform.position.y;
-            renderCameraPos3d.z = renderCamera.transform.position.z;
+            renderCameraPos3d.x = renderCamera.transform.localPosition.x;
+            renderCameraPos3d.y = renderCamera.transform.localPosition.y;
+            renderCameraPos3d.z = renderCamera.transform.localPosition.z;
 
-            linePos3d.x = this.gameObject.transform.position.x;
-            linePos3d.y = this.gameObject.transform.position.y;
-            linePos3d.z = this.gameObject.transform.position.z;
+            linePos3d.x = this.gameObject.transform.localPosition.x;
+            linePos3d.y = this.gameObject.transform.localPosition.y;
+            linePos3d.z = this.gameObject.transform.localPosition.z;
 
             //Instruction whether the line gets out of the render camera range
             if (linePos3d.x > renderCameraPos3d.x + rangeSize)
@@ -274,7 +274,7 @@ namespace SparringManager.SplHitLine
                 linePos3d.x += 2 * rangeSize;
             }
 
-            this.gameObject.transform.position = linePos3d;
+            this.gameObject.transform.localPosition = linePos3d;
         }
         void OnDestroy()
         {

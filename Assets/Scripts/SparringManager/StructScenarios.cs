@@ -6,7 +6,7 @@ using SparringManager.CrossLine;
 using SparringManager.SplHitLine;
 using System.Collections.Generic;
 
-namespace SparringManager
+namespace SparringManager.Scenarios
 {
     [System.Serializable]
     public struct StructScenarios
@@ -46,7 +46,6 @@ namespace SparringManager
                 _scenarioPrefab = value;
             }
         }
-
         public int TimerScenario
         {
             get

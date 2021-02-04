@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SparringManager.Scenarios;
+using UnityEngine;
 using System;
 
 namespace SparringManager
@@ -28,14 +29,11 @@ namespace SparringManager
     public class SessionManager : MonoBehaviour
     {
 //----------------------    ATTRIBUTS    --------------------------
-        [SerializeField]
         private string _name = "Romuald";
         [SerializeField]
         private StructScenarios[] _scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
 
-        [SerializeField]
-        private DeviceStructure _device;
-
+        private GameObject _renderCamera;
         public bool ChildDestroyed { get; set; }
         private int _indexScenario = 0;
 
@@ -63,7 +61,8 @@ namespace SparringManager
                 //Deal with the instantiation of scenarios
                 if (_indexScenario < (_scenarios.Length))
                 {
-                    InstantiateAndBuildScenario(_scenarios[_indexScenario], GameObject.FindGameObjectWithTag("HitboxCamera"), this.gameObject.transform.position);
+                    GameObject renderCamera = this.gameObject.GetComponent<DeviceManager>().RenderCamera;
+                    InstantiateAndBuildScenario(_scenarios[_indexScenario], renderCamera, this.gameObject.transform.position);
 
                     ChildDestroyed = false;
                     _indexScenario += 1;
@@ -109,6 +108,12 @@ namespace SparringManager
             Destroy(Instantiate(prefabObject, _pos3d, Quaternion.identity, referenceGameObject.transform), strucObject.TimerScenario);
 
             Debug.Log(prefabObject.name + " has been instantiated");
+        }
+
+        public void Init(StructScenarios[] scenarios, string name)
+        {
+            _scenarios = scenarios;
+            _name = name;
         }
     }
     [System.Serializable]

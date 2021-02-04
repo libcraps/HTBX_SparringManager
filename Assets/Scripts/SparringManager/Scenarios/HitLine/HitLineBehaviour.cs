@@ -125,11 +125,11 @@ namespace SparringManager.HitLine
             SetHit();
         }
 
-        public void MoveLine(float lineHorizontalAcceleration)
+        private void MoveLine(float lineHorizontalAcceleration)
         {
             this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
         }
-        public void SetHit()
+        private void SetHit()
         {
             //change the color of the line if the player have to hit
             bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
@@ -155,10 +155,10 @@ namespace SparringManager.HitLine
              */
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
-
-            GameObject _HitLineController = GameObject.Find(this.gameObject.transform.parent.name);
-            GameObject gameObject = GameObject.Find(_HitLineController.gameObject.transform.parent.name);
-            Camera renderCamera = gameObject.GetComponent<Camera>();
+            
+            GameObject hitLineController = GameObject.Find(this.gameObject.transform.parent.name);
+            GameObject camera = hitLineController.transform.GetComponentInParent<DeviceManager>().RenderCamera;
+            Camera renderCamera = camera.GetComponent<Camera>();
             float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
 
             renderCameraPos3d.x = renderCamera.transform.position.x;

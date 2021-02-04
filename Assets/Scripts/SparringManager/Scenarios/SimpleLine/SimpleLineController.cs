@@ -1,4 +1,4 @@
-﻿using SparringManager;
+﻿using SparringManager.Scenarios;
 using SparringManager.DataManager;
 using SparringManager.DataManager.SimpleLine;
 using System.Collections.Generic;
@@ -84,7 +84,9 @@ namespace SparringManager.SimpleLine
             nbApparition += 1;
             //INITIALISATION OF VARIABLES 
             //Scenario Variables
+            _controllerStruct = new StructScenarios();
             _scenarioControllerComponent = GetComponent<ScenarioController>();
+
             _controllerStruct = _scenarioControllerComponent.ControllerStruct;
             _simpleLineControllerStruct = _controllerStruct.SimpleLineStruct;
             SetControllerVariables();
