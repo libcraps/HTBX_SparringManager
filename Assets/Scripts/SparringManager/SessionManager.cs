@@ -94,7 +94,7 @@ namespace SparringManager
             {
                 _pos3d = referenceGameObject.transform.position; //if the position isn't specified we place the object a the same place of the reference
             }
-
+            prefabObject.GetComponent<ScenarioController>().ControllerStruct = new StructScenarios();
             prefabObject.GetComponent<ScenarioController>().ControllerStruct = strucObject; //we attribute the structure to the scenario component 
 
             Destroy(Instantiate(prefabObject, _pos3d, Quaternion.identity, referenceGameObject.transform), strucObject.TimerScenario);

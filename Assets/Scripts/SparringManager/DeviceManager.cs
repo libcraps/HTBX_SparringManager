@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SparringManager.Structures;
 using SparringManager.Serial;
+using SparringManager.Device;
 using System;
 using UnityEngine;
 
@@ -63,6 +64,7 @@ namespace SparringManager
                     _posPlayerScene.z += _posPlayerScene.z + 2 * (float)Math.Sin(_indexSac * 2 * Math.PI / _nbPlayer);
                 }
                 _playerScene = InstantiatePrefab(_structPlayerScene.Prefab, _posPlayerScene);
+                _playerScene.GetComponent<PlayerSceneController>().Init(_structPlayerScene);
             }
 
 

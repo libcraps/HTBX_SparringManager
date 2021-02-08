@@ -92,6 +92,7 @@ namespace SparringManager.SimpleLine
             SetControllerVariables();
 
             //Export Data variables
+            _simpleLineDataStruct = new SimpleLineDataStruct();
             _dataManagerComponent = this.gameObject.transform.parent.GetComponentInParent<DataManager.DataManager>();
             _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<SimpleLineStruct>(_simpleLineControllerStruct));
 

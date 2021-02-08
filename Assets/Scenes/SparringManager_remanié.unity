@@ -203,8 +203,9 @@ Transform:
   m_Children:
   - {fileID: 3567670231279656683}
   - {fileID: 524459239}
+  - {fileID: 1732023085}
   m_Father: {fileID: 1495360285}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &524459238
 GameObject:
@@ -381,7 +382,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1495360285}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1495360284
 GameObject:
@@ -411,8 +412,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 521247395}
   - {fileID: 940764186}
+  - {fileID: 521247395}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -461,98 +462,6 @@ MonoBehaviour:
     - _scenarioPrefab: {fileID: 4281324017865965865, guid: 81bcf515e42e28b499dc2c872ec52c77,
         type: 3}
       _timerScenario: 5
-      _simpleLineStruct:
-        _accelerationMax: 0
-        _deltaTimeMax: 4
-        _deltaTimeMin: 3
-      _hitLineStruct:
-        _hitPrefab: {fileID: 0}
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-        _deltaHit: 0
-        _timeBeforeHit: 0
-        _fixPosHit: 0
-      _crossLineStruct:
-        _hitPrefab: {fileID: 0}
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-        _deltaHit: 0
-        _timeBeforeHit: 0
-        _fixPosHit: 0
-      _splHitLineStruct:
-        _hitPrefab: {fileID: 0}
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-        _deltaHit: 0
-        _timeBeforeHit: 0
-        _scaleMaxValue: 0
-        _scaleSpeed: 0
-        _fixPosHit: 0
-    - _scenarioPrefab: {fileID: 7392076013187570363, guid: 1f5aea03649a01c4bac9b44cb338704f,
-        type: 3}
-      _timerScenario: 5
-      _simpleLineStruct:
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-      _hitLineStruct:
-        _hitPrefab: {fileID: 0}
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-        _deltaHit: 0
-        _timeBeforeHit: 0
-        _fixPosHit: 0
-      _crossLineStruct:
-        _hitPrefab: {fileID: 0}
-        _accelerationMax: 25
-        _deltaTimeMax: 5
-        _deltaTimeMin: 4
-        _deltaHit: 3
-        _timeBeforeHit: 3
-        _fixPosHit: 1
-      _splHitLineStruct:
-        _hitPrefab: {fileID: 0}
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-        _deltaHit: 0
-        _timeBeforeHit: 0
-        _scaleMaxValue: 0
-        _scaleSpeed: 0
-        _fixPosHit: 0
-  - _name: Romuald
-    _structHitBox:
-      _prefab: {fileID: 155006673294057578, guid: 571b32308585a234e913cbea1a3f07d9,
-        type: 3}
-      _serialSettings:
-        touchControlSerialPortName: 
-        ledControlSerialPortName: 
-        impactThreshold: 0
-        delayOffHit: 0
-        displayDatapoints: 0
-        ignoreBlackBackground: 0
-      _onOff: 1
-    _structPlayerScene:
-      _prefab: {fileID: 3567670231617142746, guid: 273950cf886a5db479da9a9caa5231b9,
-        type: 3}
-      _onOff: 1
-      _structViveTracker:
-        _prefab: {fileID: 0}
-        _onOff: 0
-      _structMovuino:
-        _prefab: {fileID: 0}
-        _onOff: 0
-      _structPolar:
-        _prefab: {fileID: 0}
-        _onOff: 0
-    _scenarios:
-    - _scenarioPrefab: {fileID: 4281324017865965865, guid: 81bcf515e42e28b499dc2c872ec52c77,
-        type: 3}
-      _timerScenario: 10
       _simpleLineStruct:
         _accelerationMax: 15
         _deltaTimeMax: 4
@@ -616,98 +525,69 @@ MonoBehaviour:
         _scaleMaxValue: 0
         _scaleSpeed: 0
         _fixPosHit: 0
-  - _name: ALice
-    _structHitBox:
-      _prefab: {fileID: 155006673294057578, guid: 571b32308585a234e913cbea1a3f07d9,
-        type: 3}
-      _serialSettings:
-        touchControlSerialPortName: 
-        ledControlSerialPortName: 
-        impactThreshold: 0
-        delayOffHit: 0
-        displayDatapoints: 0
-        ignoreBlackBackground: 0
-      _onOff: 1
-    _structPlayerScene:
-      _prefab: {fileID: 3567670231617142746, guid: 273950cf886a5db479da9a9caa5231b9,
-        type: 3}
-      _onOff: 1
-      _structViveTracker:
-        _prefab: {fileID: 0}
-        _onOff: 0
-      _structMovuino:
-        _prefab: {fileID: 0}
-        _onOff: 0
-      _structPolar:
-        _prefab: {fileID: 0}
-        _onOff: 0
-    _scenarios:
-    - _scenarioPrefab: {fileID: 4281324017865965865, guid: 81bcf515e42e28b499dc2c872ec52c77,
-        type: 3}
-      _timerScenario: 15
-      _simpleLineStruct:
-        _accelerationMax: 170
-        _deltaTimeMax: 5
-        _deltaTimeMin: 4
-      _hitLineStruct:
-        _hitPrefab: {fileID: 0}
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-        _deltaHit: 0
-        _timeBeforeHit: 0
-        _fixPosHit: 0
-      _crossLineStruct:
-        _hitPrefab: {fileID: 0}
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-        _deltaHit: 0
-        _timeBeforeHit: 0
-        _fixPosHit: 0
-      _splHitLineStruct:
-        _hitPrefab: {fileID: 0}
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-        _deltaHit: 0
-        _timeBeforeHit: 0
-        _scaleMaxValue: 0
-        _scaleSpeed: 0
-        _fixPosHit: 0
-    - _scenarioPrefab: {fileID: 7392076013187570363, guid: 1f5aea03649a01c4bac9b44cb338704f,
-        type: 3}
-      _timerScenario: 5
-      _simpleLineStruct:
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-      _hitLineStruct:
-        _hitPrefab: {fileID: 0}
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-        _deltaHit: 0
-        _timeBeforeHit: 0
-        _fixPosHit: 0
-      _crossLineStruct:
-        _hitPrefab: {fileID: 0}
-        _accelerationMax: 25
-        _deltaTimeMax: 5
-        _deltaTimeMin: 4
-        _deltaHit: 3
-        _timeBeforeHit: 3
-        _fixPosHit: 1
-      _splHitLineStruct:
-        _hitPrefab: {fileID: 0}
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-        _deltaHit: 0
-        _timeBeforeHit: 0
-        _scaleMaxValue: 0
-        _scaleSpeed: 0
-        _fixPosHit: 0
+--- !u!1001 &1539763935
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 521247395}
+    m_Modifications:
+    - target: {fileID: 132594, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+      propertyPath: m_Name
+      value: '[SteamVR]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.000030517578
+      objectReference: {fileID: 0}
+    - target: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -200.00003
+      objectReference: {fileID: 0}
+    - target: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+--- !u!4 &1732023085 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1539763935}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3567670231279656681
 GameObject:
   m_ObjectHideFlags: 0
