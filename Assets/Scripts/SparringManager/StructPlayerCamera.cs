@@ -6,6 +6,11 @@ using UnityEngine;
 
 namespace SparringManager.Structures
 {
+    public interface IStructDevice
+    {
+        GameObject Prefab { get; }
+        bool OnOff { get; set; }
+    }
     [System.Serializable]
     public struct StructPlayerCamera
     {
@@ -72,7 +77,7 @@ namespace SparringManager.Structures
     }
 
     [System.Serializable]
-    public struct StructHitBox
+    public struct StructHitBox : IStructDevice
     {
         [SerializeField]
         private GameObject _prefab;
@@ -119,7 +124,7 @@ namespace SparringManager.Structures
         }
     }
     [System.Serializable]
-    public struct StructPlayerScene
+    public struct StructPlayerScene : IStructDevice
     {
         [SerializeField]
         private GameObject _prefab;
@@ -195,7 +200,7 @@ namespace SparringManager.Structures
     }
 
     [System.Serializable]
-    public struct StructMovuino
+    public struct StructMovuino : IStructDevice
     {
         [SerializeField]
         private GameObject _prefab;
@@ -229,7 +234,7 @@ namespace SparringManager.Structures
         }
     }
     [System.Serializable]
-    public struct StructPolar
+    public struct StructPolar : IStructDevice
     {
         [SerializeField]
         private GameObject _prefab;
@@ -261,7 +266,7 @@ namespace SparringManager.Structures
         }
     }
     [System.Serializable]
-    public struct StructViveTracker
+    public struct StructViveTracker : IStructDevice
     {
         [SerializeField]
         private GameObject _prefab;

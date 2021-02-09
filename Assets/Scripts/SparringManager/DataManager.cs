@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System;
+using SparringManager.Structures;
 using System.Data;
 using UnityEngine;
 
@@ -41,22 +42,24 @@ namespace SparringManager.DataManager
             }
         }
 
-        private bool _editFile = false;
-        public bool EditFile
+        private bool _editDataTable = false;
+        public bool EditDataTable
         {
             get
             {
                 if (ExportIntoFile == false)
                 {
-                    _editFile = false;
+                    _editDataTable = false;
                 }
-                return _editFile;
+                return _editDataTable;
             }
             set
             {
-                _editFile = value;
+                _editDataTable = value;
             }
         }
+
+        public bool EndScenarioForData { get; set; }
 
         private string _filePath;
         public string FilePath
@@ -83,6 +86,20 @@ namespace SparringManager.DataManager
                 _dataBase = value;
             }
         }
+
+        private StructExportData _exportDataStruct;
+        public StructExportData ExportDataStruct
+        {
+            get
+            {
+                return _exportDataStruct;
+            }
+            set
+            {
+                _exportDataStruct = value;
+            }
+        }
+
 
         //private List<string> _sessionResume; //List that sum up the session that we will put in a text file
         private Dictionary<string, Dictionary<string,string>> _sessionSumUp;
@@ -116,17 +133,26 @@ namespace SparringManager.DataManager
         private void Awake()
         {
             //INITIALISATION OF VARIABLES 
+            _exportDataStruct = new StructExportData();
             _sessionSumUp = new Dictionary<string, Dictionary<string, string>>();
             _generaralSectionSumUp = new Dictionary<string, string>();
             _dataBase = new List<DataTable>();
         }
-
+        private void FixedUpdate()
+        {
+            if (_editDataTable == true)
+            {
+                _editDataTable = false;
+                EndScenarioForData = false;
+                _dataBase.Add(_exportDataStruct.ExportDataTable);
+                _exportDataStruct = new StructExportData();
+                
+            }
+        }
         private void OnDestroy()
         {
-            
             if (_exportIntoFile == true) //We export the file t the end of the session if t
             {
-                Debug.Log(_exportIntoFile);
                 if (!Directory.Exists(_filePath))
                 {
                     Debug.Log(_filePath + " has been created");
@@ -136,7 +162,6 @@ namespace SparringManager.DataManager
                 //_dataManager.ToCSV(_dataManager.DataBase[_indexScenario - 1], ".\\_data\\" + GetNameScenarioI(_indexScenario - 1) + ".csv");
                 ToCSVGlobal(_dataBase, _filePath+ "GlobalSessionData.csv");
 
-                _editFile = false;
             }
         }
 
@@ -282,6 +307,19 @@ namespace SparringManager.DataManager
             //Initialization of the GeeralSectionSumUp
             _exportIntoFile = export;
             _filePath = filepath;
+        }
+
+        public void GetScenarioExportDataInStructure(List<float> timeListScenario, List<Vector3> mouvementConsigne)
+        {
+            //Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
+            _exportDataStruct.MouvementConsigne = mouvementConsigne;
+            _exportDataStruct.TimeListScenario = timeListScenario;
+        }
+        public void GetSceneExportDataInStructure(List<Vector3> mouvementPlayer, List<Vector3> mouvementBag)
+        {
+            //Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
+            _exportDataStruct.MouvementPlayer = mouvementPlayer;
+            _exportDataStruct.MouvementBag = mouvementBag;
         }
     }
 }

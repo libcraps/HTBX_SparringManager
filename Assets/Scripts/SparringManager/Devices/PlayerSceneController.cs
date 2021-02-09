@@ -12,73 +12,66 @@ namespace SparringManager.Device
         [SerializeField]
         StructPlayerScene _structPlayerScene;
 
-        PlayerSceneDataStruct _playerSceneDataStruct;
-
         // Start is called before the first frame update
         DataManager.DataManager _dataManagerComponent;
-        private List<float> _mouvementPlayerX;
-        private List<float> _mouvementPlayerY;
-        private List<float> _mouvementPlayerZ;
-        private List<float> _mouvementBagX;
-        private List<float> _mouvementBagY;
-        private List<float> _mouvementBagZ;
+
+        private List<Vector3> _mouvementPlayer;
+        private List<Vector3> _mouvementBag;
 
         GameObject _player;
         GameObject _bag;
-        private void Awake()
-        {
-            _playerSceneDataStruct = new PlayerSceneDataStruct();
-        }
         private void Start()
         {
             _player = GameObject.Find("Player");
             _bag = GameObject.Find("BagTracker");
 
             _dataManagerComponent = this.gameObject.GetComponentInParent<DataManager.DataManager>();
-            _mouvementPlayerX = new List<float>();
-            _mouvementPlayerY = new List<float>();
-            _mouvementPlayerZ = new List<float>();
-            _mouvementBagX = new List<float>();
-            _mouvementBagY = new List<float>();
-            _mouvementBagZ = new List<float>();
 
+            _mouvementPlayer = new List<Vector3>();
+            _mouvementBag = new List<Vector3>();
+
+            InstantiateDevice<StructViveTracker>(_structPlayerScene.StructViveTracker, _bag);
+            InstantiateDevice<StructPolar>(_structPlayerScene.StructPolar, _player);
+            InstantiateDevice<StructMovuino>(_structPlayerScene.StructMovuino, _player);
         }
-        private void Update()
+        private void FixedUpdate()
         {
-            GetConsigne(_player.transform.localPosition, _bag.transform.localPosition);
+            if (_dataManagerComponent.EndScenarioForData == true)
+            {
+                _dataManagerComponent.GetSceneExportDataInStructure(_mouvementPlayer, _mouvementBag);
+                _dataManagerComponent.EditDataTable = true;
+
+                _mouvementBag = new List<Vector3>();
+                _mouvementPlayer = new List<Vector3>();
+            }
+
+            if (GetComponentInParent<SessionManager>().EndScenario == false)
+            {
+                GetPlayerSceneData(_player.transform.localPosition, _bag.transform.localPosition);
+            }
         }
         public void Init(StructPlayerScene structPlayerScene)
         {
             _structPlayerScene = structPlayerScene;
         }
 
-        private void GetConsigne(Vector3 posPlayer, Vector3 posBag)
+        private void GetPlayerSceneData(Vector3 posPlayer, Vector3 posBag)
         {
-            //Put tTime's data in list
-            _mouvementPlayerX.Add(posPlayer[0]);
-            _mouvementPlayerY.Add(posPlayer[1]);
-            _mouvementPlayerZ.Add(posPlayer[2]);
-            _mouvementBagX.Add(posBag[0]);
-            _mouvementBagY.Add(posBag[1]);
-            _mouvementBagZ.Add(posBag[2]);
+            _mouvementBag.Add(posBag);
+            _mouvementPlayer.Add(posPlayer);
         }
         void OnDestroy()
         {
-            GetExportDataInStructure();
-            ExportDataInDataManager();
+            //_dataManagerComponent.GetSceneExportDataInStructure(_mouvementPlayer, _mouvementBag);
+            //ExportDataInDataManager();
+        }
 
-            _dataManagerComponent.EditFile = true;
-        }
-        private void GetExportDataInStructure()
+        void InstantiateDevice<StructDevice>(StructDevice structure, GameObject parent) where StructDevice : IStructDevice
         {
-            //Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
-            _playerSceneDataStruct.MouvementPlayer = _mouvementPlayerX;
-            _playerSceneDataStruct.MouvementBag = _mouvementBagX;
-        }
-        private void ExportDataInDataManager()
-        {
-            //Export the dataStructure in the datamanager
-            _dataManagerComponent.DataBase.Add(_playerSceneDataStruct.PlayerSceneDataTable);
+            if (structure.OnOff)
+            {
+                Instantiate(structure.Prefab, parent.transform);
+            }
         }
     }
 

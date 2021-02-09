@@ -10,11 +10,11 @@ namespace SparringManager.DataManager.SimpleLine
      */
     public struct SimpleLineDataStruct
     {
-        private List<float> _mouvementConsigne;
+        private List<Vector3> _mouvementConsigne;
         private List<float> _timeListScenario;
         private DataTable _simpleLineDataTable; //DataTable that will contain every list of the DataStruct
 
-        public List<float> MouvementConsigne
+        public List<Vector3> MouvementConsigne
         {
             get
             {
@@ -49,24 +49,24 @@ namespace SparringManager.DataManager.SimpleLine
             }
         }
 
-        public SimpleLineDataStruct(List<float> mouvementConsigne, List<float> timeListScenario, DataTable dataTable = null)
+        public SimpleLineDataStruct(List<Vector3> mouvementConsigne, List<float> timeListScenario, DataTable dataTable = null)
         {
             this._timeListScenario = timeListScenario;
             this._mouvementConsigne = mouvementConsigne;
             this._simpleLineDataTable = dataTable;
         }
 
-        public DataTable CreateDataTable(List<float> timeListScenario, List<float> mouvementConsign)
+        public DataTable CreateDataTable(List<float> timeListScenario, List<Vector3> mouvementConsign)
         {
             //Create the data
             DataTable table = new DataTable();
 
             table.Columns.Add("Time" , typeof(float));
-            table.Columns.Add("Consigne", typeof(float));
+            table.Columns.Add("ConsigneX", typeof(float));
 
             for (int i = 0; i < timeListScenario.Count; i++)
             {
-                table.Rows.Add(timeListScenario[i], mouvementConsign[i]);
+                table.Rows.Add(timeListScenario[i], mouvementConsign[i][0]);
             }
             return table;
         }

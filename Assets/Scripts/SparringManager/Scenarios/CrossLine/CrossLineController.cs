@@ -78,7 +78,6 @@ namespace SparringManager.CrossLine
         private ScenarioController _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
         private CrossLineStruct _crossLineControllerStruct;
-        private CrossLineDataStruct _crossLineDataStruct;
 
         [SerializeField]
         private GameObject _scenarioComposant;
@@ -86,8 +85,7 @@ namespace SparringManager.CrossLine
 
         //list of the data that we will export
         private DataManager.DataManager _dataManagerComponent;
-        private List<float> _mouvementConsigneX;
-        private List<float> _mouvementConsigneY;
+        private List<Vector3> _mouvementConsigne;
         private List<float> _timeListScenario;
 
         //------------ METHODS -------------------
@@ -106,9 +104,7 @@ namespace SparringManager.CrossLine
             _dataManagerComponent = GetComponentInParent<DataManager.DataManager>();
             _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<CrossLineStruct>(_crossLineControllerStruct));
 
-
-            _mouvementConsigneX = new List<float>();
-            _mouvementConsigneY = new List<float>();
+            _mouvementConsigne = new List<Vector3>();
             _timeListScenario = new List<float>();
 
             //Initialisation of the time and the acceleration
@@ -136,16 +132,13 @@ namespace SparringManager.CrossLine
             RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
 
             //Stock the tTime data in list
-            GetConsigne(_tTime, _crossLineComponent.transform.position.x, _crossLineComponent.transform.position.y);
+            GetScenarioData(_tTime, _crossLineComponent.transform.localPosition);
         }
         void OnDestroy()
         {
-            GetExportDataInStructure();
-            ExportDataInDataManager();
-
-            _dataManagerComponent.EditFile = true;
-            GetComponentInParent<SessionManager>().ChildDestroyed = true;
-
+            _dataManagerComponent.GetScenarioExportDataInStructure(_timeListScenario, _mouvementConsigne);
+            _dataManagerComponent.EndScenarioForData = true;
+            GetComponentInParent<SessionManager>().EndScenario = true;
             _reactTime = 0;
             _crossLineComponent.Hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
@@ -169,26 +162,12 @@ namespace SparringManager.CrossLine
         }
 
         //Method for the data exportation
-        private void GetConsigne(float time, float posX, float posY)
+        private void GetScenarioData(float time, Vector3 pos)
         {
             _timeListScenario.Add(time);
-            _mouvementConsigneX.Add(posX);
-            _mouvementConsigneY.Add(posY);
+            _mouvementConsigne.Add(pos);
         }
-        private void GetExportDataInStructure()
-        {
-            //Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
-            _crossLineDataStruct.MouvementConsigneX = _mouvementConsigneX;
-            _crossLineDataStruct.MouvementConsigneY = _mouvementConsigneY;
-            _crossLineDataStruct.TimeListScenario = _timeListScenario;
-            _crossLineDataStruct.Hitted = _crossLineComponent.Hitted;
-            _crossLineDataStruct.ReactionTime = _reactTime;
-        }
-        private void ExportDataInDataManager()
-        {
-            //Export the dataStructure in the datamanager
-            _dataManagerComponent.DataBase.Add(_crossLineDataStruct.CrossLineDataTable);
-        }
+
 
         //Method that change parameters of a moving object
         void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)

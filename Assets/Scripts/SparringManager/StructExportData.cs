@@ -65,7 +65,7 @@ namespace SparringManager.Structures
         {
             get
             {
-                _ExportDataTable = CreateDataTable(_timeListScenario, _mouvementConsigne, _mouvementPlayer);
+                _ExportDataTable = CreateDataTable(_timeListScenario, _mouvementConsigne, _mouvementPlayer, _mouvementBag);
                 return _ExportDataTable;
             }
             set
@@ -85,7 +85,8 @@ namespace SparringManager.Structures
 
         public DataTable CreateDataTable(List<float> timeListScenario,
             List<Vector3> mouvementConsign,
-            List<Vector3> mouvementPlayer)
+            List<Vector3> mouvementPlayer,
+            List<Vector3> mouvementBag)
         {
             //Create the data
             DataTable table = new DataTable();
@@ -98,8 +99,13 @@ namespace SparringManager.Structures
             table.Columns.Add("PlayerX", typeof(float));
             table.Columns.Add("PlayerY", typeof(float));
             table.Columns.Add("PlayerZ", typeof(float));
-
-            for (int i = 0; i < timeListScenario.Count; i++)
+            table.Columns.Add("BagX", typeof(float));
+            table.Columns.Add("BagY", typeof(float));
+            table.Columns.Add("BagZ", typeof(float));
+            Debug.Log(timeListScenario.Count);
+            Debug.Log(mouvementConsign.Count);
+            Debug.Log(mouvementPlayer.Count);
+            for (int i = 0; i < timeListScenario.Count ; i++)
             {
                 table.Rows.Add(timeListScenario[i],
                     mouvementConsign[i][0],
@@ -107,7 +113,10 @@ namespace SparringManager.Structures
                     mouvementConsign[i][2],
                     mouvementPlayer[i][0],
                     mouvementPlayer[i][1],
-                    mouvementPlayer[i][2]);
+                    mouvementPlayer[i][2],
+                    mouvementBag[i][0],
+                    mouvementBag[i][1],
+                    mouvementBag[i][2]);
             }
             return table;
         }

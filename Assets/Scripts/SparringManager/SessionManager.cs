@@ -33,8 +33,7 @@ namespace SparringManager
         [SerializeField]
         private StructScenarios[] _scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
 
-        private GameObject _renderCamera;
-        public bool ChildDestroyed { get; set; }
+        public bool EndScenario { get; set; }
         private int _indexScenario = 0;
 
         //Variables for the DataManager
@@ -51,21 +50,23 @@ namespace SparringManager
             _dataManager.InitSumUp(_name, _dataManager.FilePath, NbScenarios);
 
             _indexScenario = 0;
-            ChildDestroyed = true; //We initialise to true in order to go in the loop
+            EndScenario = true; //We initialise to true in order to go in the loop
         }
         private void Update()
         {
-            if (ChildDestroyed == true) //(Time.time - _timeStartScenarioI) > _timerScenarioI)
+            if (EndScenario == true) //(Time.time - _timeStartScenarioI) > _timerScenarioI)
             {
+                
                 //Deal with the instantiation of scenarios
                 if (_indexScenario < (_scenarios.Length))
                 {
+
                     GameObject renderCamera = this.gameObject.GetComponent<DeviceManager>().RenderCamera;
                     InstantiateAndBuildScenario(_scenarios[_indexScenario], renderCamera, this.gameObject.transform.position);
-
-                    ChildDestroyed = false;
+                    
                     _indexScenario += 1;
                 }
+                EndScenario = false;
             }
         }
         private void OnDestroy()
@@ -85,7 +86,7 @@ namespace SparringManager
              *      prefabGameObject : it is here to be able to use this fonction for scenario composants (because the scenario_controller is in the structure and the scenario composent in the scenario controller)
              */
 
-            if (prefabObject == false)
+            if (prefabObject == null)
             {
                 prefabObject = strucObject.ScenarioPrefab; //if we don't specified the prefab we used the prefab that is in the structure (so the prefab of the scenario)
             }

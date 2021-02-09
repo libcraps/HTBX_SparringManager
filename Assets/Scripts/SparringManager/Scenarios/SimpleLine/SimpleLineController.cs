@@ -1,6 +1,6 @@
 ﻿using SparringManager.Scenarios;
 using SparringManager.DataManager;
-using SparringManager.DataManager.SimpleLine;
+using SparringManager.Structures;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -66,7 +66,6 @@ namespace SparringManager.SimpleLine
         private ScenarioController _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
         private SimpleLineStruct _simpleLineControllerStruct;
-        private SimpleLineDataStruct _simpleLineDataStruct;
 
         [SerializeField]
         private GameObject _scenarioComposant;
@@ -74,7 +73,7 @@ namespace SparringManager.SimpleLine
 
         //List of the data that we will export 
         private DataManager.DataManager _dataManagerComponent;
-        private List<float> _mouvementConsign;
+        private List<Vector3> _mouvementConsign;
         private List<float> _timeListScenario;
 
         //------------ METHODS -------------------
@@ -84,6 +83,7 @@ namespace SparringManager.SimpleLine
             nbApparition += 1;
             //INITIALISATION OF VARIABLES 
             //Scenario Variables
+
             _controllerStruct = new StructScenarios();
             _scenarioControllerComponent = GetComponent<ScenarioController>();
 
@@ -92,11 +92,10 @@ namespace SparringManager.SimpleLine
             SetControllerVariables();
 
             //Export Data variables
-            _simpleLineDataStruct = new SimpleLineDataStruct();
             _dataManagerComponent = this.gameObject.transform.parent.GetComponentInParent<DataManager.DataManager>();
             _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<SimpleLineStruct>(_simpleLineControllerStruct));
 
-            _mouvementConsign = new List<float>();
+            _mouvementConsign = new List<Vector3>();
             _timeListScenario = new List<float>();
 
             //Initialisation of the time
@@ -124,15 +123,13 @@ namespace SparringManager.SimpleLine
             RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
 
             //Stock the tTime data in list
-            GetConsigne(_tTime, _simpleLineComponent.transform.localPosition.x);
+            GetConsigne(_tTime, _simpleLineComponent.transform.localPosition);
         }
         void OnDestroy()
         {
-            GetExportDataInStructure();
-            ExportDataInDataManager();
-
-            _dataManagerComponent.EditFile = true;
-            GetComponentInParent<SessionManager>().ChildDestroyed = true;
+            _dataManagerComponent.GetScenarioExportDataInStructure(_timeListScenario, _mouvementConsign);
+            _dataManagerComponent.EndScenarioForData = true;
+            GetComponentInParent<SessionManager>().EndScenario = true;
             Debug.Log(this.gameObject.name + " has been destroyed");
         }
 
@@ -150,22 +147,12 @@ namespace SparringManager.SimpleLine
         }
 
         //Method for the data exportation
-        private void GetConsigne(float time, float pos)
+        private void GetConsigne(float time, Vector3 pos)
         {
             //Put tTime's data in list
             _mouvementConsign.Add(pos);
             _timeListScenario.Add(time);
-        }
-        private void GetExportDataInStructure()
-        {
-            //Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
-            _simpleLineDataStruct.MouvementConsigne = _mouvementConsign;
-            _simpleLineDataStruct.TimeListScenario = _timeListScenario;
-        }
-        private void ExportDataInDataManager()
-        {
-            //Export the dataStructure in the datamanager
-            _dataManagerComponent.DataBase.Add(_simpleLineDataStruct.SimpleLineDataTable);
+            
         }
 
         //Method that changes parameters of a moving object

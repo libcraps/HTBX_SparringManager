@@ -126,16 +126,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _structHitBox:
-    _prefab: {fileID: 0}
+    _prefab: {fileID: 155006673294057578, guid: 571b32308585a234e913cbea1a3f07d9,
+      type: 3}
     _serialSettings:
       touchControlSerialPortName: 
       ledControlSerialPortName: 
-      playerCamera: {fileID: 0}
       impactThreshold: 0
       delayOffHit: 0
       displayDatapoints: 0
       ignoreBlackBackground: 0
-    _onOff: 0
+    _onOff: 1
   _structPlayerScene:
     _prefab: {fileID: 0}
     _onOff: 0
@@ -148,6 +148,7 @@ MonoBehaviour:
     _structPolar:
       _prefab: {fileID: 0}
       _onOff: 0
+  _indexSac: 0
 --- !u!114 &4022297913529616508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,4 +161,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f798b4438e6a0344e8ae0260f1fd7c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _exportIntoFile: 0

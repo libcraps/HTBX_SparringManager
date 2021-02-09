@@ -72,7 +72,6 @@ namespace SparringManager.SplHitLine
         private ScenarioController _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
         private SplHitLineStruct _splHitLineControllerStruct;
-        private SplHitLineDataStruct _splHitLineDataStruct;
 
         [SerializeField]
         private GameObject _scenarioComposant; //splHitLine
@@ -80,7 +79,7 @@ namespace SparringManager.SplHitLine
 
         //List of the data that we will export 
         private DataManager.DataManager _dataManagerComponent;
-        private List<float> _mouvementConsigne;
+        private List<Vector3> _mouvementConsigne;
         private List<float> _timeListScenario;
 
 //--------------------------    METHODS     ----------------------------------------
@@ -99,7 +98,7 @@ namespace SparringManager.SplHitLine
             _dataManagerComponent = GetComponentInParent<DataManager.DataManager>();
             _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<SplHitLineStruct>(_splHitLineControllerStruct));
 
-            _mouvementConsigne = new List<float>();
+            _mouvementConsigne = new List<Vector3>();
             _timeListScenario = new List<float>();
 
             //Initialisation of the time and the acceleration
@@ -129,15 +128,14 @@ namespace SparringManager.SplHitLine
             RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
 
             //Stock the tTime data in lists
-            GetConsigne(_tTime, _splHitLineComponent.transform.position.x);
+            GetConsigne(_tTime, _splHitLineComponent.transform.localPosition);
         }
         void OnDestroy()
         {
-            GetExportDataInStructure();
-            ExportDataInDataManager();
+            _dataManagerComponent.GetScenarioExportDataInStructure(_timeListScenario, _mouvementConsigne);
+            _dataManagerComponent.EndScenarioForData = true;
 
-            _dataManagerComponent.EditFile = true;
-            GetComponentInParent<SessionManager>().ChildDestroyed = true;
+            GetComponentInParent<SessionManager>().EndScenario = true;
 
             _reactTime = 0;
             _splHitLineComponent.Hitted = false;
@@ -164,23 +162,10 @@ namespace SparringManager.SplHitLine
         }
 
 // ---> Methods for the data exportation
-        private void GetConsigne(float time, float pos)
+        private void GetConsigne(float time, Vector3 pos)
         {
             _mouvementConsigne.Add(pos);
             _timeListScenario.Add(time);
-        }
-        private void GetExportDataInStructure()
-        {
-            //Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
-            _splHitLineDataStruct.MouvementConsigne = _mouvementConsigne;
-            _splHitLineDataStruct.TimeListScenario = _timeListScenario;
-            _splHitLineDataStruct.Hitted = _splHitLineComponent.Hitted;
-            _splHitLineDataStruct.ReactionTime = _reactTime;
-        }
-        private void ExportDataInDataManager()
-        {
-            //Export the dataStructure in the datamanager
-            _dataManagerComponent.DataBase.Add(_splHitLineDataStruct.SplHitLineDataTable);
         }
 
 // ---> Method that change parameters of a moving object
