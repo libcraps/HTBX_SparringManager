@@ -78,7 +78,7 @@ namespace SparringManager.SplHitLine
         private SplHitLineBehaviour _splHitLineComponent;
 
         //List of the data that we will export 
-        private DataManager.DataManager _dataManagerComponent;
+        private DataManager.DataController _dataManagerComponent;
         private List<Vector3> _mouvementConsigne;
         private List<float> _timeListScenario;
 
@@ -95,7 +95,7 @@ namespace SparringManager.SplHitLine
             SetControllerVariables();
 
             //Export Data Variables
-            _dataManagerComponent = GetComponentInParent<DataManager.DataManager>();
+            _dataManagerComponent = GetComponentInParent<DataManager.DataController>();
             _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<SplHitLineStruct>(_splHitLineControllerStruct));
 
             _mouvementConsigne = new List<Vector3>();

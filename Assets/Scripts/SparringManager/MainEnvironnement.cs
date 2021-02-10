@@ -5,10 +5,26 @@ using UnityEngine;
 
 namespace SparringManager
 {
+    /*
+     * Summary :
+     * 
+     * MonoBehaviour class that is used to generate the main environnement : instantiate scenarios and gymnase scene
+     * 
+     *  Attributs :
+     *      GameObject _prefabPlayerCamera : Prefab of the player environnement, at the moment it contains : a player scene (gymnase environnement) and a renderCamera for the bag
+     *      GameObject _coachCamera : GameObject of the Coach Camera
+     *      StructPlayerCamera[] _mainStructure : List of StructPlayerCamera that contain all the usefull data for the Gymnase scene, scenario,... for every player 
+     *      bool _exportInFile : Boolean for the exportation data
+     *      
+     *  Methods :
+     *      void Start(): used for the first frame
+     */
     public class MainEnvironnement : MonoBehaviour
     {
+        //----------------------    ATTRIBUTS    --------------------------
         [SerializeField]
         private GameObject _prefabPlayerCamera;
+
         [SerializeField]
         private bool _exportInFile;
         public bool ExportIntoFile
@@ -50,6 +66,7 @@ namespace SparringManager
             }
         }
 
+        //----------------------    ATTRIBUTS    --------------------------
         void Start()
         {
             GameObject _coachCamera = GameObject.Find("CoachCamera");
@@ -68,8 +85,7 @@ namespace SparringManager
                 clonePlayerCamera = Instantiate(_prefabPlayerCamera, posPlayerCamera, Quaternion.identity, this.gameObject.transform);
                 clonePlayerCamera.GetComponent<SessionManager>().Init(_mainStructure[i].Scenarios, _mainStructure[i].Name, _exportInFile);
                 clonePlayerCamera.GetComponent<DeviceManager>().Init(_mainStructure[i].StructHitBox, _mainStructure[i].StructPlayerScene, i);
-                clonePlayerCamera.GetComponent<DataManager.DataManager>().Init(_exportInFile, ".\\_data\\" + _mainStructure[i].Name+"\\");
-
+                clonePlayerCamera.GetComponent<DataManager.DataController>().Init(_exportInFile, ".\\_data\\" + _mainStructure[i].Name+"\\");
 
                 posPlayerCamera.x += sizeSection*2;
             }

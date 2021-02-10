@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace SparringManager.DataManager
 {
-    /* Class of the Data Manager
+    /* Class of the DataController
     * 
     *  Summary :
     *  This class manage the session :
@@ -16,21 +16,28 @@ namespace SparringManager.DataManager
     *      - it deals with the DataManager
     *  
     *  Attributs :
-    *      //Usefull parameters of the class
-    *      string _name :  Name of the player 
-    *      StructScenarios[] _scenarios : List of StructScenarios, it contains every parameters of the session of the scenario
-    *      int _indexScenario: index of the current secnario that is playing
-    *      
-    *      bool ChildDestroyed : Boolean that indicates if the session manager can launch the next scenario (it true when the current scenario is destroyed)
-    *      
-    *      //Variables for the DataManager
+    *      bool _exportIntoFile : Boolean that indicates us if the user want to export the data in a .csv and a .txt
+    *      bool _editDataTable : Boolean that indicates to tha datamanager when he can store the data in the datatable (format for the extract in the .csv)
+    *      bool EndScenarioForData : Indicates to the datamanager when the scenario ended
+    *      StructExportData _exportDataStruct : Structure that organise the data of scenarios, it will be converted into a DataTable
+    *      List<DataTable> _dataBase : this list gets every scenario data in a dataTable
     *      string _filePath : Path of the data folder, it is initialized to .\_data\
-    *      DataManager.DataManager _dataManager : DataManager component
+    *      
+    *      Dictionary<string, string> _generaralSectionSumUp : Global summary of a Session (general part - Intro)
+    *      Dictionary<string, Dictionary<string,string>> _sessionSumUp : Summary of the ession, it e be extract in a .txt
     *      
     *  Methods :
-    *      void InstantiateAndBuildScenario(StructScenarios strucObject, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
+    *       void ToCSV(DataTable dtDataTable, string strFilePath) : 
+    *       void ToCSVGlobal(List<DataTable> dtDataBase, string strFilePath) : Stock une DataTable in a csv
+    *       void DicoToTXT(Dictionary<string, Dictionary<string, string>> dico, string strFilePath) : Stock the SessionSumUp in a .txt file
+    *       Dictionary<string, string> StructToDictionary<StructType>(StructType structure) : Generic method that go throw a structure and get her data into a dictionary
+    *       void AddContentToSumUp(string key, Dictionary<string, string> content) : Method that Add to the _sessionSumUp dictionary a new item "content" a the key "key"
+    *       void InitSumUp(string name, string filepath, int NbScenarios) : Initialise the GeeralSectionSumUp
+    *       void Init(bool export, string filepath) : 
+    *       void GetScenarioExportDataInStructure(List<float> timeListScenario, List<Vector3> mouvementConsigne) : Put the scenario export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
+    *       void GetSceneExportDataInStructure(List<Vector3> mouvementPlayer, List<Vector3> mouvementBag) : Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
     */
-    public class DataManager : MonoBehaviour
+    public class DataController : MonoBehaviour
     {
 //--------------------------    ATTRIBUTS    -------------------------------
         private bool _exportIntoFile;
@@ -101,7 +108,7 @@ namespace SparringManager.DataManager
         }
 
 
-        //private List<string> _sessionResume; //List that sum up the session that we will put in a text file
+        //List that sum up the session that we will put in a text file
         private Dictionary<string, Dictionary<string,string>> _sessionSumUp;
         public Dictionary<string, Dictionary<string, string>> SessionSumUp
         {
@@ -137,6 +144,8 @@ namespace SparringManager.DataManager
             _sessionSumUp = new Dictionary<string, Dictionary<string, string>>();
             _generaralSectionSumUp = new Dictionary<string, string>();
             _dataBase = new List<DataTable>();
+
+            EndScenarioForData = false;
         }
         private void FixedUpdate()
         {
@@ -243,6 +252,9 @@ namespace SparringManager.DataManager
         }
         public void DicoToTXT(Dictionary<string, Dictionary<string, string>> dico, string strFilePath)
         {
+            /*
+             * Stock the SessionSumUp in a .txt file
+             */
             StreamWriter sw = new StreamWriter(strFilePath, false);
             
             foreach (string globalKey in dico.Keys)
@@ -304,14 +316,13 @@ namespace SparringManager.DataManager
         }
         public void Init(bool export, string filepath)
         {
-            //Initialization of the GeeralSectionSumUp
+            //Set DataManager's attributs
             _exportIntoFile = export;
             _filePath = filepath;
         }
-
         public void GetScenarioExportDataInStructure(List<float> timeListScenario, List<Vector3> mouvementConsigne)
         {
-            //Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
+            //Put the scenario export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
             _exportDataStruct.MouvementConsigne = mouvementConsigne;
             _exportDataStruct.TimeListScenario = timeListScenario;
         }

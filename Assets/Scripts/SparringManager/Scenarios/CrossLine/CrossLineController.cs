@@ -84,7 +84,7 @@ namespace SparringManager.CrossLine
         private CrossLineBehaviour _crossLineComponent;
 
         //list of the data that we will export
-        private DataManager.DataManager _dataManagerComponent;
+        private DataManager.DataController _dataManagerComponent;
         private List<Vector3> _mouvementConsigne;
         private List<float> _timeListScenario;
 
@@ -101,7 +101,7 @@ namespace SparringManager.CrossLine
             SetControllerVariables();
 
             //Export Data Variables
-            _dataManagerComponent = GetComponentInParent<DataManager.DataManager>();
+            _dataManagerComponent = GetComponentInParent<DataManager.DataController>();
             _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<CrossLineStruct>(_crossLineControllerStruct));
 
             _mouvementConsigne = new List<Vector3>();

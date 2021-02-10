@@ -37,7 +37,7 @@ namespace SparringManager
         private int _indexScenario = 0;
 
         //Variables for the DataManager
-        private DataManager.DataManager _dataManager;
+        private DataManager.DataController _dataManager;
 
 //Properties
         public int NbScenarios { get { return _scenarios.Length; }}
@@ -46,7 +46,7 @@ namespace SparringManager
         void Start()
         {
             //DATA MANAGER
-            _dataManager = GetComponent<DataManager.DataManager>();
+            _dataManager = GetComponent<DataManager.DataController>();
             _dataManager.InitSumUp(_name, _dataManager.FilePath, NbScenarios);
 
             _indexScenario = 0;
