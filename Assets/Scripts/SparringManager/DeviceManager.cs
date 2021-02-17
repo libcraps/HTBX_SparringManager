@@ -8,8 +8,25 @@ using UnityEngine;
 
 namespace SparringManager
 {
+    /*
+     * 
+     * Attributs :        
+     *      StructHitBox _structHitBox : Structure of the Bag
+     *      StructPlayerScene _structPlayerScene : Structure of the playerScene
+     *      GameObject _renderCamera :
+     *      GameObject _playerScene : 
+     *      int _indexSac : 
+     *      int _nbPlayer : 
+     *      Vector3 _posRenderCamera : Position of the RenderCamera
+     *      Vector3 _posPlayerScene : Position of the PlayerScene
+     * 
+     * Methods :
+     *      void Init(StructHitBox hitBox, StructPlayerScene playerScene, int i) : Initialize Devices Structures
+     *      GameObject InstantiatePrefab(GameObject prefab, Vector3 pos, GameObject parent = null) : 
+     */
     public class DeviceManager : MonoBehaviour
     {
+        //----------------    ATTRIBUTS    ------------------
         [SerializeField]
         private StructHitBox _structHitBox;
         [SerializeField]
@@ -39,6 +56,8 @@ namespace SparringManager
         Vector3 _posRenderCamera;
         Vector3 _posPlayerScene;
 
+        //------------------    METHODS    -------------------
+        //General Methods
         private void Start()
         {
             _nbPlayer = GetComponentInParent<MainEnvironnement>().NbPlayer;
@@ -57,7 +76,7 @@ namespace SparringManager
 
             if (_structPlayerScene.OnOff == true)
             {
-                if (_nbPlayer > 1 && _nbPlayer <= 5) //Mettre un sac au milieu si il yen a 5 ???
+                if (_nbPlayer > 1 && _nbPlayer <= 5)
                 {
                     Debug.Log(_indexSac);
                     _posPlayerScene.x += _posPlayerScene.x + 2 * (float)Math.Cos(_indexSac * 2 * Math.PI / _nbPlayer);
@@ -79,11 +98,7 @@ namespace SparringManager
         public void Init(StructHitBox hitBox, StructPlayerScene playerScene, int i)
         {
             /*
-             * Constructeur du DeviceManager => ce sera du style
-             * 
-             * _structHitBox = arg1
-             * _structViveTracker = arg2 
-             * ...
+             * Initialise structure of the bag and the PlayerScene
              */
 
             _structHitBox = hitBox;
@@ -93,6 +108,7 @@ namespace SparringManager
 
         public GameObject InstantiatePrefab(GameObject prefab, Vector3 pos, GameObject parent = null)
         {
+
             GameObject clonePrefab;
             if (parent == null)
             {
