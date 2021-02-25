@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 1954.0, 72.0, 1468.0, 713.0 ],
+		"rect" : [ 1947.0, 79.0, 1468.0, 713.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,6 +40,32 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-13",
+					"linecount" : 5,
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 847.607138097286224, 329.0, 50.0, 77.0 ],
+					"text" : "Romuald/poingDroit/ gesture/"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-14",
+					"linecount" : 12,
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 333.0, 430.0, 50.0, 174.0 ],
+					"text" : "Romuald/poingDroit/ data/ -0.88 0.27 -0.55 -0.565 0.355 0.09 0.84 -0.09 0."
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-9",
 					"linecount" : 12,
 					"maxclass" : "message",
@@ -66,13 +92,13 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-8",
-					"linecount" : 12,
+					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 192.0, 246.0, 50.0, 174.0 ],
-					"text" : "Romuald/poingDroit/ 0.73 0.75 0.92 -0.66 0.73 -0.82 -0.22 -0.19 0.36"
+					"patching_rect" : [ 46.0, 245.750001013278961, 219.0, 36.0 ],
+					"text" : "Romuald/poingDroit/ -0.77 0.09 -0.3 -0.57 -0.05 -0.44 0.81 -0.12 -0.08"
 				}
 
 			}
@@ -333,7 +359,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 471.0, 336.0, 44.0, 133.0 ],
-									"text" : "0.73 0.75 0.92 -0.66 0.73 -0.82 -0.22 -0.19 0.36"
+									"text" : "-0.77 0.09 -0.3 -0.57 -0.05 -0.44 0.81 -0.12 -0.08"
 								}
 
 							}
@@ -703,6 +729,20 @@
 					"destination" : [ "obj-2", 0 ],
 					"midpoints" : [ 720.5, 436.0, 508.607138097286224, 436.0 ],
 					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 1 ],
+					"source" : [ "obj-3", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 1 ],
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
