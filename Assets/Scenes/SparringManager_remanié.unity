@@ -447,7 +447,7 @@ MonoBehaviour:
     _structPlayerScene:
       _prefab: {fileID: 3567670231617142746, guid: 273950cf886a5db479da9a9caa5231b9,
         type: 3}
-      _onOff: 0
+      _onOff: 1
       _structViveTracker:
         _prefab: {fileID: 8182636404007571037, guid: 48fdc5dbbdacef94fa1d9c32f7948b26,
           type: 3}
@@ -455,7 +455,7 @@ MonoBehaviour:
       _structMovuino:
         _prefab: {fileID: 2130617265622517333, guid: a626eda10c185194aab5a069d6f2aec1,
           type: 3}
-        _onOff: 0
+        _onOff: 1
       _structPolar:
         _prefab: {fileID: 8483193042578297254, guid: 022d32bdd5f37994f8bf4353dc844867,
           type: 3}
@@ -527,7 +527,7 @@ MonoBehaviour:
         _scaleMaxValue: 0
         _scaleSpeed: 0
         _fixPosHit: 0
-    - _scenarioPrefab: {fileID: 4281324017865965865, guid: 36567d5e12548c841a1195cf19e51db4,
+    - _scenarioPrefab: {fileID: 7392076013187570363, guid: 1f5aea03649a01c4bac9b44cb338704f,
         type: 3}
       _timerScenario: 5
       _simpleLineStruct:

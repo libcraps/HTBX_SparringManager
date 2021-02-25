@@ -87,6 +87,7 @@ namespace SparringManager.Device
             if (structure.OnOff)
             {
                 Instantiate(structure.Prefab, parent.transform);
+                Debug.Log("Instantiation of " + structure.Prefab.name);
             }
         }
     }
