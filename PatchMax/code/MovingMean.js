@@ -1,4 +1,4 @@
-outlets = 2
+outlets = 1
 
 var rawdat = [0.0,0.0]; // array to store incoming raw data
 var N = 10; // default moving mean window size
@@ -28,5 +28,4 @@ function mMean(dat, n){
 	meandat /= rawdat.length;
 	
 	outlet(0, meandat);
-	outlet(1, rawdat);
 }
