@@ -56,7 +56,13 @@ namespace SparringManager.Device
 
             //Instantiation of Devices if Struct.OnOff = On
             _viveTracker = InstantiateDevice<StructViveTracker>(_structPlayerScene.StructViveTracker, _bag);
-            _polar = InstantiateDevice<StructPolar>(_structPlayerScene.StructPolar, _player);
+
+            if (_structPlayerScene.StructPolar.OnOff)
+            {
+                _polar = InstantiateDevice<StructPolar>(_structPlayerScene.StructPolar, _player);
+                _polar.GetComponent<Polar>().Init(_idPlayer);
+            }
+
 
             foreach (StructMovuino mov in _structPlayerScene.StructMovuino)
             {

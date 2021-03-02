@@ -510,9 +510,8 @@ MonoBehaviour:
   _prefabPlayerCamera: {fileID: 4022297913529616506, guid: 8ba886fddd6ea3e4eac06ef771e3d4b7,
     type: 3}
   _exportInFile: 0
-  _oscManager: {fileID: 0}
   _mainStructure:
-  - _name: Josh
+  - _name: Romuald
     _structHitBox:
       _prefab: {fileID: 155006673294057578, guid: 571b32308585a234e913cbea1a3f07d9,
         type: 3}
@@ -532,7 +531,7 @@ MonoBehaviour:
       _structViveTracker:
         _prefab: {fileID: 8182636404007571037, guid: 48fdc5dbbdacef94fa1d9c32f7948b26,
           type: 3}
-        _onOff: 0
+        _onOff: 1
       _structMovuino:
       - _prefab: {fileID: 2130617265622517333, guid: a626eda10c185194aab5a069d6f2aec1,
           type: 3}
@@ -545,7 +544,7 @@ MonoBehaviour:
       _structPolar:
         _prefab: {fileID: 8483193042578297254, guid: 022d32bdd5f37994f8bf4353dc844867,
           type: 3}
-        _onOff: 0
+        _onOff: 1
     _scenarios:
     - _scenarioPrefab: {fileID: 4281324017865965865, guid: 8a872874b0bd81a49ac9266d974f2a5a,
         type: 3}

@@ -8,9 +8,8 @@ namespace SparringManager.Device
     {
         public virtual void ToMovuinoData(OscMessage message)
         {
-
         }
-
+        
         
     }
 }
