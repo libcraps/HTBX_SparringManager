@@ -35,6 +35,8 @@ namespace SparringManager
         private GameObject _renderCamera;
         private GameObject _playerScene;
 
+        private string _namePlayer;
+
         public int _indexSac;
         private int _nbPlayer;
 
@@ -61,7 +63,7 @@ namespace SparringManager
         private void Start()
         {
             _nbPlayer = GetComponentInParent<MainEnvironnement>().NbPlayer;
-            this.gameObject.name += "_"+ _indexSac;
+            this.gameObject.name += "_" + _indexSac;
             _posRenderCamera = new Vector3();
             _posRenderCamera = this.gameObject.transform.position;
 
@@ -85,8 +87,6 @@ namespace SparringManager
                 _playerScene = InstantiatePrefab(_structPlayerScene.Prefab, _posPlayerScene);
                 _playerScene.GetComponent<PlayerSceneController>().Init(_structPlayerScene);
             }
-
-
         }
         private void FixedUpdate()
         {
@@ -95,7 +95,7 @@ namespace SparringManager
             }
         }
 
-        public void Init(StructHitBox hitBox, StructPlayerScene playerScene, int i)
+        public void Init(StructHitBox hitBox, StructPlayerScene playerScene, string name, int i)
         {
             /*
              * Initialise structure of the bag and the PlayerScene
@@ -103,6 +103,7 @@ namespace SparringManager
 
             _structHitBox = hitBox;
             _structPlayerScene = playerScene;
+            _namePlayer = name;
             _indexSac = i;
         }
 

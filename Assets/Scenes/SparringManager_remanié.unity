@@ -121,6 +121,85 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &43496062
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 424618397733729175, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: m_Name
+      value: OSCManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 424618397733729176, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 424618397733729176, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424618397733729176, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.905005
+      objectReference: {fileID: 0}
+    - target: {fileID: 424618397733729176, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424618397733729176, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 424618397733729176, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424618397733729176, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424618397733729176, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424618397733729176, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424618397733729176, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424618397733729176, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081402682410229531, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: inPort
+      value: 7401
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081402682410229531, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f,
+        type: 3}
+      propertyPath: outPort
+      value: 7400
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8bc56f80ffe43454eb8fe90dfdc4fe7f, type: 3}
 --- !u!1 &521247392
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +277,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521247392}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -200, z: -0}
+  m_LocalPosition: {x: 0, y: -200, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3567670231279656683}
@@ -431,6 +510,7 @@ MonoBehaviour:
   _prefabPlayerCamera: {fileID: 4022297913529616506, guid: 8ba886fddd6ea3e4eac06ef771e3d4b7,
     type: 3}
   _exportInFile: 0
+  _oscManager: {fileID: 0}
   _mainStructure:
   - _name: Josh
     _structHitBox:
@@ -448,14 +528,20 @@ MonoBehaviour:
       _prefab: {fileID: 3567670231617142746, guid: 273950cf886a5db479da9a9caa5231b9,
         type: 3}
       _onOff: 1
+      _idPlayer: Romuald
       _structViveTracker:
         _prefab: {fileID: 8182636404007571037, guid: 48fdc5dbbdacef94fa1d9c32f7948b26,
           type: 3}
         _onOff: 0
       _structMovuino:
-        _prefab: {fileID: 2130617265622517333, guid: a626eda10c185194aab5a069d6f2aec1,
+      - _prefab: {fileID: 2130617265622517333, guid: a626eda10c185194aab5a069d6f2aec1,
           type: 3}
         _onOff: 1
+        _id: LeftArm
+      - _prefab: {fileID: 2130617265622517333, guid: a626eda10c185194aab5a069d6f2aec1,
+          type: 3}
+        _onOff: 1
+        _id: RightArm
       _structPolar:
         _prefab: {fileID: 8483193042578297254, guid: 022d32bdd5f37994f8bf4353dc844867,
           type: 3}

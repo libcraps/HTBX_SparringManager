@@ -131,9 +131,11 @@ namespace SparringManager.Structures
         [SerializeField]
         private bool _onOff;
         [SerializeField]
+        private string _idPlayer;
+        [SerializeField]
         private StructViveTracker _structViveTracker;
         [SerializeField]
-        private StructMovuino _structMovuino;
+        private StructMovuino[] _structMovuino;
         [SerializeField]
         private StructPolar _structPolar;
 
@@ -155,6 +157,17 @@ namespace SparringManager.Structures
                 _onOff = value;
             }
         }
+        public string IdPlayer
+        {
+            get
+            {
+                return _idPlayer;
+            }
+            set
+            {
+                _idPlayer = value;
+            }
+        }
         public StructViveTracker StructViveTracker
         {
             get
@@ -166,7 +179,7 @@ namespace SparringManager.Structures
                 _structViveTracker = value;
             }
         }
-        public StructMovuino StructMovuino
+        public StructMovuino[] StructMovuino
         {
             get
             {
@@ -189,10 +202,11 @@ namespace SparringManager.Structures
             }
         }
 
-        public StructPlayerScene(GameObject prefab, bool onOff, StructViveTracker viveTracker, StructMovuino movuino, StructPolar polar)
+        public StructPlayerScene(GameObject prefab, bool onOff, string idPlayer, StructViveTracker viveTracker, StructMovuino[] movuino, StructPolar polar)
         {
             _prefab = prefab;
             _onOff = onOff;
+            _idPlayer = idPlayer;
             _structViveTracker = viveTracker;
             _structMovuino = movuino;
             _structPolar = polar;
@@ -206,6 +220,8 @@ namespace SparringManager.Structures
         private GameObject _prefab;
         [SerializeField]
         private bool _onOff;
+        [SerializeField]
+        private string _id;
 
         public GameObject Prefab
         {
@@ -227,10 +243,23 @@ namespace SparringManager.Structures
             }
         }
 
-        public StructMovuino(GameObject prefab, bool onOff)
+        public string Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+            }
+        }
+
+        public StructMovuino(GameObject prefab, bool onOff, string id)
         {
             _prefab = prefab;
             _onOff = onOff;
+            _id = id;
         }
     }
     [System.Serializable]

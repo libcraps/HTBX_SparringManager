@@ -32,6 +32,12 @@ namespace SparringManager.Device
         private GameObject _player;
         private GameObject _bag;
 
+        private GameObject _movuino;
+        private GameObject _polar;
+        private GameObject _viveTracker;
+
+        private string _idPlayer;
+
         private List<Vector3> _mouvementPlayer;
         private List<Vector3> _mouvementBag;
 
@@ -41,16 +47,27 @@ namespace SparringManager.Device
         {
             _player = GameObject.Find("Player");
             _bag = GameObject.Find("BagTracker");
+            _idPlayer = _structPlayerScene.IdPlayer;
 
             _dataManagerComponent = gameObject.GetComponentInParent<DataController>();
 
             _mouvementPlayer = new List<Vector3>();
             _mouvementBag = new List<Vector3>();
 
-            //Instantiation of Devices
-            InstantiateDevice<StructViveTracker>(_structPlayerScene.StructViveTracker, _bag);
-            InstantiateDevice<StructPolar>(_structPlayerScene.StructPolar, _player);
-            InstantiateDevice<StructMovuino>(_structPlayerScene.StructMovuino, _player);
+            //Instantiation of Devices if Struct.OnOff = On
+            _viveTracker = InstantiateDevice<StructViveTracker>(_structPlayerScene.StructViveTracker, _bag);
+            _polar = InstantiateDevice<StructPolar>(_structPlayerScene.StructPolar, _player);
+
+            foreach (StructMovuino mov in _structPlayerScene.StructMovuino)
+            {
+                _movuino = InstantiateDevice<StructMovuino>(mov, _player);
+                if (mov.OnOff == true)
+                {
+                    _movuino.GetComponent<Movuino>().Init("/" + _idPlayer + "/" +  mov.Id + "/");
+                }
+            }
+
+
         }
         private void FixedUpdate()
         {
@@ -81,14 +98,16 @@ namespace SparringManager.Device
             _mouvementBag.Add(posBag);
             _mouvementPlayer.Add(posPlayer);
         }
-        void InstantiateDevice<StructDevice>(StructDevice structure, GameObject parent) where StructDevice : IStructDevice
+        GameObject InstantiateDevice<StructDevice>(StructDevice structure, GameObject parent) where StructDevice : IStructDevice
         {
+            GameObject prefab = null;
             //Instantiate Devices
             if (structure.OnOff)
             {
-                Instantiate(structure.Prefab, parent.transform);
+                prefab = Instantiate(structure.Prefab, parent.transform);
                 Debug.Log("Instantiation of " + structure.Prefab.name);
             }
+            return prefab;
         }
     }
 

@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 42.0, 80.0, 1558.0, 929.0 ],
+		"rect" : [ 42.0, 80.0, 1264.0, 929.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -132,49 +132,13 @@
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-45",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 762.596702980784812, 920.652117967605591, 58.0, 22.0 ],
-					"text" : "loadbang"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-43",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 421.570175719471536, 925.427316546440125, 58.0, 22.0 ],
-					"text" : "loadbang"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-42",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 762.596702980784812, 961.69495163960255, 52.0, 22.0 ],
-					"text" : "gesture/"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-39",
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 729.346720695495492, 1009.715940237045288, 52.0, 22.0 ],
-					"text" : "zl join"
+					"patching_rect" : [ 729.266918110637107, 998.69495163960255, 62.0, 22.0 ],
+					"text" : "$1gesture"
 				}
 
 			}
@@ -185,20 +149,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ -79.120676464504641, 1159.946684532929794, 444.0, 22.0 ],
-					"text" : "Romuald/poingDroit/ data/ 0.4 -0.26 -0.1 0.53 0.34 -0.09 0.81 0.66 0."
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-30",
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 390.570175719471536, 1014.491138815879822, 50.0, 22.0 ],
-					"text" : "zl join"
+					"patching_rect" : [ -84.120676464504641, 1115.946684532929794, 444.0, 22.0 ],
+					"text" : "/Romuald/LeftArm/data 0.135 -0.84 0. 0.735 0.76 -0.47 -0.57 -0.465 0."
 				}
 
 			}
@@ -209,8 +161,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 421.570175719471536, 962.321216330955394, 35.0, 22.0 ],
-					"text" : "data/"
+					"patching_rect" : [ 390.490373134613037, 983.321216330955394, 45.0, 22.0 ],
+					"text" : "$1data"
 				}
 
 			}
@@ -230,7 +182,7 @@
 				"box" : 				{
 					"comment" : "",
 					"id" : "obj-58",
-					"index" : 0,
+					"index" : 2,
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
@@ -266,7 +218,7 @@
 				"box" : 				{
 					"comment" : "",
 					"id" : "obj-57",
-					"index" : 0,
+					"index" : 1,
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
@@ -302,7 +254,7 @@
 				"box" : 				{
 					"comment" : "",
 					"id" : "obj-4",
-					"index" : 0,
+					"index" : 1,
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
@@ -1260,9 +1212,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -1546,9 +1498,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -1832,9 +1784,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -2532,9 +2484,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -2866,9 +2818,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -3200,9 +3152,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -4066,9 +4018,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -4841,9 +4793,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -4930,7 +4882,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 89.0, 230.0, 323.0, 22.0 ],
-									"text" : "-15. -78. 118. -37. -8. 22. 72. -23. 0."
+									"text" : "65. 7.5 -10. 26.5 45.5 28. -14.5 -66. 0."
 								}
 
 							}
@@ -4942,7 +4894,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 623.549987999999985, 258.0, 50.0, 22.0 ],
-									"text" : "22."
+									"text" : "28."
 								}
 
 							}
@@ -4954,7 +4906,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 623.549987999999985, 234.0, 50.0, 22.0 ],
-									"text" : "-8."
+									"text" : "45.5"
 								}
 
 							}
@@ -4966,7 +4918,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 623.549987999999985, 210.0, 50.0, 22.0 ],
-									"text" : "-37."
+									"text" : "26.5"
 								}
 
 							}
@@ -4978,7 +4930,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 429.0, 258.0, 50.0, 22.0 ],
-									"text" : "118."
+									"text" : "-10."
 								}
 
 							}
@@ -4990,7 +4942,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 429.0, 234.0, 50.0, 22.0 ],
-									"text" : "-78."
+									"text" : "7.5"
 								}
 
 							}
@@ -5002,7 +4954,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 429.0, 210.0, 50.0, 22.0 ],
-									"text" : "-15."
+									"text" : "65."
 								}
 
 							}
@@ -5051,20 +5003,20 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 297.0, 82.0, 50.0, 174.0 ],
-									"text" : "-0.43 -0.21 0.47 0.31 -0.6 -0.64 0.72 -0.29 0."
+									"text" : "0.135 -0.84 0. 0.735 0.76 -0.47 -0.57 -0.465 0."
 								}
 
 							}
 , 							{
 								"box" : 								{
 									"id" : "obj-15",
-									"linecount" : 7,
+									"linecount" : 9,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 849.25, 115.5, 50.0, 133.0 ],
-									"text" : "-0.28 0.57 -0.71 0.68 -0.52 -0.86 0. -0.06 0."
+									"text" : "-0.515 -0.915 0.1 0.47 0.305 -0.75 -0.425 0.195 0."
 								}
 
 							}
@@ -6458,9 +6410,9 @@
 													"fontsize" : [ 18.0 ],
 													"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 													"fontname" : [ "Museo Sans Rounded 300" ],
+													"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 													"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 													"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-													"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 													"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 												}
 ,
@@ -6743,9 +6695,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -7046,9 +6998,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -7373,9 +7325,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -7576,9 +7528,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -7879,9 +7831,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -8236,9 +8188,9 @@
 													"fontsize" : [ 18.0 ],
 													"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 													"fontname" : [ "Museo Sans Rounded 300" ],
+													"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 													"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 													"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-													"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 													"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 												}
 ,
@@ -8478,9 +8430,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -9983,7 +9935,7 @@
 										}
 ,
 										"classnamespace" : "box",
-										"rect" : [ 59.0, 107.0, 640.0, 480.0 ],
+										"rect" : [ 412.0, 213.0, 640.0, 480.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 12.0,
@@ -10573,7 +10525,25 @@
 										"style" : "",
 										"subpatcher_template" : "",
 										"assistshowspatchername" : 0,
+										"visible" : 1,
 										"boxes" : [ 											{
+												"box" : 												{
+													"id" : "obj-220",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 131.0, 242.0, 103.0, 22.0 ],
+													"saved_object_attributes" : 													{
+														"filename" : "MovingMean.js",
+														"parameter_enable" : 0
+													}
+,
+													"text" : "js MovingMean.js"
+												}
+
+											}
+, 											{
 												"box" : 												{
 													"id" : "obj-14",
 													"maxclass" : "number",
@@ -10677,23 +10647,6 @@
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 131.0, 203.0, 98.0, 22.0 ],
 													"text" : "prepend mMean"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"id" : "obj-220",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 131.0, 247.0, 103.0, 22.0 ],
-													"saved_object_attributes" : 													{
-														"filename" : "MovingMean.js",
-														"parameter_enable" : 0
-													}
-,
-													"text" : "js MovingMean.js"
 												}
 
 											}
@@ -10856,6 +10809,23 @@
 										"assistshowspatchername" : 0,
 										"boxes" : [ 											{
 												"box" : 												{
+													"id" : "obj-220",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 131.0, 247.0, 103.0, 22.0 ],
+													"saved_object_attributes" : 													{
+														"filename" : "MovingMean.js",
+														"parameter_enable" : 0
+													}
+,
+													"text" : "js MovingMean.js"
+												}
+
+											}
+, 											{
+												"box" : 												{
 													"id" : "obj-14",
 													"maxclass" : "number",
 													"numinlets" : 1,
@@ -10958,23 +10928,6 @@
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 131.0, 203.0, 98.0, 22.0 ],
 													"text" : "prepend mMean"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"id" : "obj-220",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 131.0, 247.0, 103.0, 22.0 ],
-													"saved_object_attributes" : 													{
-														"filename" : "MovingMean.js",
-														"parameter_enable" : 0
-													}
-,
-													"text" : "js MovingMean.js"
 												}
 
 											}
@@ -11384,9 +11337,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -11763,9 +11716,9 @@
 													"fontsize" : [ 18.0 ],
 													"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 													"fontname" : [ "Museo Sans Rounded 300" ],
+													"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 													"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 													"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-													"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 													"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 												}
 ,
@@ -12826,9 +12779,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -15743,9 +15696,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -15848,7 +15801,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 450.676409006118774, 391.589505038769857, 153.0, 89.0 ],
+					"patching_rect" : [ 418.014787793159485, 358.173554591448919, 153.0, 89.0 ],
 					"text" : "What comes out from msg dollar :\n\"2\" -0.097168 0.024658 0.504883 0.001441 0.000297 0.000339 -0.6 -0.48 \"20\""
 				}
 
@@ -16139,9 +16092,9 @@
 									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 									"fontname" : [ "Museo Sans Rounded 300" ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 								}
 ,
@@ -16209,7 +16162,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 865.625, 439.335912651780291, 45.0, 20.0 ],
+					"patching_rect" : [ 818.625, 387.333007000001089, 45.0, 20.0 ],
 					"text" : "ID",
 					"textjustification" : 1
 				}
@@ -16538,8 +16491,8 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-30", 0 ],
-					"midpoints" : [ 875.125, 740.457842946052551, 400.070175719471536, 740.457842946052551 ],
+					"destination" : [ "obj-13", 0 ],
+					"midpoints" : [ 875.125, 969.0, 399.990373134613037, 969.0 ],
 					"order" : 1,
 					"source" : [ "obj-1", 0 ]
 				}
@@ -16547,8 +16500,8 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-39", 0 ],
-					"midpoints" : [ 875.125, 426.0, 872.731707811355591, 426.0, 872.731707811355591, 942.0, 738.846720695495492, 942.0 ],
+					"destination" : [ "obj-42", 0 ],
+					"midpoints" : [ 875.125, 984.0, 738.766918110637107, 984.0 ],
 					"order" : 0,
 					"source" : [ "obj-1", 0 ]
 				}
@@ -16657,7 +16610,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-30", 1 ],
+					"destination" : [ "obj-31", 0 ],
 					"source" : [ "obj-13", 0 ]
 				}
 
@@ -17080,13 +17033,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-31", 0 ],
-					"source" : [ "obj-30", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-37", 1 ],
 					"order" : 1,
 					"source" : [ "obj-31", 0 ]
@@ -17110,13 +17056,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-62", 0 ],
-					"source" : [ "obj-39", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-40", 0 ],
 					"source" : [ "obj-4", 0 ]
 				}
@@ -17132,15 +17071,8 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-39", 1 ],
+					"destination" : [ "obj-62", 0 ],
 					"source" : [ "obj-42", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"source" : [ "obj-43", 0 ]
 				}
 
 			}
@@ -17148,13 +17080,6 @@
 				"patchline" : 				{
 					"destination" : [ "obj-237", 8 ],
 					"source" : [ "obj-44", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-42", 0 ],
-					"source" : [ "obj-45", 0 ]
 				}
 
 			}
@@ -17848,57 +17773,15 @@
 
 			}
  ],
-		"parameters" : 		{
-			"obj-633" : [ "live.text[5]", "live.text", 0 ],
-			"obj-636" : [ "live.text[6]", "live.text", 0 ],
-			"obj-638" : [ "live.text[7]", "live.text", 0 ],
-			"obj-761" : [ "live.text[2]", "live.text", 0 ],
-			"obj-775" : [ "live.text[3]", "live.text", 0 ],
-			"obj-781" : [ "live.text[4]", "live.text", 0 ],
-			"parameterbanks" : 			{
-
-			}
-,
-			"inherited_shortname" : 1
-		}
-,
-		"dependency_cache" : [ 			{
-				"name" : "MovingMean.js",
-				"bootpath" : "~/Documents/GitHub/HTBX_SparringManager/PatchMax/code",
-				"patcherrelativepath" : "../code",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "integrateData.js",
-				"bootpath" : "~/Documents/GitHub/HTBX_SparringManager/PatchMax/code",
-				"patcherrelativepath" : "../code",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "mubu.mxe64",
-				"type" : "mx64"
-			}
-, 			{
-				"name" : "mubu.hhmm.mxe64",
-				"type" : "mx64"
-			}
-, 			{
-				"name" : "mubu.mxe64",
-				"type" : "mx64"
-			}
- ],
-		"autosave" : 0,
 		"styles" : [ 			{
 				"name" : "textbutton001",
 				"default" : 				{
 					"fontsize" : [ 18.0 ],
 					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"fontname" : [ "Museo Sans Rounded 300" ],
+					"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 					"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 					"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-					"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
 					"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
 				}
 ,
