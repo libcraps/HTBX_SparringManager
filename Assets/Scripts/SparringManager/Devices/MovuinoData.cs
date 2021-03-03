@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SparringManager.DataManager;
 using UnityEngine;
 
 namespace SparringManager.Device
@@ -20,14 +21,7 @@ namespace SparringManager.Device
 			return newMovuinoData;
 		}
 
-		public static T CreateMovuinoData<T> (List<object> list) where T : MovuinoData, new()
-		{
-			T newMovuinoData = new T ();
-			newMovuinoData.ToMovuinoData (list);
-			return newMovuinoData;
-		}
-
-		protected abstract void ToMovuinoData (List<object> list);
+		public abstract void ToMovuinoData (OscMessage message);
 		protected abstract string GetAddress();
 	}
 
@@ -49,31 +43,30 @@ namespace SparringManager.Device
 		/// </summary>
 		public Vector3 magnetometer;
 
-		public static string address = "/movuino";
+		public List<object> MovData = new List<object>();
 
-		protected override void ToMovuinoData (List<object> list)
+		public static string address = "/data";
+
+		public override void ToMovuinoData (OscMessage message)
 		{
-			try {
-				if (list.Count >= 10) {
-                    string id = (string)list[0];
-					float ax = (float)list [1];
-					float ay = (float)list [2];
-					float az = (float)list [3];
-					float gx = (float)list [4];
-					float gy = (float)list [5];
-					float gz = (float)list [6];
-					float mx = (float)list [7];
-					float my = (float)list [8];
-					float mz = (float)list [9];
-					this.accelerometer = new Vector3 (ax, ay, az);
-					this.gyroscope = new Vector3 (gx, gy, gz);
-					this.magnetometer = new Vector3 (mx, my, mz);
-				} else {
-					throw new WrongMovuinoDataFormatException ();
-				}
-			} catch (UnityException) {
-				throw new WrongMovuinoDataFormatException ();
-			}
+			float ax = message.GetFloat(0);
+			float ay = message.GetFloat(1);
+			float az = message.GetFloat(2);
+			float gx = message.GetFloat(3);
+			float gy = message.GetFloat(4);
+			float gz = message.GetFloat(5);
+			float mx = message.GetFloat(6);
+			float my = message.GetFloat(7);
+			float mz = message.GetFloat(8);
+			accelerometer = new Vector3(ax, ay, az);
+			gyroscope = new Vector3(gx, gy, gz);
+			magnetometer = new Vector3(mx, my, mz);
+
+			//TEEEEEEEST
+			MovData.Add(accelerometer);
+			MovData.Add(gyroscope);
+			MovData.Add(magnetometer);
+			DataController.DataSessionMovuino.StockData(MovData);
 		}
 
 		protected override string GetAddress ()
@@ -93,7 +86,6 @@ namespace SparringManager.Device
 		}
 	}
 
-
     public class MovuinoXMM : MovuinoData
 	{
 
@@ -102,18 +94,10 @@ namespace SparringManager.Device
 
 		public static string address = "/gesture";
 
-		protected override void ToMovuinoData (List<object> list)
+		public override void ToMovuinoData (OscMessage message)
 		{
-			try {
-				if (list.Count >= 2) {
-					this.gestId = (int)list [0];
-					this.gestProg = Mathf.Clamp ((float)list [1], 0.0f, 1.0f);
-				} else {
-					throw new WrongMovuinoDataFormatException ();
-				}
-			} catch (UnityException) {
-				throw new WrongMovuinoDataFormatException ();
-			}
+			gestId = message.GetInt(0);
+			gestProg = message.GetFloat(1);
 		}
 			
 		protected override string GetAddress ()
@@ -128,6 +112,28 @@ namespace SparringManager.Device
 			+ gestId.ToString ()
 			+ "xmmGestProg = "
 			+ gestProg.ToString ());
+		}
+	}
+	public class PolarBPM : MovuinoData
+	{
+		public float bpm;
+
+		public static string address = "/bpm";
+
+		public override void ToMovuinoData(OscMessage message)
+		{
+			bpm = message.GetFloat(0);
+		}
+
+		protected override string GetAddress()
+		{
+			return address;
+		}
+
+		public override string ToString()
+		{
+			return string.Format("[PolarBPM] = "
+			+ "bpm = " + bpm);
 		}
 	}
 }

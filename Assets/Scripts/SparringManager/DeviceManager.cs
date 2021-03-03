@@ -109,7 +109,6 @@ namespace SparringManager
 
         public GameObject InstantiatePrefab(GameObject prefab, Vector3 pos, GameObject parent = null)
         {
-
             GameObject clonePrefab;
             if (parent == null)
             {

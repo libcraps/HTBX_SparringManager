@@ -107,6 +107,9 @@ namespace SparringManager.DataManager
             }
         }
 
+        //Test var static de Data
+        public static DataSessionMovuino DataSessionMovuino;
+
 
         //List that sum up the session that we will put in a text file
         private Dictionary<string, Dictionary<string,string>> _sessionSumUp;
@@ -136,7 +139,6 @@ namespace SparringManager.DataManager
         }
 
         //---------------------------     METHODS    -------------------------------
-
         private void Awake()
         {
             //INITIALISATION OF VARIABLES 
@@ -145,6 +147,8 @@ namespace SparringManager.DataManager
             _generaralSectionSumUp = new Dictionary<string, string>();
             _dataBase = new List<DataTable>();
 
+            //DataSessionMovuino DataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
+            DataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
             EndScenarioForData = false;
         }
         private void FixedUpdate()

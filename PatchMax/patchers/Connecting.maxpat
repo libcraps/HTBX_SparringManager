@@ -41,13 +41,13 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"id" : "obj-10",
-					"linecount" : 5,
+					"linecount" : 4,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 679.5, 376.355100536346526, 50.0, 77.0 ],
-					"text" : "/Romuald/RightArm/gesture 1 0.8"
+					"patching_rect" : [ 679.5, 376.355100536346526, 52.0, 64.0 ],
+					"text" : "/Romuald/RightArm/gesture"
 				}
 
 			}
@@ -142,8 +142,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 46.0, 77.750001013278961, 109.0, 22.0 ],
-					"text" : "/Romuald/LeftArm/"
+					"patching_rect" : [ 46.0, 77.750001013278961, 105.0, 22.0 ],
+					"text" : "/Romuald/LeftArm"
 				}
 
 			}
@@ -154,8 +154,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 42.0, 36.557033143551962, 117.0, 22.0 ],
-					"text" : "/Romuald/RightArm/"
+					"patching_rect" : [ 42.0, 36.557033143551962, 113.0, 22.0 ],
+					"text" : "/Romuald/RightArm"
 				}
 
 			}
@@ -167,8 +167,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 153.287629187107086, 338.855100536346526, 206.0, 36.0 ],
-					"text" : "/Romuald/RightArm/data -0.97 0.805 0.195 0.395 0. -0.565 0.56 0.475 0."
+					"patching_rect" : [ 153.287629187107086, 338.855100536346526, 207.0, 36.0 ],
+					"text" : "/Romuald/RightArm/data 0.09 0.04 0.9 0.165 0.785 0.315 -0.45 0.06 0."
 				}
 
 			}
@@ -437,18 +437,6 @@
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-6",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 83.0, 274.0, 117.0, 22.0 ],
-									"text" : "/Romuald/RightArm/"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"id" : "obj-3",
 									"maxclass" : "newobj",
 									"numinlets" : 2,
@@ -517,7 +505,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 471.0, 336.0, 44.0, 133.0 ],
-									"text" : "-0.99 0.64 -0.53 0.77 0.27 -0.62 0.64 0.7 0.06"
+									"text" : "0.5 0.86 0.95 -0.27 0.83 -0.33 -0.87 0.17 -0.31"
 								}
 
 							}
@@ -609,7 +597,8 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"destination" : [ "obj-6", 0 ],
+									"destination" : [ "obj-3", 0 ],
+									"midpoints" : [ 92.5, 225.0, 231.0, 225.0, 231.0, 351.0, 235.5, 351.0 ],
 									"source" : [ "obj-10", 0 ]
 								}
 
@@ -640,14 +629,6 @@
 								"patchline" : 								{
 									"destination" : [ "obj-1", 0 ],
 									"source" : [ "obj-3", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-3", 0 ],
-									"midpoints" : [ 92.5, 321.0, 235.5, 321.0 ],
-									"source" : [ "obj-6", 0 ]
 								}
 
 							}
@@ -712,13 +693,6 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-6", 0 ],
-									"source" : [ "obj-9", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-7", 1 ],
 									"source" : [ "obj-931", 0 ]
 								}
@@ -728,13 +702,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -1133,13 +1107,13 @@
 		"styles" : [ 			{
 				"name" : "textbutton001",
 				"default" : 				{
-					"fontsize" : [ 18.0 ],
 					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"fontname" : [ "Museo Sans Rounded 300" ],
-					"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-					"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 					"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-					"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+					"fontsize" : [ 18.0 ],
+					"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+					"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+					"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+					"fontname" : [ "Museo Sans Rounded 300" ]
 				}
 ,
 				"parentstyle" : "",

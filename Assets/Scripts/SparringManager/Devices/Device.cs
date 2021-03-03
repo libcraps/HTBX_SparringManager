@@ -12,5 +12,14 @@ namespace SparringManager.Device
         
         
     }
+    public static class Test
+    {
+        public static int a;
+        public static void Affiche()
+        {
+            Debug.Log(a);
+        }
+
+    }
 }
 

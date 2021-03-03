@@ -55,7 +55,7 @@ namespace SparringManager.Device
             _mouvementBag = new List<Vector3>();
 
             //Instantiation of Devices if Struct.OnOff = On
-            _viveTracker = InstantiateDevice<StructViveTracker>(_structPlayerScene.StructViveTracker, _bag);
+            _viveTracker = InstantiateDevice<StructViveTracker>(_structPlayerScene.StructViveTracker, this.gameObject);
 
             if (_structPlayerScene.StructPolar.OnOff)
             {
@@ -69,7 +69,7 @@ namespace SparringManager.Device
                 _movuino = InstantiateDevice<StructMovuino>(mov, _player);
                 if (mov.OnOff == true)
                 {
-                    _movuino.GetComponent<Movuino>().Init("/" + _idPlayer + "/" +  mov.Id + "/");
+                    _movuino.GetComponent<Movuino>().Init("/" + _idPlayer + "/" +  mov.Id);
                 }
             }
 

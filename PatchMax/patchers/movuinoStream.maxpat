@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 292.0, 116.0, 1264.0, 929.0 ],
+		"rect" : [ 34.0, 77.0, 1852.0, 929.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -137,8 +137,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 729.266918110637107, 998.69495163960255, 62.0, 22.0 ],
-					"text" : "$1gesture"
+					"patching_rect" : [ 729.266918110637107, 998.69495163960255, 65.0, 22.0 ],
+					"text" : "$1/gesture"
 				}
 
 			}
@@ -150,7 +150,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ -84.120676464504641, 1115.946684532929794, 444.0, 22.0 ],
-					"text" : "/Romuald/RightArm/data 0.52 0.015 -0.3 -0.065 0.02 -0.86 -0.46 -0.165 0."
+					"text" : "/Romuald/RightArm/data 0. 0. 0. 0. 0. 0. 0. 0. 0."
 				}
 
 			}
@@ -161,8 +161,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 390.490373134613037, 983.321216330955394, 45.0, 22.0 ],
-					"text" : "$1data"
+					"patching_rect" : [ 390.490373134613037, 983.321216330955394, 49.0, 22.0 ],
+					"text" : "$1/data"
 				}
 
 			}
@@ -1209,13 +1209,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -1495,13 +1495,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -1781,13 +1781,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -2481,13 +2481,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -2815,13 +2815,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -3149,13 +3149,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -4015,13 +4015,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -4790,13 +4790,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -4997,13 +4997,13 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-20",
-									"linecount" : 9,
+									"linecount" : 3,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 297.0, 82.0, 50.0, 174.0 ],
-									"text" : "0.52 0.015 -0.3 -0.065 0.02 -0.86 -0.46 -0.165 0."
+									"text" : "0. 0. 0. 0. 0. 0. 0. 0. 0."
 								}
 
 							}
@@ -6407,13 +6407,13 @@
 										"styles" : [ 											{
 												"name" : "textbutton001",
 												"default" : 												{
-													"fontsize" : [ 18.0 ],
 													"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-													"fontname" : [ "Museo Sans Rounded 300" ],
-													"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-													"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 													"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-													"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+													"fontsize" : [ 18.0 ],
+													"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+													"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+													"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+													"fontname" : [ "Museo Sans Rounded 300" ]
 												}
 ,
 												"parentstyle" : "",
@@ -6692,13 +6692,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -6995,13 +6995,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -7322,13 +7322,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -7525,13 +7525,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -7828,13 +7828,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -8185,13 +8185,13 @@
 										"styles" : [ 											{
 												"name" : "textbutton001",
 												"default" : 												{
-													"fontsize" : [ 18.0 ],
 													"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-													"fontname" : [ "Museo Sans Rounded 300" ],
-													"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-													"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 													"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-													"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+													"fontsize" : [ 18.0 ],
+													"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+													"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+													"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+													"fontname" : [ "Museo Sans Rounded 300" ]
 												}
 ,
 												"parentstyle" : "",
@@ -8427,13 +8427,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -10497,7 +10497,7 @@
 										}
 ,
 										"classnamespace" : "box",
-										"rect" : [ -31958.0, -31915.0, 640.0, 480.0 ],
+										"rect" : [ 424.0, 70.0, 640.0, 480.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 12.0,
@@ -11334,13 +11334,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -11713,13 +11713,13 @@
 										"styles" : [ 											{
 												"name" : "textbutton001",
 												"default" : 												{
-													"fontsize" : [ 18.0 ],
 													"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-													"fontname" : [ "Museo Sans Rounded 300" ],
-													"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-													"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 													"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-													"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+													"fontsize" : [ 18.0 ],
+													"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+													"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+													"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+													"fontname" : [ "Museo Sans Rounded 300" ]
 												}
 ,
 												"parentstyle" : "",
@@ -12776,13 +12776,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -15693,13 +15693,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -16089,13 +16089,13 @@
 						"styles" : [ 							{
 								"name" : "textbutton001",
 								"default" : 								{
-									"fontsize" : [ 18.0 ],
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+									"fontsize" : [ 18.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ]
 								}
 ,
 								"parentstyle" : "",
@@ -17776,13 +17776,13 @@
 		"styles" : [ 			{
 				"name" : "textbutton001",
 				"default" : 				{
-					"fontsize" : [ 18.0 ],
 					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"fontname" : [ "Museo Sans Rounded 300" ],
-					"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-					"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
 					"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
-					"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ]
+					"fontsize" : [ 18.0 ],
+					"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
+					"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+					"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+					"fontname" : [ "Museo Sans Rounded 300" ]
 				}
 ,
 				"parentstyle" : "",
