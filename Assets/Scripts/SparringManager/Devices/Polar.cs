@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SparringManager.Device
 {
-    public class Polar : Device
+    public class Polar : MonoBehaviour
     {
         private GameObject _oscGameObject;
         private OSC _oscManager;
@@ -20,6 +20,8 @@ namespace SparringManager.Device
 
         private void Awake()
         {
+            polarBPM = MovuinoData.CreateMovuinoData<PolarBPM>();
+
             _idDataBpm = _id + polarBPM.movuinoAddress;
             _listBPM = new List<float>();
         }
@@ -27,8 +29,6 @@ namespace SparringManager.Device
         {
             _oscGameObject = GameObject.Find("OSCManager");
             _oscManager = _oscGameObject.GetComponent<OSC>();
-
-            polarBPM = MovuinoData.CreateMovuinoData<PolarBPM>();
 
             _oscManager.SetAddressHandler(_id + "bpm", polarBPM.ToMovuinoData);
         }

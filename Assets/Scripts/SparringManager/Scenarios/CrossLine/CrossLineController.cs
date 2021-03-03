@@ -1,4 +1,4 @@
-﻿using SparringManager.DataManager.CrossLine;
+﻿using SparringManager.DataManager;
 using SparringManager.Scenarios;
 using System;
 using System.Collections;
@@ -79,6 +79,9 @@ namespace SparringManager.CrossLine
         private StructScenarios _controllerStruct;
         private CrossLineStruct _crossLineControllerStruct;
 
+        private DataSessionScenario DataScenario;
+        List<object> data;
+
         [SerializeField]
         private GameObject _scenarioComposant;
         private CrossLineBehaviour _crossLineComponent;
@@ -100,12 +103,18 @@ namespace SparringManager.CrossLine
             _crossLineControllerStruct = _controllerStruct.CrossLineStruct;
             SetControllerVariables();
 
+            DataScenario = DataSession.CreateDataObject<DataSessionScenario>();
+
+            
+
             //Export Data Variables
             _dataManagerComponent = GetComponentInParent<DataManager.DataController>();
             _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<CrossLineStruct>(_crossLineControllerStruct));
 
             _mouvementConsigne = new List<Vector3>();
             _timeListScenario = new List<float>();
+
+            data = new List<object>();
 
             //Initialisation of the time and the acceleration
             _startTimeScenario = Time.time;
@@ -133,9 +142,14 @@ namespace SparringManager.CrossLine
 
             //Stock the tTime data in list
             GetScenarioData(_tTime, _crossLineComponent.transform.localPosition);
+            data.Add(_tTime);
+            data.Add(_crossLineComponent.transform.localPosition);
+            DataScenario.StockData(data);
+            data = new List<object>();
         }
         void OnDestroy()
         {
+            DataController.testData.Add(DataScenario.CreateDataTable());
             _dataManagerComponent.GetScenarioExportDataInStructure(_timeListScenario, _mouvementConsigne);
             _dataManagerComponent.EndScenarioForData = true;
             GetComponentInParent<SessionManager>().EndScenario = true;
