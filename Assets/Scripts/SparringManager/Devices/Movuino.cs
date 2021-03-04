@@ -7,6 +7,9 @@ namespace SparringManager.Device
 {
     public class Movuino : MonoBehaviour
     {
+        /*
+         * Classe that manage the movuino object in the scene
+         */
         private GameObject _oscGameObject;
         private OSC _oscManager;
 
@@ -15,8 +18,8 @@ namespace SparringManager.Device
 
         private string _id;
 
-        MovuinoSensorData movuinoSensorData = MovuinoData.CreateMovuinoData<MovuinoSensorData>();
-        MovuinoXMM movuinoXMMdata = MovuinoData.CreateMovuinoData<MovuinoXMM>();
+        MovuinoSensorData movuinoSensorData = OSCDataHandler.CreateOSCDataHandler<MovuinoSensorData>();
+        MovuinoXMM movuinoXMMdata = OSCDataHandler.CreateOSCDataHandler<MovuinoXMM>();
 
 
         private List<int> _listGesture;
@@ -29,15 +32,14 @@ namespace SparringManager.Device
         }
         void Start()
         {
-            _addressSensorData = _id + movuinoSensorData.movuinoAddress;
-            _addressGesture = _id + movuinoXMMdata.movuinoAddress;
+            _addressSensorData = _id + movuinoSensorData.OSCAddress;
+            _addressGesture = _id + movuinoXMMdata.OSCAddress;
 
             _oscGameObject = GameObject.Find("OSCManager");
             _oscManager = _oscGameObject.GetComponent<OSC>();
 
-            _oscManager.SetAddressHandler(_addressSensorData, movuinoSensorData.ToMovuinoData);
-            _oscManager.SetAddressHandler(_addressGesture, movuinoXMMdata.ToMovuinoData);
-            _oscManager.SetAllMessageHandler(GetMessages);
+            _oscManager.SetAddressHandler(_addressSensorData, movuinoSensorData.ToOSCDataHandler);
+            _oscManager.SetAddressHandler(_addressGesture, movuinoXMMdata.ToOSCDataHandler);
         }
 
         private void FixedUpdate()

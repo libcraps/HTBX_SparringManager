@@ -566,7 +566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefabPlayerCamera: {fileID: 4022297913529616506, guid: 8ba886fddd6ea3e4eac06ef771e3d4b7,
     type: 3}
-  _exportInFile: 0
+  _exportInFile: 1
   _mainStructure:
   - _name: Romuald
     _structHitBox:

@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * http://thomasfredericks.github.io/UnityOSC/
+ * 
+ * https://github.com/thomasfredericks/UnityOSC
+ */
+
+
+
+using System.Collections.Generic;
 using SparringManager.DataManager;
 using UnityEngine;
 
@@ -7,28 +15,29 @@ namespace SparringManager.Device
 	/// <summary>
 	/// Inherit this if you want to represent a Movuino Data Type
 	/// </summary>
-	public abstract class MovuinoData
+	public abstract class OSCDataHandler
 	{
-		public string movuinoAddress { get { return GetAddress (); } }
-		public class WrongMovuinoDataFormatException : UnityException
+		public string OSCAddress { get { return GetAddress (); } }
+		public class WrongOSCDataHandlerFormatException : UnityException
 		{
 
 		};
 
-		public static T CreateMovuinoData<T> () where T : MovuinoData, new()
+		// <=> constructeur
+		public static T CreateOSCDataHandler<T> () where T : OSCDataHandler, new()
 		{
 			T newMovuinoData = new T ();
 			return newMovuinoData;
 		}
 
-		public abstract void ToMovuinoData (OscMessage message);
+		public abstract void ToOSCDataHandler (OscMessage message);
 		protected abstract string GetAddress();
 	}
 
 	/// <summary>
 	/// Data for the accelerometer and the gyroscope of Movuino
 	/// </summary>
-	public class MovuinoSensorData : MovuinoData
+	public class MovuinoSensorData : OSCDataHandler
 	{
 		/// <summary>
 		/// Accelerometer data.
@@ -47,7 +56,7 @@ namespace SparringManager.Device
 
 		public static string address = "/data";
 
-		public override void ToMovuinoData (OscMessage message)
+		public override void ToOSCDataHandler (OscMessage message)
 		{
 			float ax = message.GetFloat(0);
 			float ay = message.GetFloat(1);
@@ -86,7 +95,7 @@ namespace SparringManager.Device
 		}
 	}
 
-    public class MovuinoXMM : MovuinoData
+    public class MovuinoXMM : OSCDataHandler
 	{
 
 		public int gestId;
@@ -94,7 +103,7 @@ namespace SparringManager.Device
 
 		public static string address = "/gesture";
 
-		public override void ToMovuinoData (OscMessage message)
+		public override void ToOSCDataHandler (OscMessage message)
 		{
 			gestId = message.GetInt(0);
 			gestProg = message.GetFloat(1);
@@ -114,13 +123,13 @@ namespace SparringManager.Device
 			+ gestProg.ToString ());
 		}
 	}
-	public class PolarBPM : MovuinoData
+	public class PolarBPM : OSCDataHandler
 	{
 		public float bpm;
 
 		public static string address = "/bpm";
 
-		public override void ToMovuinoData(OscMessage message)
+		public override void ToOSCDataHandler(OscMessage message)
 		{
 			bpm = message.GetFloat(0);
 		}

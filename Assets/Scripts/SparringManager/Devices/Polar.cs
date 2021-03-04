@@ -6,6 +6,9 @@ namespace SparringManager.Device
 {
     public class Polar : MonoBehaviour
     {
+        /*
+         * Classe that manage the movuino object in the scene
+         */
         private GameObject _oscGameObject;
         private OSC _oscManager;
 
@@ -20,9 +23,9 @@ namespace SparringManager.Device
 
         private void Awake()
         {
-            polarBPM = MovuinoData.CreateMovuinoData<PolarBPM>();
+            polarBPM = OSCDataHandler.CreateOSCDataHandler<PolarBPM>();
 
-            _idDataBpm = _id + polarBPM.movuinoAddress;
+            _idDataBpm = _id + polarBPM.OSCAddress;
             _listBPM = new List<float>();
         }
         void Start()
@@ -30,7 +33,7 @@ namespace SparringManager.Device
             _oscGameObject = GameObject.Find("OSCManager");
             _oscManager = _oscGameObject.GetComponent<OSC>();
 
-            _oscManager.SetAddressHandler(_id + "bpm", polarBPM.ToMovuinoData);
+            _oscManager.SetAddressHandler(_id + "bpm", polarBPM.ToOSCDataHandler);
         }
 
         private void FixedUpdate()
