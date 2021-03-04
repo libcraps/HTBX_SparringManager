@@ -63,7 +63,7 @@ namespace SparringManager.SimpleLine
 
         public static int nbApparition;
         //Object that contain datas (structures)
-        private ScenarioController _scenarioControllerComponent;
+        private ScenarioObj _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
         private SimpleLineStruct _simpleLineControllerStruct;
 
@@ -85,7 +85,7 @@ namespace SparringManager.SimpleLine
             //Scenario Variables
 
             _controllerStruct = new StructScenarios();
-            _scenarioControllerComponent = GetComponent<ScenarioController>();
+            _scenarioControllerComponent = GetComponent<ScenarioObj>();
 
             _controllerStruct = _scenarioControllerComponent.ControllerStruct;
             _simpleLineControllerStruct = _controllerStruct.SimpleLineStruct;

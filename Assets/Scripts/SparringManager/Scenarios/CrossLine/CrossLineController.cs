@@ -75,9 +75,11 @@ namespace SparringManager.CrossLine
 
         public static int nbApparition;
         //Object that contain datas (structures)
-        private ScenarioController _scenarioControllerComponent;
+        private Scenario _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
         private CrossLineStruct _crossLineControllerStruct;
+
+        private ScenarioCrossLine CrossLineScenario;
 
         private DataSessionScenario DataScenario;
         List<object> data;
@@ -98,18 +100,20 @@ namespace SparringManager.CrossLine
             nbApparition += 1;
             //INITIALISATION OF VARIABLES 
             //Scenario Variables
-            _scenarioControllerComponent = GetComponent<ScenarioController>();
+            _scenarioControllerComponent = GetComponent<Scenario>();
             _controllerStruct = _scenarioControllerComponent.ControllerStruct;
             _crossLineControllerStruct = _controllerStruct.CrossLineStruct;
             SetControllerVariables();
 
+            //CrossLineScenario = ScenarioObj.CreateScenarioObject<ScenarioCrossLine>();
+            CrossLineScenario = new ScenarioCrossLine(GetComponent<Scenario>().ControllerStruct.CrossLineStruct);
             DataScenario = DataSession.CreateDataObject<DataSessionScenario>();
 
             
 
             //Export Data Variables
             _dataManagerComponent = GetComponentInParent<DataManager.DataController>();
-            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<CrossLineStruct>(_crossLineControllerStruct));
+            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<CrossLineStruct>(_crossLineControllerStruct)); //Mettre dans 
 
             _mouvementConsigne = new List<Vector3>();
             _timeListScenario = new List<float>();

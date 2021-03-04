@@ -10,7 +10,7 @@ namespace SparringManager.SimpleHit
     {
         //---------- ATTRIBUTS ----------
         private StructScenarios _simpleHitStruct;
-        private ScenarioController scenarioControllerComponent;
+        private ScenarioObj scenarioControllerComponent;
 
         [SerializeField]
         private GameObject _hitPrefab;
@@ -30,7 +30,7 @@ namespace SparringManager.SimpleHit
         //General Methods
         private void Start()
         {
-            scenarioControllerComponent = GetComponent<ScenarioController>();
+            scenarioControllerComponent = GetComponent<ScenarioObj>();
             _simpleHitStruct = scenarioControllerComponent.ControllerStruct;
         }
 

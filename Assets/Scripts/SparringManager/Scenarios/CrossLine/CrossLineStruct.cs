@@ -1,11 +1,12 @@
 ﻿using System.Collections;
+using SparringManager.Scenarios;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace SparringManager.CrossLine
 {
     [System.Serializable]
-    public struct CrossLineStruct
+    public struct CrossLineStruct : IStructScenario
     {
         //Paramters of the CrossLine structure        
         [SerializeField]
@@ -22,6 +23,8 @@ namespace SparringManager.CrossLine
         private float _timeBeforeHit;
         [SerializeField]
         private bool _fixPosHit;
+
+        public int TimerScenario { get; set; }
 
         public GameObject HitPrefab
         {
