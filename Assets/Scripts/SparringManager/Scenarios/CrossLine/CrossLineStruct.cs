@@ -3,12 +3,14 @@ using SparringManager.Scenarios;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SparringManager.CrossLine
+namespace SparringManager.Scenarios
 {
     [System.Serializable]
     public struct CrossLineStruct : IStructScenario
     {
         //Paramters of the CrossLine structure        
+        [SerializeField]
+        private int _timerScenario;
         [SerializeField]
         private GameObject _hitPrefab;
         [SerializeField]
@@ -24,8 +26,18 @@ namespace SparringManager.CrossLine
         [SerializeField]
         private bool _fixPosHit;
 
-        public int TimerScenario { get; set; }
 
+        public int TimerScenario
+        {
+            get
+            {
+                return _timerScenario;
+            }
+            set
+            {
+                _timerScenario = value;
+            }
+        }
         public GameObject HitPrefab
         {
             get
@@ -107,7 +119,7 @@ namespace SparringManager.CrossLine
         }
 
 
-        public CrossLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, bool fixPosHit)
+        public CrossLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, bool fixPosHit, int timerScenario)
         {
             this._hitPrefab = hitPrefab;
             this._accelerationMax = acceleration;
@@ -116,7 +128,7 @@ namespace SparringManager.CrossLine
             this._timeBeforeHit = timeHit;
             this._deltaHit = deltaHit; 
             this._fixPosHit = fixPosHit;
-            TimerScenario = 0;
+            this._timerScenario = timerScenario;
         }
     }
 }

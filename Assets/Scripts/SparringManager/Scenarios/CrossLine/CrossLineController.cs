@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SparringManager.CrossLine
+namespace SparringManager.Scenarios.CrossLine
 {
     /* Class nof the CrossLine Scenario Controller
      * 
@@ -57,39 +57,40 @@ namespace SparringManager.CrossLine
      *      void GetHit(Vector2 position2d_) : Get the Hit of the position2d_ (use events)
      *      
      */
-    public class CrossLineController : MonoBehaviour
+    public class CrossLineController : ScenarioControllerBehaviour
     {
         //----------- ATTRIBUTS ----------------------
-        //Usefull parameters of the scenario, they are in the crossLineStructure
-        private int _accelerationMax;
-        private int _deltaTimeMax;
-        private int _deltaTimeMin;
-        private float _deltaHit;
-        private float _timeBeforeHit;
+        [SerializeField]
+        private GameObject _prefabScenarioComposant;
+        public override GameObject PrefabScenarioComposant
+        {
+            get
+            {
+                return _prefabScenarioComposant;
+            }
+            set
+            {
+                _prefabScenarioComposant = value;
+            }
+        }
+
+        GameObject scenarioInst;
+        public static int nbApparition;
 
         private float _previousTime;
         private float _tTime;
         private float _reactTime;
         private float _startTimeScenario;
-        private float _timerScenario;
 
-        public static int nbApparition;
-        //Object that contain datas (structures)
-        private Scenario _scenarioControllerComponent;
-        private StructScenarios _controllerStruct;
-        private CrossLineStruct _crossLineControllerStruct;
-
-        private ScenarioCrossLine CrossLineScenario;
-
-        private DataSessionScenario DataScenario;
+        private ScenarioCrossLine scenario;
+        private DataSessionScenario dataScenario;
+        private CrossLineBehaviour crossLineComponent;
         List<object> data;
 
-        [SerializeField]
-        private GameObject _scenarioComposant;
-        private CrossLineBehaviour _crossLineComponent;
+
 
         //list of the data that we will export
-        private DataManager.DataController _dataManagerComponent;
+        private DataController _dataManagerComponent;
         private List<Vector3> _mouvementConsigne;
         private List<float> _timeListScenario;
 
@@ -99,23 +100,6 @@ namespace SparringManager.CrossLine
         {
             nbApparition += 1;
             //INITIALISATION OF VARIABLES 
-            //Scenario Variables
-            _scenarioControllerComponent = GetComponent<Scenario>();
-            _controllerStruct = _scenarioControllerComponent.ControllerStruct;
-            _crossLineControllerStruct = _controllerStruct.CrossLineStruct;
-            SetControllerVariables();
-
-            //CrossLineScenario = ScenarioObj.CreateScenarioObject<ScenarioCrossLine>();
-            //CrossLineScenario = new ScenarioCrossLine(GetComponent<Scenario>().ControllerStruct.CrossLineStruct);
-
-            CrossLineScenario = Scenario<CrossLineStruct>.CreateScenarioObject<ScenarioCrossLine>(GetComponent<Scenario>().ControllerStruct.CrossLineStruct);
-            DataScenario = DataSession.CreateDataObject<DataSessionScenario>();
-
-            
-
-            //Export Data Variables
-            _dataManagerComponent = GetComponentInParent<DataManager.DataController>();
-            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<CrossLineStruct>(_crossLineControllerStruct)); //Mettre dans 
 
             _mouvementConsigne = new List<Vector3>();
             _timeListScenario = new List<float>();
@@ -127,7 +111,7 @@ namespace SparringManager.CrossLine
             _tTime = Time.time - _startTimeScenario;
             _previousTime = _tTime;
 
-            Debug.Log(this.gameObject.name + " for " + _timerScenario + " seconds");
+            
         }
         void Start()
         {
@@ -136,50 +120,54 @@ namespace SparringManager.CrossLine
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
-            Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
 
-            _crossLineComponent = GetComponentInChildren<CrossLineBehaviour>();
-            SetPrefabComponentVariables();
+            scenarioInst = Instantiate(PrefabScenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform);
+            crossLineComponent = scenarioInst.GetComponent<CrossLineBehaviour>();
+            crossLineComponent.SetPrefabComponentVariables(scenario.structScenario);
+            Destroy(scenarioInst, scenario.timerScenario);
+
+
+            Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
+
         }
         private void FixedUpdate()
         {
             _tTime = Time.time - _startTimeScenario;
-            RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
+            RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
 
             //Stock the tTime data in list
-            GetScenarioData(_tTime, _crossLineComponent.transform.localPosition);
+            GetScenarioData(_tTime, crossLineComponent.transform.localPosition);
             data.Add(_tTime);
-            data.Add(_crossLineComponent.transform.localPosition);
-            DataScenario.StockData(data);
+            data.Add(crossLineComponent.transform.localPosition);
+            dataScenario.StockData(data);
             data = new List<object>();
         }
         void OnDestroy()
         {
-            DataController.testData.Add(DataScenario.CreateDataTable());
+            DataController.testData.Add(dataScenario.CreateDataTable());
             _dataManagerComponent.GetScenarioExportDataInStructure(_timeListScenario, _mouvementConsigne);
             _dataManagerComponent.EndScenarioForData = true;
             GetComponentInParent<SessionManager>().EndScenario = true;
             _reactTime = 0;
-            _crossLineComponent.Hitted = false;
+            crossLineComponent.Hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
 
         //Methods that set variables
-        private void SetPrefabComponentVariables()
+        public override void Init(StructScenarios structScenarios)
         {
-            _crossLineComponent.TimeBeforeHit = _crossLineControllerStruct.TimeBeforeHit;
-            _crossLineComponent.DeltaHit = _crossLineControllerStruct.DeltaHit;
-            _crossLineComponent.FixPosHit = _crossLineControllerStruct.FixPosHit;
+            scenario = Scenario<CrossLineStruct>.CreateScenarioObject<ScenarioCrossLine>();
+            scenario.Init(structScenarios);
+
+            dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
+
+            //Export Data Variables
+            _dataManagerComponent = GetComponentInParent<DataController>();
+            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<CrossLineStruct>(scenario.structScenario)); //Mettre dans 
+
         }
-        private void SetControllerVariables()
-        {
-            _timerScenario = _controllerStruct.TimerScenario;
-            _accelerationMax = _crossLineControllerStruct.AccelerationMax;
-            _deltaTimeMax = _crossLineControllerStruct.DeltaTimeMax;
-            _deltaTimeMin = _crossLineControllerStruct.DeltaTimeMin;
-            _timeBeforeHit = _crossLineControllerStruct.TimeBeforeHit;
-            _deltaHit = _crossLineControllerStruct.DeltaHit;
-        }
+
+
 
         //Method for the data exportation
         private void GetScenarioData(float time, Vector3 pos)
@@ -194,11 +182,11 @@ namespace SparringManager.CrossLine
         {
             System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((_tTime - _previousTime) > _crossLineComponent.DeltaTimeChangeAcceleration)
+            if ((_tTime - _previousTime) > crossLineComponent.DeltaTimeChangeAcceleration)
             {
-                _crossLineComponent.LineAcceleration[0] = random.Next(-accelerationMax, accelerationMax);
-                _crossLineComponent.LineAcceleration[1] = random.Next(-accelerationMax, accelerationMax);
-                _crossLineComponent.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
+                crossLineComponent.LineAcceleration[0] = random.Next(-accelerationMax, accelerationMax);
+                crossLineComponent.LineAcceleration[1] = random.Next(-accelerationMax, accelerationMax);
+                crossLineComponent.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
 
                 _previousTime = _tTime;
 
@@ -221,12 +209,12 @@ namespace SparringManager.CrossLine
             Vector3 rayCastDirection = new Vector3(0, 0, 1);
 
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
-            bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
+            bool canHit = (_tTime > scenario.timeBeforeHit && (_tTime - scenario.timeBeforeHit) < scenario.deltaHit);
 
-            if (rayOnTarget && canHit && _crossLineComponent.Hitted == false)
+            if (rayOnTarget && canHit && crossLineComponent.Hitted == false)
             {
-                _reactTime = _tTime - _timeBeforeHit;
-                _crossLineComponent.Hitted = true;
+                _reactTime = _tTime - scenario.timeBeforeHit;
+                crossLineComponent.Hitted = true;
 
                 Debug.Log("Line touched : " + position2d_);
                 Debug.Log("React time : " + _reactTime);

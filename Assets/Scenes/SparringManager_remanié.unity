@@ -611,6 +611,7 @@ MonoBehaviour:
         _deltaTimeMax: 4
         _deltaTimeMin: 3
       _hitLineStruct:
+        _timerScenario: 0
         _hitPrefab: {fileID: 0}
         _accelerationMax: 0
         _deltaTimeMax: 0
@@ -619,6 +620,7 @@ MonoBehaviour:
         _timeBeforeHit: 0
         _fixPosHit: 0
       _crossLineStruct:
+        _timerScenario: 5
         _hitPrefab: {fileID: 0}
         _accelerationMax: 20
         _deltaTimeMax: 3
@@ -644,6 +646,7 @@ MonoBehaviour:
         _deltaTimeMax: 4
         _deltaTimeMin: 3
       _hitLineStruct:
+        _timerScenario: 0
         _hitPrefab: {fileID: 0}
         _accelerationMax: 0
         _deltaTimeMax: 0
@@ -652,6 +655,7 @@ MonoBehaviour:
         _timeBeforeHit: 0
         _fixPosHit: 0
       _crossLineStruct:
+        _timerScenario: 5
         _hitPrefab: {fileID: 0}
         _accelerationMax: 0
         _deltaTimeMax: 0
@@ -677,6 +681,7 @@ MonoBehaviour:
         _deltaTimeMax: 4
         _deltaTimeMin: 3
       _hitLineStruct:
+        _timerScenario: 0
         _hitPrefab: {fileID: 0}
         _accelerationMax: 0
         _deltaTimeMax: 0
@@ -685,6 +690,7 @@ MonoBehaviour:
         _timeBeforeHit: 0
         _fixPosHit: 0
       _crossLineStruct:
+        _timerScenario: 0
         _hitPrefab: {fileID: 0}
         _accelerationMax: 0
         _deltaTimeMax: 0

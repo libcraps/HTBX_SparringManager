@@ -44,6 +44,9 @@ namespace SparringManager.DataManager
             return table;
         }
     }
+
+
+
     public class DataSessionMovuino : DataSession
     {
         public List<object> listAcceleration = new List<object>();

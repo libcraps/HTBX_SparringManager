@@ -4,7 +4,7 @@ using SparringManager.DataManager;
 using SparringManager.DataManager.CrossLine;
 using UnityEngine;
 
-namespace SparringManager.CrossLine
+namespace SparringManager.Scenarios
 {
     /* Class nof the CrossLine Prefab
     * 
@@ -28,9 +28,10 @@ namespace SparringManager.CrossLine
     *      Void LineInCameraRange() : Verifie that the line stay in the camera range
     *      void SetHit() : Indicates when the playe can hit by changing the color of the line
     */
-    public class CrossLineBehaviour : MonoBehaviour
+    public class CrossLineBehaviour : ScenarioBehaviour
     {
         //General variables of a MovingLine
+        private CrossLineStruct structScenario;
         private float[] _lineAcceleration;
         private int _deltaTimeChangeAcceleration;
         public float[] LineAcceleration
@@ -156,7 +157,13 @@ namespace SparringManager.CrossLine
                 _fixPosHitValue = 1;
             }
         }
-
+        public void SetPrefabComponentVariables(CrossLineStruct structScenario)
+        {
+            this.structScenario = structScenario;
+            _timeBeforeHit = structScenario.TimeBeforeHit;
+            _deltaHit = structScenario.DeltaHit;
+            _fixPosHit = structScenario.FixPosHit;
+        }
         void LineInCameraRange()
         {
             /* 

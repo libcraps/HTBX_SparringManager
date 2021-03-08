@@ -9,7 +9,7 @@ using System.Data;
 using System.Text;
 using UnityEngine;
 
-namespace SparringManager.HitLine
+namespace SparringManager.Scenarios
 {
     /* Class nof the HitLine Scenario Controller
      * 

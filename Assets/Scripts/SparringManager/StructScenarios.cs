@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using SparringManager.SimpleLine;
-using SparringManager.HitLine;
 using SparringManager.SimpleHit;
-using SparringManager.CrossLine;
+using SparringManager.Scenarios;
 using SparringManager.SplHitLine;
 using System.Collections.Generic;
 

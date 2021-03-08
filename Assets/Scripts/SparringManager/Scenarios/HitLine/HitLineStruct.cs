@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using SparringManager.Scenarios;
 using UnityEngine;
 
-namespace SparringManager.HitLine
+namespace SparringManager.Scenarios
 {
     [System.Serializable]
     public struct HitLineStruct: IStructScenario
     {
+        [SerializeField]
+        private int _timerScenario;
         [SerializeField]
         private GameObject _hitPrefab;
         [SerializeField]
@@ -68,7 +70,17 @@ namespace SparringManager.HitLine
                 _deltaTimeMin = value;
             }
         }
-        public int TimerScenario { get; set; }
+        public int TimerScenario
+        {
+            get
+            {
+                return _timerScenario;
+            }
+            set
+            {
+                _timerScenario = value;
+            }
+        }
 
         public float TimeBeforeHit
         {
@@ -104,7 +116,7 @@ namespace SparringManager.HitLine
             }
         }
 
-        public HitLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, bool fixPosHit)
+        public HitLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, bool fixPosHit, int timerScenario)
         {
             this._hitPrefab = hitPrefab;
             this._accelerationMax = acceleration;
@@ -113,7 +125,7 @@ namespace SparringManager.HitLine
             this._timeBeforeHit = timeHit;
             this._deltaHit = deltaHit;
             this._fixPosHit = fixPosHit;
-            TimerScenario = 0;
+            this._timerScenario = timerScenario;
         }
 
     }
