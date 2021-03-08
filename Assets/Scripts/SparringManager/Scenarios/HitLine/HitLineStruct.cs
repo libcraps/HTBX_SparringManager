@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using SparringManager.Scenarios;
 using UnityEngine;
 
 namespace SparringManager.HitLine
 {
     [System.Serializable]
-    public struct HitLineStruct
+    public struct HitLineStruct: IStructScenario
     {
         [SerializeField]
         private GameObject _hitPrefab;
@@ -67,6 +68,7 @@ namespace SparringManager.HitLine
                 _deltaTimeMin = value;
             }
         }
+        public int TimerScenario { get; set; }
 
         public float TimeBeforeHit
         {
@@ -111,6 +113,7 @@ namespace SparringManager.HitLine
             this._timeBeforeHit = timeHit;
             this._deltaHit = deltaHit;
             this._fixPosHit = fixPosHit;
+            TimerScenario = 0;
         }
 
     }

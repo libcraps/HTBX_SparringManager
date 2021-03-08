@@ -25,27 +25,32 @@ namespace SparringManager.Scenarios
         }
 
     }
-    public abstract class ScenarioObj<StructScenario> where StructScenario: IStructScenario
+    public abstract class Scenario<StructScenario> where StructScenario: IStructScenario
     {
         public abstract GameObject scenarioComposant { get; set; }
         public abstract StructScenario structScenario { get; set; }
 
-        public static T CreateScenarioObject<T>() where T: ScenarioObj<StructScenario>, new()
+        public static T CreateScenarioObject<T>(StructScenario structScenario) where T: Scenario<StructScenario>, new()
         {
             T myObj = new T();
+            myObj.structScenario = structScenario;
+
             return myObj;
         }
+
+        public abstract void Init(StructScenarios structScenarios);
     }
 
-    public class ScenarioCrossLine : ScenarioObj<CrossLineStruct>
+    public class ScenarioCrossLine : Scenario<CrossLineStruct>
     {
         public override GameObject scenarioComposant { get; set; }
         public override CrossLineStruct structScenario { get; set; }
 
-        public ScenarioCrossLine(CrossLineStruct structure)
+        public override void Init(StructScenarios structScenarios)
         {
-            structScenario = structure;
+            structScenario = structScenarios.CrossLineStruct;
         }
+        
     }
 
 }

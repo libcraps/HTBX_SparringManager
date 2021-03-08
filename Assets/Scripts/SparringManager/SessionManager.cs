@@ -100,7 +100,7 @@ namespace SparringManager
             prefabObject.GetComponent<Scenario>().ControllerStruct = strucObject; //we attribute the structure to the scenario component 
 
             scenario = Instantiate(prefabObject, _pos3d, Quaternion.identity, referenceGameObject.transform);
-
+            //scenario.GetComponent<Scenario<IStructScenario>>().Init(strucObject);
             Destroy(scenario, strucObject.TimerScenario);
 
             Debug.Log(prefabObject.name + " has been instantiated");

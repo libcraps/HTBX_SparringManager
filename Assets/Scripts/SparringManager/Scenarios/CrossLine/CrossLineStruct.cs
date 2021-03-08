@@ -116,6 +116,7 @@ namespace SparringManager.CrossLine
             this._timeBeforeHit = timeHit;
             this._deltaHit = deltaHit; 
             this._fixPosHit = fixPosHit;
+            TimerScenario = 0;
         }
     }
 }

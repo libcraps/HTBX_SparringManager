@@ -69,7 +69,7 @@ namespace SparringManager.SplHitLine
         public static int nbApparition;
 
         //Object that contain datas (structures)
-        private ScenarioObj _scenarioControllerComponent;
+        private Scenario _scenarioControllerComponent;
         private StructScenarios _controllerStruct;
         private SplHitLineStruct _splHitLineControllerStruct;
 
@@ -89,7 +89,7 @@ namespace SparringManager.SplHitLine
             nbApparition += 1;
             //INITIALISATION OF VARIABLES 
             //Scenario Variables
-            _scenarioControllerComponent = GetComponent<ScenarioObj>();
+            _scenarioControllerComponent = GetComponent<Scenario>();
             _controllerStruct = _scenarioControllerComponent.ControllerStruct;
             _splHitLineControllerStruct = _controllerStruct.SplHitLineStruct;
             SetControllerVariables();

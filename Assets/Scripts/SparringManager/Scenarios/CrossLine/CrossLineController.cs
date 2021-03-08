@@ -106,7 +106,9 @@ namespace SparringManager.CrossLine
             SetControllerVariables();
 
             //CrossLineScenario = ScenarioObj.CreateScenarioObject<ScenarioCrossLine>();
-            CrossLineScenario = new ScenarioCrossLine(GetComponent<Scenario>().ControllerStruct.CrossLineStruct);
+            //CrossLineScenario = new ScenarioCrossLine(GetComponent<Scenario>().ControllerStruct.CrossLineStruct);
+
+            CrossLineScenario = Scenario<CrossLineStruct>.CreateScenarioObject<ScenarioCrossLine>(GetComponent<Scenario>().ControllerStruct.CrossLineStruct);
             DataScenario = DataSession.CreateDataObject<DataSessionScenario>();
 
             
