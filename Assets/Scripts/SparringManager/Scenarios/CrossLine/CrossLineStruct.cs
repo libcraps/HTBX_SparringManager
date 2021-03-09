@@ -10,8 +10,6 @@ namespace SparringManager.Scenarios
     {
         //Paramters of the CrossLine structure        
         [SerializeField]
-        private int _timerScenario;
-        [SerializeField]
         private GameObject _hitPrefab;
         [SerializeField]
         private int _accelerationMax;
@@ -27,17 +25,6 @@ namespace SparringManager.Scenarios
         private bool _fixPosHit;
 
 
-        public int TimerScenario
-        {
-            get
-            {
-                return _timerScenario;
-            }
-            set
-            {
-                _timerScenario = value;
-            }
-        }
         public GameObject HitPrefab
         {
             get
@@ -119,7 +106,7 @@ namespace SparringManager.Scenarios
         }
 
 
-        public CrossLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, bool fixPosHit, int timerScenario)
+        public CrossLineStruct(GameObject hitPrefab, int acceleration, int deltaMin, int deltaMax, float timeHit, float deltaHit, bool fixPosHit)
         {
             this._hitPrefab = hitPrefab;
             this._accelerationMax = acceleration;
@@ -128,7 +115,6 @@ namespace SparringManager.Scenarios
             this._timeBeforeHit = timeHit;
             this._deltaHit = deltaHit; 
             this._fixPosHit = fixPosHit;
-            this._timerScenario = timerScenario;
         }
     }
 }

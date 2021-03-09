@@ -52,8 +52,6 @@ namespace SparringManager.Device
 		/// </summary>
 		public Vector3 magnetometer;
 
-		public List<object> MovData = new List<object>();
-
 		public static string address = "/data";
 
 		public override void ToOSCDataHandler (OscMessage message)
@@ -70,12 +68,6 @@ namespace SparringManager.Device
 			accelerometer = new Vector3(ax, ay, az);
 			gyroscope = new Vector3(gx, gy, gz);
 			magnetometer = new Vector3(mx, my, mz);
-
-			//TEEEEEEEST
-			MovData.Add(accelerometer);
-			MovData.Add(gyroscope);
-			MovData.Add(magnetometer);
-			DataController.DataSessionMovuino.StockData(MovData);
 		}
 
 		protected override string GetAddress ()

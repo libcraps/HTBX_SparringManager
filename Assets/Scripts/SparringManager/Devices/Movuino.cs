@@ -21,6 +21,8 @@ namespace SparringManager.Device
         MovuinoSensorData movuinoSensorData = OSCDataHandler.CreateOSCDataHandler<MovuinoSensorData>();
         MovuinoXMM movuinoXMMdata = OSCDataHandler.CreateOSCDataHandler<MovuinoXMM>();
 
+        public MovuinoSensorData MovuinoSensorData { get { return movuinoSensorData; } }
+        public MovuinoXMM MovuinoXMM { get { return movuinoXMMdata; } }
 
         private List<int> _listGesture;
         private List<float> _listProgression;
@@ -42,26 +44,10 @@ namespace SparringManager.Device
             _oscManager.SetAddressHandler(_addressGesture, movuinoXMMdata.ToOSCDataHandler);
         }
 
-        private void FixedUpdate()
-        {
-            
-        }
-
         public void Init(string id)
         {
             _id = id;
         }
-        private void GetMessages(OscMessage message)
-        {
-            Debug.Log(message.address);
-        }
-
-        private void StockDataGesture(int idGesture, float progression)
-        {
-            _listGesture.Add(idGesture);
-            _listProgression.Add(progression);
-        }
-
 
     }
 

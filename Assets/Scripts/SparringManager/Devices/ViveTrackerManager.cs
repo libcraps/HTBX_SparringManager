@@ -29,7 +29,6 @@ namespace SparringManager.Device
             Vector3 _playerOrientation = Vector3.Normalize(transform.up); //Normalizing player orientation
 
             _angle = Vector3.SignedAngle(_bagDir, -bag.transform.up, Vector3.up);
-            Debug.Log(_angle);
         }
     }
 

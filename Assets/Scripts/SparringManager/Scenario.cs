@@ -38,7 +38,6 @@ namespace SparringManager.Scenarios
 
     public class ScenarioCrossLine : Scenario<CrossLineStruct>
     {
-
         private CrossLineStruct _structScenario;
         public override CrossLineStruct structScenario
         {
@@ -53,30 +52,22 @@ namespace SparringManager.Scenarios
         }
 
         //Usefull parameters of the scenario, they are in the crossLineStructure
-        public int accelerationMax;
-        public int deltaTimeMax;
-        public int deltaTimeMin;
-        public float deltaHit;
-        public float timeBeforeHit;
+        public int accelerationMax { get { return _structScenario.AccelerationMax; } }
+        public int deltaTimeMax { get { return _structScenario.DeltaTimeMax; } }
+        public int deltaTimeMin { get { return _structScenario.DeltaTimeMin; } }
+        public float deltaHit { get { return _structScenario.DeltaHit; } }
+        public float timeBeforeHit { get { return _structScenario.TimeBeforeHit; } }
+        public float timerScenario { get; set;  }
+        public float startTimeScenario { get; set; }
 
-        public float timerScenario;
+
 
         public override void Init(StructScenarios structScenarios)
         {
             _structScenario = new CrossLineStruct();
             _structScenario = structScenarios.CrossLineStruct;
 
-            SetControllerVariables();
-
-        }
-        private void SetControllerVariables()
-        {
-            accelerationMax = _structScenario.AccelerationMax;
-            deltaTimeMax = _structScenario.DeltaTimeMax;
-            deltaTimeMin = _structScenario.DeltaTimeMin;
-            deltaHit = _structScenario.DeltaHit;
-            timeBeforeHit = _structScenario.TimeBeforeHit;
-            timerScenario = _structScenario.TimerScenario;
+            timerScenario = structScenarios.TimerScenario;
         }
     }
 
@@ -97,10 +88,22 @@ namespace SparringManager.Scenarios
             }
         }
 
+        //Usefull parameters of the scenario, they are in the crossLineStructure
+        public int accelerationMax { get { return _structScenario.AccelerationMax; } }
+        public int deltaTimeMax { get { return _structScenario.DeltaTimeMax; } }
+        public int deltaTimeMin { get { return _structScenario.DeltaTimeMin; } }
+        public float deltaHit { get { return _structScenario.DeltaHit; } }
+        public float timeBeforeHit { get { return _structScenario.TimeBeforeHit; } }
+
+        public float timerScenario { get; set; }
+
+
         public override void Init(StructScenarios structScenarios)
         {
             _structScenario = new HitLineStruct();
             _structScenario = structScenarios.HitLineStruct;
+
+            timerScenario = structScenarios.TimerScenario;
         }
 
     }

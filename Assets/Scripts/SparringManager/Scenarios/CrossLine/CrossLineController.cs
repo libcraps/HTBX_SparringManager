@@ -3,6 +3,7 @@ using SparringManager.Scenarios;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SparringManager.Device;
 using UnityEngine;
 
 namespace SparringManager.Scenarios.CrossLine
@@ -74,125 +75,107 @@ namespace SparringManager.Scenarios.CrossLine
             }
         }
 
-        GameObject scenarioInst;
         public static int nbApparition;
 
-        private float _previousTime;
-        private float _tTime;
-        private float _reactTime;
-        private float _startTimeScenario;
-
-        private ScenarioCrossLine scenario;
+        public ScenarioCrossLine scenario { get; set; }
+        private CrossLineBehaviour scenarioBehaviour;
         private DataSessionScenario dataScenario;
-        private CrossLineBehaviour crossLineComponent;
-        List<object> data;
-
-
-
+        private Movuino[] movuino;
+        private DataSessionMovuino dataSessionMovuino;
+        private DataSession dataSessionPlayer;
         //list of the data that we will export
-        private DataController _dataManagerComponent;
-        private List<Vector3> _mouvementConsigne;
-        private List<float> _timeListScenario;
+        private DataController dataManagerComponent;
+
+        private float previousTime;
+        private float tTime;
+        private float reactTime;
+        private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
 
         //------------ METHODS -------------------
         //General Methods
         private void Awake()
         {
+            DataSession dataSessionPlayer = DataSession.CreateDataObject<DataSession>();
+            movuino[0] = GameObject.FindGameObjectsWithTag("Movuino")[0].GetComponent<Movuino>();
+            movuino[1] = GameObject.FindGameObjectsWithTag("Movuino")[1].GetComponent<Movuino>();
             nbApparition += 1;
-            //INITIALISATION OF VARIABLES 
-
-            _mouvementConsigne = new List<Vector3>();
-            _timeListScenario = new List<float>();
-
-            data = new List<object>();
-
-            //Initialisation of the time and the acceleration
-            _startTimeScenario = Time.time;
-            _tTime = Time.time - _startTimeScenario;
-            _previousTime = _tTime;
-
-            
         }
         void Start()
         {
+            //Initialisation of the time and the acceleration
+            startTimeScenario = Time.time;
+            tTime = Time.time - startTimeScenario;
+            previousTime = tTime; 
+
             Vector3 _pos3d;
             _pos3d.x = this.gameObject.transform.position.x;
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
-
-            scenarioInst = Instantiate(PrefabScenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform);
-            crossLineComponent = scenarioInst.GetComponent<CrossLineBehaviour>();
-            crossLineComponent.SetPrefabComponentVariables(scenario.structScenario);
-            Destroy(scenarioInst, scenario.timerScenario);
-
+            //Instantiation of scenario display
+            var go  = Instantiate(_prefabScenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform);
+            scenarioBehaviour = go.GetComponent<CrossLineBehaviour>();
+            scenarioBehaviour.Init(scenario.structScenario);
+            Destroy(go, scenario.timerScenario);
 
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
-
         }
         private void FixedUpdate()
         {
-            _tTime = Time.time - _startTimeScenario;
+            //Behaviour Management
+            tTime = Time.time - startTimeScenario;
             RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
 
-            //Stock the tTime data in list
-            GetScenarioData(_tTime, crossLineComponent.transform.localPosition);
-            data.Add(_tTime);
-            data.Add(crossLineComponent.transform.localPosition);
-            dataScenario.StockData(data);
-            data = new List<object>();
+            //Data management
+            dataScenario.StockData(tTime, scenarioBehaviour.transform.localPosition);
+            //dataSessionMovuino.StockData(tTime, movuino.MovuinoSensorData.accelerometer, movuino.MovuinoSensorData.gyroscope, movuino.MovuinoSensorData.magnetometer);
+
         }
         void OnDestroy()
         {
-            DataController.testData.Add(dataScenario.CreateDataTable());
-            _dataManagerComponent.GetScenarioExportDataInStructure(_timeListScenario, _mouvementConsigne);
-            _dataManagerComponent.EndScenarioForData = true;
+            DataController.Database_static.Add(dataScenario.CreateDataTable());
+            DataController.Database_static.Add(dataScenario.CreateDataTable());
+            dataManagerComponent.ToCSVGlobal(DataController.Database_static, "OK.csv");
+            dataManagerComponent.EndScenarioForData = true;
             GetComponentInParent<SessionManager>().EndScenario = true;
-            _reactTime = 0;
-            crossLineComponent.Hitted = false;
+            reactTime = 0;
+            scenarioBehaviour.Hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
 
         //Methods that set variables
         public override void Init(StructScenarios structScenarios)
         {
+            //Initialize this Class
+            //Scenario controller
             scenario = Scenario<CrossLineStruct>.CreateScenarioObject<ScenarioCrossLine>();
             scenario.Init(structScenarios);
 
-            dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
-
             //Export Data Variables
-            _dataManagerComponent = GetComponentInParent<DataController>();
-            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<CrossLineStruct>(scenario.structScenario)); //Mettre dans 
+            dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
+            dataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
+            
+            dataScenario.scenarioSumUp = DataController.StructToDictionary<CrossLineStruct>(scenario.structScenario);
+
+            dataManagerComponent = GetComponentInParent<DataController>();
+            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataScenario.scenarioSumUp); //Mettre dans 
 
         }
-
-
-
-        //Method for the data exportation
-        private void GetScenarioData(float time, Vector3 pos)
-        {
-            _timeListScenario.Add(time);
-            _mouvementConsigne.Add(pos);
-        }
-
-
         //Method that change parameters of a moving object
         void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
         {
             System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((_tTime - _previousTime) > crossLineComponent.DeltaTimeChangeAcceleration)
+            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeAcceleration)
             {
-                crossLineComponent.LineAcceleration[0] = random.Next(-accelerationMax, accelerationMax);
-                crossLineComponent.LineAcceleration[1] = random.Next(-accelerationMax, accelerationMax);
-                crossLineComponent.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
+                scenarioBehaviour.LineAcceleration[0] = random.Next(-accelerationMax, accelerationMax);
+                scenarioBehaviour.LineAcceleration[1] = random.Next(-accelerationMax, accelerationMax);
+                scenarioBehaviour.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
 
-                _previousTime = _tTime;
+                previousTime = tTime;
 
             }
         }
-
         //Method for an hitting object
         private void OnEnable()
         {
@@ -209,15 +192,15 @@ namespace SparringManager.Scenarios.CrossLine
             Vector3 rayCastDirection = new Vector3(0, 0, 1);
 
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
-            bool canHit = (_tTime > scenario.timeBeforeHit && (_tTime - scenario.timeBeforeHit) < scenario.deltaHit);
+            bool canHit = (tTime > scenario.timeBeforeHit && (tTime - scenario.timeBeforeHit) < scenario.deltaHit);
 
-            if (rayOnTarget && canHit && crossLineComponent.Hitted == false)
+            if (rayOnTarget && canHit && scenarioBehaviour.Hitted == false)
             {
-                _reactTime = _tTime - scenario.timeBeforeHit;
-                crossLineComponent.Hitted = true;
+                reactTime = tTime - scenario.timeBeforeHit;
+                scenarioBehaviour.Hitted = true;
 
                 Debug.Log("Line touched : " + position2d_);
-                Debug.Log("React time : " + _reactTime);
+                Debug.Log("React time : " + reactTime);
             }
         }
     }

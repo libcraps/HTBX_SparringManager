@@ -87,7 +87,7 @@ namespace SparringManager.Scenarios
         private HitLineBehaviour _hitLineComponent;
 
         //List of the data that we will export 
-        private DataManager.DataController _dataManagerComponent;
+        private DataController _dataManagerComponent;
         private List<Vector3> _mouvementConsign;
         private List<float> _timeListScenario;
 
@@ -103,8 +103,8 @@ namespace SparringManager.Scenarios
             SetControllerVariables();
 
             //Export Data Variables
-            _dataManagerComponent = GetComponentInParent<DataManager.DataController>();
-            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<HitLineStruct>(_hitLineControllerStruct));
+            _dataManagerComponent = GetComponentInParent<DataController>();
+            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, DataController.StructToDictionary<HitLineStruct>(_hitLineControllerStruct));
             _mouvementConsign = new List<Vector3>();
             _timeListScenario = new List<float>();
 

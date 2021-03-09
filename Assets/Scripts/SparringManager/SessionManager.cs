@@ -39,15 +39,15 @@ namespace SparringManager
         //Variables for the DataManager
         private DataManager.DataController _dataManager;
 
-//Properties
-        public int NbScenarios { get { return _scenarios.Length; }}
+        //Properties
+        public int NbScenarios { get { return _scenarios.Length; } }
 //----------------------    METHODS    -------------------------------
 // ---> General Methods
         void Start()
         {
             //DATA MANAGER
             _dataManager = GetComponent<DataManager.DataController>();
-            _dataManager.InitSumUp(_name, _dataManager.FilePath, NbScenarios);
+            _dataManager.InitGeneralSectionSumUp(_name, _dataManager.FilePath, NbScenarios);
 
             _indexScenario = 0;
             EndScenario = true; //We initialise to true in order to go in the loop
@@ -56,11 +56,9 @@ namespace SparringManager
         {
             if (EndScenario == true) //(Time.time - _timeStartScenarioI) > _timerScenarioI)
             {
-                
                 //Deal with the instantiation of scenarios
                 if (_indexScenario < (_scenarios.Length))
                 {
-
                     GameObject renderCamera = this.gameObject.GetComponent<DeviceManager>().RenderCamera;
                     InstantiateAndBuildScenario(_scenarios[_indexScenario], renderCamera, this.gameObject.transform.position);
                     
@@ -109,6 +107,7 @@ namespace SparringManager
             _name = name;
         }
     }
+
     [System.Serializable]
     public struct DeviceStructure
     {

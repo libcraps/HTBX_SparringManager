@@ -9,7 +9,6 @@ namespace SparringManager.Scenarios
 {
     public interface IStructScenario
     {
-        int TimerScenario { get; set; }
     }
     [System.Serializable]
     public struct StructScenarios

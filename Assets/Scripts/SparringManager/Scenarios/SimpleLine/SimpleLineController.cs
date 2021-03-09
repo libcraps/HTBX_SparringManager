@@ -72,7 +72,7 @@ namespace SparringManager.SimpleLine
         private SimpleLineBehaviour _simpleLineComponent;
 
         //List of the data that we will export 
-        private DataManager.DataController _dataManagerComponent;
+        private DataController _dataManagerComponent;
         private List<Vector3> _mouvementConsign;
         private List<float> _timeListScenario;
 
@@ -92,8 +92,8 @@ namespace SparringManager.SimpleLine
             SetControllerVariables();
 
             //Export Data variables
-            _dataManagerComponent = this.gameObject.transform.parent.GetComponentInParent<DataManager.DataController>();
-            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, _dataManagerComponent.StructToDictionary<SimpleLineStruct>(_simpleLineControllerStruct));
+            _dataManagerComponent = this.gameObject.transform.parent.GetComponentInParent<DataController>();
+            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, DataController.StructToDictionary<SimpleLineStruct>(_simpleLineControllerStruct));
 
             _mouvementConsign = new List<Vector3>();
             _timeListScenario = new List<float>();
