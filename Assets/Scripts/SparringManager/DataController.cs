@@ -107,9 +107,6 @@ namespace SparringManager.DataManager
             }
         }
 
-        //Test var static de Data
-        public static List<DataTable> Database_static;
-
 
         //List that sum up the session that we will put in a text file
         private Dictionary<string, Dictionary<string,string>> _sessionSumUp;
@@ -146,7 +143,6 @@ namespace SparringManager.DataManager
             _sessionSumUp = new Dictionary<string, Dictionary<string, string>>();
             _generaralSectionSumUp = new Dictionary<string, string>();
             _dataBase = new List<DataTable>();
-            Database_static = new List<DataTable>();
 
             EndScenarioForData = false;
         }
@@ -162,7 +158,6 @@ namespace SparringManager.DataManager
                 DicoToTXT(_sessionSumUp, _filePath + "SessionSumUp.txt");
                 //_dataManager.ToCSV(_dataManager.DataBase[_indexScenario - 1], ".\\_data\\" + GetNameScenarioI(_indexScenario - 1) + ".csv");
                 ToCSVGlobal(_dataBase, _filePath+ "GlobalSessionData.csv");
-                Debug.Log(Database_static.Count);
                 //ToCSVGlobal(Database_static, _filePath + "GlobalSessionData_TEST.csv");
 
             }

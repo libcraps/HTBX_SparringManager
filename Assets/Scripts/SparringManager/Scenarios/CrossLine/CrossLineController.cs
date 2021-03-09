@@ -79,10 +79,12 @@ namespace SparringManager.Scenarios.CrossLine
 
         public ScenarioCrossLine scenario { get; set; }
         private CrossLineBehaviour scenarioBehaviour;
-        private DataSessionScenario dataScenario;
+
+        public DataSession dataSessionPlayer;
         private Movuino[] movuino;
-        private DataSessionMovuino dataSessionMovuino;
-        private DataSession dataSessionPlayer;
+        public DataSessionMovuino dataSessionMovuino;
+        public DataSessionScenario dataScenario;
+        
         //list of the data that we will export
         private DataController dataManagerComponent;
 
@@ -95,10 +97,10 @@ namespace SparringManager.Scenarios.CrossLine
         //General Methods
         private void Awake()
         {
-            DataSession dataSessionPlayer = DataSession.CreateDataObject<DataSession>();
-            movuino[0] = GameObject.FindGameObjectsWithTag("Movuino")[0].GetComponent<Movuino>();
-            movuino[1] = GameObject.FindGameObjectsWithTag("Movuino")[1].GetComponent<Movuino>();
+            movuino = new Movuino[2];
             nbApparition += 1;
+            Debug.Log(GameObject.FindGameObjectsWithTag("Movuino")[0]);
+
         }
         void Start()
         {
@@ -118,6 +120,9 @@ namespace SparringManager.Scenarios.CrossLine
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
 
+            movuino[0] = GameObject.FindGameObjectsWithTag("Movuino")[0].GetComponent<Movuino>();
+            movuino[1] = GameObject.FindGameObjectsWithTag("Movuino")[1].GetComponent<Movuino>();
+
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
         private void FixedUpdate()
@@ -128,14 +133,14 @@ namespace SparringManager.Scenarios.CrossLine
 
             //Data management
             dataScenario.StockData(tTime, scenarioBehaviour.transform.localPosition);
-            //dataSessionMovuino.StockData(tTime, movuino.MovuinoSensorData.accelerometer, movuino.MovuinoSensorData.gyroscope, movuino.MovuinoSensorData.magnetometer);
-
+            dataSessionMovuino.StockData(tTime, movuino[0].MovuinoSensorData.accelerometer, movuino[0].MovuinoSensorData.gyroscope, movuino[0].MovuinoSensorData.magnetometer);
         }
         void OnDestroy()
         {
-            DataController.Database_static.Add(dataScenario.CreateDataTable());
-            DataController.Database_static.Add(dataScenario.CreateDataTable());
-            dataManagerComponent.ToCSVGlobal(DataController.Database_static, "OK.csv");
+            dataManagerComponent.DataBase.Add(DataSession.JoinDataTable(dataScenario.DataTable, dataSessionMovuino.DataTable));
+            
+            dataManagerComponent.ToCSVGlobal(dataManagerComponent.DataBase, "OKdac.csv");
+
             dataManagerComponent.EndScenarioForData = true;
             GetComponentInParent<SessionManager>().EndScenario = true;
             reactTime = 0;
@@ -151,12 +156,13 @@ namespace SparringManager.Scenarios.CrossLine
             scenario = Scenario<CrossLineStruct>.CreateScenarioObject<ScenarioCrossLine>();
             scenario.Init(structScenarios);
 
-            //Export Data Variables
+            
+            dataSessionPlayer = DataSession.CreateDataObject<DataSession>();
             dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
             dataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
-            
-            dataScenario.scenarioSumUp = DataController.StructToDictionary<CrossLineStruct>(scenario.structScenario);
 
+
+            dataScenario.scenarioSumUp = DataController.StructToDictionary<CrossLineStruct>(scenario.structScenario);
             dataManagerComponent = GetComponentInParent<DataController>();
             dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataScenario.scenarioSumUp); //Mettre dans 
 

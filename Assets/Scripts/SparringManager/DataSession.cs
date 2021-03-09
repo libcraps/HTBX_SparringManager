@@ -7,35 +7,67 @@ namespace SparringManager.DataManager
 {
     public class DataSession
     {
-        DataSessionScenario dataSessionScenario;
-        DataSessionMovuino dataSessionMovuino;
-        DataSessionMovuinoXMM dataSessionMovuinoXMM;
-        DataSessionPolar dataSessionPolar;
-
+        public DataSessionScenario dataSessionScenario;
+        public DataSessionMovuino dataSessionMovuino;
+        public DataSessionMovuinoXMM dataSessionMovuinoXMM;
+        public DataSessionPolar dataSessionPolar;
         public static T CreateDataObject<T>() where T : DataSession, new()
         {
             T dataObject = new T();
             return dataObject;
         }
 
-        public virtual DataTable CreateDataTable()
+        public virtual DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
-            //table = dataSessionScenario.CreateDataTable() + dataSessionMovuino.CreateDataTable();
             return table;
+        }
+
+        public static DataTable MergeDataTable(params DataTable[] data)
+        {
+            DataTable table = new DataTable();
+            foreach (DataTable tab in data)
+            {
+                table.Merge(tab);
+                Debug.Log(table.Rows.Count);
+            }
+            return table;
+        }
+        public static DataTable JoinDataTable(params DataTable[] dataToJoin)
+        {
+            DataTable result = new DataTable();
+
+            foreach (DataTable table in dataToJoin)
+            {
+                foreach (DataColumn column in table.Columns)
+                {
+                    Debug.Log(column.ColumnName);
+                    result.Columns.Add(column.ColumnName);
+                }
+            }
+
+            for (int i=0; i<dataToJoin[0].Rows.Count; i++)
+            {
+                DataRow dr = result.NewRow();
+                foreach (DataTable dt in dataToJoin)
+                {
+                    foreach (DataColumn dc in dt.Columns)
+                        dr[dc.ColumnName] = dt.Rows[i][dc.ColumnName];
+                }
+                result.Rows.Add(dr);
+
+            }
+
+
+
+            return result;
         }
 
         public virtual void StockData(params object[] list)
         {
 
         }
-        public DataSession()
-        {
-            dataSessionScenario = new DataSessionScenario();
-            dataSessionMovuino = new DataSessionMovuino();
-            dataSessionMovuinoXMM = new DataSessionMovuinoXMM();
-            dataSessionPolar = new DataSessionPolar();
-        }
+
 
     }
 
@@ -45,13 +77,15 @@ namespace SparringManager.DataManager
         public List<object> time = new List<object>();
 
         public Dictionary<string, string> scenarioSumUp = new Dictionary<string, string>();
+
+        public DataTable DataTable { get { return this.CreateDataTable(); } }
         public override void StockData(params object[] list)
         {
             time.Add(list[0]);
             consigne.Add(list[1]);
         }
 
-        public override DataTable CreateDataTable()
+        public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
             table.Columns.Add("time", typeof(object));
@@ -72,7 +106,8 @@ namespace SparringManager.DataManager
         public List<object> listGyroscope = new List<object>();
         public List<object> listMagneto = new List<object>();
 
-        
+        public DataTable DataTable { get { return this.CreateDataTable(); } }
+
         public override void StockData(params object[] list)
         {
             listTime.Add(list[0]);
@@ -80,7 +115,7 @@ namespace SparringManager.DataManager
             listGyroscope.Add(list[2]);
             listMagneto.Add(list[3]);
         }
-        public override DataTable CreateDataTable()
+        public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
             table.Columns.Add("Time", typeof(object));
@@ -99,11 +134,14 @@ namespace SparringManager.DataManager
     public class DataSessionPolar : DataSession
     {
         public List<object> listBpm = new List<object>();
+
+        public DataTable DataTable { get { return this.CreateDataTable(); } }
+
         public override void StockData(params object[] list)
         {
             listBpm.Add(list[0]);
         }
-        public override DataTable CreateDataTable()
+        public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
             table.Columns.Add("BPM", typeof(object));
@@ -118,12 +156,13 @@ namespace SparringManager.DataManager
     }
     public class DataSessionMovuinoXMM : DataSession
     {
+        public DataTable DataTable { get { return this.CreateDataTable(); } }
 
         public override void StockData(params object[] list)
         {
 
         }
-        public override DataTable CreateDataTable()
+        public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
 

@@ -8,6 +8,7 @@ TagManager:
   - Trail
   - target
   - HitboxCamera
+  - Movuino
   layers:
   - Default
   - TransparentFX
