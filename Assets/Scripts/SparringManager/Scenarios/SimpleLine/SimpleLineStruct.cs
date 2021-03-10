@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SparringManager.SimpleLine
+namespace SparringManager.Scenarios
 {
     [System.Serializable]
-    public struct SimpleLineStruct
+    public struct SimpleLineStruct : IStructScenario
     {
         //Parameters of the SimpleLineStruct scenario
         [SerializeField]

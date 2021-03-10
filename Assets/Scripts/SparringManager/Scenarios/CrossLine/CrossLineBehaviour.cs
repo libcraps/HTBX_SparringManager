@@ -32,7 +32,7 @@ namespace SparringManager.Scenarios
     {
         //General variables of a MovingLine
         private CrossLineStruct structScenari;
-
+        public ScenarioCrossLine scenario;
         private float[] _lineAcceleration;
         private int _deltaTimeChangeAcceleration;
         public float[] LineAcceleration
@@ -101,6 +101,11 @@ namespace SparringManager.Scenarios
         public override void Init(IStructScenario structScenari)
         {
             this.structScenari = (CrossLineStruct)structScenari;
+        }
+        public void InitClass(ScenarioCrossLine scenario)
+        {
+            this.scenario = scenario;
+            
         }
 
         public void MoveLine(float lineHorizontalAcceleration, float lineVerticalAcceleration)

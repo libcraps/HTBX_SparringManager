@@ -84,8 +84,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709b45a27c5c03449a26fcabf63cea98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scenarioComposant: {fileID: 1783334052419977111, guid: c4923aab62d736d418abd16552fa40ad,
+  _prefabScenarioComposant: {fileID: 1783334052419977111, guid: c4923aab62d736d418abd16552fa40ad,
     type: 3}
+  movuino: []
 --- !u!114 &8003701153739847990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,12 +103,10 @@ MonoBehaviour:
     _scenarioPrefab: {fileID: 4281324017865965865}
     _timerScenario: 0
     _simpleLineStruct:
-      _timerScenario: 0
       _accelerationMax: 18
       _deltaTimeMax: 5
       _deltaTimeMin: 3
     _hitLineStruct:
-      _timerScenario: 0
       _hitPrefab: {fileID: 0}
       _accelerationMax: 0
       _deltaTimeMax: 0
@@ -116,7 +115,6 @@ MonoBehaviour:
       _timeBeforeHit: 0
       _fixPosHit: 0
     _crossLineStruct:
-      _timerScenario: 0
       _hitPrefab: {fileID: 0}
       _accelerationMax: 0
       _deltaTimeMax: 0
@@ -125,7 +123,6 @@ MonoBehaviour:
       _timeBeforeHit: 0
       _fixPosHit: 0
     _splHitLineStruct:
-      _timerScenario: 0
       _hitPrefab: {fileID: 0}
       _accelerationMax: 0
       _deltaTimeMax: 0

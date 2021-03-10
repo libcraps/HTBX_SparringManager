@@ -4,8 +4,6 @@
  * https://github.com/thomasfredericks/UnityOSC
  */
 
-
-
 using System.Collections.Generic;
 using SparringManager.DataManager;
 using UnityEngine;
@@ -13,23 +11,32 @@ using UnityEngine;
 namespace SparringManager.Device
 {
 	/// <summary>
-	/// Inherit this if you want to represent a Movuino Data Type
+	/// Inherit this if you want to represent a Movuino Data Type, it allows you to connect on an OSC server and get data of the correspondant address:
 	/// </summary>
 	public abstract class OSCDataHandler
 	{
+		/*
+		 * Mother class that represent and connect device on OSC server
+		 * Type of data handled : movuino 9axes, bpm, and xmm (gesture)
+		 * OSCAddress :
+		 *		/data : movuino 9axes
+		 *		/gesture : xmm
+		 *		/bpm : polar
+		 */
 		public string OSCAddress { get { return GetAddress (); } }
 		public class WrongOSCDataHandlerFormatException : UnityException
 		{
 
 		};
 
-		// <=> constructeur
+		// <=> constructor
 		public static T CreateOSCDataHandler<T> () where T : OSCDataHandler, new()
 		{
 			T newMovuinoData = new T ();
 			return newMovuinoData;
 		}
 
+		//Method that read data of an OSCmessage
 		public abstract void ToOSCDataHandler (OscMessage message);
 		protected abstract string GetAddress();
 	}
@@ -89,7 +96,6 @@ namespace SparringManager.Device
 
     public class MovuinoXMM : OSCDataHandler
 	{
-
 		public int gestId;
 		public float gestProg;
 

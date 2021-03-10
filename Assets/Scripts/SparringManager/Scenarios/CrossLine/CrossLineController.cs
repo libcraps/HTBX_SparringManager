@@ -60,6 +60,7 @@ namespace SparringManager.Scenarios.CrossLine
      */
     public class CrossLineController : ScenarioControllerBehaviour
     {
+        #region Attributs
         //----------- ATTRIBUTS ----------------------
         [SerializeField]
         private GameObject _prefabScenarioComposant;
@@ -80,8 +81,8 @@ namespace SparringManager.Scenarios.CrossLine
         public ScenarioCrossLine scenario { get; set; }
         private CrossLineBehaviour scenarioBehaviour;
 
-        public DataSession dataSessionPlayer;
-        private Movuino[] movuino;
+        public DataSessionPlayer dataSessionPlayer;
+        public Movuino[] movuino;
         public DataSessionMovuino dataSessionMovuino;
         public DataSessionScenario dataScenario;
         
@@ -92,15 +93,15 @@ namespace SparringManager.Scenarios.CrossLine
         private float tTime;
         private float reactTime;
         private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        #endregion
 
+        #region Methods
         //------------ METHODS -------------------
         //General Methods
         private void Awake()
         {
             movuino = new Movuino[2];
             nbApparition += 1;
-            Debug.Log(GameObject.FindGameObjectsWithTag("Movuino")[0]);
-
         }
         void Start()
         {
@@ -120,6 +121,7 @@ namespace SparringManager.Scenarios.CrossLine
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
 
+            //Get to other devices
             movuino[0] = GameObject.FindGameObjectsWithTag("Movuino")[0].GetComponent<Movuino>();
             movuino[1] = GameObject.FindGameObjectsWithTag("Movuino")[1].GetComponent<Movuino>();
 
@@ -137,9 +139,8 @@ namespace SparringManager.Scenarios.CrossLine
         }
         void OnDestroy()
         {
+
             dataManagerComponent.DataBase.Add(DataSession.JoinDataTable(dataScenario.DataTable, dataSessionMovuino.DataTable));
-            
-            dataManagerComponent.ToCSVGlobal(dataManagerComponent.DataBase, "OKdac.csv");
 
             dataManagerComponent.EndScenarioForData = true;
             GetComponentInParent<SessionManager>().EndScenario = true;
@@ -157,7 +158,7 @@ namespace SparringManager.Scenarios.CrossLine
             scenario.Init(structScenarios);
 
             
-            dataSessionPlayer = DataSession.CreateDataObject<DataSession>();
+            dataSessionPlayer = DataSession.CreateDataObject<DataSessionPlayer>();
             dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
             dataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
 
@@ -209,5 +210,6 @@ namespace SparringManager.Scenarios.CrossLine
                 Debug.Log("React time : " + reactTime);
             }
         }
+        #endregion
     }
 }

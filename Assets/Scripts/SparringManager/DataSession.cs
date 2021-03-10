@@ -5,12 +5,11 @@ using UnityEngine;
 
 namespace SparringManager.DataManager
 {
-    public class DataSession
+    /*
+     * Classes that allows us to deal with result of a session
+     */
+    public abstract class DataSession
     {
-        public DataSessionScenario dataSessionScenario;
-        public DataSessionMovuino dataSessionMovuino;
-        public DataSessionMovuinoXMM dataSessionMovuinoXMM;
-        public DataSessionPolar dataSessionPolar;
         public static T CreateDataObject<T>() where T : DataSession, new()
         {
             T dataObject = new T();
@@ -35,6 +34,9 @@ namespace SparringManager.DataManager
         }
         public static DataTable JoinDataTable(params DataTable[] dataToJoin)
         {
+            /*
+             * Join horizontally datatables 
+             */
             DataTable result = new DataTable();
 
             foreach (DataTable table in dataToJoin)
@@ -57,18 +59,31 @@ namespace SparringManager.DataManager
                 result.Rows.Add(dr);
 
             }
-
-
-
             return result;
         }
-
         public virtual void StockData(params object[] list)
         {
 
         }
+    }
 
+    public class DataSessionPlayer : DataSession
+    {
 
+        public Dictionary<string, string> scenarioSumUp = new Dictionary<string, string>();
+
+        public DataTable DataTable { get { return this.CreateDataTable(); } }
+        public override void StockData(params object[] list)
+        {
+
+        }
+
+        public override DataTable CreateDataTable(params DataTable[] data)
+        {
+            DataTable table = new DataTable();
+
+            return table;
+        }
     }
 
     public class DataSessionScenario : DataSession

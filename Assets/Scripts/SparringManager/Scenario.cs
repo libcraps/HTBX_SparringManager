@@ -60,8 +60,6 @@ namespace SparringManager.Scenarios
         public float timerScenario { get; set;  }
         public float startTimeScenario { get; set; }
 
-
-
         public override void Init(StructScenarios structScenarios)
         {
             _structScenario = new CrossLineStruct();
@@ -70,8 +68,6 @@ namespace SparringManager.Scenarios
             timerScenario = structScenarios.TimerScenario;
         }
     }
-
-
 
     public class ScenarioHitLine : Scenario<HitLineStruct>
     {
@@ -107,5 +103,35 @@ namespace SparringManager.Scenarios
         }
 
     }
+    public class ScenarioSimpleLine : Scenario<SimpleLineStruct>
+    {
+        private SimpleLineStruct _structScenario;
+        public override SimpleLineStruct structScenario
+        {
+            get
+            {
+                return _structScenario;
+            }
+            set
+            {
+                _structScenario = value;
+            }
+        }
 
+        //Usefull parameters of the scenario, they are in the crossLineStructure
+        public int accelerationMax { get { return _structScenario.AccelerationMax; } }
+        public int deltaTimeMax { get { return _structScenario.DeltaTimeMax; } }
+        public int deltaTimeMin { get { return _structScenario.DeltaTimeMin; } }
+
+        public float timerScenario { get; set; }
+        public float startTimeScenario { get; set; }
+        public override void Init(StructScenarios structScenarios)
+        {
+            _structScenario = new SimpleLineStruct();
+            _structScenario = structScenarios.SimpleLineStruct;
+
+            timerScenario = structScenarios.TimerScenario;
+        }
+
+    }
 }

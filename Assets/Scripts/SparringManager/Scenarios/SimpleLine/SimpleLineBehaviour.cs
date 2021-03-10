@@ -3,7 +3,7 @@ using SparringManager;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SparringManager.SimpleLine
+namespace SparringManager.Scenarios
 {
     /* Class nof the SimpleLine prefab
      * 
@@ -21,9 +21,11 @@ namespace SparringManager.SimpleLine
      *      void MoveLine(int lineAcceleration) : moves the line at the lineAcceleration
      *      Void LineInCameraRange() : Verifie that the line stay in the camera range
      */
-    public class SimpleLineBehaviour : MonoBehaviour
+    public class SimpleLineBehaviour : ScenarioDisplayBehaviour
     {
         //General variables of a MovingLine
+        private SimpleLineStruct structScenari;
+
         private float _lineAcceleration;
         private int _deltaTimeChangeAcceleration = 0;
         public float LineAcceleration
@@ -64,10 +66,13 @@ namespace SparringManager.SimpleLine
         {
             _tTime = Time.time - _startTimeScenario;
             LineInCameraRange();
-            MoveLine(ref _lineAcceleration);
+            MoveLine(_lineAcceleration);
         }
-
-        void MoveLine(ref float lineHorizontalAcceleration)
+        public override void Init(IStructScenario structScenari)
+        {
+            this.structScenari = (SimpleLineStruct)structScenari;
+        }
+        void MoveLine(float lineHorizontalAcceleration)
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
             this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(lineHorizontalAcceleration, 0, 0);

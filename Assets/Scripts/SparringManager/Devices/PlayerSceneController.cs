@@ -86,10 +86,6 @@ namespace SparringManager.Device
                 _mouvementPlayer = new List<Vector3>();
             }
 
-            if (GetComponentInParent<SessionManager>().EndScenario == false)
-            {
-                GetPlayerSceneData(_player.transform.localPosition, _bag.transform.localPosition); // We only stock the data of the scene hen a scenario is running
-            }
         }
         
         public void Init(StructPlayerScene structPlayerScene)
@@ -98,12 +94,6 @@ namespace SparringManager.Device
             _structPlayerScene = structPlayerScene;
         }
 
-        private void GetPlayerSceneData(Vector3 posPlayer, Vector3 posBag)
-        {
-            //Stock Data in the list
-            _mouvementBag.Add(posBag);
-            _mouvementPlayer.Add(posPlayer);
-        }
         GameObject InstantiateDevice<StructDevice>(StructDevice structure, GameObject parent) where StructDevice : IStructDevice
         {
             GameObject prefab = null;

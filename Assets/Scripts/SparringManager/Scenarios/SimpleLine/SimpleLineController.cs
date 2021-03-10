@@ -1,6 +1,7 @@
 ﻿using SparringManager.Scenarios;
 using SparringManager.DataManager;
 using SparringManager.Structures;
+using SparringManager.Device;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,111 +49,108 @@ namespace SparringManager.SimpleLine
      *      void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax) : Randomize the movement of the cross
      *      
      */
-    public class SimpleLineController : MonoBehaviour
+    public class SimpleLineController : ScenarioControllerBehaviour
     {
+        #region Attributs
         //----------- ATTRIBUTS ----------------------
         //Usefull parameters of the scenario, they are in the SimpleLineStructure
-        private int _accelerationMax;
-        private int _deltaTimeMax;
-        private int _deltaTimeMin;
-        private float _timerScenario;
-
-        private float _previousTime;
-        private float _tTime;
-        private float _startTimeScenario;
+        [SerializeField]
+        private GameObject _prefabScenarioComposant;
+        public override GameObject PrefabScenarioComposant
+        {
+            get
+            {
+                return _prefabScenarioComposant;
+            }
+            set
+            {
+                _prefabScenarioComposant = value;
+            }
+        }
 
         public static int nbApparition;
         //Object that contain datas (structures)
-        private Scenario _scenarioControllerComponent;
-        private StructScenarios _controllerStruct;
-        private SimpleLineStruct _simpleLineControllerStruct;
+        private ScenarioSimpleLine scenario { get; set; }
+        private SimpleLineBehaviour scenarioBehaviour;
 
-        [SerializeField]
-        private GameObject _scenarioComposant;
-        private SimpleLineBehaviour _simpleLineComponent;
+        public DataSessionPlayer dataSessionPlayer;
+        public Movuino[] movuino;
+        public DataSessionMovuino dataSessionMovuino;
+        public DataSessionScenario dataScenario;
 
         //List of the data that we will export 
-        private DataController _dataManagerComponent;
-        private List<Vector3> _mouvementConsign;
-        private List<float> _timeListScenario;
+        private DataController dataManagerComponent;
 
+        private float previousTime;
+        private float tTime;
+        private float reactTime;
+        private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        #endregion
+
+        #region Methods
         //------------ METHODS -------------------
         //General Methods
         private void Awake()
         {
             nbApparition += 1;
-            //INITIALISATION OF VARIABLES 
-            //Scenario Variables
+            movuino = new Movuino[2];
 
-            _controllerStruct = new StructScenarios();
-            _scenarioControllerComponent = GetComponent<Scenario>();
-
-            _controllerStruct = _scenarioControllerComponent.ControllerStruct;
-            _simpleLineControllerStruct = _controllerStruct.SimpleLineStruct;
-            SetControllerVariables();
-
-            //Export Data variables
-            _dataManagerComponent = this.gameObject.transform.parent.GetComponentInParent<DataController>();
-            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, DataController.StructToDictionary<SimpleLineStruct>(_simpleLineControllerStruct));
-
-            _mouvementConsign = new List<Vector3>();
-            _timeListScenario = new List<float>();
-
-            //Initialisation of the time
-            _startTimeScenario = Time.time;
-            _tTime = Time.time - _startTimeScenario;
-            _previousTime = _tTime;
-
-            Debug.Log(this.gameObject.name + " for " + _timerScenario + " seconds");
         }
         void Start()
         {
+            //Initialisation of the time
+            startTimeScenario = Time.time;
+            tTime = Time.time - startTimeScenario;
+            previousTime = tTime;
 
             Vector3 _pos3d;
             _pos3d.x = this.gameObject.transform.position.x;
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
-            Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
+            var go = Instantiate(_prefabScenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform);
+            scenarioBehaviour = go.GetComponent<SimpleLineBehaviour>();
+            scenarioBehaviour.Init(scenario.structScenario);
+            Destroy(go, scenario.timerScenario);
 
-            _simpleLineComponent = GetComponentInChildren<SimpleLineBehaviour>();
+            //Get to other devices
+            movuino[0] = GameObject.FindGameObjectsWithTag("Movuino")[0].GetComponent<Movuino>();
+            movuino[1] = GameObject.FindGameObjectsWithTag("Movuino")[1].GetComponent<Movuino>();
+            Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
         private void FixedUpdate()
         {
-            _tTime = Time.time - _startTimeScenario;
-            RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
+            tTime = Time.time - startTimeScenario;
+            RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
 
-            //Stock the tTime data in list
-            GetConsigne(_tTime, _simpleLineComponent.transform.localPosition);
+            //Data management
+            dataScenario.StockData(tTime, scenarioBehaviour.transform.localPosition);
+            dataSessionMovuino.StockData(tTime, movuino[0].MovuinoSensorData.accelerometer, movuino[0].MovuinoSensorData.gyroscope, movuino[0].MovuinoSensorData.magnetometer);
         }
         void OnDestroy()
         {
-            _dataManagerComponent.GetScenarioExportDataInStructure(_timeListScenario, _mouvementConsign);
-            _dataManagerComponent.EndScenarioForData = true;
+            dataManagerComponent.DataBase.Add(DataSession.JoinDataTable(dataScenario.DataTable, dataSessionMovuino.DataTable));
+
+            dataManagerComponent.ToCSVGlobal(dataManagerComponent.DataBase, "OKdac.csv");
+            dataManagerComponent.EndScenarioForData = true;
             GetComponentInParent<SessionManager>().EndScenario = true;
             Debug.Log(this.gameObject.name + " has been destroyed");
         }
-
-        //Methods that set variables        
-        private void SetComponentVariables()
+        //Methods that set variables
+        public override void Init(StructScenarios structScenarios)
         {
+            //Initialize this Class
+            //Scenario controller
+            scenario = Scenario<SimpleLineStruct>.CreateScenarioObject<ScenarioSimpleLine>();
+            scenario.Init(structScenarios);
 
-        }
-        private void SetControllerVariables()
-        {
-            _timerScenario = _controllerStruct.TimerScenario;
-            _accelerationMax = _simpleLineControllerStruct.AccelerationMax;
-            _deltaTimeMax = _simpleLineControllerStruct.DeltaTimeMax;
-            _deltaTimeMin = _simpleLineControllerStruct.DeltaTimeMin;
-        }
+            dataSessionPlayer = DataSession.CreateDataObject<DataSessionPlayer>();
+            dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
+            dataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
 
-        //Method for the data exportation
-        private void GetConsigne(float time, Vector3 pos)
-        {
-            //Put tTime's data in list
-            _mouvementConsign.Add(pos);
-            _timeListScenario.Add(time);
-            
+            dataScenario.scenarioSumUp = DataController.StructToDictionary<SimpleLineStruct>(scenario.structScenario);
+            dataManagerComponent = GetComponentInParent<DataController>();
+            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataScenario.scenarioSumUp); //Mettre dans 
         }
 
         //Method that changes parameters of a moving object
@@ -160,13 +158,14 @@ namespace SparringManager.SimpleLine
         {
             System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((_tTime - _previousTime) > _simpleLineComponent.DeltaTimeChangeAcceleration)
+            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeAcceleration)
             {
-                _simpleLineComponent.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
-                _simpleLineComponent.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
+                scenarioBehaviour.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
+                scenarioBehaviour.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
 
-                _previousTime = _tTime;
+                previousTime = tTime;
             }
         }
-    }   
+        #endregion
+    }
 }
