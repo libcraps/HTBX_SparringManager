@@ -63,7 +63,9 @@ namespace SparringManager
         private void Start()
         {
             _nbPlayer = GetComponentInParent<MainEnvironnement>().NbPlayer;
+
             this.gameObject.name += "_" + _indexSac;
+
             _posRenderCamera = new Vector3();
             _posRenderCamera = this.gameObject.transform.position;
 

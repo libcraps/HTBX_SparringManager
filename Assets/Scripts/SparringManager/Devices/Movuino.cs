@@ -21,6 +21,7 @@ namespace SparringManager.Device
         MovuinoSensorData movuinoSensorData = OSCDataHandler.CreateOSCDataHandler<MovuinoSensorData>();
         MovuinoXMM movuinoXMMdata = OSCDataHandler.CreateOSCDataHandler<MovuinoXMM>();
 
+        public string Id { get { return _id; } }
         public MovuinoSensorData MovuinoSensorData { get { return movuinoSensorData; } }
         public MovuinoXMM MovuinoXMM { get { return movuinoXMMdata; } }
 

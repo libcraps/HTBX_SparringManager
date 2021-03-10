@@ -148,8 +148,7 @@ namespace SparringManager.SplHitLine
             scenario = Scenario<SplHitLineStruct>.CreateScenarioObject<ScenarioSplHitLine>();
             scenario.Init(structScenarios);
 
-
-            dataSessionPlayer = DataSession.CreateDataObject<DataSessionPlayer>();
+            dataSessionPlayer = new DataSessionPlayer(1);
             dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
             dataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
 

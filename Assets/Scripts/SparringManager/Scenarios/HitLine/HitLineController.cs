@@ -72,23 +72,27 @@ namespace SparringManager.Scenarios
 
         public static int nbApparition;
 
+        //Scenario
         public ScenarioHitLine scenario { get; set; }
         private HitLineBehaviour scenarioBehaviour;
 
+        //Data
         public DataSessionPlayer dataSessionPlayer;
-        public Movuino[] movuino;
-        public DataSessionMovuino dataSessionMovuino;
-        public DataSessionScenario dataScenario;
-
-        //list of the data that we will export
         private DataController dataManagerComponent;
 
+        //Devices
+        public Movuino[] movuino;
+        public Polar polar;
+        public ViveTrackerManager viveTrackerManager;
+
+        //Time
         private float previousTime;
         private float tTime;
         private float reactTime;
         private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         #endregion
 
+        #region Methods
         //------------ METHODS -------------------
         //General Methods
         private void Awake()
@@ -114,7 +118,7 @@ namespace SparringManager.Scenarios
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
 
-            //Get to other devices
+            //Get other devices
             movuino[0] = GameObject.FindGameObjectsWithTag("Movuino")[0].GetComponent<Movuino>();
             movuino[1] = GameObject.FindGameObjectsWithTag("Movuino")[1].GetComponent<Movuino>();
 
@@ -125,13 +129,13 @@ namespace SparringManager.Scenarios
             //Update the "situation" of the line
             tTime = Time.time - startTimeScenario;
             RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
+
             //Data management
-            dataScenario.StockData(tTime, scenarioBehaviour.transform.localPosition);
-            dataSessionMovuino.StockData(tTime, movuino[0].MovuinoSensorData.accelerometer, movuino[0].MovuinoSensorData.gyroscope, movuino[0].MovuinoSensorData.magnetometer);
+
         }
         void OnDestroy()
         {
-            dataManagerComponent.DataBase.Add(DataSession.JoinDataTable(dataScenario.DataTable, dataSessionMovuino.DataTable));
+            dataManagerComponent.DataBase.Add(dataSessionPlayer.DataTable);
 
             dataManagerComponent.EndScenarioForData = true;
 
@@ -151,13 +155,10 @@ namespace SparringManager.Scenarios
             scenario.Init(structScenarios);
 
             //Data
-            dataSessionPlayer = DataSession.CreateDataObject<DataSessionPlayer>();
-            dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
-            dataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
-            dataScenario.scenarioSumUp = DataController.StructToDictionary<HitLineStruct>(scenario.structScenario);
+            dataSessionPlayer = new DataSessionPlayer(1);
+            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<HitLineStruct>(scenario.structScenario);
             dataManagerComponent = GetComponentInParent<DataController>();
-            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataScenario.scenarioSumUp);
-
+            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp);
         }
 
         //Method that change parameters of a moving object
@@ -201,6 +202,7 @@ namespace SparringManager.Scenarios
                 Debug.Log("React time : " + reactTime);
             }
         }
+        #endregion
 
     }
 }

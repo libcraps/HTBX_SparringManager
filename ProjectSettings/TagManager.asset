@@ -9,6 +9,7 @@ TagManager:
   - target
   - HitboxCamera
   - Movuino
+  - Polar
   layers:
   - Default
   - TransparentFX

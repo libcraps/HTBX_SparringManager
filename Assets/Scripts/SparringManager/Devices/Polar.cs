@@ -17,7 +17,7 @@ namespace SparringManager.Device
         /// </summary>
         private PolarBPM polarBPM;
         private List<float> _listBPM;
-
+        public PolarBPM PolarBPM { get { return polarBPM; } }
         private string _id;
         private string _idDataBpm;
 
@@ -38,17 +38,11 @@ namespace SparringManager.Device
 
         private void FixedUpdate()
         {
-            StockData(polarBPM.bpm);
         }
 
         public void Init(string id)
         {
             _id = id;
-        }
-
-        private void StockData(float bpm)
-        {
-            _listBPM.Add(bpm);
         }
     }
 

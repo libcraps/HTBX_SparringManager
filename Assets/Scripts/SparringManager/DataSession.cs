@@ -9,12 +9,16 @@ namespace SparringManager.DataManager
      * Classes that allows us to deal with result of a session
      * Mother class : DataSession
      * 
+     * With this class we can create data type and stock data in order to transfert everything to the dataController
+     * 
      * Data type :
      *      DataSessionPlayer : general data of a player (it has others data)
      *      DataSessionScenario : data of the scenario like target positions..etc
      *      DataSessionMovuino : data of movuino
      *      DataSessionPolar : data of the polar
      *      DataSessionMovuinoXMM : data of xmm
+     *      DataSessonHit : data of hit
+     *      
      */
     public abstract class DataSession
     {
@@ -29,7 +33,6 @@ namespace SparringManager.DataManager
             DataTable table = new DataTable();
             return table;
         }
-
         public static DataTable MergeDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
@@ -43,7 +46,7 @@ namespace SparringManager.DataManager
         public static DataTable JoinDataTable(params DataTable[] dataToJoin)
         {
             /*
-             * Join horizontally datatables 
+             * Join horizontally different datatables that are in dataToJoin
              */
             DataTable result = new DataTable();
 
@@ -77,33 +80,36 @@ namespace SparringManager.DataManager
 
     public class DataSessionPlayer : DataSession
     {
+        /*
+         * Class that represent all the data of a player during the session
+         */
         public DataSessionScenario DataSessionScenario;
         public DataSessionMovuino DataSessionMovuino;
         public DataSessionMovuinoXMM DataSessionMovuinoXMM;
         public DataSessionPolar DataSessionPolar;
+        public DataSessionHit DataSessionHit;
+        public DataSessionViveTracker DataSessionViveTracker;
 
         public DataTable DataTable { get { return this.CreateDataTable(); } }
         public override void StockData(params object[] list)
         {
 
         }
-        public override DataTable CreateDataTable(params DataTable[] data)
+        public override DataTable CreateDataTable(params DataTable[] data) //TODO
         {
-            DataTable table = new DataTable();
-
-            return table;
+            return JoinDataTable(DataSessionScenario.DataTable, DataSessionHit.DataTable, DataSessionPolar.DataTable);
         }
-
-        public DataSessionPlayer()
+        public DataSessionPlayer(int nbMov)
         {
             DataSessionScenario = new DataSessionScenario();
             DataSessionMovuino = new DataSessionMovuino();
             DataSessionMovuinoXMM = new DataSessionMovuinoXMM();
+            DataSessionHit = new DataSessionHit();
             DataSessionPolar = new DataSessionPolar();
+            DataSessionViveTracker = new DataSessionViveTracker();
         }
 
     }
-
     public class DataSessionScenario : DataSession
     {
         public List<object> consigne = new List<object>();
@@ -131,9 +137,10 @@ namespace SparringManager.DataManager
             return table;
         }
     }
-
     public class DataSessionMovuino : DataSession
     {
+        public string id;
+
         public List<object> listTime = new List<object>();
         public List<object> listAcceleration = new List<object>();
         public List<object> listGyroscope = new List<object>();
@@ -199,6 +206,57 @@ namespace SparringManager.DataManager
         {
             DataTable table = new DataTable();
 
+
+            return table;
+        }
+    } //TODO
+    public class DataSessionHit : DataSession
+    {
+        public List<object> listTime = new List<object>();
+        public List<object> listHit = new List<object>();
+
+        public float nbHit;
+        public DataTable DataTable { get { return this.CreateDataTable(); } }
+        public override void StockData(params object[] list)
+        {
+            listTime.Add(list[0]);
+            listHit.Add(list[1]);
+        }
+        public override DataTable CreateDataTable(params DataTable[] data)
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("Time", typeof(object));
+            table.Columns.Add("Hit", typeof(object));
+
+            for (int i = 0; i < listHit.Count; i++)
+            {
+                table.Rows.Add(listTime[i], listHit[i]);
+            }
+
+            return table;
+        }
+    }
+    public class DataSessionViveTracker : DataSession
+    {
+        public List<object> listTime = new List<object>();
+        public List<object> listAngle = new List<object>();
+
+        public DataTable DataTable { get { return this.CreateDataTable(); } }
+        public override void StockData(params object[] list)
+        {
+            listTime.Add(list[0]);
+            listAngle.Add(list[1]);
+        }
+        public override DataTable CreateDataTable(params DataTable[] data)
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("Time", typeof(object));
+            table.Columns.Add("PlayerMvt", typeof(object));
+
+            for (int i = 0; i < listAngle.Count; i++)
+            {
+                table.Rows.Add(listTime[i], listAngle[i]);
+            }
 
             return table;
         }

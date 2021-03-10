@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace SparringManager.Scenarios
 {
@@ -24,6 +27,12 @@ namespace SparringManager.Scenarios
         public abstract float timerScenario { get; set; }
         public abstract float startTimeScenario { get; set; }
         public abstract void Init(StructScenarios structScenarios);
+        public virtual object PosToAngle(float screenSize, object coord)
+        {
+            object angle;
+            angle = (float)coord * 180.0/ screenSize;
+            return angle;
+        }
     }
 
     public class ScenarioCrossLine : Scenario<CrossLineStruct>
