@@ -59,7 +59,6 @@ namespace SparringManager
                 //Deal with the instantiation of scenarios
                 if (_indexScenario < (_scenarios.Length))
                 {
-                    GameObject renderCamera = this.gameObject.GetComponent<DeviceManager>().RenderCamera;
                     InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
                     
                     _indexScenario += 1;

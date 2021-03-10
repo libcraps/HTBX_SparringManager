@@ -13,6 +13,7 @@ namespace SparringManager.Scenarios
 
     public abstract class ScenarioDisplayBehaviour : MonoBehaviour
     {
+
         public abstract void Init(IStructScenario structScenarios);
     }
 }

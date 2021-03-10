@@ -1,12 +1,6 @@
-﻿using SparringManager;
-using SparringManager.Scenarios;
-using SparringManager.DataManager;
-using SparringManager.DataManager.HitLine;
-using SparringManager.SimpleLine;
+﻿using SparringManager.DataManager;
+using SparringManager.Device;
 using System.Collections.Generic;
-using System.IO;
-using System.Data;
-using System.Text;
 using UnityEngine;
 
 namespace SparringManager.Scenarios
@@ -58,118 +52,112 @@ namespace SparringManager.Scenarios
      *      Method for an hitting object
      *      void GetHit(Vector2 position2d_) : Get the Hit of the position2d_ (use events)
      */
-    public class HitLineController : MonoBehaviour
+    public class HitLineController : ScenarioControllerBehaviour
     {
+        #region Attributs
         //----------- ATTRIBUTS ----------------------
-        //Usefull parameters of the scenario, they are in the hitLineStructure
-        private int _accelerationMax;
-        private int _deltaTimeMax;
-        private int _deltaTimeMin;
-        private float _deltaHit;
-        private float _timeBeforeHit;
-
-        private float _previousTime;
-        private float _tTime;
-        private float _reactTime;
-        private float _startTimeScenario;
-        private float _timerScenario;
-
-        public static int nbApparition = 0;
-
-        //Object that contain datas (structures)
-        private Scenario _scenarioControllerComponent;
-        private StructScenarios _controllerStruct;
-        private HitLineStruct _hitLineControllerStruct;
-        private HitLineDataStruct _hitLineDataStruct;
-
         [SerializeField]
-        private GameObject _scenarioComposant; //HitLine Prefab
-        private HitLineBehaviour _hitLineComponent;
+        private GameObject _prefabScenarioComposant;
+        public override GameObject PrefabScenarioComposant
+        {
+            get
+            {
+                return _prefabScenarioComposant;
+            }
+            set
+            {
+                _prefabScenarioComposant = value;
+            }
+        }
 
-        //List of the data that we will export 
-        private DataController _dataManagerComponent;
-        private List<Vector3> _mouvementConsign;
-        private List<float> _timeListScenario;
+        public static int nbApparition;
+
+        public ScenarioHitLine scenario { get; set; }
+        private HitLineBehaviour scenarioBehaviour;
+
+        public DataSessionPlayer dataSessionPlayer;
+        public Movuino[] movuino;
+        public DataSessionMovuino dataSessionMovuino;
+        public DataSessionScenario dataScenario;
+
+        //list of the data that we will export
+        private DataController dataManagerComponent;
+
+        private float previousTime;
+        private float tTime;
+        private float reactTime;
+        private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        #endregion
 
         //------------ METHODS -------------------
         //General Methods
         private void Awake()
         {
+            movuino = new Movuino[2];
             nbApparition += 1;
             //INITIALISATION OF VARIABLES 
-            //Scenario Variables
-            _controllerStruct = GetComponent<Scenario>().ControllerStruct;
-            _hitLineControllerStruct = _controllerStruct.HitLineStruct;
-            SetControllerVariables();
-
-            //Export Data Variables
-            _dataManagerComponent = GetComponentInParent<DataController>();
-            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, DataController.StructToDictionary<HitLineStruct>(_hitLineControllerStruct));
-            _mouvementConsign = new List<Vector3>();
-            _timeListScenario = new List<float>();
-
-            //Initialisation of the time and the acceleration
-            _startTimeScenario = Time.time;
-            _tTime = Time.time - _startTimeScenario;
-            _previousTime = _tTime;
-
-            Debug.Log(this.gameObject.name + " for " + _timerScenario + " seconds");
         }
         void Start()
         {
+            //Initialisation of the time and the acceleration
+            startTimeScenario = Time.time;
+            tTime = Time.time - startTimeScenario;
+            previousTime = tTime;
+
             Vector3 _pos3d = new Vector3();
             _pos3d.x = this.gameObject.transform.position.x;
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
-            Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
+            var go = Instantiate(_prefabScenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform);
+            scenarioBehaviour = go.GetComponent<HitLineBehaviour>();
+            scenarioBehaviour.Init(scenario.structScenario);
+            Destroy(go, scenario.timerScenario);
 
-            _hitLineComponent = this.gameObject.GetComponentInChildren<HitLineBehaviour>();
-            SetPrefabComponentVariables(_hitLineComponent);
+            //Get to other devices
+            movuino[0] = GameObject.FindGameObjectsWithTag("Movuino")[0].GetComponent<Movuino>();
+            movuino[1] = GameObject.FindGameObjectsWithTag("Movuino")[1].GetComponent<Movuino>();
+
+            Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
         private void FixedUpdate()
         {
             //Update the "situation" of the line
-            _tTime = Time.time - _startTimeScenario;
-            RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
-
-            //Stock the tTime data in list
-            GetConsigne(_tTime, _hitLineComponent.transform.localPosition);
+            tTime = Time.time - startTimeScenario;
+            RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
+            //Data management
+            dataScenario.StockData(tTime, scenarioBehaviour.transform.localPosition);
+            dataSessionMovuino.StockData(tTime, movuino[0].MovuinoSensorData.accelerometer, movuino[0].MovuinoSensorData.gyroscope, movuino[0].MovuinoSensorData.magnetometer);
         }
         void OnDestroy()
         {
-            _dataManagerComponent.GetScenarioExportDataInStructure(_timeListScenario, _mouvementConsign);
-            _dataManagerComponent.EndScenarioForData = true;
+            dataManagerComponent.DataBase.Add(DataSession.JoinDataTable(dataScenario.DataTable, dataSessionMovuino.DataTable));
+
+            dataManagerComponent.EndScenarioForData = true;
 
             GetComponentInParent<SessionManager>().EndScenario = true;
 
-            _reactTime = 0;
-            _hitLineComponent.Hitted = false;
+            reactTime = 0;
+            scenarioBehaviour.Hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
 
         //Method that set variables.
-        private void SetPrefabComponentVariables(HitLineBehaviour hitLineBehaviour)
+        public override void Init(StructScenarios structScenarios)
         {
-            hitLineBehaviour.TimeBeforeHit = _hitLineControllerStruct.TimeBeforeHit;
-            hitLineBehaviour.DeltaHit = _hitLineControllerStruct.DeltaHit;
-            hitLineBehaviour.FixPosHit = _hitLineControllerStruct.FixPosHit;
-        }
-        private void SetControllerVariables()
-        {
-            _timerScenario = _controllerStruct.TimerScenario;
-            _accelerationMax = _hitLineControllerStruct.AccelerationMax;
-            _deltaTimeMax = _hitLineControllerStruct.DeltaTimeMax;
-            _deltaTimeMin = _hitLineControllerStruct.DeltaTimeMin;
-            _timeBeforeHit = _hitLineControllerStruct.TimeBeforeHit;
-            _deltaHit = _hitLineControllerStruct.DeltaHit;
-        }
+            //Initialize this Class
+            //Scenario controller
+            scenario = Scenario<HitLineStruct>.CreateScenarioObject<ScenarioHitLine>();
+            scenario.Init(structScenarios);
 
-        //Method for the data exportation
-        private void GetConsigne(float time, Vector3 pos)
-        {
-            _mouvementConsign.Add(pos);
-            _timeListScenario.Add(time);
+            //Data
+            dataSessionPlayer = DataSession.CreateDataObject<DataSessionPlayer>();
+            dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
+            dataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
+            dataScenario.scenarioSumUp = DataController.StructToDictionary<HitLineStruct>(scenario.structScenario);
+            dataManagerComponent = GetComponentInParent<DataController>();
+            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataScenario.scenarioSumUp);
+
         }
 
         //Method that change parameters of a moving object
@@ -177,12 +165,12 @@ namespace SparringManager.Scenarios
         {
             System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((_tTime - _previousTime) > _hitLineComponent.DeltaTimeChangeAcceleration)
+            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeAcceleration)
             {
-                _hitLineComponent.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
-                _hitLineComponent.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
+                scenarioBehaviour.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
+                scenarioBehaviour.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
 
-                _previousTime = _tTime;
+                previousTime = tTime;
             }
         }
 
@@ -202,15 +190,15 @@ namespace SparringManager.Scenarios
             Vector3 rayCastDirection = new Vector3(0, 0, 1);
 
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
-            bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
+            bool canHit = (tTime > scenario.timeBeforeHit && (tTime - scenario.timeBeforeHit) < scenario.deltaHit);
 
-            if (rayOnTarget && canHit && _hitLineComponent.Hitted == false)
+            if (rayOnTarget && canHit && scenarioBehaviour.Hitted == false)
             {
-                _reactTime = _tTime - _timeBeforeHit;
-                _hitLineComponent.Hitted = true;
+                reactTime = tTime - scenario.timeBeforeHit;
+                scenarioBehaviour.Hitted = true;
 
                 Debug.Log("Line touched : " + position2d_);
-                Debug.Log("React time : " + _reactTime);
+                Debug.Log("React time : " + reactTime);
             }
         }
 

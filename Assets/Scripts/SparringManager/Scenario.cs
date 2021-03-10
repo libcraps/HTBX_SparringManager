@@ -25,16 +25,15 @@ namespace SparringManager.Scenarios
     public abstract class Scenario<StructScenario> where StructScenario: IStructScenario
     {
         public abstract StructScenario structScenario { get; set; }
-
+        public abstract float timerScenario { get; set; }
+        public abstract float startTimeScenario { get; set; }
         public static T CreateScenarioObject<T>() where T: Scenario<StructScenario>, new()
         {
             T myObj = new T();
             return myObj;
         }
-
         public abstract void Init(StructScenarios structScenarios);
     }
-
 
     public class ScenarioCrossLine : Scenario<CrossLineStruct>
     {
@@ -57,8 +56,8 @@ namespace SparringManager.Scenarios
         public int deltaTimeMin { get { return _structScenario.DeltaTimeMin; } }
         public float deltaHit { get { return _structScenario.DeltaHit; } }
         public float timeBeforeHit { get { return _structScenario.TimeBeforeHit; } }
-        public float timerScenario { get; set;  }
-        public float startTimeScenario { get; set; }
+        public override float timerScenario { get; set;  }
+        public override float startTimeScenario { get; set; }
 
         public override void Init(StructScenarios structScenarios)
         {
@@ -68,7 +67,6 @@ namespace SparringManager.Scenarios
             timerScenario = structScenarios.TimerScenario;
         }
     }
-
     public class ScenarioHitLine : Scenario<HitLineStruct>
     {
         private HitLineStruct _structScenario;
@@ -91,8 +89,8 @@ namespace SparringManager.Scenarios
         public float deltaHit { get { return _structScenario.DeltaHit; } }
         public float timeBeforeHit { get { return _structScenario.TimeBeforeHit; } }
 
-        public float timerScenario { get; set; }
-
+        public override float timerScenario { get; set; }
+        public override float startTimeScenario { get; set; }
 
         public override void Init(StructScenarios structScenarios)
         {
@@ -123,8 +121,8 @@ namespace SparringManager.Scenarios
         public int deltaTimeMax { get { return _structScenario.DeltaTimeMax; } }
         public int deltaTimeMin { get { return _structScenario.DeltaTimeMin; } }
 
-        public float timerScenario { get; set; }
-        public float startTimeScenario { get; set; }
+        public override float timerScenario { get; set; }
+        public override float startTimeScenario { get; set; }
         public override void Init(StructScenarios structScenarios)
         {
             _structScenario = new SimpleLineStruct();

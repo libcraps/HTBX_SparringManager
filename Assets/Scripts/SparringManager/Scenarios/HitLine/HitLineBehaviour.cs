@@ -27,9 +27,12 @@ namespace SparringManager.Scenarios
      *      Void LineInCameraRange() : Verifie that the line stay in the camera range
      *      void SetHit() : Indicates when the playe can hit by changing the color of the line
      */
-    public class HitLineBehaviour : MonoBehaviour
+    public class HitLineBehaviour : ScenarioDisplayBehaviour
     {
         //General variables of a MovingLine
+        private HitLineStruct structScenari;
+        public ScenarioHitLine scenario;
+
         private float _lineAcceleration;
         private int _deltaTimeChangeAcceleration;
         public float LineAcceleration
@@ -56,34 +59,11 @@ namespace SparringManager.Scenarios
         }
 
         //Variables of an Hitting Line
-        //-> variables setted in the
-        private float _timeBeforeHit;
-        private float _deltaHit;
-        private bool _fixPosHit; //Boolean to indicate if the line continue to move when the hit is setted
         private bool _hitted;
         private int _fixPosHitValue = 1; // if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
-        public float DeltaHit
-        {
-            get
-            {
-                return _deltaHit;
-            }
-            set
-            {
-                _deltaHit = value;
-            }
-        }
-        public float TimeBeforeHit
-        {
-            get
-            {
-                return _timeBeforeHit;
-            }
-            set
-            {
-                _timeBeforeHit = value;
-            }
-        }
+        public float DeltaHit { get { return structScenari.DeltaHit; } }
+        public float TimeBeforeHit { get { return structScenari.TimeBeforeHit; } }
+        public bool FixPosHit { get { return structScenari.FixPosHit; } } //Boolean to indicate if the line continue to move when the hit is setted 
         public bool Hitted
         {
             get
@@ -93,17 +73,6 @@ namespace SparringManager.Scenarios
             set
             {
                 _hitted = value;
-            }
-        }
-        public bool FixPosHit
-        {
-            get
-            {
-                return _fixPosHit;
-            }
-            set
-            {
-                _fixPosHit = value;
             }
         }
 
@@ -125,6 +94,11 @@ namespace SparringManager.Scenarios
             SetHit();
         }
 
+        public override void Init(IStructScenario structScenari)
+        {
+            this.structScenari = (HitLineStruct)structScenari;
+        }
+
         private void MoveLine(float lineHorizontalAcceleration)
         {
             this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
@@ -132,12 +106,12 @@ namespace SparringManager.Scenarios
         private void SetHit()
         {
             //change the color of the line if the player have to hit
-            bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
+            bool canHit = (_tTime > TimeBeforeHit && (_tTime - TimeBeforeHit) < DeltaHit);
 
             if (canHit && _hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
             {
                 this.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-                if (_fixPosHit == true)
+                if (FixPosHit == true)
                 {
                     _fixPosHitValue = 0;
                 }

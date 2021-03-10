@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using SparringManager.DataManager;
-using SparringManager.DataManager.CrossLine;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SparringManager.Scenarios
 {
@@ -32,7 +28,7 @@ namespace SparringManager.Scenarios
     {
         //General variables of a MovingLine
         private CrossLineStruct structScenari;
-        public ScenarioCrossLine scenario;
+        private ScenarioCrossLine scenario;
         private float[] _lineAcceleration;
         private int _deltaTimeChangeAcceleration;
         public float[] LineAcceleration
@@ -75,7 +71,6 @@ namespace SparringManager.Scenarios
                 _hitted = value;
             }
         }
-        
 
         //Global Time variable
         private float _startTimeScenario;
@@ -102,10 +97,9 @@ namespace SparringManager.Scenarios
         {
             this.structScenari = (CrossLineStruct)structScenari;
         }
-        public void InitClass(ScenarioCrossLine scenario)
+        public void Init(ScenarioCrossLine scenario)
         {
-            this.scenario = scenario;
-            
+                this.scenario = scenario;
         }
 
         public void MoveLine(float lineHorizontalAcceleration, float lineVerticalAcceleration)

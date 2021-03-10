@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 995074010347548186}
   - component: {fileID: 4776698309030663375}
   - component: {fileID: 1399947875907897093}
-  - component: {fileID: -769618442459256366}
   m_Layer: 0
   m_Name: Scenario_HitLine
   m_TagString: Untagged
@@ -84,44 +83,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e783e86125c68c4fa79ec6adad0b1ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scenarioComposant: {fileID: 1783334052419977111, guid: f9beb69511a1d37498998e40625322f2,
+  _prefabScenarioComposant: {fileID: 1783334052419977111, guid: f9beb69511a1d37498998e40625322f2,
     type: 3}
---- !u!114 &-769618442459256366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4281324017865965865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b2c639998aa984280a05beef7c6b01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _controllerStruct:
-    _scenarioPrefab: {fileID: 0}
-    _timerScenario: 0
-    SimpleLineStruct:
-      _simpleLine: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _timerScenario: 0
-    SimpleHitStruct:
-      _hitPrefab: {fileID: 0}
-    HitLineStruct:
-      _hitPrefab: {fileID: 0}
-      _hitLine: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
-    CrossLineStruct:
-      _hitPrefab: {fileID: 0}
-      _crossLine: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
+  movuino: []
