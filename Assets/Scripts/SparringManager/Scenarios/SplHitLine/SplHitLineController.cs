@@ -1,4 +1,5 @@
 ﻿using SparringManager.DataManager;
+using SparringManager.Device;
 using SparringManager.Scenarios;
 using System.Collections.Generic;
 using System.IO;
@@ -50,135 +51,126 @@ namespace SparringManager.SplHitLine
      *      void SetControllerVariables() : Set variables of the controller
      *      void SetPrefabComponentVAriables(): Set variables of the prefab component
      */
-    public class SplHitLineController : MonoBehaviour
+    public class SplHitLineController : ScenarioControllerBehaviour
     {
-//--------------------------    ATTRIBUTS     ----------------------------------------
-        //Usefull parameters of the scenario, they are in the splhitLineStructure
-        private int _accelerationMax;
-        private int _deltaTimeMax;
-        private int _deltaTimeMin;
-        private float _deltaHit;
-        private float _timeBeforeHit;
+        #region Attributs
+        //----------- ATTRIBUTS ----------------------
+        [SerializeField]
+        private GameObject _prefabScenarioComposant;
+        public override GameObject PrefabScenarioComposant
+        {
+            get
+            {
+                return _prefabScenarioComposant;
+            }
+            set
+            {
+                _prefabScenarioComposant = value;
+            }
+        }
 
-        private float _timerScenario;
-        private float _previousTime;
-        private float _tTime;
-        private float _reactTime;
-        private float _startTimeScenario;
-        
         public static int nbApparition;
 
-        //Object that contain datas (structures)
-        private Scenario _scenarioControllerComponent;
-        private StructScenarios _controllerStruct;
-        private SplHitLineStruct _splHitLineControllerStruct;
+        public ScenarioSplHitLine scenario { get; set; }
+        private SplHitLineBehaviour scenarioBehaviour;
 
-        [SerializeField]
-        private GameObject _scenarioComposant; //splHitLine
-        private SplHitLineBehaviour _splHitLineComponent;
+        public DataSessionPlayer dataSessionPlayer;
+        public Movuino[] movuino;
+        public DataSessionMovuino dataSessionMovuino;
+        public DataSessionScenario dataScenario;
 
-        //List of the data that we will export 
-        private DataController _dataManagerComponent;
-        private List<Vector3> _mouvementConsigne;
-        private List<float> _timeListScenario;
+        //list of the data that we will export
+        private DataController dataManagerComponent;
 
-//--------------------------    METHODS     ----------------------------------------
-// ---> General Methods
+        private float previousTime;
+        private float tTime;
+        private float reactTime;
+        private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        #endregion
+
+        //--------------------------    METHODS     ----------------------------------------
+        // ---> General Methods
         private void Awake()
         {
+            movuino = new Movuino[2];
             nbApparition += 1;
-            //INITIALISATION OF VARIABLES 
-            //Scenario Variables
-            _scenarioControllerComponent = GetComponent<Scenario>();
-            _controllerStruct = _scenarioControllerComponent.ControllerStruct;
-            _splHitLineControllerStruct = _controllerStruct.SplHitLineStruct;
-            SetControllerVariables();
-
-            //Export Data Variables
-            _dataManagerComponent = GetComponentInParent<DataManager.DataController>();
-            _dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, DataController.StructToDictionary<SplHitLineStruct>(_splHitLineControllerStruct));
-
-            _mouvementConsigne = new List<Vector3>();
-            _timeListScenario = new List<float>();
-
-            //Initialisation of the time and the acceleration
-            _startTimeScenario = Time.time;
-            _tTime = Time.time - _startTimeScenario;
-            _previousTime = _tTime;
-
-            Debug.Log(this.gameObject.name + " for " + _timerScenario + " seconds");
         }
         void Start()
         {
+            //Initialisation of the time and the acceleration
+            startTimeScenario = Time.time;
+            tTime = Time.time - startTimeScenario;
+            previousTime = tTime;
+
             Vector3 _pos3d = new Vector3();
             _pos3d.x = this.gameObject.transform.position.x;
             _pos3d.y = this.gameObject.transform.position.y;
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
-            Destroy(Instantiate(_scenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform), _timerScenario);
+            var go = Instantiate(_prefabScenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform);
+            scenarioBehaviour = go.GetComponent<SplHitLineBehaviour>();
+            scenarioBehaviour.Init(scenario.structScenario);
+            Destroy(go, scenario.timerScenario);
 
-            _splHitLineComponent = this.gameObject.GetComponentInChildren<SplHitLineBehaviour>();
-            SetPrefabComponentVariables();
+            movuino[0] = GameObject.FindGameObjectsWithTag("Movuino")[0].GetComponent<Movuino>();
+            movuino[1] = GameObject.FindGameObjectsWithTag("Movuino")[1].GetComponent<Movuino>();
+            Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
+
             SetLineToHit(); // We define at the beginning of the scenario which line will be scale and in which direction
         }
         private void FixedUpdate()
         {
             //Update the "situation" of the line
-            _tTime = Time.time - _startTimeScenario;
-            RandomizeParametersLineMovement(_accelerationMax, _deltaTimeMin, _deltaTimeMax);
+            tTime = Time.time - startTimeScenario;
+            RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
 
-            //Stock the tTime data in lists
-            GetConsigne(_tTime, _splHitLineComponent.transform.localPosition);
+            //Data management
+            dataScenario.StockData(tTime, scenarioBehaviour.transform.localPosition);
+            dataSessionMovuino.StockData(tTime, movuino[0].MovuinoSensorData.accelerometer, movuino[0].MovuinoSensorData.gyroscope, movuino[0].MovuinoSensorData.magnetometer);
         }
         void OnDestroy()
         {
-            _dataManagerComponent.GetScenarioExportDataInStructure(_timeListScenario, _mouvementConsigne);
-            _dataManagerComponent.EndScenarioForData = true;
+            dataManagerComponent.DataBase.Add(DataSession.JoinDataTable(dataScenario.DataTable, dataSessionMovuino.DataTable));
+            dataManagerComponent.EndScenarioForData = true;
 
             GetComponentInParent<SessionManager>().EndScenario = true;
 
-            _reactTime = 0;
-            _splHitLineComponent.Hitted = false;
+            reactTime = 0;
+            scenarioBehaviour.Hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
 
-// ---> Methods that set variables
-        private void SetPrefabComponentVariables()
+        // ---> Methods that set variables
+        public override void Init(StructScenarios structScenarios)
         {
-            _splHitLineComponent.TimeBeforeHit = _splHitLineControllerStruct.TimeBeforeHit;
-            _splHitLineComponent.DeltaHit = _splHitLineControllerStruct.DeltaHit;
-            _splHitLineComponent.ScaleMaxValue = _splHitLineControllerStruct.ScaleMaxValue;
-            _splHitLineComponent.ScaleSpeed = _splHitLineControllerStruct.ScaleSpeed;
-            _splHitLineComponent.FixPosHit = _splHitLineControllerStruct.FixPosHit;
-        }
-        private void SetControllerVariables()
-        {
-            _timerScenario = _controllerStruct.TimerScenario;
-            _accelerationMax = _splHitLineControllerStruct.AccelerationMax;
-            _deltaTimeMax = _splHitLineControllerStruct.DeltaTimeMax;
-            _deltaTimeMin = _splHitLineControllerStruct.DeltaTimeMin;
-            _timeBeforeHit = _splHitLineControllerStruct.TimeBeforeHit;
-            _deltaHit = _splHitLineControllerStruct.DeltaHit;
+            //Initialize this Class
+            //Scenario controller
+            scenario = Scenario<SplHitLineStruct>.CreateScenarioObject<ScenarioSplHitLine>();
+            scenario.Init(structScenarios);
+
+
+            dataSessionPlayer = DataSession.CreateDataObject<DataSessionPlayer>();
+            dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
+            dataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
+
+
+            dataScenario.scenarioSumUp = DataController.StructToDictionary<SplHitLineStruct>(scenario.structScenario);
+            dataManagerComponent = GetComponentInParent<DataController>();
+            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataScenario.scenarioSumUp); //Mettre dans 
+
         }
 
-// ---> Methods for the data exportation
-        private void GetConsigne(float time, Vector3 pos)
-        {
-            _mouvementConsigne.Add(pos);
-            _timeListScenario.Add(time);
-        }
-
-// ---> Method that change parameters of a moving object
+        // ---> Method that change parameters of a moving object
         private void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
         {
             System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((_tTime - _previousTime) > _splHitLineComponent.DeltaTimeChangeAcceleration)
+            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeAcceleration)
             {
-                _splHitLineComponent.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
-                _splHitLineComponent.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
+                scenarioBehaviour.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
+                scenarioBehaviour.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
 
-                _previousTime = _tTime;
+                previousTime = tTime;
             }
         }
 
@@ -198,16 +190,16 @@ namespace SparringManager.SplHitLine
             Vector3 rayCastDirection = new Vector3(0, 0, 1);
 
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
-            bool canHit = (_tTime > _timeBeforeHit && (_tTime - _timeBeforeHit) < _deltaHit);
+            bool canHit = (tTime > scenario.timeBeforeHit && (tTime - scenario.timeBeforeHit) < scenario.deltaHit);
 
-            if (rayOnTarget && canHit && _splHitLineComponent.Hitted == false)
+            if (rayOnTarget && canHit && scenarioBehaviour.Hitted == false)
             {
-                _reactTime = _tTime - _timeBeforeHit;
+                reactTime = tTime - scenario.timeBeforeHit;
 
-                _splHitLineComponent.Hitted = true;
+                scenarioBehaviour.Hitted = true;
 
                 Debug.Log("Line touched : " + position2d_);
-                Debug.Log("React time : " + _reactTime);
+                Debug.Log("React time : " + reactTime);
             }
         }
 
@@ -218,21 +210,21 @@ namespace SparringManager.SplHitLine
              * Methode that defines which part of the line the player will have to hit and in which direction it will scale
              * 
              */
-            if (_splHitLineComponent.LineToHit == null)
+            if (scenarioBehaviour.LineToHit == null)
             {
                 System.Random random = new System.Random();
                 int randomLine = random.Next(2);
                 int randomScaleSide = random.Next(2);
 
-                _splHitLineComponent.LineToHit = GameObject.Find(_splHitLineComponent.transform.GetChild(randomLine).name);
+                scenarioBehaviour.LineToHit = GameObject.Find(scenarioBehaviour.transform.GetChild(randomLine).name);
 
                 if (randomScaleSide == 0)
                 {
-                    _splHitLineComponent.ScaleSide = -1;
+                    scenarioBehaviour.ScaleSide = -1;
                 }
                 else
                 {
-                    _splHitLineComponent.ScaleSide = 1;
+                    scenarioBehaviour.ScaleSide = 1;
                 }
             }
         }

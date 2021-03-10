@@ -1,9 +1,4 @@
 ﻿using UnityEngine;
-using SparringManager.SimpleLine;
-using SparringManager.SimpleHit;
-using SparringManager.Scenarios;
-using SparringManager.SplHitLine;
-using System.Collections.Generic;
 
 namespace SparringManager.Scenarios
 {

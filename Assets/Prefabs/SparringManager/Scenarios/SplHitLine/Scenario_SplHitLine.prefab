@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 995074010347548186}
   - component: {fileID: 4776698309030663375}
-  - component: {fileID: -769618442459256366}
   - component: {fileID: -4251610764520781735}
   m_Layer: 0
   m_Name: Scenario_SplHitLine
@@ -72,46 +71,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &-769618442459256366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4281324017865965865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b2c639998aa984280a05beef7c6b01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _controllerStruct:
-    _scenarioPrefab: {fileID: 4281324017865965865}
-    _timerScenario: 10
-    _simpleLineStruct:
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-    _hitLineStruct:
-      _hitPrefab: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
-    _crossLineStruct:
-      _hitPrefab: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
-    _splHitLineStruct:
-      _hitPrefab: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
 --- !u!114 &-4251610764520781735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,5 +83,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75961061eb7c71f419ef2129d850d8da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scenarioComposant: {fileID: 6681613717435480839, guid: 3ae745091b767534080dbb6214744d5d,
+  _prefabScenarioComposant: {fileID: 6681613717435480839, guid: 3ae745091b767534080dbb6214744d5d,
     type: 3}
+  movuino: []

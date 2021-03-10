@@ -1,11 +1,9 @@
-﻿using SparringManager.Scenarios;
-using SparringManager.DataManager;
-using SparringManager.Structures;
+﻿using SparringManager.DataManager;
 using SparringManager.Device;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SparringManager.SimpleLine 
+namespace SparringManager.Scenarios
 {
     /* Class nof the SimpleLine Scenario Controller
      * 

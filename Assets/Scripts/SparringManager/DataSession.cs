@@ -7,6 +7,14 @@ namespace SparringManager.DataManager
 {
     /*
      * Classes that allows us to deal with result of a session
+     * Mother class : DataSession
+     * 
+     * Data type :
+     *      DataSessionPlayer : general data of a player (it has others data)
+     *      DataSessionScenario : data of the scenario like target positions..etc
+     *      DataSessionMovuino : data of movuino
+     *      DataSessionPolar : data of the polar
+     *      DataSessionMovuinoXMM : data of xmm
      */
     public abstract class DataSession
     {
@@ -69,21 +77,31 @@ namespace SparringManager.DataManager
 
     public class DataSessionPlayer : DataSession
     {
-
-        public Dictionary<string, string> scenarioSumUp = new Dictionary<string, string>();
+        public DataSessionScenario DataSessionScenario;
+        public DataSessionMovuino DataSessionMovuino;
+        public DataSessionMovuinoXMM DataSessionMovuinoXMM;
+        public DataSessionPolar DataSessionPolar;
 
         public DataTable DataTable { get { return this.CreateDataTable(); } }
         public override void StockData(params object[] list)
         {
 
         }
-
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
 
             return table;
         }
+
+        public DataSessionPlayer()
+        {
+            DataSessionScenario = new DataSessionScenario();
+            DataSessionMovuino = new DataSessionMovuino();
+            DataSessionMovuinoXMM = new DataSessionMovuinoXMM();
+            DataSessionPolar = new DataSessionPolar();
+        }
+
     }
 
     public class DataSessionScenario : DataSession

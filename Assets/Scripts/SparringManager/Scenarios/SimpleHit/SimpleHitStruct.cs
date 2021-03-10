@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SparringManager.SimpleHit
+namespace SparringManager.Scenarios
 {
     [System.Serializable]
-    public struct SimpleHitStruct
+    public struct SimpleHitStruct : IStructScenario
     {
         public SimpleHitStruct(int i)
         {

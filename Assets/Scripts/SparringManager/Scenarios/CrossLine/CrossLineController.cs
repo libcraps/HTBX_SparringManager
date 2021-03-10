@@ -157,8 +157,8 @@ namespace SparringManager.Scenarios.CrossLine
             scenario = Scenario<CrossLineStruct>.CreateScenarioObject<ScenarioCrossLine>();
             scenario.Init(structScenarios);
 
-            
-            dataSessionPlayer = DataSession.CreateDataObject<DataSessionPlayer>();
+
+            dataSessionPlayer = new DataSessionPlayer();
             dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
             dataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
 

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SparringManager.SplHitLine
+namespace SparringManager.Scenarios
 {
     [System.Serializable]
-    public struct SplHitLineStruct
+    public struct SplHitLineStruct : IStructScenario
     {
         [SerializeField]
         private GameObject _hitPrefab;

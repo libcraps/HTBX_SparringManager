@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 291876497317099565}
   - component: {fileID: 306630536942828537}
-  - component: {fileID: 281446996665366514}
   m_Layer: 0
   m_Name: Scenario_SimpleHit
   m_TagString: Untagged
@@ -44,27 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dfb864878f5a6946bbdc0c9eb840227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPrefab: {fileID: 7726583474970102550, guid: 4794520515d32ec4c82475371822dcaa,
+  _prefabScenarioComposant: {fileID: 7726583474970102550, guid: 4794520515d32ec4c82475371822dcaa,
     type: 3}
---- !u!114 &281446996665366514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7392076013187570363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b2c639998aa984280a05beef7c6b01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _controllerStruct:
-    _scenarioPrefab: {fileID: 7392076013187570363}
-    _timerScenario: 8
-    _accelerationMax: 0
-    _deltaTimeMax: 0
-    _deltaTimeMin: 0
-    _deltaHit: 0
-    _timeBeforeHit: 0
-    _startScenario: 8.013629
-    _hitted: 0
+  movuino: []
