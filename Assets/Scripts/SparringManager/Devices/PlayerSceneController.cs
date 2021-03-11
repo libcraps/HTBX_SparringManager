@@ -12,22 +12,24 @@ namespace SparringManager.Device
      * 
      *  Attributs :
      *      StructPlayerScene _structPlayerScene : _Structure of the Player scene
-     *      DataController _dataManagerComponent : DataController Component (it is in the PlayerCamera Prefab)
      *      GameObject _player:  GameObject that represent the player
      *      GameObject _bag: GameObject that represent the bag
-     *      List<Vector3> _mouvementPlayer : List of the positions of the Player
-     *      List<Vector3> _mouvementBag : List of the positions of the bag
+     *      GameObject _movuino
+     *      GameObject _polar
+     *      GameObject _viveTracker
+     *      string _idPlayer
      *      
      *  Methods :
      *      void Start(): used for the first frame
+     *      GameObject InstantiateDevice<StructDevice>(StructDevice structure, GameObject parent) where StructDevice : IStructDevice
+     *      void Init(StructPlayerScene structPlayerScene)
+     *      
      */
     public class PlayerSceneController : MonoBehaviour
     {
         //----------------------    ATTRIBUTS    --------------------------
         [SerializeField]
         private StructPlayerScene _structPlayerScene;
-
-        DataController _dataManagerComponent;
 
         private GameObject _player;
         private GameObject _bag;
@@ -38,9 +40,7 @@ namespace SparringManager.Device
 
         private string _idPlayer;
 
-        private List<Vector3> _mouvementPlayer;
-        private List<Vector3> _mouvementBag;
-
+        public int NbMovuino { get { return _structPlayerScene.StructMovuino.Length; } }
 
         //---------------------------     METHODS    -------------------------------
         private void Start()
@@ -49,42 +49,18 @@ namespace SparringManager.Device
             _bag = GameObject.Find("BagTracker");
             _idPlayer = _structPlayerScene.IdPlayer;
 
-            _dataManagerComponent = gameObject.GetComponentInParent<DataController>();
-
-            _mouvementPlayer = new List<Vector3>();
-            _mouvementBag = new List<Vector3>();
-
             //Instantiation of Devices if Struct.OnOff = On
-            _viveTracker = InstantiateDevice<StructViveTracker>(_structPlayerScene.StructViveTracker, this.gameObject);
-
-            if (_structPlayerScene.StructPolar.OnOff)
-            {
-                _polar = InstantiateDevice<StructPolar>(_structPlayerScene.StructPolar, _player);
-                _polar.GetComponent<Polar>().Init(_idPlayer);
-            }
-
+            _viveTracker = InstantiateDevice<ViveTrackerManager>(_structPlayerScene.StructViveTracker, this.gameObject, _idPlayer);
+            _polar = InstantiateDevice<Polar>(_structPlayerScene.StructPolar, _player, _idPlayer);
 
             foreach (StructMovuino mov in _structPlayerScene.StructMovuino)
             {
-                _movuino = InstantiateDevice<StructMovuino>(mov, _player);
-                if (mov.OnOff == true)
-                {
-                    _movuino.GetComponent<Movuino>().Init("/" + _idPlayer + "/" +  mov.Id);
-                }
+                _movuino = InstantiateDevice<Movuino>(mov, _player, "/" + _idPlayer + "/" + mov.Id);
             }
-
 
         }
         private void FixedUpdate()
         {
-            if (_dataManagerComponent.EndScenarioForData == true) //If the scenario ended and data a completed
-            {
-                _dataManagerComponent.GetSceneExportDataInStructure(_mouvementPlayer, _mouvementBag);
-                _dataManagerComponent.EditDataTable = true; //The data managar can now transform all the data in the datatbale
-
-                _mouvementBag = new List<Vector3>();
-                _mouvementPlayer = new List<Vector3>();
-            }
 
         }
         
@@ -94,13 +70,15 @@ namespace SparringManager.Device
             _structPlayerScene = structPlayerScene;
         }
 
-        GameObject InstantiateDevice<StructDevice>(StructDevice structure, GameObject parent) where StructDevice : IStructDevice
+        GameObject InstantiateDevice<ClassDevice>(IStructDevice structure, GameObject parent, string id) 
+            where ClassDevice : DeviceBehaviour
         {
             GameObject prefab = null;
             //Instantiate Devices
             if (structure.OnOff)
             {
                 prefab = Instantiate(structure.Prefab, parent.transform);
+                prefab.GetComponent<ClassDevice>().Init(id);
                 Debug.Log("Instantiation of " + structure.Prefab.name);
             }
             return prefab;

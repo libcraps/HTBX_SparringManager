@@ -55,36 +55,11 @@ namespace SparringManager.SplHitLine
     {
         #region Attributs
         //----------- ATTRIBUTS ----------------------
-        [SerializeField]
-        private GameObject _prefabScenarioComposant;
-        public override GameObject PrefabScenarioComposant
-        {
-            get
-            {
-                return _prefabScenarioComposant;
-            }
-            set
-            {
-                _prefabScenarioComposant = value;
-            }
-        }
-
         public static int nbApparition;
 
         public ScenarioSplHitLine scenario { get; set; }
         private SplHitLineBehaviour scenarioBehaviour;
 
-        public DataSessionPlayer dataSessionPlayer;
-        public Movuino[] movuino;
-        public DataSessionMovuino dataSessionMovuino;
-        public DataSessionScenario dataScenario;
-
-        //list of the data that we will export
-        private DataController dataManagerComponent;
-
-        private float previousTime;
-        private float tTime;
-        private float reactTime;
         private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         #endregion
 
@@ -92,16 +67,19 @@ namespace SparringManager.SplHitLine
         // ---> General Methods
         private void Awake()
         {
-            movuino = new Movuino[2];
+            cameraObject = this.gameObject.transform.GetComponentInParent<DeviceManager>().RenderCamera;
             nbApparition += 1;
         }
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+            GetDevices();
             //Initialisation of the time and the acceleration
             startTimeScenario = Time.time;
             tTime = Time.time - startTimeScenario;
             previousTime = tTime;
-
+            
+            //Instantiation BehaviourDisplay
             Vector3 _pos3d = new Vector3();
             _pos3d.x = this.gameObject.transform.position.x;
             _pos3d.y = this.gameObject.transform.position.y;
@@ -112,25 +90,26 @@ namespace SparringManager.SplHitLine
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
 
-            movuino[0] = GameObject.FindGameObjectsWithTag("Movuino")[0].GetComponent<Movuino>();
-            movuino[1] = GameObject.FindGameObjectsWithTag("Movuino")[1].GetComponent<Movuino>();
-            Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
-
             SetLineToHit(); // We define at the beginning of the scenario which line will be scale and in which direction
         }
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
             //Update the "situation" of the line
             tTime = Time.time - startTimeScenario;
             RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
 
             //Data management
-            dataScenario.StockData(tTime, scenarioBehaviour.transform.localPosition);
-            dataSessionMovuino.StockData(tTime, movuino[0].MovuinoSensorData.accelerometer, movuino[0].MovuinoSensorData.gyroscope, movuino[0].MovuinoSensorData.magnetometer);
+            dataSessionPlayer.DataSessionScenario.StockData(tTime, scenarioBehaviour.transform.localPosition);
+            dataSessionPlayer.DataSessionPolar.StockData(scenario.PosToAngle(cameraObject.GetComponent<Camera>().orthographicSize, scenarioBehaviour.transform.localPosition.x));//test angle
+            dataSessionPlayer.DataSessionHit.StockData(tTime, scenarioBehaviour.Hitted);
+            for (int i = 0; i < NbMovuino; i++)
+            {
+                dataSessionPlayer.DataSessionMovuino.StockData(tTime, movuino[i].MovuinoSensorData.accelerometer, movuino[i].MovuinoSensorData.gyroscope, movuino[i].MovuinoSensorData.magnetometer);
+            }
         }
         void OnDestroy()
         {
-            dataManagerComponent.DataBase.Add(DataSession.JoinDataTable(dataScenario.DataTable, dataSessionMovuino.DataTable));
+            dataManagerComponent.DataBase.Add(dataSessionPlayer.DataTable);
             dataManagerComponent.EndScenarioForData = true;
 
             GetComponentInParent<SessionManager>().EndScenario = true;
@@ -148,14 +127,11 @@ namespace SparringManager.SplHitLine
             scenario = Scenario<SplHitLineStruct>.CreateScenarioObject<ScenarioSplHitLine>();
             scenario.Init(structScenarios);
 
-            dataSessionPlayer = new DataSessionPlayer(1);
-            dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
-            dataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
+            dataSessionPlayer = new DataSessionPlayer(NbMovuino);
 
-
-            dataScenario.scenarioSumUp = DataController.StructToDictionary<SplHitLineStruct>(scenario.structScenario);
+            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<SplHitLineStruct>(scenario.structScenario);
             dataManagerComponent = GetComponentInParent<DataController>();
-            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataScenario.scenarioSumUp); //Mettre dans 
+            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp); //Mettre dans 
 
         }
 

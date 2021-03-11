@@ -11,6 +11,7 @@ namespace SparringManager.Structures
         GameObject Prefab { get; }
         bool OnOff { get; set; }
     }
+
     [System.Serializable]
     public struct StructPlayerCamera
     {

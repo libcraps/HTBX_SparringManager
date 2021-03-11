@@ -9,33 +9,14 @@ namespace SparringManager.Scenarios
      */
     public class SimpleHitController : ScenarioControllerBehaviour
     {
-        //---------- ATTRIBUTS ----------
-        [SerializeField]
-        private GameObject _prefabScenarioComposant;
-        public override GameObject PrefabScenarioComposant
-        {
-            get
-            {
-                return _prefabScenarioComposant;
-            }
-            set
-            {
-                _prefabScenarioComposant = value;
-            }
-        }
-        public ScenarioCrossLine scenario { get; set; }
-
-        public DataSessionPlayer dataSessionPlayer;
-        public Movuino[] movuino;
-        public DataSessionMovuino dataSessionMovuino;
-        public DataSessionScenario dataScenario;
-
-        //list of the data that we will export
-        private DataController dataManagerComponent;
-        private float tTime;
-        private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
-
+        #region Attributs
+        //----------- ATTRIBUTS ----------------------
         public static int nbApparition;
+        //Scenario
+        public ScenarioSimpleHit scenario { get; set; }
+        public bool Hitted;
+        private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        #endregion
 
         //---------- METHODS ----------
         private void Awake()
@@ -44,21 +25,27 @@ namespace SparringManager.Scenarios
             nbApparition += 1;
         }
         //General Methods
-        private void Start()
+        protected override void Start()
         {
-            movuino[0] = GameObject.FindGameObjectsWithTag("Movuino")[0].GetComponent<Movuino>();
-            movuino[1] = GameObject.FindGameObjectsWithTag("Movuino")[1].GetComponent<Movuino>();
+
         }
 
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
             //Data management
-            dataSessionMovuino.StockData(tTime, movuino[0].MovuinoSensorData.accelerometer, movuino[0].MovuinoSensorData.gyroscope, movuino[0].MovuinoSensorData.magnetometer);
+            dataSessionPlayer.DataSessionPolar.StockData();//test angle
+            dataSessionPlayer.DataSessionHit.StockData(tTime, Hitted);
+            for (int i = 0; i < NbMovuino; i++)
+            {
+                dataSessionPlayer.DataSessionMovuino.StockData(tTime, movuino[i].MovuinoSensorData.accelerometer, movuino[i].MovuinoSensorData.gyroscope, movuino[i].MovuinoSensorData.magnetometer);
+            }
+
+            Hitted = false;
         }
         private void OnDestroy()
         {
 
-            dataManagerComponent.DataBase.Add(DataSession.JoinDataTable(dataScenario.DataTable, dataSessionMovuino.DataTable));
+            dataManagerComponent.DataBase.Add(dataSessionPlayer.DataTable);
 
             dataManagerComponent.EndScenarioForData = true;
             GetComponentInParent<SessionManager>().EndScenario = true;
@@ -69,18 +56,15 @@ namespace SparringManager.Scenarios
         {
             //Initialize this Class
             //Scenario controller
-            scenario = Scenario<CrossLineStruct>.CreateScenarioObject<ScenarioCrossLine>();
+            scenario = Scenario<SimpleHitStruct>.CreateScenarioObject<ScenarioSimpleHit>();
             scenario.Init(structScenarios);
 
 
-            dataSessionPlayer = new DataSessionPlayer(1);
-            dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
-            dataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
+            dataSessionPlayer = new DataSessionPlayer(NbMovuino);
 
-            dataScenario.scenarioSumUp = DataController.StructToDictionary<CrossLineStruct>(scenario.structScenario);
+            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<SimpleHitStruct>(scenario.structScenario);
             dataManagerComponent = GetComponentInParent<DataController>();
-            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataScenario.scenarioSumUp); //Mettre dans 
-
+            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp); //Mettre dans 
         }
         //Method for an hitting object
         private void OnEnable()
@@ -95,6 +79,7 @@ namespace SparringManager.Scenarios
         {
             Vector3 pos3d_ = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z + 20f);
             Instantiate(_prefabScenarioComposant, pos3d_, Quaternion.identity, this.gameObject.transform);
+            Hitted = true;
         }
     }
 }

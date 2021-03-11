@@ -116,7 +116,6 @@ namespace SparringManager.DataManager
         public List<object> time = new List<object>();
 
         public Dictionary<string, string> scenarioSumUp = new Dictionary<string, string>();
-
         public DataTable DataTable { get { return this.CreateDataTable(); } }
         public override void StockData(params object[] list)
         {

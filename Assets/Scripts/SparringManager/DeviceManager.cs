@@ -31,14 +31,15 @@ namespace SparringManager
         private StructHitBox _structHitBox;
         [SerializeField]
         private StructPlayerScene _structPlayerScene;
+        public StructPlayerScene StructPlayerScene { get { return _structPlayerScene; } }
+
 
         private GameObject _renderCamera;
         private GameObject _playerScene;
 
         private string _namePlayer;
 
-        public int _indexSac;
-        private int _nbPlayer;
+        private int _indexSac;
 
         public GameObject RenderCamera
         {
@@ -58,11 +59,13 @@ namespace SparringManager
         Vector3 _posRenderCamera;
         Vector3 _posPlayerScene;
 
+        public int NbMovuino { get { return _structPlayerScene.StructMovuino.Length; } }
+
         //------------------    METHODS    -------------------
         //General Methods
         private void Start()
         {
-            _nbPlayer = GetComponentInParent<MainEnvironnement>().NbPlayer;
+             int nbPlayer = GetComponentInParent<MainEnvironnement>().NbPlayer;
 
             this.gameObject.name += "_" + _indexSac;
 
@@ -80,11 +83,11 @@ namespace SparringManager
 
             if (_structPlayerScene.OnOff == true)
             {
-                if (_nbPlayer > 1 && _nbPlayer <= 5)
+                if (nbPlayer > 1 && nbPlayer <= 5)
                 {
                     Debug.Log(_indexSac);
-                    _posPlayerScene.x += _posPlayerScene.x + 2 * (float)Math.Cos(_indexSac * 2 * Math.PI / _nbPlayer);
-                    _posPlayerScene.z += _posPlayerScene.z + 2 * (float)Math.Sin(_indexSac * 2 * Math.PI / _nbPlayer);
+                    _posPlayerScene.x += _posPlayerScene.x + 2 * (float)Math.Cos(_indexSac * 2 * Math.PI / nbPlayer);
+                    _posPlayerScene.z += _posPlayerScene.z + 2 * (float)Math.Sin(_indexSac * 2 * Math.PI / nbPlayer);
                 }
                 _playerScene = InstantiatePrefab(_structPlayerScene.Prefab, _posPlayerScene);
                 _playerScene.GetComponent<PlayerSceneController>().Init(_structPlayerScene);

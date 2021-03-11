@@ -1,9 +1,6 @@
 ﻿using SparringManager.DataManager;
-using SparringManager.Scenarios;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using SparringManager.Device;
+using SparringManager.Structures;
 using UnityEngine;
 
 namespace SparringManager.Scenarios.CrossLine
@@ -62,41 +59,11 @@ namespace SparringManager.Scenarios.CrossLine
     {
         #region Attributs
         //----------- ATTRIBUTS ----------------------
-        [SerializeField]
-        private GameObject _prefabScenarioComposant;
-        public override GameObject PrefabScenarioComposant
-        {
-            get
-            {
-                return _prefabScenarioComposant;
-            }
-            set
-            {
-                _prefabScenarioComposant = value;
-            }
-        }
-
         public static int nbApparition;
-
         //Scenario
         public ScenarioCrossLine scenario { get; set; }
-        private CrossLineBehaviour scenarioBehaviour;
+        public CrossLineBehaviour scenarioBehaviour { get; set; }
 
-        //Data
-        public DataSessionPlayer dataSessionPlayer;
-        private DataController dataManagerComponent;
-
-        //Devices
-        public Movuino[] movuino;
-        public Polar polar;
-        public ViveTrackerManager viveTrackerManager;
-
-        GameObject cameraObject;
-
-        //time
-        private float previousTime;
-        private float tTime;
-        private float reactTime;
         private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         #endregion
 
@@ -106,38 +73,34 @@ namespace SparringManager.Scenarios.CrossLine
         private void Awake()
         {
             cameraObject = this.gameObject.transform.GetComponentInParent<DeviceManager>().RenderCamera;
-            movuino = new Movuino[2]; //TODO know how many movuino we have
+
             nbApparition += 1;
         }
-        void Start()
+
+        protected override void Start()
         {
+            base.Start();
             //Initialisation of the time and the acceleration
             startTimeScenario = Time.time;
             tTime = Time.time - startTimeScenario;
             previousTime = tTime;
 
-            //Instantiation of scenario behaviour display
-            Vector3 _pos3d;
-            _pos3d.x = this.gameObject.transform.position.x;
-            _pos3d.y = this.gameObject.transform.position.y;
-            _pos3d.z = this.gameObject.transform.position.z + 100f;
 
-            var go  = Instantiate(_prefabScenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform);
+            //Instantiation of scenario behaviour display
+            Vector3 pos3d;
+            pos3d.x = this.gameObject.transform.position.x;
+            pos3d.y = this.gameObject.transform.position.y;
+            pos3d.z = this.gameObject.transform.position.z + 100f;
+
+            var go = Instantiate(PrefabScenarioComposant, pos3d, Quaternion.identity, this.gameObject.transform);
             scenarioBehaviour = go.GetComponent<CrossLineBehaviour>();
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
-
-
-            //Get other devices
-            movuino[0] = GameObject.FindGameObjectsWithTag("Movuino")[0].GetComponent<Movuino>();
-            movuino[1] = GameObject.FindGameObjectsWithTag("Movuino")[1].GetComponent<Movuino>();
-            polar = GameObject.FindGameObjectWithTag("Polar").GetComponent<Polar>();
-            viveTrackerManager = GameObject.Find("ViveTrackerManager(Clone)").GetComponent<ViveTrackerManager>();
-
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
+            base.FixedUpdate();
             //Behaviour Management
             tTime = Time.time - startTimeScenario;
             RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
@@ -146,7 +109,10 @@ namespace SparringManager.Scenarios.CrossLine
             dataSessionPlayer.DataSessionScenario.StockData(tTime, scenarioBehaviour.transform.localPosition);
             dataSessionPlayer.DataSessionPolar.StockData(scenario.PosToAngle(cameraObject.GetComponent<Camera>().orthographicSize, scenarioBehaviour.transform.localPosition.x));//test angle
             dataSessionPlayer.DataSessionHit.StockData(tTime, scenarioBehaviour.Hitted);
-            dataSessionPlayer.DataSessionMovuino.StockData(tTime, movuino[0].MovuinoSensorData.accelerometer, movuino[0].MovuinoSensorData.gyroscope, movuino[0].MovuinoSensorData.magnetometer);
+            for (int i = 0; i < NbMovuino; i++)
+            {
+                dataSessionPlayer.DataSessionMovuino.StockData(tTime, movuino[i].MovuinoSensorData.accelerometer, movuino[i].MovuinoSensorData.gyroscope, movuino[i].MovuinoSensorData.magnetometer);
+            }
         }
         void OnDestroy()
         {
@@ -168,7 +134,9 @@ namespace SparringManager.Scenarios.CrossLine
             scenario = Scenario<CrossLineStruct>.CreateScenarioObject<ScenarioCrossLine>();
             scenario.Init(structScenarios);
 
-            dataSessionPlayer = new DataSessionPlayer(1);
+            //StructPlayerSCene
+
+            dataSessionPlayer = new DataSessionPlayer(NbMovuino);
 
             dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<CrossLineStruct>(scenario.structScenario);
             dataManagerComponent = GetComponentInParent<DataController>();

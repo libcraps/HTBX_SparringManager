@@ -52,36 +52,11 @@ namespace SparringManager.Scenarios
         #region Attributs
         //----------- ATTRIBUTS ----------------------
         //Usefull parameters of the scenario, they are in the SimpleLineStructure
-        [SerializeField]
-        private GameObject _prefabScenarioComposant;
-        public override GameObject PrefabScenarioComposant
-        {
-            get
-            {
-                return _prefabScenarioComposant;
-            }
-            set
-            {
-                _prefabScenarioComposant = value;
-            }
-        }
-
         public static int nbApparition;
         //Object that contain datas (structures)
-        private ScenarioSimpleLine scenario { get; set; }
-        private SimpleLineBehaviour scenarioBehaviour;
+        public ScenarioSimpleLine scenario { get; set; }
+        public SimpleLineBehaviour scenarioBehaviour;
 
-        public DataSessionPlayer dataSessionPlayer;
-        public Movuino[] movuino;
-        public DataSessionMovuino dataSessionMovuino;
-        public DataSessionScenario dataScenario;
-
-        //List of the data that we will export 
-        private DataController dataManagerComponent;
-
-        private float previousTime;
-        private float tTime;
-        private float reactTime;
         private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         #endregion
 
@@ -90,12 +65,14 @@ namespace SparringManager.Scenarios
         //General Methods
         private void Awake()
         {
+            cameraObject = this.gameObject.transform.GetComponentInParent<DeviceManager>().RenderCamera;
             nbApparition += 1;
-            movuino = new Movuino[2];
+
 
         }
-        void Start()
+        protected override void Start()
         {
+            GetDevices();
             //Initialisation of the time
             startTimeScenario = Time.time;
             tTime = Time.time - startTimeScenario;
@@ -111,28 +88,30 @@ namespace SparringManager.Scenarios
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
 
-            //Get to other devices
-            movuino[0] = GameObject.FindGameObjectsWithTag("Movuino")[0].GetComponent<Movuino>();
-            movuino[1] = GameObject.FindGameObjectsWithTag("Movuino")[1].GetComponent<Movuino>();
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
+            base.FixedUpdate();
+            //Behaviour Management
             tTime = Time.time - startTimeScenario;
             RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
 
             //Data management
-            dataScenario.StockData(tTime, scenarioBehaviour.transform.localPosition);
-            dataSessionMovuino.StockData(tTime, movuino[0].MovuinoSensorData.accelerometer, movuino[0].MovuinoSensorData.gyroscope, movuino[0].MovuinoSensorData.magnetometer);
+            dataSessionPlayer.DataSessionScenario.StockData(tTime, scenarioBehaviour.transform.localPosition);
+            dataSessionPlayer.DataSessionPolar.StockData(scenario.PosToAngle(cameraObject.GetComponent<Camera>().orthographicSize, scenarioBehaviour.transform.localPosition.x));//test angle
+            for (int i = 0; i < NbMovuino; i++)
+            {
+                dataSessionPlayer.DataSessionMovuino.StockData(tTime, movuino[i].MovuinoSensorData.accelerometer, movuino[i].MovuinoSensorData.gyroscope, movuino[i].MovuinoSensorData.magnetometer);
+            }
         }
         void OnDestroy()
         {
-            dataManagerComponent.DataBase.Add(DataSession.JoinDataTable(dataScenario.DataTable, dataSessionMovuino.DataTable));
+            //dataManagerComponent.DataBase.Add(dataSessionPlayer.DataTable);
 
-            dataManagerComponent.ToCSVGlobal(dataManagerComponent.DataBase, "OKdac.csv");
             dataManagerComponent.EndScenarioForData = true;
             GetComponentInParent<SessionManager>().EndScenario = true;
-            Debug.Log(this.gameObject.name + " has been destroyed");
+            Debug.Log(this.gameObject.name + "has been destroyed");
         }
         //Methods that set variables
         public override void Init(StructScenarios structScenarios)
@@ -142,13 +121,12 @@ namespace SparringManager.Scenarios
             scenario = Scenario<SimpleLineStruct>.CreateScenarioObject<ScenarioSimpleLine>();
             scenario.Init(structScenarios);
 
-            dataSessionPlayer = new DataSessionPlayer(1);
-            dataScenario = DataSession.CreateDataObject<DataSessionScenario>();
-            dataSessionMovuino = DataSession.CreateDataObject<DataSessionMovuino>();
+            dataSessionPlayer = new DataSessionPlayer(NbMovuino);
 
-            dataScenario.scenarioSumUp = DataController.StructToDictionary<SimpleLineStruct>(scenario.structScenario);
+
+            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<SimpleLineStruct>(scenario.structScenario);
             dataManagerComponent = GetComponentInParent<DataController>();
-            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataScenario.scenarioSumUp); //Mettre dans 
+            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp); //Mettre dans 
         }
 
         //Method that changes parameters of a moving object

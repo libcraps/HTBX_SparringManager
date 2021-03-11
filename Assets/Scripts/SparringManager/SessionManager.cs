@@ -1,4 +1,5 @@
 ﻿using SparringManager.Scenarios;
+using SparringManager.Structures;
 using UnityEngine;
 using System;
 
@@ -32,6 +33,8 @@ namespace SparringManager
         private string _name;
         [SerializeField]
         private StructScenarios[] _scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
+        [SerializeField]
+        private StructPlayerScene _structPlayerScene;
 
         public bool EndScenario { get; set; }
         private int _indexScenario = 0;
@@ -59,7 +62,7 @@ namespace SparringManager
                 //Deal with the instantiation of scenarios
                 if (_indexScenario < (_scenarios.Length))
                 {
-                    InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
+                    InstantiateAndBuildScenario(_scenarios[_indexScenario], _structPlayerScene, this.gameObject, this.gameObject.transform.position);
                     
                     _indexScenario += 1;
                 }
@@ -71,7 +74,7 @@ namespace SparringManager
 
         }
         //Method that instantiate a scenario
-        private void InstantiateAndBuildScenario(StructScenarios strucObject, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
+        private void InstantiateAndBuildScenario(StructScenarios strucObject, StructPlayerScene structPlayerScene, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
         {
             /*
              * Function that instatiate an object, the prefab of this object is in the structureScenarios, it contains all the data that is usefull for the scenarios
@@ -100,9 +103,10 @@ namespace SparringManager
             Debug.Log(prefabObject.name + " has been instantiated");
         }
 
-        public void Init(StructScenarios[] scenarios, string name, bool export)
+        public void Init(StructScenarios[] scenarios,StructPlayerScene structPlayerScene, string name, bool export)
         {
             _scenarios = scenarios;
+            _structPlayerScene = structPlayerScene;
             _name = name;
         }
     }

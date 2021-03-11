@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace SparringManager.Device
 {
-    public class Movuino : MonoBehaviour
+
+    public class Movuino : DeviceBehaviour
     {
         /*
          * Classe that manage the movuino object in the scene
@@ -16,38 +17,29 @@ namespace SparringManager.Device
         private string _addressSensorData;
         private string _addressGesture;
 
-        private string _id;
+        MovuinoSensorData movuinoSensorData;
+        MovuinoXMM movuinoXMMdata;
 
-        MovuinoSensorData movuinoSensorData = OSCDataHandler.CreateOSCDataHandler<MovuinoSensorData>();
-        MovuinoXMM movuinoXMMdata = OSCDataHandler.CreateOSCDataHandler<MovuinoXMM>();
-
-        public string Id { get { return _id; } }
+        public string Id { get { return id; } }
         public MovuinoSensorData MovuinoSensorData { get { return movuinoSensorData; } }
         public MovuinoXMM MovuinoXMM { get { return movuinoXMMdata; } }
 
-        private List<int> _listGesture;
-        private List<float> _listProgression;
 
         private void Awake()
         {
-            _listGesture = new List<int>();
-            _listProgression = new List<float>();
+            movuinoSensorData = OSCDataHandler.CreateOSCDataHandler<MovuinoSensorData>();
+            movuinoXMMdata = OSCDataHandler.CreateOSCDataHandler<MovuinoXMM>();
         }
         void Start()
         {
-            _addressSensorData = _id + movuinoSensorData.OSCAddress;
-            _addressGesture = _id + movuinoXMMdata.OSCAddress;
+            _addressSensorData = id + movuinoSensorData.OSCAddress;
+            _addressGesture = id + movuinoXMMdata.OSCAddress;
 
             _oscGameObject = GameObject.Find("OSCManager");
             _oscManager = _oscGameObject.GetComponent<OSC>();
 
             _oscManager.SetAddressHandler(_addressSensorData, movuinoSensorData.ToOSCDataHandler);
             _oscManager.SetAddressHandler(_addressGesture, movuinoXMMdata.ToOSCDataHandler);
-        }
-
-        public void Init(string id)
-        {
-            _id = id;
         }
 
     }

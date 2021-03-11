@@ -83,7 +83,7 @@ namespace SparringManager
             for (int i = 0; i< NbPlayer; i++)
             {
                 clonePlayerCamera = Instantiate(_prefabPlayerCamera, posPlayerCamera, Quaternion.identity, this.gameObject.transform);
-                clonePlayerCamera.GetComponent<SessionManager>().Init(_mainStructure[i].Scenarios, _mainStructure[i].Name, _exportInFile);
+                clonePlayerCamera.GetComponent<SessionManager>().Init(_mainStructure[i].Scenarios, _mainStructure[i].StructPlayerScene,  _mainStructure[i].Name, _exportInFile);
                 clonePlayerCamera.GetComponent<DeviceManager>().Init(_mainStructure[i].StructHitBox, _mainStructure[i].StructPlayerScene, _mainStructure[i].Name, i);
                 clonePlayerCamera.GetComponent<DataManager.DataController>().Init(_exportInFile, ".\\_data\\" + _mainStructure[i].Name+"\\");
 

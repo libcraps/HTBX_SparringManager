@@ -55,40 +55,13 @@ namespace SparringManager.Scenarios
     public class HitLineController : ScenarioControllerBehaviour
     {
         #region Attributs
-        //----------- ATTRIBUTS ----------------------
-        [SerializeField]
-        private GameObject _prefabScenarioComposant;
-        public override GameObject PrefabScenarioComposant
-        {
-            get
-            {
-                return _prefabScenarioComposant;
-            }
-            set
-            {
-                _prefabScenarioComposant = value;
-            }
-        }
-
+        //----------- ATTRIBUTS ---------------------- 
         public static int nbApparition;
 
         //Scenario
         public ScenarioHitLine scenario { get; set; }
         private HitLineBehaviour scenarioBehaviour;
 
-        //Data
-        public DataSessionPlayer dataSessionPlayer;
-        private DataController dataManagerComponent;
-
-        //Devices
-        public Movuino[] movuino;
-        public Polar polar;
-        public ViveTrackerManager viveTrackerManager;
-
-        //Time
-        private float previousTime;
-        private float tTime;
-        private float reactTime;
         private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         #endregion
 
@@ -101,7 +74,7 @@ namespace SparringManager.Scenarios
             nbApparition += 1;
             //INITIALISATION OF VARIABLES 
         }
-        void Start()
+        protected override void Start()
         {
             //Initialisation of the time and the acceleration
             startTimeScenario = Time.time;
@@ -124,7 +97,7 @@ namespace SparringManager.Scenarios
 
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
             //Update the "situation" of the line
             tTime = Time.time - startTimeScenario;
