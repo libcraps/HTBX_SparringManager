@@ -56,7 +56,6 @@ namespace SparringManager.Scenarios
     {
         #region Attributs
         //----------- ATTRIBUTS ---------------------- 
-        public static int nbApparition;
 
         //Scenario
         public ScenarioHitLine scenario { get; set; }
@@ -70,11 +69,9 @@ namespace SparringManager.Scenarios
         #region Methods
         //------------ METHODS -------------------
         //General Methods
-        private void Awake()
+        protected override void Awake()
         {
-            cameraObject = this.gameObject.transform.GetComponentInParent<DeviceManager>().RenderCamera;
-            rangeSize = cameraObject.GetComponent<Camera>().orthographicSize;
-            nbApparition += 1;
+            base.Awake();
             //INITIALISATION OF VARIABLES 
         }
         protected override void Start()

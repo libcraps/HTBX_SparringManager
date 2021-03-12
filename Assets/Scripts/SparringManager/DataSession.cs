@@ -100,12 +100,9 @@ namespace SparringManager.DataManager
         {
             DataTable result = new DataTable();
             result = JoinDataTable(DataSessionScenario.DataTable, DataSessionViveTracker.DataTable, DataSessionHit.DataTable, DataSessionPolar.DataTable);
-            Debug.Log(DataSessionMovuino[0].DataTable.Columns.Count);
-
             foreach (DataSessionMovuino dataMov in DataSessionMovuino)
             {
                 result = JoinDataTable(result, dataMov.DataTable);
-                Debug.Log(result.Columns.Count);
             }
 
             return result;

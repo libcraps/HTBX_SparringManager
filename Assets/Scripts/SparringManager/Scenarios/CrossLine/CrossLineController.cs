@@ -59,7 +59,6 @@ namespace SparringManager.Scenarios.CrossLine
     {
         #region Attributs
         //----------- ATTRIBUTS ----------------------
-        public static int nbApparition;
         //Scenario
         public ScenarioCrossLine scenario { get; set; }
         public CrossLineBehaviour scenarioBehaviour { get; set; }
@@ -74,9 +73,6 @@ namespace SparringManager.Scenarios.CrossLine
         protected override void Awake()
         {
             base.Awake();
-            cameraObject = this.gameObject.transform.GetComponentInParent<DeviceManager>().RenderCamera;
-            rangeSize = cameraObject.GetComponent<Camera>().orthographicSize;
-            nbApparition += 1;
         }
 
         protected override void Start()

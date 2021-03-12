@@ -11,7 +11,6 @@ namespace SparringManager.Scenarios
     {
         #region Attributs
         //----------- ATTRIBUTS ----------------------
-        public static int nbApparition;
         //Scenario
         public ScenarioSimpleHit scenario { get; set; }
 
@@ -21,9 +20,10 @@ namespace SparringManager.Scenarios
         #endregion
 
         //---------- METHODS ----------
-        private void Awake()
+        protected override void Awake()
         {
-            nbApparition += 1;
+            base.Awake();
+            //INITIALISATION OF VARIABLES 
         }
         //General Methods
         protected override void Start()

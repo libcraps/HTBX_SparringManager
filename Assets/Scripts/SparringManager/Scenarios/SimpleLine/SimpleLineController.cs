@@ -52,7 +52,6 @@ namespace SparringManager.Scenarios
         #region Attributs
         //----------- ATTRIBUTS ----------------------
         //Usefull parameters of the scenario, they are in the SimpleLineStructure
-        public static int nbApparition;
         //Object that contain datas (structures)
         public ScenarioSimpleLine scenario { get; set; }
         public SimpleLineBehaviour scenarioBehaviour;
@@ -64,14 +63,10 @@ namespace SparringManager.Scenarios
         #region Methods
         //------------ METHODS -------------------
         //General Methods
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             hit = " ";
-            cameraObject = this.gameObject.transform.GetComponentInParent<DeviceManager>().RenderCamera;
-            rangeSize = cameraObject.GetComponent<Camera>().orthographicSize;
-            nbApparition += 1;
-
-
         }
         protected override void Start()
         {
@@ -116,8 +111,6 @@ namespace SparringManager.Scenarios
             scenario.Init(structScenarios);
 
             dataSessionPlayer = new DataSessionPlayer(NbMovuino);
-
-
             dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<SimpleLineStruct>(scenario.structScenario);
             dataManagerComponent = GetComponentInParent<DataController>();
             dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp); //Mettre dans 

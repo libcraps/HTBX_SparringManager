@@ -55,23 +55,21 @@ namespace SparringManager.SplHitLine
     {
         #region Attributs
         //----------- ATTRIBUTS ----------------------
-        public static int nbApparition;
 
         public ScenarioSplHitLine scenario { get; set; }
         private SplHitLineBehaviour scenarioBehaviour;
 
         protected override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         protected override object consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
-        
+
         #endregion
 
         //--------------------------    METHODS     ----------------------------------------
         // ---> General Methods
-        private void Awake()
+        protected override void Awake()
         {
-            cameraObject = this.gameObject.transform.GetComponentInParent<DeviceManager>().RenderCamera;
-            rangeSize = cameraObject.GetComponent<Camera>().orthographicSize;
-            nbApparition += 1;
+            base.Awake();
+            //INITIALISATION OF VARIABLES 
         }
         protected override void Start()
         {

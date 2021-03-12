@@ -23,7 +23,7 @@ namespace SparringManager.Scenarios
         }
         //Scenario
         //TOCHECK
-
+        public static int nbApparition;
         //Data
         protected DataSessionPlayer dataSessionPlayer;
         protected DataController dataManagerComponent;
@@ -47,6 +47,9 @@ namespace SparringManager.Scenarios
         protected virtual void Awake()
         {
             NbMovuino = this.gameObject.GetComponentInParent<DeviceManager>().NbMovuino;
+            cameraObject = this.gameObject.transform.GetComponentInParent<DeviceManager>().RenderCamera;
+            rangeSize = cameraObject.GetComponent<Camera>().orthographicSize;
+            nbApparition += 1;
         }
 
         protected virtual void Start()
@@ -70,9 +73,6 @@ namespace SparringManager.Scenarios
             dataSessionPlayer.DataSessionPolar.StockData(polar.polarBPM.bpm);//test angle
             for (int i = 0; i < NbMovuino; i++)
             {
-                Debug.Log(dataSessionPlayer.DataSessionMovuino[0]);
-                Debug.Log(movuino.Length);
-
                 dataSessionPlayer.DataSessionMovuino[i].StockData(tTime, movuino[i].MovuinoSensorData.accelerometer, movuino[i].MovuinoSensorData.gyroscope, movuino[i].MovuinoSensorData.magnetometer);
             }
         }
