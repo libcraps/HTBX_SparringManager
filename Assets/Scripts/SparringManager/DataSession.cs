@@ -10,6 +10,7 @@ namespace SparringManager.DataManager
      * Mother class : DataSession
      * 
      * With this class we can create data type and stock data in order to transfert everything to the dataController
+     * Notice that the file will be created with a list of datatables
      * 
      * Data type :
      *      DataSessionPlayer : general data of a player (it has others data)
@@ -84,29 +85,44 @@ namespace SparringManager.DataManager
          * Class that represent all the data of a player during the session
          */
         public DataSessionScenario DataSessionScenario;
-        public DataSessionMovuino[] DataSessionMovuino;
-        public DataSessionMovuinoXMM DataSessionMovuinoXMM;
+        public DataSessionMovuino[] DataSessionMovuino; //Because a player can have more than one movuino
+        public DataSessionMovuinoXMM[] DataSessionMovuinoXMM;
         public DataSessionPolar DataSessionPolar;
         public DataSessionHit DataSessionHit;
         public DataSessionViveTracker DataSessionViveTracker;
 
-        public DataTable DataTable { get { return this.CreateDataTable(); } }
+        public DataTable DataTable { get { return CreateDataTable(); } }
         public override void StockData(params object[] list)
         {
 
         }
         public override DataTable CreateDataTable(params DataTable[] data) //TODO
         {
-            return JoinDataTable(DataSessionScenario.DataTable, DataSessionViveTracker.DataTable, DataSessionHit.DataTable, DataSessionPolar.DataTable);
+            DataTable result = new DataTable();
+            result = JoinDataTable(DataSessionScenario.DataTable, DataSessionViveTracker.DataTable, DataSessionHit.DataTable, DataSessionPolar.DataTable);
+            Debug.Log(DataSessionMovuino[0].DataTable.Columns.Count);
+
+            foreach (DataSessionMovuino dataMov in DataSessionMovuino)
+            {
+                result = JoinDataTable(result, dataMov.DataTable);
+                Debug.Log(result.Columns.Count);
+            }
+
+            return result;
         }
         public DataSessionPlayer(int nbMov)
         {
             DataSessionScenario = new DataSessionScenario();
             DataSessionMovuino = new DataSessionMovuino[nbMov];
-            DataSessionMovuinoXMM = new DataSessionMovuinoXMM();
+            DataSessionMovuinoXMM = new DataSessionMovuinoXMM[nbMov];
             DataSessionHit = new DataSessionHit();
             DataSessionPolar = new DataSessionPolar();
             DataSessionViveTracker = new DataSessionViveTracker();
+            for (int i = 0; i < nbMov; i++)
+            {
+                DataSessionMovuino[i] = new DataSessionMovuino();
+                DataSessionMovuinoXMM[i] = new DataSessionMovuinoXMM();
+            }
         }
 
     }
@@ -157,9 +173,9 @@ namespace SparringManager.DataManager
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
-            table.Columns.Add("Acceleration", typeof(object));
-            table.Columns.Add("Gyroscope", typeof(object));
-            table.Columns.Add("Magnetometre", typeof(object));
+            table.Columns.Add("Acceleration " + id, typeof(object));
+            table.Columns.Add("Gyroscope " + id, typeof(object));
+            table.Columns.Add("Magnetometre " + id, typeof(object));
 
             for (int i = 0; i < listAcceleration.Count; i++)
             {

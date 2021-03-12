@@ -71,8 +71,9 @@ namespace SparringManager.Scenarios.CrossLine
         #region Methods
         //------------ METHODS -------------------
         //General Methods
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             cameraObject = this.gameObject.transform.GetComponentInParent<DeviceManager>().RenderCamera;
             rangeSize = cameraObject.GetComponent<Camera>().orthographicSize;
             nbApparition += 1;
@@ -82,6 +83,8 @@ namespace SparringManager.Scenarios.CrossLine
         {
             base.Start();
             GetDevices();
+            
+            Debug.Log(NbMovuino);
 
             //Instantiation of scenario behaviour display
             Vector3 pos3d;

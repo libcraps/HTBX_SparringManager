@@ -44,12 +44,19 @@ namespace SparringManager.Scenarios
         protected abstract float startTimeScenario { get; set; }
         protected abstract object consigne { get;}
 
+        protected virtual void Awake()
+        {
+            NbMovuino = this.gameObject.GetComponentInParent<DeviceManager>().NbMovuino;
+        }
+
         protected virtual void Start()
         {
             Debug.Log("------------" + " ScenarioControllerBehaviour Start" + "---------------");
+            
             //Initialisation of the time and the acceleration
             startTimeScenario = Time.time;
             previousTime = 0;
+
 
         }
         protected virtual void FixedUpdate()
@@ -63,6 +70,9 @@ namespace SparringManager.Scenarios
             dataSessionPlayer.DataSessionPolar.StockData(polar.polarBPM.bpm);//test angle
             for (int i = 0; i < NbMovuino; i++)
             {
+                Debug.Log(dataSessionPlayer.DataSessionMovuino[0]);
+                Debug.Log(movuino.Length);
+
                 dataSessionPlayer.DataSessionMovuino[i].StockData(tTime, movuino[i].MovuinoSensorData.accelerometer, movuino[i].MovuinoSensorData.gyroscope, movuino[i].MovuinoSensorData.magnetometer);
             }
         }
@@ -73,11 +83,12 @@ namespace SparringManager.Scenarios
         {
             //Search other devices in the scene
             //movuino Part
-            int NbMovuino = this.gameObject.GetComponentInParent<DeviceManager>().NbMovuino;
+            
             movuino = new Movuino[NbMovuino]; //TODO know how many movuino we have
             for (int i = 0; i < NbMovuino; i++)
             {
                 movuino[i] = GameObject.FindGameObjectsWithTag("Movuino")[i].GetComponent<Movuino>();
+                dataSessionPlayer.DataSessionMovuino[i].id = movuino[i].id;
             }
 
             //Polar part
