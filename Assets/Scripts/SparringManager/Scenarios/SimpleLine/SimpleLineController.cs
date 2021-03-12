@@ -57,7 +57,8 @@ namespace SparringManager.Scenarios
         public ScenarioSimpleLine scenario { get; set; }
         public SimpleLineBehaviour scenarioBehaviour;
 
-        private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        protected override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        protected override object consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); }}
         #endregion
 
         #region Methods
@@ -65,7 +66,9 @@ namespace SparringManager.Scenarios
         //General Methods
         private void Awake()
         {
+            hit = " ";
             cameraObject = this.gameObject.transform.GetComponentInParent<DeviceManager>().RenderCamera;
+            rangeSize = cameraObject.GetComponent<Camera>().orthographicSize;
             nbApparition += 1;
 
 
@@ -96,19 +99,10 @@ namespace SparringManager.Scenarios
             //Behaviour Management
             tTime = Time.time - startTimeScenario;
             RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
-
-            //Data management
-            dataSessionPlayer.DataSessionScenario.StockData(tTime, scenarioBehaviour.transform.localPosition);
-            dataSessionPlayer.DataSessionPolar.StockData(scenario.PosToAngle(cameraObject.GetComponent<Camera>().orthographicSize, scenarioBehaviour.transform.localPosition.x));//test angle
-            for (int i = 0; i < NbMovuino; i++)
-            {
-                dataSessionPlayer.DataSessionMovuino.StockData(tTime, movuino[i].MovuinoSensorData.accelerometer, movuino[i].MovuinoSensorData.gyroscope, movuino[i].MovuinoSensorData.magnetometer);
-            }
         }
         void OnDestroy()
         {
-            //dataManagerComponent.DataBase.Add(dataSessionPlayer.DataTable);
-
+            dataManagerComponent.DataBase.Add(dataSessionPlayer.DataTable);
             dataManagerComponent.EndScenarioForData = true;
             GetComponentInParent<SessionManager>().EndScenario = true;
             Debug.Log(this.gameObject.name + "has been destroyed");

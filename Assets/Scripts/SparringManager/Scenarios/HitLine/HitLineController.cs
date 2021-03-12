@@ -62,7 +62,9 @@ namespace SparringManager.Scenarios
         public ScenarioHitLine scenario { get; set; }
         private HitLineBehaviour scenarioBehaviour;
 
-        private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        protected override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        protected override object consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
+
         #endregion
 
         #region Methods
@@ -70,17 +72,17 @@ namespace SparringManager.Scenarios
         //General Methods
         private void Awake()
         {
-            movuino = new Movuino[2];
+            cameraObject = this.gameObject.transform.GetComponentInParent<DeviceManager>().RenderCamera;
+            rangeSize = cameraObject.GetComponent<Camera>().orthographicSize;
             nbApparition += 1;
             //INITIALISATION OF VARIABLES 
         }
         protected override void Start()
         {
-            //Initialisation of the time and the acceleration
-            startTimeScenario = Time.time;
-            tTime = Time.time - startTimeScenario;
-            previousTime = tTime;
+            base.Start();
+            GetDevices();
 
+            //Instantiation of scenario behaviour display
             Vector3 _pos3d = new Vector3();
             _pos3d.x = this.gameObject.transform.position.x;
             _pos3d.y = this.gameObject.transform.position.y;
@@ -91,20 +93,15 @@ namespace SparringManager.Scenarios
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
 
-            //Get other devices
-            movuino[0] = GameObject.FindGameObjectsWithTag("Movuino")[0].GetComponent<Movuino>();
-            movuino[1] = GameObject.FindGameObjectsWithTag("Movuino")[1].GetComponent<Movuino>();
-
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
         protected override void FixedUpdate()
         {
-            //Update the "situation" of the line
-            tTime = Time.time - startTimeScenario;
+            base.FixedUpdate(); //StockData
+
+            //Behaviour Management
             RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
-
-            //Data management
-
+            hit = " ";
         }
         void OnDestroy()
         {
@@ -128,7 +125,7 @@ namespace SparringManager.Scenarios
             scenario.Init(structScenarios);
 
             //Data
-            dataSessionPlayer = new DataSessionPlayer(1);
+            dataSessionPlayer = new DataSessionPlayer(NbMovuino);
             dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<HitLineStruct>(scenario.structScenario);
             dataManagerComponent = GetComponentInParent<DataController>();
             dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp);
@@ -170,6 +167,7 @@ namespace SparringManager.Scenarios
             {
                 reactTime = tTime - scenario.timeBeforeHit;
                 scenarioBehaviour.Hitted = true;
+                this.hit = true;
 
                 Debug.Log("Line touched : " + position2d_);
                 Debug.Log("React time : " + reactTime);

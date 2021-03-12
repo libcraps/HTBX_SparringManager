@@ -84,7 +84,7 @@ namespace SparringManager.DataManager
          * Class that represent all the data of a player during the session
          */
         public DataSessionScenario DataSessionScenario;
-        public DataSessionMovuino DataSessionMovuino;
+        public DataSessionMovuino[] DataSessionMovuino;
         public DataSessionMovuinoXMM DataSessionMovuinoXMM;
         public DataSessionPolar DataSessionPolar;
         public DataSessionHit DataSessionHit;
@@ -97,12 +97,12 @@ namespace SparringManager.DataManager
         }
         public override DataTable CreateDataTable(params DataTable[] data) //TODO
         {
-            return JoinDataTable(DataSessionScenario.DataTable, DataSessionHit.DataTable, DataSessionPolar.DataTable);
+            return JoinDataTable(DataSessionScenario.DataTable, DataSessionViveTracker.DataTable, DataSessionHit.DataTable, DataSessionPolar.DataTable);
         }
         public DataSessionPlayer(int nbMov)
         {
             DataSessionScenario = new DataSessionScenario();
-            DataSessionMovuino = new DataSessionMovuino();
+            DataSessionMovuino = new DataSessionMovuino[nbMov];
             DataSessionMovuinoXMM = new DataSessionMovuinoXMM();
             DataSessionHit = new DataSessionHit();
             DataSessionPolar = new DataSessionPolar();
@@ -157,14 +157,13 @@ namespace SparringManager.DataManager
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
-            table.Columns.Add("Time", typeof(object));
             table.Columns.Add("Acceleration", typeof(object));
             table.Columns.Add("Gyroscope", typeof(object));
             table.Columns.Add("Magnetometre", typeof(object));
 
             for (int i = 0; i < listAcceleration.Count; i++)
             {
-                table.Rows.Add(listTime[i], listAcceleration[i], listGyroscope[i], listMagneto[i]);
+                table.Rows.Add(listAcceleration[i], listGyroscope[i], listMagneto[i]);
             }
 
             return table;
@@ -213,6 +212,7 @@ namespace SparringManager.DataManager
     {
         public List<object> listTime = new List<object>();
         public List<object> listHit = new List<object>();
+        public List<object> listReacTime = new List<object>();
 
         public float nbHit;
         public DataTable DataTable { get { return this.CreateDataTable(); } }
@@ -224,12 +224,11 @@ namespace SparringManager.DataManager
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
-            table.Columns.Add("Time", typeof(object));
             table.Columns.Add("Hit", typeof(object));
 
             for (int i = 0; i < listHit.Count; i++)
             {
-                table.Rows.Add(listTime[i], listHit[i]);
+                table.Rows.Add(listHit[i]);
             }
 
             return table;
@@ -249,12 +248,12 @@ namespace SparringManager.DataManager
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
-            table.Columns.Add("Time", typeof(object));
+
             table.Columns.Add("PlayerMvt", typeof(object));
 
             for (int i = 0; i < listAngle.Count; i++)
             {
-                table.Rows.Add(listTime[i], listAngle[i]);
+                table.Rows.Add(listAngle[i]);
             }
 
             return table;

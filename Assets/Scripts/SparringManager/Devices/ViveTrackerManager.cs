@@ -21,7 +21,7 @@ namespace SparringManager.Device
         {
 
         }
-        void Update()
+        void FixedUpdate()
         {
             Vector3 _bagDir = bag.transform.position - player.transform.position; //Computing vector between player and bag
             _bagDir = Vector3.Normalize(new Vector3(_bagDir.x, 0, _bagDir.z)); //Getting rid of the height for the vector and normalizing

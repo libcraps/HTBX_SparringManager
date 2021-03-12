@@ -64,7 +64,8 @@ namespace SparringManager.Scenarios.CrossLine
         public ScenarioCrossLine scenario { get; set; }
         public CrossLineBehaviour scenarioBehaviour { get; set; }
 
-        private float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        protected override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        protected override object consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
         #endregion
 
         #region Methods
@@ -73,18 +74,14 @@ namespace SparringManager.Scenarios.CrossLine
         private void Awake()
         {
             cameraObject = this.gameObject.transform.GetComponentInParent<DeviceManager>().RenderCamera;
-
+            rangeSize = cameraObject.GetComponent<Camera>().orthographicSize;
             nbApparition += 1;
         }
 
         protected override void Start()
         {
             base.Start();
-            //Initialisation of the time and the acceleration
-            startTimeScenario = Time.time;
-            tTime = Time.time - startTimeScenario;
-            previousTime = tTime;
-
+            GetDevices();
 
             //Instantiation of scenario behaviour display
             Vector3 pos3d;
@@ -96,23 +93,15 @@ namespace SparringManager.Scenarios.CrossLine
             scenarioBehaviour = go.GetComponent<CrossLineBehaviour>();
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
+
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
             //Behaviour Management
-            tTime = Time.time - startTimeScenario;
             RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
-
-            //Data management
-            dataSessionPlayer.DataSessionScenario.StockData(tTime, scenarioBehaviour.transform.localPosition);
-            dataSessionPlayer.DataSessionPolar.StockData(scenario.PosToAngle(cameraObject.GetComponent<Camera>().orthographicSize, scenarioBehaviour.transform.localPosition.x));//test angle
-            dataSessionPlayer.DataSessionHit.StockData(tTime, scenarioBehaviour.Hitted);
-            for (int i = 0; i < NbMovuino; i++)
-            {
-                dataSessionPlayer.DataSessionMovuino.StockData(tTime, movuino[i].MovuinoSensorData.accelerometer, movuino[i].MovuinoSensorData.gyroscope, movuino[i].MovuinoSensorData.magnetometer);
-            }
+            hit = " ";
         }
         void OnDestroy()
         {
@@ -135,9 +124,7 @@ namespace SparringManager.Scenarios.CrossLine
             scenario.Init(structScenarios);
 
             //StructPlayerSCene
-
             dataSessionPlayer = new DataSessionPlayer(NbMovuino);
-
             dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<CrossLineStruct>(scenario.structScenario);
             dataManagerComponent = GetComponentInParent<DataController>();
             dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp); //Mettre dans 
@@ -180,7 +167,7 @@ namespace SparringManager.Scenarios.CrossLine
             {
                 reactTime = tTime - scenario.timeBeforeHit;
                 scenarioBehaviour.Hitted = true;
-
+                this.hit = true;
                 Debug.Log("Line touched : " + position2d_);
                 Debug.Log("React time : " + reactTime);
             }
