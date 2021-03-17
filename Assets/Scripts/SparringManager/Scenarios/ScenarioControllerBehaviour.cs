@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace SparringManager.Scenarios
 {
+    /*
+     * 
+     */
     public abstract class ScenarioControllerBehaviour : MonoBehaviour
     {
         [SerializeField]
@@ -23,7 +26,8 @@ namespace SparringManager.Scenarios
         }
         //Scenario
         //TOCHECK
-        public static int nbApparition;
+        protected int operationalArea;
+        protected static int nbApparition;
         //Data
         protected DataSessionPlayer dataSessionPlayer;
         protected DataController dataManagerComponent;
@@ -42,12 +46,13 @@ namespace SparringManager.Scenarios
 
         protected object hit;
         protected abstract float startTimeScenario { get; set; }
-        protected abstract object consigne { get;}
+        protected abstract object consigne { get; }
 
         protected virtual void Awake()
         {
+            operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
             NbMovuino = this.gameObject.GetComponentInParent<DeviceManager>().NbMovuino;
-            cameraObject = this.gameObject.transform.GetComponentInParent<DeviceManager>().RenderCamera;
+            cameraObject = this.gameObject.GetComponentInParent<DeviceManager>().RenderCamera;
             rangeSize = cameraObject.GetComponent<Camera>().orthographicSize;
             nbApparition += 1;
         }
@@ -74,6 +79,7 @@ namespace SparringManager.Scenarios
             for (int i = 0; i < NbMovuino; i++)
             {
                 dataSessionPlayer.DataSessionMovuino[i].StockData(tTime, movuino[i].MovuinoSensorData.accelerometer, movuino[i].MovuinoSensorData.gyroscope, movuino[i].MovuinoSensorData.magnetometer);
+                dataSessionPlayer.DataSessionMovuinoXMM[i].StockData(tTime, movuino[i].MovuinoXMM.gestId, movuino[i].MovuinoXMM.gestProg);
             }
         }
         public virtual void Init(StructScenarios structScenarios)
@@ -88,7 +94,8 @@ namespace SparringManager.Scenarios
             for (int i = 0; i < NbMovuino; i++)
             {
                 movuino[i] = GameObject.FindGameObjectsWithTag("Movuino")[i].GetComponent<Movuino>();
-                dataSessionPlayer.DataSessionMovuino[i].id = movuino[i].id;
+                dataSessionPlayer.DataSessionMovuino[i].id = movuino[i].id; //We need the id of the movuino to have different column names and identifie thmen
+                dataSessionPlayer.DataSessionMovuinoXMM[i].id = movuino[i].id;
             }
 
             //Polar part
@@ -101,6 +108,11 @@ namespace SparringManager.Scenarios
         {
 
         }
+
+    }
+
+    public interface IScenarioClass
+    {
 
     }
 }

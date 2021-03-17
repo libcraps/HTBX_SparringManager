@@ -76,8 +76,9 @@ namespace SparringManager.Scenarios
         private float _startTimeScenario;
         private float _tTime;
 
-        void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             //Initialisation of the time
             _startTimeScenario = Time.time;
             _tTime = Time.time - _startTimeScenario;
@@ -87,8 +88,7 @@ namespace SparringManager.Scenarios
 
         void FixedUpdate()
         {
-            _tTime = Time.time - _startTimeScenario;
-            LineInCameraRange();
+            ObjectInCameraRange();
             MoveLine(_fixPosHitValue * _lineAcceleration[0], _fixPosHitValue * _lineAcceleration[1]);
             SetHit();
         }
@@ -129,7 +129,7 @@ namespace SparringManager.Scenarios
                 _fixPosHitValue = 1;
             }
         }
-        void LineInCameraRange()
+        protected override void ObjectInCameraRange()
         {
             /* 
              * This method keeps the line in the camera range
@@ -159,6 +159,7 @@ namespace SparringManager.Scenarios
             {
                 linePos3d.y += 2* rangeSize;
             }
+
             //Instruction whether the line gets out of the render camera range
             if (linePos3d.y > renderCameraPos3d.y + rangeSize)
             {

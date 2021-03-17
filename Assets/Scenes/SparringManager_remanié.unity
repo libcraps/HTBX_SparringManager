@@ -569,12 +569,13 @@ MonoBehaviour:
   _exportInFile: 1
   _mainStructure:
   - _name: Romuald
+    _operationalArea: 180
     _structHitBox:
       _prefab: {fileID: 155006673294057578, guid: 571b32308585a234e913cbea1a3f07d9,
         type: 3}
       _serialSettings:
-        touchControlSerialPortName: 
-        ledControlSerialPortName: 
+        touchControlSerialPortName: COM6
+        ledControlSerialPortName: COM7
         impactThreshold: 0
         delayOffHit: 0
         displayDatapoints: 0
@@ -589,6 +590,8 @@ MonoBehaviour:
         _prefab: {fileID: 8182636404007571037, guid: 48fdc5dbbdacef94fa1d9c32f7948b26,
           type: 3}
         _onOff: 1
+        indexBag: 0
+        indexPlayer: 0
       _structMovuino:
       - _prefab: {fileID: 2130617265622517333, guid: a626eda10c185194aab5a069d6f2aec1,
           type: 3}
@@ -603,9 +606,9 @@ MonoBehaviour:
           type: 3}
         _onOff: 1
     _scenarios:
-    - _scenarioPrefab: {fileID: 4281324017865965865, guid: 8a872874b0bd81a49ac9266d974f2a5a,
+    - _scenarioPrefab: {fileID: 7392076013187570363, guid: 1f5aea03649a01c4bac9b44cb338704f,
         type: 3}
-      _timerScenario: 5
+      _timerScenario: 10
       _simpleLineStruct:
         _accelerationMax: 15
         _deltaTimeMax: 4
@@ -615,9 +618,9 @@ MonoBehaviour:
         _accelerationMax: 0
         _deltaTimeMax: 0
         _deltaTimeMin: 0
-        _deltaHit: 0
-        _timeBeforeHit: 0
-        _fixPosHit: 0
+        _deltaHit: 3
+        _timeBeforeHit: 2
+        _fixPosHit: 1
       _crossLineStruct:
         _hitPrefab: {fileID: 0}
         _accelerationMax: 20

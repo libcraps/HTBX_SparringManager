@@ -17,8 +17,8 @@ namespace SparringManager.Device
         private string _addressSensorData;
         private string _addressGesture;
 
-        MovuinoSensorData movuinoSensorData;
-        MovuinoXMM movuinoXMMdata;
+        private MovuinoSensorData movuinoSensorData; //9axes data
+        private MovuinoXMM movuinoXMMdata; //Gesture data
 
         public string Id { get { return id; } }
         public MovuinoSensorData MovuinoSensorData { get { return movuinoSensorData; } }

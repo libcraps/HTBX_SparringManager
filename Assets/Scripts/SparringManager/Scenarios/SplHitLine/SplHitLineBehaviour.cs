@@ -33,35 +33,11 @@ namespace SparringManager.Scenarios
      *  Void LineInCameraRange() : Verifie that the line stay in the camera range
      *  void SetHit() : Indicates when the playe can hit by changing the color of the line
      */
-    public class SplHitLineBehaviour : ScenarioDisplayBehaviour
+    public class SplHitLineBehaviour : Scenario1DLineDisplay
     {
         //General variables of a MovingLine
         private SplHitLineStruct structScenari;
         private ScenarioSplHitLine scenario;
-        private float _lineAcceleration;
-        private int _deltaTimeChangeAcceleration;
-        public float LineAcceleration
-        {
-            get
-            {
-                return _lineAcceleration;
-            }
-            set
-            {
-                _lineAcceleration = value;
-            }
-        }
-        public int DeltaTimeChangeAcceleration
-        {
-            get
-            {
-                return _deltaTimeChangeAcceleration;
-            }
-            set
-            {
-                _deltaTimeChangeAcceleration = value;
-            }
-        }
 
         //Variables of an Hitting Line
         //Variables of an Hitting Line
@@ -135,17 +111,13 @@ namespace SparringManager.Scenarios
         void FixedUpdate()
         {
             _tTime = Time.time - _startTimeScenario;
-            LineInCameraRange();
+            ObjectInCameraRange();
             MoveLine(_fixPosHitValue * _lineAcceleration);
             SetHit(_lineToHit);
         }
         public override void Init(IStructScenario structScenari)
         {
             this.structScenari = (SplHitLineStruct)structScenari;
-        }
-        public void Init(ScenarioSplHitLine scenario)
-        {
-            this.scenario = scenario;
         }
 
         public void MoveLine(float lineHorizontalAcceleration)
@@ -198,39 +170,7 @@ namespace SparringManager.Scenarios
             LineObject.transform.localPosition = linePos3d;
         }
 
-        void LineInCameraRange()
-        {
-            /* 
-             * This method keeps the line in the camera range
-             */
-            Vector3 linePos3d;
-            Vector3 renderCameraPos3d;
 
-            GameObject _SimpleLineController = GameObject.Find(this.gameObject.transform.parent.name);
-            GameObject _Camera = _SimpleLineController.transform.GetComponentInParent<DeviceManager>().RenderCamera;
-            Camera renderCamera = _Camera.GetComponent<Camera>();
-            float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
-
-            renderCameraPos3d.x = renderCamera.transform.localPosition.x;
-            renderCameraPos3d.y = renderCamera.transform.localPosition.y;
-            renderCameraPos3d.z = renderCamera.transform.localPosition.z;
-
-            linePos3d.x = this.gameObject.transform.localPosition.x;
-            linePos3d.y = this.gameObject.transform.localPosition.y;
-            linePos3d.z = this.gameObject.transform.localPosition.z;
-
-            //Instruction whether the line gets out of the render camera range
-            if (linePos3d.x > renderCameraPos3d.x + rangeSize)
-            {
-                linePos3d.x -= 2 * rangeSize;
-            }
-            else if (linePos3d.x < renderCameraPos3d.x - rangeSize)
-            {
-                linePos3d.x += 2 * rangeSize;
-            }
-
-            this.gameObject.transform.localPosition = linePos3d;
-        }
         void OnDestroy()
         {
             Debug.Log(this.gameObject.name + "has been destroyed");

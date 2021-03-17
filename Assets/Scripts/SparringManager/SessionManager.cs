@@ -1,4 +1,5 @@
 ﻿using SparringManager.Scenarios;
+using SparringManager.DataManager;
 using SparringManager.Structures;
 using UnityEngine;
 using System;
@@ -18,8 +19,6 @@ namespace SparringManager
      *      StructScenarios[] _scenarios : List of StructScenarios, it contains every parameters of the session of the scenario
      *      int _indexScenario: index of the current secnario that is playing
      *      
-     *      bool ChildDestroyed : Boolean that indicates if the session manager can launch the next scenario (it true when the current scenario is destroyed)
-     *      
      *      //Variables for the DataManager
      *      string _filePath : Path of the data folder, it is initialized to .\_data\
      *      DataManager.DataManager _dataManager : DataManager component
@@ -29,28 +28,31 @@ namespace SparringManager
      */
     public class SessionManager : MonoBehaviour
     {
-//----------------------    ATTRIBUTS    --------------------------
+        #region Attributs
+        //----------------------    ATTRIBUTS    --------------------------
         private string _name;
-        [SerializeField]
         private StructScenarios[] _scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
-        [SerializeField]
         private StructPlayerScene _structPlayerScene;
-
+        private int _operationalArea;
         public bool EndScenario { get; set; }
         private int _indexScenario = 0;
 
         //Variables for the DataManager
-        private DataManager.DataController _dataManager;
+        private DataController _dataManager;
 
         //Properties
         public int NbScenarios { get { return _scenarios.Length; } }
-//----------------------    METHODS    -------------------------------
-// ---> General Methods
+        public int OperationalArea { get { return _operationalArea; } }
+
+        #endregion
+        #region Methods
+        //----------------------    METHODS    -------------------------------
+        // ---> General Methods
         void Start()
         {
             //DATA MANAGER
-            _dataManager = GetComponent<DataManager.DataController>();
-            _dataManager.InitGeneralSectionSumUp(_name, _dataManager.FilePath, NbScenarios);
+            _dataManager = GetComponent<DataController>(); 
+            _dataManager.InitGeneralSectionSumUp(_name, _dataManager.FilePath, NbScenarios); //DataController completed
 
             _indexScenario = 0;
             EndScenario = true; //We initialise to true in order to go in the loop
@@ -103,15 +105,17 @@ namespace SparringManager
             Debug.Log(prefabObject.name + " has been instantiated");
         }
 
-        public void Init(StructScenarios[] scenarios,StructPlayerScene structPlayerScene, string name, bool export)
+        public void Init(StructScenarios[] scenarios,StructPlayerScene structPlayerScene, int actionAngle, string name, bool export)
         {
             _scenarios = scenarios;
             _structPlayerScene = structPlayerScene;
+            _operationalArea = actionAngle;
             _name = name;
         }
+        #endregion
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct DeviceStructure
     {
         [SerializeField]

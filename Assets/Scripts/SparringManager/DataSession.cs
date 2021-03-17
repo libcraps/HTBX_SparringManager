@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using SparringManager.Device;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
@@ -100,9 +101,9 @@ namespace SparringManager.DataManager
         {
             DataTable result = new DataTable();
             result = JoinDataTable(DataSessionScenario.DataTable, DataSessionViveTracker.DataTable, DataSessionHit.DataTable, DataSessionPolar.DataTable);
-            foreach (DataSessionMovuino dataMov in DataSessionMovuino)
+            for(int i=0; i<DataSessionMovuino.Length;  i++)
             {
-                result = JoinDataTable(result, dataMov.DataTable);
+                result = JoinDataTable(result, DataSessionMovuino[i].DataTable, DataSessionMovuinoXMM[i].DataTable);
             }
 
             return result;
@@ -115,6 +116,7 @@ namespace SparringManager.DataManager
             DataSessionHit = new DataSessionHit();
             DataSessionPolar = new DataSessionPolar();
             DataSessionViveTracker = new DataSessionViveTracker();
+
             for (int i = 0; i < nbMov; i++)
             {
                 DataSessionMovuino[i] = new DataSessionMovuino();
@@ -207,20 +209,34 @@ namespace SparringManager.DataManager
     }
     public class DataSessionMovuinoXMM : DataSession
     {
+        public string id;
+
+        public List<object> listTime = new List<object>();
+        public List<object> listGestureID= new List<object>();
+        public List<object> listGestureProb= new List<object>();
         public DataTable DataTable { get { return this.CreateDataTable(); } }
 
         public override void StockData(params object[] list)
         {
-
+            listTime.Add(list[0]);
+            listGestureID.Add(list[1]);
+            listGestureProb.Add(list[2]);
         }
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
+            table.Columns.Add("Gesture " + id, typeof(object));
+            table.Columns.Add("probability" + id, typeof(object));
+
+            for (int i = 0; i < listTime.Count; i++)
+            {
+                table.Rows.Add(listGestureID[i], listGestureProb[i]);
+            }
 
 
             return table;
         }
-    } //TODO
+    }
     public class DataSessionHit : DataSession
     {
         public List<object> listTime = new List<object>();

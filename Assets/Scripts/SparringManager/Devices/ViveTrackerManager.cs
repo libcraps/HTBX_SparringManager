@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Valve.VR;
 using UnityEngine;
 
 namespace SparringManager.Device
@@ -14,6 +15,7 @@ namespace SparringManager.Device
         private void Awake()
         {
             bag = GameObject.Find("BagTracker");
+            //bag.GetComponent<SteamVR_TrackedObject>().index
             player = GameObject.Find("Player");
         }
 

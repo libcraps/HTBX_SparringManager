@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using SparringManager.Structures;
 using UnityEngine;
 
 namespace SparringManager.Device
@@ -8,7 +9,9 @@ namespace SparringManager.Device
     public class DeviceBehaviour : MonoBehaviour
     {
         public string id { get; set; }
-        public void Init(string id)
+
+
+        public virtual void Init(string id)
         {
             this.id = id;
         }

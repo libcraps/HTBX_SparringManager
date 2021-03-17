@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using SparringManager.DataManager;
 using SparringManager.Structures;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace SparringManager
      *      bool _exportInFile : Boolean for the exportation data
      *      
      *  Methods :
-     *      void Start(): used for the first frame
+     *      void Awake(): Instantiate and initailize component of the player camera
      */
     public class MainEnvironnement : MonoBehaviour
     {
@@ -36,7 +37,7 @@ namespace SparringManager
         }
 
         [SerializeField]
-        private StructPlayerCamera[] _mainStructure; //TODO Pb si scénarios trop identiques -> mvt == pareil
+        private StructPlayerCamera[] _mainStructure; //TODO Pb si scénarios trop identiques -> mvt == pareil -> pb de system.random peut etre
         public StructPlayerCamera[] MainStructure
         {
             get
@@ -66,9 +67,10 @@ namespace SparringManager
             }
         }
 
-        //----------------------    ATTRIBUTS    --------------------------
+        //----------------------    Methods    --------------------------
         void Awake()
         {
+            //Instantiate and initailize component of the player camera
             GameObject _coachCamera = GameObject.Find("CoachCamera");
             GameObject clonePlayerCamera;
 
@@ -82,10 +84,11 @@ namespace SparringManager
 
             for (int i = 0; i< NbPlayer; i++)
             {
-                clonePlayerCamera = Instantiate(_prefabPlayerCamera, posPlayerCamera, Quaternion.identity, this.gameObject.transform);
-                clonePlayerCamera.GetComponent<SessionManager>().Init(_mainStructure[i].Scenarios, _mainStructure[i].StructPlayerScene,  _mainStructure[i].Name, _exportInFile);
+
+                clonePlayerCamera = Instantiate(_prefabPlayerCamera, posPlayerCamera, Quaternion.identity, this.gameObject.transform); 
+                clonePlayerCamera.GetComponent<SessionManager>().Init(_mainStructure[i].Scenarios, _mainStructure[i].StructPlayerScene, _mainStructure[i].operationalArea, _mainStructure[i].Name, _exportInFile);
                 clonePlayerCamera.GetComponent<DeviceManager>().Init(_mainStructure[i].StructHitBox, _mainStructure[i].StructPlayerScene, _mainStructure[i].Name, i);
-                clonePlayerCamera.GetComponent<DataManager.DataController>().Init(_exportInFile, ".\\_data\\" + _mainStructure[i].Name+"\\");
+                clonePlayerCamera.GetComponent<DataController>().Init(_exportInFile, ".\\_data\\" + _mainStructure[i].Name+"\\");
 
                 posPlayerCamera.x += sizeSection*2;
             }

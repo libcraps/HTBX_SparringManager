@@ -18,6 +18,8 @@ namespace SparringManager.Structures
         [SerializeField]
         private string _name;
         [SerializeField]
+        private int _operationalArea; //angle
+        [SerializeField]
         private StructHitBox _structHitBox;
         [SerializeField]
         private StructPlayerScene _structPlayerScene;
@@ -68,12 +70,19 @@ namespace SparringManager.Structures
                 _scenarios = value;
             }
         }
-        public StructPlayerCamera(string name, StructHitBox structHitBox, StructPlayerScene structPlayerScene, StructScenarios[] scenarios)
+        public int operationalArea
+        {
+            get { return _operationalArea; }
+            set { _operationalArea = value; }
+        }
+
+        public StructPlayerCamera(string name, int operationalArea,StructHitBox structHitBox, StructPlayerScene structPlayerScene, StructScenarios[] scenarios)
         {
             _name = name;
             _structHitBox = structHitBox;
             _structPlayerScene = structPlayerScene;
             _scenarios = scenarios;
+            _operationalArea = operationalArea;
         }
     }
 
@@ -302,6 +311,32 @@ namespace SparringManager.Structures
         private GameObject _prefab;
         [SerializeField]
         private bool _onOff;
+
+        public enum EIndex
+        {
+            None = -1,
+            Hmd = (int)Valve.VR.OpenVR.k_unTrackedDeviceIndex_Hmd,
+            Device1,
+            Device2,
+            Device3,
+            Device4,
+            Device5,
+            Device6,
+            Device7,
+            Device8,
+            Device9,
+            Device10,
+            Device11,
+            Device12,
+            Device13,
+            Device14,
+            Device15,
+            Device16
+        }
+
+        public EIndex indexBag;
+        public EIndex indexPlayer;
+
         public GameObject Prefab
         {
             get
@@ -321,10 +356,12 @@ namespace SparringManager.Structures
                 _onOff = value;
             }
         }
-        public StructViveTracker(GameObject prefab, bool onOff)
+        public StructViveTracker(GameObject prefab, EIndex bag, EIndex player, bool onOff)
         {
             _prefab = prefab;
             _onOff = onOff;
+            indexBag = bag;
+            indexPlayer = player;
         }
     }
 
