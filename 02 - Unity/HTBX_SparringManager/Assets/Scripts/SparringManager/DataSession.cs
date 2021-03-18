@@ -182,9 +182,10 @@ namespace SparringManager.DataManager
 
             for (int i = 0; i < listAcceleration.Count; i++)
             {
-                table.Rows.Add(listAcceleration[i].x, listAcceleration[i].y, listAcceleration[i].z);
-                table.Rows.Add(listGyroscope[i].x, listGyroscope[i].y, listGyroscope[i].z);
-                table.Rows.Add(listGyroscope[i].x, listGyroscope[i].y, listGyroscope[i].z);
+                table.Rows.Add(
+                    listAcceleration[i].x, listAcceleration[i].y, listAcceleration[i].z,
+                    listGyroscope[i].x, listGyroscope[i].y, listGyroscope[i].z, 
+                    listMagneto[i].x, listMagneto[i].y, listMagneto[i].z);
             }
 
             return table;
