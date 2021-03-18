@@ -521,7 +521,7 @@ MonoBehaviour:
         ledControlSerialPortName: COM7
         impactThreshold: 3
         delayOffHit: 2
-        displayDatapoints: 0
+        displayDatapoints: 1
         ignoreBlackBackground: 0
       _onOff: 1
     _structPlayerScene:
@@ -545,7 +545,7 @@ MonoBehaviour:
           type: 3}
         _onOff: 1
     _scenarios:
-    - _scenarioPrefab: {fileID: 4281324017865965865, guid: 30bee1edd9312e54da96df824042ceec,
+    - _scenarioPrefab: {fileID: 7392076013187570363, guid: 1f5aea03649a01c4bac9b44cb338704f,
         type: 3}
       _timerScenario: 10
       _simpleLineStruct:
@@ -580,7 +580,7 @@ MonoBehaviour:
         _fixPosHit: 0
     - _scenarioPrefab: {fileID: 4281324017865965865, guid: 81bcf515e42e28b499dc2c872ec52c77,
         type: 3}
-      _timerScenario: 5
+      _timerScenario: 1
       _simpleLineStruct:
         _accelerationMax: 15
         _deltaTimeMax: 4
