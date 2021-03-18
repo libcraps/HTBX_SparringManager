@@ -75,6 +75,7 @@ namespace SparringManager.Device
 			accelerometer = new Vector3(ax, ay, az);
 			gyroscope = new Vector3(gx, gy, gz);
 			magnetometer = new Vector3(mx, my, mz);
+
 		}
 
 		protected override string GetAddress ()
@@ -130,6 +131,8 @@ namespace SparringManager.Device
 		public override void ToOSCDataHandler(OscMessage message)
 		{
 			bpm = message.GetFloat(0);
+			Debug.Log("BPM recu via OSC : " + bpm);
+
 		}
 
 		protected override string GetAddress()

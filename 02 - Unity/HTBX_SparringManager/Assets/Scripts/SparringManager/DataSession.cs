@@ -41,7 +41,6 @@ namespace SparringManager.DataManager
             foreach (DataTable tab in data)
             {
                 table.Merge(tab);
-                Debug.Log(table.Rows.Count);
             }
             return table;
         }
@@ -56,7 +55,6 @@ namespace SparringManager.DataManager
             {
                 foreach (DataColumn column in table.Columns)
                 {
-                    Debug.Log(column.ColumnName);
                     result.Columns.Add(column.ColumnName);
                 }
             }
@@ -156,29 +154,37 @@ namespace SparringManager.DataManager
         public string id;
 
         public List<object> listTime = new List<object>();
-        public List<object> listAcceleration = new List<object>();
-        public List<object> listGyroscope = new List<object>();
-        public List<object> listMagneto = new List<object>();
+        public List<Vector3> listAcceleration = new List<Vector3>();
+        public List<Vector3> listGyroscope = new List<Vector3>();
+        public List<Vector3> listMagneto = new List<Vector3>();
 
         public DataTable DataTable { get { return this.CreateDataTable(); } }
 
         public override void StockData(params object[] list)
         {
             listTime.Add(list[0]);
-            listAcceleration.Add(list[1]);
-            listGyroscope.Add(list[2]);
-            listMagneto.Add(list[3]);
+            listAcceleration.Add((Vector3)list[1]);
+            listGyroscope.Add((Vector3)list[2]);
+            listMagneto.Add((Vector3)list[3]);
         }
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
-            table.Columns.Add("Acceleration " + id, typeof(object));
-            table.Columns.Add("Gyroscope " + id, typeof(object));
-            table.Columns.Add("Magnetometre " + id, typeof(object));
+            table.Columns.Add("Ax " + id, typeof(float));
+            table.Columns.Add("Ay " + id, typeof(float));
+            table.Columns.Add("Az " + id, typeof(float));
+            table.Columns.Add("Gx " + id, typeof(float));
+            table.Columns.Add("Gy " + id, typeof(float));
+            table.Columns.Add("Gz " + id, typeof(float));
+            table.Columns.Add("Mx " + id, typeof(float));
+            table.Columns.Add("My " + id, typeof(float));
+            table.Columns.Add("Mz " + id, typeof(float));
 
             for (int i = 0; i < listAcceleration.Count; i++)
             {
-                table.Rows.Add(listAcceleration[i], listGyroscope[i], listMagneto[i]);
+                table.Rows.Add(listAcceleration[i].x, listAcceleration[i].y, listAcceleration[i].z);
+                table.Rows.Add(listGyroscope[i].x, listGyroscope[i].y, listGyroscope[i].z);
+                table.Rows.Add(listGyroscope[i].x, listGyroscope[i].y, listGyroscope[i].z);
             }
 
             return table;
@@ -186,20 +192,22 @@ namespace SparringManager.DataManager
     }
     public class DataSessionPolar : DataSession
     {
+        public List<object> listTime = new List<object>();
         public List<object> listBpm = new List<object>();
 
         public DataTable DataTable { get { return this.CreateDataTable(); } }
 
         public override void StockData(params object[] list)
         {
-            listBpm.Add(list[0]);
+            listTime.Add(list[0]);
+            listBpm.Add(list[1]);
         }
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
             table.Columns.Add("BPM", typeof(object));
 
-            for (int i = 0; i < listBpm.Count; i++)
+            for (int i = 0; i < listTime.Count; i++)
             {
                 table.Rows.Add(listBpm[i]);
             }

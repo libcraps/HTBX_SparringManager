@@ -51,11 +51,11 @@ namespace SparringManager.Device
 
             //Instantiation of Devices if Struct.OnOff = On
             _viveTracker = InstantiateDevice<ViveTrackerManager>(_structPlayerScene.StructViveTracker, this.gameObject, _idPlayer);
-            _polar = InstantiateDevice<Polar>(_structPlayerScene.StructPolar, _player, _idPlayer);
+            _polar = InstantiateDevice<Polar>(_structPlayerScene.StructPolar, _player, "/" + _idPlayer);
 
             foreach (StructMovuino mov in _structPlayerScene.StructMovuino)
             {
-                _movuino = InstantiateDevice<Movuino>(mov, _player, "/" + _idPlayer + "/" + mov.Id);
+                _movuino = InstantiateDevice<Movuino>(mov, _player, "/" + _idPlayer + mov.Id);
             }
 
         }

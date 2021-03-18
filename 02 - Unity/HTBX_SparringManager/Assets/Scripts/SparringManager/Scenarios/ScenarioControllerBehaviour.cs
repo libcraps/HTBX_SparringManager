@@ -75,7 +75,9 @@ namespace SparringManager.Scenarios
             dataSessionPlayer.DataSessionScenario.StockData(tTime, consigne);
             dataSessionPlayer.DataSessionViveTracker.StockData(tTime, viveTrackerManager.angle);
             dataSessionPlayer.DataSessionHit.StockData(tTime, hit);
-            dataSessionPlayer.DataSessionPolar.StockData(polar.polarBPM.bpm);//test angle
+            dataSessionPlayer.DataSessionPolar.StockData(tTime, polar.polarBPM.bpm);//test angle
+            Debug.Log("BPM en train d'etre stocké : " + polar.polarBPM.bpm);
+            Debug.Log("Igottata      " + polar.polarBPM.bpm);
             for (int i = 0; i < NbMovuino; i++)
             {
                 dataSessionPlayer.DataSessionMovuino[i].StockData(tTime, movuino[i].MovuinoSensorData.accelerometer, movuino[i].MovuinoSensorData.gyroscope, movuino[i].MovuinoSensorData.magnetometer);

@@ -27,11 +27,12 @@ namespace SparringManager.Device
             _oscGameObject = GameObject.Find("OSCManager");
             _oscManager = _oscGameObject.GetComponent<OSC>();
 
-            _oscManager.SetAddressHandler(id + "bpm", _polarBPM.ToOSCDataHandler);
+            _oscManager.SetAddressHandler(id + PolarBPM.address, _polarBPM.ToOSCDataHandler);
         }
 
         private void FixedUpdate()
         {
+            Debug.Log(id + PolarBPM.address);
         }
 
     }

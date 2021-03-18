@@ -40,6 +40,13 @@ namespace SparringManager.Device
 
             _oscManager.SetAddressHandler(_addressSensorData, movuinoSensorData.ToOSCDataHandler);
             _oscManager.SetAddressHandler(_addressGesture, movuinoXMMdata.ToOSCDataHandler);
+            _oscManager.SetAllMessageHandler(DebugAllMessage);
+        }
+        
+        void DebugAllMessage(OscMessage msg)
+        {
+            Debug.Log(msg.address);
+            Debug.Log(msg.values);
         }
 
     }
