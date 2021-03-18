@@ -14,6 +14,7 @@ namespace SparringManager.Device
         StructViveTracker structViveTracker;
 
         Vector3 _bagDir;
+        Vector3 _bagDirInit;
 
         public float angle = 0;
 
@@ -42,6 +43,7 @@ namespace SparringManager.Device
 
         private void Start()
         {
+            _bagDirInit = bag.transform.position - player.transform.position;
         }
         void FixedUpdate()
         {
@@ -63,8 +65,8 @@ namespace SparringManager.Device
                 calibrate = true;
                 bag.transform.position = player.transform.position;
                 /*
-                Vector3 newOrientation = new Vector3(_bagDir.x, bag.transform.rotation.y, _bagDir.z);
-                bag.transform.localRotation = Quaternion.Euler(newOrientation);
+                Vector3 newOrientation = new Vector3(player.transform.rotation.x, bag.transform.rotation.y, player.transform.rotation.y);
+                bag.transform.rotation = Quaternion.Euler(newOrientation);
                 */
             }
         }
