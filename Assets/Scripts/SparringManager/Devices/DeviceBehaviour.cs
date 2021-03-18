@@ -10,8 +10,7 @@ namespace SparringManager.Device
     {
         public string id { get; set; }
 
-
-        public virtual void Init(string id)
+        public virtual void Init(IStructDevice structure, string id)
         {
             this.id = id;
         }

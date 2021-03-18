@@ -78,7 +78,7 @@ namespace SparringManager.Device
             if (structure.OnOff)
             {
                 prefab = Instantiate(structure.Prefab, parent.transform);
-                prefab.GetComponent<ClassDevice>().Init(id);
+                prefab.GetComponent<ClassDevice>().Init(structure, id);
                 Debug.Log("Instantiation of " + structure.Prefab.name);
             }
             return prefab;
