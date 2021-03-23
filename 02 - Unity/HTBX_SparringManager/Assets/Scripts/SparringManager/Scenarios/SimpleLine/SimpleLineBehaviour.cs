@@ -50,7 +50,7 @@ namespace SparringManager.Scenarios
         void MoveLine(float lineHorizontalAcceleration)
         {
             //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
-            this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(lineHorizontalAcceleration, 0, 0);
+            this.gameObject.GetComponent<Rigidbody>().velocity= new Vector3(lineHorizontalAcceleration, 0, 0);
         }
         void OnDestroy()
         {

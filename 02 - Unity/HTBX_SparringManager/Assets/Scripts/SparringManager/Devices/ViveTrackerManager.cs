@@ -14,7 +14,7 @@ namespace SparringManager.Device
         StructViveTracker structViveTracker;
 
         Vector3 _bagDir;
-        Vector3 _bagDirInit;
+
 
         public float angle = 0;
 
@@ -42,8 +42,8 @@ namespace SparringManager.Device
         }
 
         private void Start()
-        {
-            _bagDirInit = bag.transform.position - player.transform.position;
+        { 
+
         }
         void FixedUpdate()
         {
@@ -52,8 +52,8 @@ namespace SparringManager.Device
             Vector3 _bagDirNormalized = Vector3.Normalize(new Vector3(_bagDir.x, 0, _bagDir.z)); //Getting rid of the height for the vector and normalizing
             Vector3 _playerOrientation = Vector3.Normalize(transform.up); //Normalizing player orientation
 
-            angle = Vector3.SignedAngle(_bagDirNormalized, -bag.transform.up, Vector3.up);
-            
+            angle = Vector3.SignedAngle(_bagDirNormalized, -bag.transform.up, bag.transform.right);
+            Debug.Log(angle);
             calibratePosPlayer();
         }
 
@@ -61,13 +61,18 @@ namespace SparringManager.Device
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                float deltaAngle;
+
+                Vector3 bagDirInit = bag.transform.position - player.transform.position;
+                Vector3 _bagDirNormalized = Vector3.Normalize(new Vector3(bagDirInit.x, 0, bagDirInit.z));
+
+                deltaAngle = Vector3.SignedAngle(_bagDirNormalized, -bag.transform.up, bag.transform.forward);
+                bag.transform.Rotate(new Vector3(0, 0, -deltaAngle+180));
+
                 playerPosInit = player.transform.position;
-                calibrate = true;
                 bag.transform.position = player.transform.position;
-                /*
-                Vector3 newOrientation = new Vector3(player.transform.rotation.x, bag.transform.rotation.y, player.transform.rotation.y);
-                bag.transform.rotation = Quaternion.Euler(newOrientation);
-                */
+
+                calibrate = true;
             }
         }
         public override void Init(IStructDevice structure, string id)

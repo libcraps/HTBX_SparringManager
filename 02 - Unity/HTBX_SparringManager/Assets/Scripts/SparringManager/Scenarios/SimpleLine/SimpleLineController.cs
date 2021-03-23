@@ -85,15 +85,15 @@ namespace SparringManager.Scenarios
             scenarioBehaviour = go.GetComponent<SimpleLineBehaviour>();
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
-
+            scenarioBehaviour.LineAcceleration = scenario.accelerationMax;
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
         protected override void FixedUpdate()
         {
-            base.FixedUpdate();
+            base.FixedUpdate(); //StockData
+
             //Behaviour Management
-            tTime = Time.time - startTimeScenario;
-            RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
+            //RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
         }
         void OnDestroy()
         {

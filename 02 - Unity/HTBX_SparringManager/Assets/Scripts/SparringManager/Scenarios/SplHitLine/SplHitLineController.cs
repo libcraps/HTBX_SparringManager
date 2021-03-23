@@ -90,16 +90,17 @@ namespace SparringManager.SplHitLine
             scenarioBehaviour = go.GetComponent<SplHitLineBehaviour>();
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
-
+            scenarioBehaviour.LineAcceleration = scenario.accelerationMax;
             SetLineToHit(); // We define at the beginning of the scenario which line will be scale and in which direction
         }
         protected override void FixedUpdate()
         {
-            base.FixedUpdate();
-            hit = " ";
+            base.FixedUpdate();//STock Data
+            
             //Update the "situation" of the line
-            tTime = Time.time - startTimeScenario;
-            RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
+            
+            //RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
+            hit = " ";
 
         }
         void OnDestroy()
