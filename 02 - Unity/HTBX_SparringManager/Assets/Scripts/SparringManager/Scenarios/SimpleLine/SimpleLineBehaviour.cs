@@ -12,8 +12,8 @@ namespace SparringManager.Scenarios
      *  The Line only moves lateraly
      *  
      *  Attributs :
-     *      float _lineAcceleration : Acceleration at a tTime of the Line
-     *      int _deltaTimeChangeAcceleration : Time during which the line will keep tis acceleration
+     *      float _lineVelocity : Acceleration at a tTime of the Line
+     *      int _deltaTimeChangeVelocity : Time during which the line will keep tis acceleration
      *      float _startTimeScenario : absolut time of the beginning of the scenario
      *      float _tTime : tTime
      *      
@@ -41,7 +41,7 @@ namespace SparringManager.Scenarios
         {
             _tTime = Time.time - _startTimeScenario;
             ObjectInCameraRange();
-            MoveLine(_lineAcceleration);
+            MoveLine(_lineVelocity);
         }
         public override void Init(IStructScenario structScenari)
         {

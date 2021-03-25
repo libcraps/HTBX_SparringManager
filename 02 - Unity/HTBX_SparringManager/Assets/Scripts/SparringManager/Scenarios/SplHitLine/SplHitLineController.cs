@@ -90,7 +90,7 @@ namespace SparringManager.SplHitLine
             scenarioBehaviour = go.GetComponent<SplHitLineBehaviour>();
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
-            scenarioBehaviour.LineAcceleration = scenario.accelerationMax;
+            scenarioBehaviour.LineVelocity = scenario.accelerationMax;
             SetLineToHit(); // We define at the beginning of the scenario which line will be scale and in which direction
         }
         protected override void FixedUpdate()
@@ -136,10 +136,10 @@ namespace SparringManager.SplHitLine
         {
             System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeAcceleration)
+            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeVelocity)
             {
-                scenarioBehaviour.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
-                scenarioBehaviour.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
+                scenarioBehaviour.LineVelocity = random.Next(-accelerationMax, accelerationMax);
+                scenarioBehaviour.DeltaTimeChangeVelocity = random.Next(deltaTimeMin, deltaTimeMax);
 
                 previousTime = tTime;
             }

@@ -9,8 +9,8 @@ namespace SparringManager.Scenarios
      *  The CrossLine moves lateraly and vertically and it instantiates the hit after _timeBeforeHit seconds. 
     *  
     *  Attributs :
-    *      float[2] _lineAcceleration : Acceleration at a tTime of the crossline ([0] is ax and [1] i ay)
-    *      int _deltaTimeChangeAcceleration : Time during which the line will keep tis acceleration
+    *      float[2] _lineVelocity : Acceleration at a tTime of the crossline ([0] is ax and [1] i ay)
+    *      int _deltaTimeChangeVelocity : Time during which the line will keep tis acceleration
     *      float _timeBeforeHit : Time when the hit will be setted
     *      float _deltaHit : Time during which the player will be able to hit the line
     *      bool _hitted : Boolean that indicates fi the line is hitted or not

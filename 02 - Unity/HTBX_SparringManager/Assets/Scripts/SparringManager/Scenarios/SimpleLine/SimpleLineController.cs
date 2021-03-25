@@ -11,27 +11,10 @@ namespace SparringManager.Scenarios
      *  This class manage the behaviour of the SimpleLine prefab, and the data handling of the scenario.
      *  
      *  Attributs :
-     *      //Usefull parameters of the scenario, they are in the simpleLineStructure
-     *      int _accelerationMax : Maximum acceleration that the line can have
-     *      int _deltaTimeMax : Maximum time before the line change its acceleration
-     *      int _deltaTimeMin : Minimum time before the line change its acceleration
-     *      
-     *      float _startTimeScenario : absolut time of the beginning of the scenario
-     *      float _tTime : tTime
-     *      float _previousTime : Time that we keep in memory every changement of the comportement of the line
-     *      float _timerScenario
-     *      
-     *      // CONTAINERS
-     *      ScenarioController _scenarioControllerComponent : Allows us to stock the StructScenarios structure that comes from SessionManager (scenarios[i])
-     *      StructScenarios _controllerStruct : We stock in the _controllerStruct the structure that is in the _scenarioControllerComponent
-     *      SplHitLineStruct _splHitLineControllerStruct : We stock the part SimpleLineStruct of the _controllerStruct
-     *      SimpleLineDataStruct _simpleLineData : Structure that will contain the data of the SplHitline scenario
-     *      
-     *      GameObject _scenarioComposant : Prefab of the line
-     *      SplHitLineBehaviour _splHitLineComponent : SimpleLineBehaviour component of the prefab, it gives u acces ti different variable of the splHitLine Prefab
-     *      
-     *      List<float> mouvementConsign : List that contain all the position of the line
-     *      List<float> timeListScenario : Time list of the scenario
+     *      public ScenarioSimpleLine scenario { get; set; } : scenario object inherited from Scenario<Hitline>
+     *      public SimpleLineBehaviour scenarioBehaviour : HitlineBehaviour componnent of the scenario
+     *      protected override float startTimeScenario : startTime of the scenario;
+     *      protected override object consigne : get the consigne of the session
      *      
      *      Methods :
      *      //Methods that set variables
@@ -85,7 +68,7 @@ namespace SparringManager.Scenarios
             scenarioBehaviour = go.GetComponent<SimpleLineBehaviour>();
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
-            scenarioBehaviour.LineAcceleration = scenario.accelerationMax;
+            scenarioBehaviour.LineVelocity = scenario.accelerationMax;
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
         protected override void FixedUpdate()
@@ -121,10 +104,10 @@ namespace SparringManager.Scenarios
         {
             System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeAcceleration)
+            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeVelocity)
             {
-                scenarioBehaviour.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
-                scenarioBehaviour.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
+                scenarioBehaviour.LineVelocity = random.Next(-accelerationMax, accelerationMax);
+                scenarioBehaviour.DeltaTimeChangeVelocity = random.Next(deltaTimeMin, deltaTimeMax);
 
                 previousTime = tTime;
             }

@@ -16,7 +16,13 @@ namespace SparringManager.Scenarios
      *      ScenarioSplHitLine : Scenario<SplHitLineStruct>
      *      ScenarioSimpleHit : Scenario<SimpleHitStruct>
      */
-    public class Scenario<StructScenario> where StructScenario: IStructScenario
+
+    public interface IScenarioClass
+    {
+        float timerScenario { get; set; }
+        float startTimeScenario { get; set; }
+    }
+    public class Scenario<StructScenario> : IScenarioClass where StructScenario: IStructScenario
     {
         public static T CreateScenarioObject<T>() where T : Scenario<StructScenario>, new()
         {

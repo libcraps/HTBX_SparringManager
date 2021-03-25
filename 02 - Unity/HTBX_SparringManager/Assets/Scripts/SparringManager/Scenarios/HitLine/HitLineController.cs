@@ -89,7 +89,7 @@ namespace SparringManager.Scenarios
             scenarioBehaviour = go.GetComponent<HitLineBehaviour>();
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
-            scenarioBehaviour.LineAcceleration = scenario.accelerationMax;
+            scenarioBehaviour.LineVelocity = scenario.accelerationMax;
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
         protected override void FixedUpdate()
@@ -134,10 +134,10 @@ namespace SparringManager.Scenarios
         {
             System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeAcceleration)
+            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeVelocity)
             {
-                scenarioBehaviour.LineAcceleration = random.Next(-accelerationMax, accelerationMax);
-                scenarioBehaviour.DeltaTimeChangeAcceleration = random.Next(deltaTimeMin, deltaTimeMax);
+                scenarioBehaviour.LineVelocity = random.Next(-accelerationMax, accelerationMax);
+                scenarioBehaviour.DeltaTimeChangeVelocity = random.Next(deltaTimeMin, deltaTimeMax);
 
                 previousTime = tTime;
             }

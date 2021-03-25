@@ -8,8 +8,15 @@ namespace SparringManager.Scenarios
 {
     public abstract class ScenarioDisplayBehaviour : MonoBehaviour
     {
-        protected int operationalArea;
+        /*
+         * Abstract class for sccenarioBehaviour component, each scenario controller will dispose this attributs and methods (public and protected) 
+         */
 
+        #region Attributs
+        protected int operationalArea;
+        #endregion
+
+        #region Methods
         public virtual void Init(IStructScenario structScenarios)
         {
 
@@ -21,35 +28,44 @@ namespace SparringManager.Scenarios
         {
             operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
         }
+        #endregion
     }
 
     public class Scenario1DLineDisplay : ScenarioDisplayBehaviour
     {
-        protected float _lineAcceleration;
-        protected int _deltaTimeChangeAcceleration = 0;
-        public float LineAcceleration
+        /*
+         * Intermediate clas that allows us to control the behaviour of a 1D line
+         * Attributs : 
+         *      
+         */
+        #region Attributs
+        protected float _lineVelocity;
+        protected int _deltaTimeChangeVelocity = 0;
+        public float LineVelocity
         {
             get
             {
-                return _lineAcceleration;
+                return _lineVelocity;
             }
             set
             {
-                _lineAcceleration = value;
+                _lineVelocity = value;
             }
         }
-        public int DeltaTimeChangeAcceleration
+        public int DeltaTimeChangeVelocity
         {
             get
             {
-                return _deltaTimeChangeAcceleration;
+                return _deltaTimeChangeVelocity;
             }
             set
             {
-                _deltaTimeChangeAcceleration = value;
+                _deltaTimeChangeVelocity = value;
             }
         }
+        #endregion
 
+        #region Methods
         protected override void ObjectInCameraRange()
         {
             /* 
@@ -58,10 +74,13 @@ namespace SparringManager.Scenarios
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
 
+
+            //-----------
             GameObject _SimpleLineController = GameObject.Find(this.gameObject.transform.parent.name);
             GameObject _Camera = _SimpleLineController.transform.GetComponentInParent<DeviceManager>().RenderCamera;
             Camera renderCamera = _Camera.GetComponent<Camera>();
             float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
+            //------------- a enlever
 
             float area = operationalArea / (float)360.0 * rangeSize;
 
@@ -82,7 +101,7 @@ namespace SparringManager.Scenarios
                 }
                 else
                 {
-                    _lineAcceleration = -_lineAcceleration;
+                    _lineVelocity = -_lineVelocity;
                 }
             }
             else if (linePos3d.x < renderCameraPos3d.x - area)
@@ -93,11 +112,12 @@ namespace SparringManager.Scenarios
                 }
                 else
                 {
-                    _lineAcceleration = -_lineAcceleration;
+                    _lineVelocity = -_lineVelocity;
                 }
             }
 
             this.gameObject.transform.localPosition = linePos3d;
         }
+        #endregion
     }
 }

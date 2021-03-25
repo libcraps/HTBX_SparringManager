@@ -12,8 +12,8 @@ namespace SparringManager.Scenarios
      *  The Line only moves lateraly and it instantiates the hit after _timeBeforeHit seconds. 
      *  
      *  Attributs :
-     *      float _lineAcceleration : Acceleration at a tTime of the Line
-     *      int _deltaTimeChangeAcceleration : Time during which the line will keep tis acceleration
+     *      float _lineVelocity : Acceleration at a tTime of the Line
+     *      int _deltaTimeChangeVelocity : Time during which the line will keep tis acceleration
      *      float _timeBeforeHit : Time when the hit will be setted
      *      float _deltaHit : Time during which the player will be able to hit the line
      *      bool _hitted : Boolean that indicates fi the line is hitted or not
@@ -65,7 +65,7 @@ namespace SparringManager.Scenarios
         {
             _tTime = Time.time - _startTimeScenario;
             ObjectInCameraRange();
-            MoveLine(_fixPosHitValue * _lineAcceleration);
+            MoveLine(_fixPosHitValue * _lineVelocity);
             SetHit();
         }
 
