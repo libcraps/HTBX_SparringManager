@@ -8,7 +8,8 @@ using UnityEngine;
 
 namespace SparringManager.DataManager
 {
-    /* Class of the DataController
+    /* 
+     * Class of the DataController
     * 
     *  Summary :
     *  This class manage the session :
@@ -19,7 +20,6 @@ namespace SparringManager.DataManager
     *      bool _exportIntoFile : Boolean that indicates us if the user want to export the data in a .csv and a .txt
     *      bool _editDataTable : Boolean that indicates to tha datamanager when he can store the data in the datatable (format for the extract in the .csv)
     *      bool EndScenarioForData : Indicates to the datamanager when the scenario ended
-    *      StructExportData _exportDataStruct : Structure that organise the data of scenarios, it will be converted into a DataTable
     *      List<DataTable> _dataBase : this list gets every scenario data in a dataTable
     *      string _filePath : Path of the data folder, it is initialized to .\_data\
     *      
@@ -94,20 +94,6 @@ namespace SparringManager.DataManager
             }
         }
 
-        private StructExportData _exportDataStruct;
-        public StructExportData ExportDataStruct
-        {
-            get
-            {
-                return _exportDataStruct;
-            }
-            set
-            {
-                _exportDataStruct = value;
-            }
-        }
-
-
         //List that sum up the session that we will put in a text file
         private Dictionary<string, Dictionary<string,string>> _sessionSumUp;
         public Dictionary<string, Dictionary<string, string>> SessionSumUp
@@ -139,7 +125,6 @@ namespace SparringManager.DataManager
         private void Awake()
         {
             //INITIALISATION OF VARIABLES 
-            _exportDataStruct = new StructExportData();
             _sessionSumUp = new Dictionary<string, Dictionary<string, string>>();
             _generaralSectionSumUp = new Dictionary<string, string>();
             _dataBase = new List<DataTable>();
@@ -308,18 +293,6 @@ namespace SparringManager.DataManager
             //Set DataManager's attributs
             _exportIntoFile = export;
             _filePath = filepath;
-        }
-        public void GetScenarioExportDataInStructure(List<float> timeListScenario, List<Vector3> mouvementConsigne)
-        {
-            //Put the scenario export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
-            _exportDataStruct.MouvementConsigne = mouvementConsigne;
-            _exportDataStruct.TimeListScenario = timeListScenario;
-        }
-        public void GetSceneExportDataInStructure(List<Vector3> mouvementPlayer, List<Vector3> mouvementBag)
-        {
-            //Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
-            _exportDataStruct.MouvementPlayer = mouvementPlayer;
-            _exportDataStruct.MouvementBag = mouvementBag;
         }
     }
 }
