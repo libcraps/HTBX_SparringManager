@@ -10,11 +10,6 @@ namespace SparringManager.DataManager
 {
     /* 
      * Class of the DataController
-    * 
-    *  Summary :
-    *  This class manage the session :
-    *      - it instantiates scenarios
-    *      - it deals with the DataManager
     *  
     *  Attributs :
     *      bool _exportIntoFile : Boolean that indicates us if the user want to export the data in a .csv and a .txt
@@ -37,6 +32,10 @@ namespace SparringManager.DataManager
     *       void GetScenarioExportDataInStructure(List<float> timeListScenario, List<Vector3> mouvementConsigne) : Put the scenario export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
     *       void GetSceneExportDataInStructure(List<Vector3> mouvementPlayer, List<Vector3> mouvementBag) : Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
     */
+
+    /// <summary>
+    /// MonoBehaviour class, it represent the DataController, it is associated to each PlayerCameraObject in the HitBox project.
+    /// </summary>
     public class DataController : MonoBehaviour
     {
 //--------------------------    ATTRIBUTS    -------------------------------

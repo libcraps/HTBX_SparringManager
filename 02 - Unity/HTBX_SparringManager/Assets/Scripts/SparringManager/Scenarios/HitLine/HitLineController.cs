@@ -52,6 +52,10 @@ namespace SparringManager.Scenarios
      *      Method for an hitting object
      *      void GetHit(Vector2 position2d_) : Get the Hit of the position2d_ (use events)
      */
+
+    /// <summary>
+    /// Manage the scenario HitLine.
+    /// </summary>
     public class HitLineController : ScenarioControllerBehaviour
     {
         #region Attributs

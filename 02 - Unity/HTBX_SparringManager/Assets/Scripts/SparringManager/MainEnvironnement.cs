@@ -20,6 +20,11 @@ namespace SparringManager
      *  Methods :
      *      void Awake(): Instantiate and initailize component of the player camera
      */
+
+
+    /// <summary>
+    /// Instantiates every PlayerCamera from the <paramref name="StructPlayerCamera[]">MainStructure</paramref>
+    /// </summary>
     public class MainEnvironnement : MonoBehaviour
     {
         //----------------------    ATTRIBUTS    --------------------------

@@ -2,9 +2,19 @@
 
 namespace SparringManager.Scenarios
 {
+    /// <summary>
+    /// Structure that contains parameters of the specified scenario
+    /// </summary>
     public interface IStructScenario
     {
     }
+
+
+    /// <summary>
+    /// Structure that contains every scenario structures
+    /// 
+    /// <remarks>It has been done because Unity doesn't like generic in her inspector</remarks>
+    /// </summary>
     [System.Serializable]
     public struct StructScenarios
     {

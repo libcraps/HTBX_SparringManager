@@ -24,6 +24,11 @@ namespace SparringManager.Scenarios
     *      Void LineInCameraRange() : Verifie that the line stay in the camera range
     *      void SetHit() : Indicates when the playe can hit by changing the color of the line
     */
+
+    /// <summary>
+    /// Manage the behaviour of the CrossLine.
+    /// </summary>
+    /// <remarks>Essentialy it moves the line, instantiates the hit and it makes sure that the line stays in the range of the camera</remarks>
     public class CrossLineBehaviour : ScenarioDisplayBehaviour
     {
         //General variables of a MovingLine

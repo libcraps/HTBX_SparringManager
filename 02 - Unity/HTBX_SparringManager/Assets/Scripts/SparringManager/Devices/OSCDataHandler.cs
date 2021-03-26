@@ -42,9 +42,9 @@ namespace SparringManager.Device
 	}
 
 	/// <summary>
-	/// Data for the accelerometer and the gyroscope of Movuino
+	/// Data of the accelerometer, the gyroscope and the magnetometer of Movuino
 	/// </summary>
-	public class MovuinoSensorData : OSCDataHandler
+	public class OSCMovuinoSensorData : OSCDataHandler
 	{
 		/// <summary>
 		/// Accelerometer data.
@@ -95,7 +95,11 @@ namespace SparringManager.Device
 		}
 	}
 
-    public class MovuinoXMM : OSCDataHandler
+	/// <summary>
+	/// Data of the XMM from the pathMax (normally)
+	/// </summary>
+	/// <remarks>It gets the gesture ID and his progression</remarks>
+	public class OSCMovuinoXMM : OSCDataHandler
 	{
 		public int gestId;
 		public float gestProg;
@@ -122,7 +126,7 @@ namespace SparringManager.Device
 			+ gestProg.ToString ());
 		}
 	}
-	public class PolarBPM : OSCDataHandler
+	public class OSCPolarBPM : OSCDataHandler
 	{
 		public float bpm;
 

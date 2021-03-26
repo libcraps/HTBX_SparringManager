@@ -19,12 +19,22 @@ namespace SparringManager.Scenarios
      *      ScenarioSimpleHit : Scenario<SimpleHitStruct>
      */
 
+
+    /// <summary>
+    /// Interface test for scenarios
+    /// </summary>
     public interface IScenarioClass
     {
         float timerScenario { get; set; }
         float startTimeScenario { get; set; }
     }
-    public class Scenario<StructScenario> : IScenarioClass where StructScenario: IStructScenario
+
+    /// <summary>
+    /// <para>Abstract class that manage general scenarios caracterisics and methods.</para>
+    /// <para>Mother class of scenarios, also it allows us to stock easily data of scenarios.</para>
+    /// </summary>
+    /// <typeparam name="StructScenario">Structure that need to be IStructScenario</typeparam>
+    public abstract class Scenario<StructScenario> : IScenarioClass where StructScenario: IStructScenario
     {
         /*
          * Mother class of scenarios, it allows us to stock easily data of scenarios
@@ -40,6 +50,10 @@ namespace SparringManager.Scenarios
          * Methods : 
          */
 
+        /// <summary>
+        /// Create an object of the type <typeparamref name="T"/>.
+        /// </summary>
+        /// <returns>The object of type <typeparamref name="T"/></returns>
         public static T CreateScenarioObject<T>() where T : Scenario<StructScenario>, new()
         {
             T myObj = new T();
@@ -47,6 +61,9 @@ namespace SparringManager.Scenarios
         }
 
         #region Attributs/properties
+        /// <summary>
+        /// Structure that contain scenario parameters
+        /// </summary>
         public StructScenario structScenario { get; set; }
         public float timerScenario { get; set; }
         public float startTimeScenario { get; set; }

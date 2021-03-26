@@ -6,14 +6,11 @@ using UnityEngine;
 
 namespace SparringManager.Device
 {
+    /// <summary>
+    /// MonoBehaviour class that manage Vive trackers of a PlayerScene
+    /// </summary>
     public class ViveTrackerManager : DeviceBehaviour
     {
-        /*
-         * MonoBehaviour class that manage Vive trackers of a player scene
-         * 
-         * 
-         */
-
         #region Attributs
         GameObject bag;
         GameObject player;

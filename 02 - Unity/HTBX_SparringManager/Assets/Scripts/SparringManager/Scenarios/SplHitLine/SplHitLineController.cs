@@ -51,6 +51,10 @@ namespace SparringManager.SplHitLine
      *      void SetControllerVariables() : Set variables of the controller
      *      void SetPrefabComponentVAriables(): Set variables of the prefab component
      */
+    /// <summary>
+    /// Manage the scenario SplHitLine.
+    /// </summary>
+
     public class SplHitLineController : ScenarioControllerBehaviour
     {
         #region Attributs

@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace SparringManager.Scenarios
 {
+    /// <summary>
+    /// Structure that contains parameters of the CrossLine scenario
+    /// </summary>
     [System.Serializable]
     public struct CrossLineStruct : IStructScenario
     {

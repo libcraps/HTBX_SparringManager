@@ -35,6 +35,10 @@ namespace SparringManager.Scenarios
      *      protected virtual void GetDevices() : Search other devices in the scene -> movuinos, poler, vive etc...
      *      protected virtual void StockData() : Stock Data in the DataSessionPlayer
      */
+
+    /// <summary>
+    /// Abstract class of a ScenarioController, each scenario controller will dispose this attributs and methods (public and protected) 
+    /// </summary>
     public abstract class ScenarioControllerBehaviour : MonoBehaviour
     {
         #region Attributs

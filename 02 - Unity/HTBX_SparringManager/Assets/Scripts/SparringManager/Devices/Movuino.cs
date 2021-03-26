@@ -17,18 +17,18 @@ namespace SparringManager.Device
         private string _addressSensorData;
         private string _addressGesture;
 
-        private MovuinoSensorData movuinoSensorData; //9axes data
-        private MovuinoXMM movuinoXMMdata; //Gesture data
+        private OSCMovuinoSensorData movuinoSensorData; //9axes data
+        private OSCMovuinoXMM movuinoXMMdata; //Gesture data
 
         public string Id { get { return id; } }
-        public MovuinoSensorData MovuinoSensorData { get { return movuinoSensorData; } }
-        public MovuinoXMM MovuinoXMM { get { return movuinoXMMdata; } }
+        public OSCMovuinoSensorData MovuinoSensorData { get { return movuinoSensorData; } }
+        public OSCMovuinoXMM MovuinoXMM { get { return movuinoXMMdata; } }
 
 
         private void Awake()
         {
-            movuinoSensorData = OSCDataHandler.CreateOSCDataHandler<MovuinoSensorData>();
-            movuinoXMMdata = OSCDataHandler.CreateOSCDataHandler<MovuinoXMM>();
+            movuinoSensorData = OSCDataHandler.CreateOSCDataHandler<OSCMovuinoSensorData>();
+            movuinoXMMdata = OSCDataHandler.CreateOSCDataHandler<OSCMovuinoXMM>();
         }
         void Start()
         {

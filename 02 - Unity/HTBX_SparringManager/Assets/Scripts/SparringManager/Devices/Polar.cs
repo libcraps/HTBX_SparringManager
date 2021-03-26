@@ -15,24 +15,24 @@ namespace SparringManager.Device
         /// <summary>
         /// BPM data.
         /// </summary>
-        private PolarBPM _polarBPM;
-        public PolarBPM polarBPM { get { return _polarBPM; } }
+        private OSCPolarBPM _polarBPM;
+        public OSCPolarBPM polarBPM { get { return _polarBPM; } }
 
         private void Awake()
         {
-            _polarBPM = OSCDataHandler.CreateOSCDataHandler<PolarBPM>();
+            _polarBPM = OSCDataHandler.CreateOSCDataHandler<OSCPolarBPM>();
         }
         void Start()
         {
             _oscGameObject = GameObject.Find("OSCManager");
             _oscManager = _oscGameObject.GetComponent<OSC>();
 
-            _oscManager.SetAddressHandler(id + PolarBPM.address, _polarBPM.ToOSCDataHandler);
+            _oscManager.SetAddressHandler(id + OSCPolarBPM.address, _polarBPM.ToOSCDataHandler);
         }
 
         private void FixedUpdate()
         {
-            Debug.Log(id + PolarBPM.address);
+            Debug.Log(id + OSCPolarBPM.address);
         }
 
     }

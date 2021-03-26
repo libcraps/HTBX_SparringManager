@@ -25,6 +25,11 @@ namespace SparringManager.Device
      *      void Init(StructPlayerScene structPlayerScene)
      *      
      */
+
+    /// <summary>
+    /// Manage the PlayerScene object.
+    /// </summary>
+    /// <remarks>Instantiate other devices like movuinos, vivetrackers...</remarks>
     public class PlayerSceneController : MonoBehaviour
     {
         //----------------------    ATTRIBUTS    --------------------------

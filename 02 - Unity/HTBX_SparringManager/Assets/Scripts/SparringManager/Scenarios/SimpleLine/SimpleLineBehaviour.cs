@@ -21,6 +21,11 @@ namespace SparringManager.Scenarios
      *      void MoveLine(int lineAcceleration) : moves the line at the lineAcceleration
      *      Void LineInCameraRange() : Verifie that the line stay in the camera range
      */
+
+    /// <summary>
+    /// Manage the behaviour of the SimpleLine.
+    /// </summary>
+    /// <remarks>Essentialy it moves the line and it makes sure that the line stays in the range of the camera</remarks>
     public class SimpleLineBehaviour : Scenario1DLineDisplay
     {
         //General variables of a MovingLine

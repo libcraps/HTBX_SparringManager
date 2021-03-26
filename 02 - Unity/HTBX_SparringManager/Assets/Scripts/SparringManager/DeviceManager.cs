@@ -10,14 +10,12 @@ namespace SparringManager
 {
     /*
      * MonoBehaviour component that manages devices of a player in the scene
-     * 
      * Attributs :        
      *      StructHitBox _structHitBox : Structure of the Bag
      *      StructPlayerScene _structPlayerScene : Structure of the playerScene
      *      GameObject _renderCamera : Render camera of the PlayerCamera
      *      GameObject _playerScene : Pbject player scene
      *      int _indexSac : Number of the sac <=> id
-     *      int _nbPlayer : 
      *      Vector3 _posRenderCamera : Position of the RenderCamera
      *      Vector3 _posPlayerScene : Position of the PlayerScene
      *      public int NbMovuino { get { return _structPlayerScene.StructMovuino.Length; } }
@@ -27,6 +25,15 @@ namespace SparringManager
      *      void Init(StructHitBox hitBox, StructPlayerScene playerScene, int i) : Initialize Devices Structures
      *      GameObject InstantiatePrefab(GameObject prefab, Vector3 pos, GameObject parent = null) : 
      */
+
+    /// <summary>
+    /// MonoBehaviour component that manages devices of a player in the scene.
+    /// <para>It instantiates the RenderCamera and the PlayerScene</para>
+    /// <list type="Attributs">
+    /// <item>The structure of the hitbox</item>
+    /// <item>The structure of the hitbox</item>
+    /// </list>
+    /// </summary>
     public class DeviceManager : MonoBehaviour
     {
         #region Attributs
@@ -35,8 +42,6 @@ namespace SparringManager
         private StructHitBox _structHitBox;
         [SerializeField]
         private StructPlayerScene _structPlayerScene;
-        public StructPlayerScene StructPlayerScene { get { return _structPlayerScene; } }
-
 
         private GameObject _renderCamera;
         private GameObject _playerScene;
@@ -45,6 +50,10 @@ namespace SparringManager
 
         private int _indexSac;
 
+        /// <value>Structure of the PlayerScene</value>
+        public StructPlayerScene StructPlayerScene { get { return _structPlayerScene; } }
+
+        /// <value>Get the RenderCamera unity object of the PlayerCamera</value>
         public GameObject RenderCamera
         {
             get
@@ -52,6 +61,7 @@ namespace SparringManager
                 return _renderCamera;
             }
         }
+        /// <value>Get the PlayerScene unity object of the PlayerCamera</value>
         public GameObject PlayerScene
         {
             get
@@ -60,15 +70,15 @@ namespace SparringManager
             }
         }
 
-        Vector3 _posRenderCamera;
-        Vector3 _posPlayerScene;
-
+        /// <value>Get the number of movuinos of the PlayerScene</value>
         public int NbMovuino { get { return _structPlayerScene.StructMovuino.Length; } }
+
+
+        Vector3 _posRenderCamera; //Position of the RenderCamera
+        Vector3 _posPlayerScene; //Position of the PlayerScene
         #endregion
 
         #region Methods
-        //------------------    METHODS    -------------------
-        //General Methods
         private void Awake()
         {
             
@@ -109,19 +119,28 @@ namespace SparringManager
             {
             }
         }
-
+        /// <summary>
+        /// Initialise structure of the bag and the PlayerScene.
+        /// </summary>
+        /// <param name="hitBox">Structure of the hitbox</param>
+        /// <param name="playerScene">Structure of the PlayerScene</param>
+        /// <param name="name">Name of the player</param>
+        /// <param name="i">Index of the bag</param>
         public void Init(StructHitBox hitBox, StructPlayerScene playerScene, string name, int i)
         {
-            /*
-             * Initialise structure of the bag and the PlayerScene
-             */
-
             _structHitBox = hitBox;
             _structPlayerScene = playerScene;
             _namePlayer = name;
             _indexSac = i;
         }
 
+        /// <summary>
+        /// Instantiate the prefab that is in argmuent (GameObject prefab) and return his clone that is in the Unity scene.
+        /// </summary>
+        /// <param name="prefab">Prefab to instantiate</param>
+        /// <param name="pos">Coordinates to position the prefab</param>
+        /// <param name="parent">Parent of the prefab (if you want to specified)</param>
+        /// <returns>Return the clone that is in the Unity scene</returns>
         public GameObject InstantiatePrefab(GameObject prefab, Vector3 pos, GameObject parent = null)
         {
             GameObject clonePrefab;

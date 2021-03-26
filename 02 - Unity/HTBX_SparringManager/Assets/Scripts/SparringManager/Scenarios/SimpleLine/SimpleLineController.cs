@@ -24,6 +24,11 @@ namespace SparringManager.Scenarios
      *      void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax) : Randomize the movement of the cross
      *      
      */
+
+
+    /// <summary>
+    /// Manage the scenario SimpleLine
+    /// </summary>
     public class SimpleLineController : ScenarioControllerBehaviour
     {
         #region Attributs
