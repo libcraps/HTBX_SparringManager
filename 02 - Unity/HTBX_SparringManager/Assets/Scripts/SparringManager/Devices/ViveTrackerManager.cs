@@ -8,6 +8,13 @@ namespace SparringManager.Device
 {
     public class ViveTrackerManager : DeviceBehaviour
     {
+        /*
+         * MonoBehaviour class that manage Vive trackers of a player scene
+         * 
+         * 
+         */
+
+        #region Attributs
         GameObject bag;
         GameObject player;
 
@@ -35,7 +42,9 @@ namespace SparringManager.Device
                 }
             }
         }
+        #endregion
 
+        #region Methods
         private void Awake()
         {
 
@@ -53,12 +62,18 @@ namespace SparringManager.Device
             Vector3 _playerOrientation = Vector3.Normalize(transform.up); //Normalizing player orientation
 
             angle = Vector3.SignedAngle(_bagDirNormalized, -bag.transform.up, bag.transform.right);
-            Debug.Log(angle);
             calibratePosPlayer();
         }
 
         public void calibratePosPlayer()
         {
+            /*
+             * (Temporary function)
+             * 
+             * Correct the offset of the vive when the scenario start
+             * 
+             * -> Put the 2vive trackers (or one on a reference) and then press E to correct the offset
+             */
             if (Input.GetKeyDown(KeyCode.E))
             {
                 float deltaAngle;
@@ -85,7 +100,7 @@ namespace SparringManager.Device
             bag.GetComponent<SteamVR_TrackedObject_OnlyTilt>().index = (SteamVR_TrackedObject_OnlyTilt.EIndex)structViveTracker.indexBag;
             player.GetComponent<SteamVR_TrackedObject>().index = (SteamVR_TrackedObject.EIndex)structViveTracker.indexPlayer;
         }
-
+        #endregion
 
     }
 

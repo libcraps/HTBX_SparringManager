@@ -9,16 +9,19 @@ using UnityEngine;
 namespace SparringManager
 {
     /*
+     * MonoBehaviour component that manages devices of a player in the scene
      * 
      * Attributs :        
      *      StructHitBox _structHitBox : Structure of the Bag
      *      StructPlayerScene _structPlayerScene : Structure of the playerScene
-     *      GameObject _renderCamera :
-     *      GameObject _playerScene : 
-     *      int _indexSac : 
+     *      GameObject _renderCamera : Render camera of the PlayerCamera
+     *      GameObject _playerScene : Pbject player scene
+     *      int _indexSac : Number of the sac <=> id
      *      int _nbPlayer : 
      *      Vector3 _posRenderCamera : Position of the RenderCamera
      *      Vector3 _posPlayerScene : Position of the PlayerScene
+     *      public int NbMovuino { get { return _structPlayerScene.StructMovuino.Length; } }
+     *      private string _namePlayer : name of the player
      * 
      * Methods :
      *      void Init(StructHitBox hitBox, StructPlayerScene playerScene, int i) : Initialize Devices Structures
@@ -26,6 +29,7 @@ namespace SparringManager
      */
     public class DeviceManager : MonoBehaviour
     {
+        #region Attributs
         //----------------    ATTRIBUTS    ------------------
         [SerializeField]
         private StructHitBox _structHitBox;
@@ -60,9 +64,15 @@ namespace SparringManager
         Vector3 _posPlayerScene;
 
         public int NbMovuino { get { return _structPlayerScene.StructMovuino.Length; } }
+        #endregion
 
+        #region Methods
         //------------------    METHODS    -------------------
         //General Methods
+        private void Awake()
+        {
+            
+        }
         private void Start()
         {
              int nbPlayer = GetComponentInParent<MainEnvironnement>().NbPlayer;
@@ -123,7 +133,7 @@ namespace SparringManager
 
             return clonePrefab;
         }
-
+        #endregion
     }
 
 }

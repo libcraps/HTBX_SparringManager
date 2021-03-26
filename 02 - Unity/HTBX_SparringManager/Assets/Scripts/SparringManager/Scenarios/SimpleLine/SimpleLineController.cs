@@ -16,17 +16,11 @@ namespace SparringManager.Scenarios
      *      protected override float startTimeScenario : startTime of the scenario;
      *      protected override object consigne : get the consigne of the session
      *      
-     *      Methods :
-     *      //Methods that set variables
-     *      void SetControllerVariables() : Set variables of the controller
-     *      void SetPrefabComponentVAriables(): Set variables of the prefab component
-     *      
-     *      //Method for the data exportation
-     *      void GetConsigne(float time, float pos) : Get the tTime data in a list
-     *      void GetExportDataInStructure() : Put the data that we need in the dataStruture of the controller
-     *      void ExportDataInDataManager() : Export the data into the DataManager
-     *      
-     *      //Method that change parameters of a moving object
+     *  Methods :
+     *      protected virtual void Awake() : Unity Function launch a the instance of the script     -> base.Awake()
+     *      protected virtual void Start() : Unity Function launch for the firts frame              -> base.Start(), instantiation of the behaviour
+     *      protected virtual void FixedUpdate() : Unity Function called at each phyical iteration  -> base.FixedUpdate(), RandomizeLineMovement() ?
+     *      public virtual void Init(StructScenarios structScenarios) : Function that is called after the instantiation of the scenario controller, it initialised parameters of the scenario
      *      void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax) : Randomize the movement of the cross
      *      
      */
@@ -68,6 +62,7 @@ namespace SparringManager.Scenarios
             scenarioBehaviour = go.GetComponent<SimpleLineBehaviour>();
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
+
             scenarioBehaviour.LineVelocity = scenario.accelerationMax;
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }

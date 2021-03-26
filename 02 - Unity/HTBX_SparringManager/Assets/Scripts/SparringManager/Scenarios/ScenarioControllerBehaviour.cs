@@ -66,6 +66,7 @@ namespace SparringManager.Scenarios
         protected int NbMovuino;
         protected GameObject cameraObject;
         protected float rangeSize;
+
         //time
         protected float previousTime;
         protected float tTime;
@@ -108,10 +109,12 @@ namespace SparringManager.Scenarios
         }
         protected virtual void GetDevices()
         {
-            //Search other devices in the scene
-            //movuino Part
-            
-            movuino = new Movuino[NbMovuino]; //TODO know how many movuino we have
+            /*
+             * Search other devices in the scene
+             */
+
+            //movuino
+            movuino = new Movuino[NbMovuino];
             for (int i = 0; i < NbMovuino; i++)
             {
                 movuino[i] = GameObject.FindGameObjectsWithTag("Movuino")[i].GetComponent<Movuino>();
@@ -119,14 +122,20 @@ namespace SparringManager.Scenarios
                 dataSessionPlayer.DataSessionMovuinoXMM[i].id = movuino[i].id;
             }
 
-            //Polar part
+            //Polar
             polar = GameObject.FindGameObjectWithTag("Polar").GetComponent<Polar>();
-            //ViveTrackerPart
+
+            //ViveTracker
             viveTrackerManager = GameObject.Find("ViveTrackerManager(Clone)").GetComponent<ViveTrackerManager>();
         }
 
         protected virtual void StockData()
         {
+
+            /*
+             * Stock Data in the dataessionPlayer
+             */
+
             dataSessionPlayer.DataSessionScenario.StockData(tTime, consigne);
             dataSessionPlayer.DataSessionViveTracker.StockData(tTime, viveTrackerManager.angle);
             dataSessionPlayer.DataSessionHit.StockData(tTime, hit);

@@ -10,6 +10,11 @@ namespace SparringManager.Scenarios
     {
         /*
          * Abstract class for sccenarioBehaviour component, each scenario controller will dispose this attributs and methods (public and protected) 
+         * Attributs :
+         *      protected int operationalArea : Arc where the hitbox is operational (from the center to +/- operationalArc/2)
+         *      
+         * Methods : 
+         *      public virtual void Init(IStructScenario structScenarios) : Init componenets variables of the scenario
          */
 
         #region Attributs
@@ -22,7 +27,7 @@ namespace SparringManager.Scenarios
 
         }
 
-        protected abstract void ObjectInCameraRange();
+        protected abstract void ObjectInCameraRange(); //function to say what to do if the Object get out of the camera range
 
         protected virtual void Awake() 
         {
@@ -36,6 +41,11 @@ namespace SparringManager.Scenarios
         /*
          * Intermediate clas that allows us to control the behaviour of a 1D line
          * Attributs : 
+         *      protected float _lineVelocity : Velocity of the Line
+         *      protected int _deltaTimeChangeVelocity : For random movement, it is the time that says if the velocity change 
+         *      
+         * Methods :
+         *      protected override void ObjectInCameraRange(): Keep the line in the range of the camera
          *      
          */
         #region Attributs
@@ -73,7 +83,6 @@ namespace SparringManager.Scenarios
              */
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
-
 
             //-----------
             GameObject _SimpleLineController = GameObject.Find(this.gameObject.transform.parent.name);

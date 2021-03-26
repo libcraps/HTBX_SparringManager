@@ -9,6 +9,8 @@ namespace SparringManager.Scenarios
      * Class that allows us tu control scenarios
      * Mother class : Scenario<StructScenario>
      * 
+     * Test interface : IScenarioClass
+     * 
      * Scenario created by inheretent of Scenario<StructScenario>:
      *      ScenarioCrossLine : Scenario<CrossLineStruct>
      *      ScenarioHitLine : Scenario<HitLineStruct>
@@ -24,26 +26,52 @@ namespace SparringManager.Scenarios
     }
     public class Scenario<StructScenario> : IScenarioClass where StructScenario: IStructScenario
     {
+        /*
+         * Mother class of scenarios, it allows us to stock easily data of scenarios
+         * 
+         * Static methods : 
+         *      public static T  CreateScenarioObject<T>() where T : Scenario<StructScenario> and StructScenario : IStructScenario
+         * 
+         * Attributs:
+         *      public StructScenario structScenario { get; set; }
+         *      public float timerScenario { get; set; }
+         *      public float startTimeScenario { get; set; }
+         * 
+         * Methods : 
+         */
+
         public static T CreateScenarioObject<T>() where T : Scenario<StructScenario>, new()
         {
             T myObj = new T();
             return myObj;
         }
+
+        #region Attributs/properties
         public StructScenario structScenario { get; set; }
         public float timerScenario { get; set; }
         public float startTimeScenario { get; set; }
+        #endregion
 
-
+        #region Methods
         public virtual void Init(StructScenarios structScenarios)
         {
-
+            /*
+             * Initialize the structure
+             */
         }
         public virtual object PosToAngle(float screenSize, object coord)
         {
+            /*
+             * Function that allows us to convert a (x,y,z) consigne in a degree consigne
+             * 
+             * Screen size -> reference
+             * 
+             */
             object angle;
             angle = (float)coord * 180.0/ screenSize;
             return angle;
         }
+        #endregion
     }
 
     public class ScenarioCrossLine : Scenario<CrossLineStruct>
