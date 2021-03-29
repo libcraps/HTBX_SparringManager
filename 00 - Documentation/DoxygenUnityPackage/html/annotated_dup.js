@@ -10,8 +10,7 @@ var annotated_dup =
         [ "DataSessionPolar", "class_sparring_manager_1_1_data_manager_1_1_data_session_polar.html", "class_sparring_manager_1_1_data_manager_1_1_data_session_polar" ],
         [ "DataSessionMovuinoXMM", "class_sparring_manager_1_1_data_manager_1_1_data_session_movuino_x_m_m.html", "class_sparring_manager_1_1_data_manager_1_1_data_session_movuino_x_m_m" ],
         [ "DataSessionHit", "class_sparring_manager_1_1_data_manager_1_1_data_session_hit.html", "class_sparring_manager_1_1_data_manager_1_1_data_session_hit" ],
-        [ "DataSessionViveTracker", "class_sparring_manager_1_1_data_manager_1_1_data_session_vive_tracker.html", "class_sparring_manager_1_1_data_manager_1_1_data_session_vive_tracker" ],
-        [ "PlayerSceneDataStruct", "struct_sparring_manager_1_1_data_manager_1_1_player_scene_data_struct.html", "struct_sparring_manager_1_1_data_manager_1_1_player_scene_data_struct" ]
+        [ "DataSessionViveTracker", "class_sparring_manager_1_1_data_manager_1_1_data_session_vive_tracker.html", "class_sparring_manager_1_1_data_manager_1_1_data_session_vive_tracker" ]
       ] ],
       [ "Device", "namespace_sparring_manager_1_1_device.html", [
         [ "DeviceBehaviour", "class_sparring_manager_1_1_device_1_1_device_behaviour.html", "class_sparring_manager_1_1_device_1_1_device_behaviour" ],

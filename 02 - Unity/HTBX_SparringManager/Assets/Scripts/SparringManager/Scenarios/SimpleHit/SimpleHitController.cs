@@ -2,11 +2,16 @@
 using SparringManager.Device;
 using UnityEngine;
 
+/// <summary>
+/// Namespace relative to hitbox's scenarios 
+/// <para>It concerns all Scenrio controllers, scenraios<structSCenarios> object, scenario behaviour display</structSCenarios></para>
+/// </summary>
 namespace SparringManager.Scenarios
 {
-    /*
-     * 
-     */
+    /// <summary>
+    /// Manage the scenario HitLine.
+    /// </summary>
+    /// <inheritdoc cref="ScenarioControllerBehaviour"/>
     public class SimpleHitController : ScenarioControllerBehaviour
     {
         #region Attributs
@@ -47,6 +52,8 @@ namespace SparringManager.Scenarios
 
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
+
+
         public override void Init(StructScenarios structScenarios)
         {
             //Initialize this Class
@@ -71,6 +78,12 @@ namespace SparringManager.Scenarios
             ImpactManager.onInteractPoint -= SetImpactPosition;
             
         }
+
+        /// <summary>
+        /// Insantiate an impact on the bag when it is hitted.
+        /// </summary>
+        /// <remarks>It is called by the event ImpactManager.onInteractPoint</remarks>
+        /// <param name="position2d_">Position of the hit</param>
         public void SetImpactPosition(Vector2 position2d_)
         {
             Vector3 pos3d_ = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z + 20f);

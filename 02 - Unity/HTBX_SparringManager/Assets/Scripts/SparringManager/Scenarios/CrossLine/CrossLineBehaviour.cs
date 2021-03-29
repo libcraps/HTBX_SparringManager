@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SparringManager.Scenarios
+namespace SparringManager.Scenarios.CrossLine
 {
     /* Class nof the CrossLine Prefab
     * 
@@ -29,35 +29,12 @@ namespace SparringManager.Scenarios
     /// Manage the behaviour of the CrossLine.
     /// </summary>
     /// <remarks>Essentialy it moves the line, instantiates the hit and it makes sure that the line stays in the range of the camera</remarks>
+    /// <inheritdoc cref="ScenarioDisplayBehaviour"/>
     public class CrossLineBehaviour : ScenarioDisplayBehaviour
     {
         //General variables of a MovingLine
         private CrossLineStruct structScenari;
         private ScenarioCrossLine scenario;
-        private float[] _lineAcceleration;
-        private int _deltaTimeChangeAcceleration;
-        public float[] LineAcceleration
-        {
-            get
-            {
-                return _lineAcceleration;
-            }
-            set
-            {
-                _lineAcceleration = value;
-            }
-        }
-        public int DeltaTimeChangeAcceleration
-        {
-            get
-            {
-                return _deltaTimeChangeAcceleration;
-            }
-            set
-            {
-                _deltaTimeChangeAcceleration = value;
-            }
-        }
 
         //Variables of an Hitting Line
         private bool _hitted;
@@ -88,13 +65,14 @@ namespace SparringManager.Scenarios
             _startTimeScenario = Time.time;
             _tTime = Time.time - _startTimeScenario;
 
-            _lineAcceleration = new float[2];
+            objectVelocity = new Vector3(35, 35, 0);
         }
 
         void FixedUpdate()
         {
+            _tTime = Time.time - _startTimeScenario;
             ObjectInCameraRange();
-            MoveLine(_fixPosHitValue * _lineAcceleration[0], _fixPosHitValue * _lineAcceleration[1]);
+            MoveObject(_fixPosHitValue * objectVelocity);
             SetHit();
         }
 
@@ -107,10 +85,10 @@ namespace SparringManager.Scenarios
                 this.scenario = scenario;
         }
 
-        public void MoveLine(float lineHorizontalAcceleration, float lineVerticalAcceleration)
-        {
-            this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (lineHorizontalAcceleration, lineVerticalAcceleration, 0);
-        }
+
+        /// <summary>
+        /// Display when the player has to hit the object
+        /// </summary>
         public void SetHit()
         {
             //change the color of the line if the player have to hit
@@ -134,51 +112,7 @@ namespace SparringManager.Scenarios
                 _fixPosHitValue = 1;
             }
         }
-        protected override void ObjectInCameraRange()
-        {
-            /* 
-             * This method keeps the line in the camera range
-             */
-            Vector3 linePos3d;
-            Vector3 renderCameraPos3d;
 
-            GameObject crossLineController = GameObject.Find(this.gameObject.transform.parent.name);
-            GameObject cameraObject = crossLineController.transform.GetComponentInParent<DeviceManager>().RenderCamera;
-            Camera renderCamera = cameraObject.GetComponent<Camera>();
-            float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
 
-            renderCameraPos3d.x = renderCamera.transform.localPosition.x;
-            renderCameraPos3d.y = renderCamera.transform.localPosition.y;
-            renderCameraPos3d.z = renderCamera.transform.localPosition.z;
-            
-            linePos3d.x = this.gameObject.transform.localPosition.x;
-            linePos3d.y = this.gameObject.transform.localPosition.y;
-            linePos3d.z = this.gameObject.transform.localPosition.z;
-
-            //Instruction whether the line gets out of the render camera range
-            if (linePos3d.x > renderCameraPos3d.x + rangeSize)
-            {
-                linePos3d.y -= 2* rangeSize;
-            } 
-            else if (linePos3d.x < renderCameraPos3d.x - rangeSize)
-            {
-                linePos3d.y += 2* rangeSize;
-            }
-
-            //Instruction whether the line gets out of the render camera range
-            if (linePos3d.y > renderCameraPos3d.y + rangeSize)
-            {
-                linePos3d.y -= 2 * rangeSize;
-            }
-            else if (linePos3d.y < renderCameraPos3d.y - rangeSize)
-            {
-                linePos3d.y += 2 * rangeSize;
-            }
-            this.gameObject.transform.localPosition = linePos3d;
-        }
-        void OnDestroy()
-        {
-            Debug.Log(this.gameObject.name + "has been destroyed");
-        }
     }
 }

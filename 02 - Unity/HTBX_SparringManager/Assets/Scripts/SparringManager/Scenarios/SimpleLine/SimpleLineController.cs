@@ -3,7 +3,7 @@ using SparringManager.Device;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SparringManager.Scenarios
+namespace SparringManager.Scenarios.SimpleLine
 {
     /* Class nof the SimpleLine Scenario Controller
      * 
@@ -27,8 +27,9 @@ namespace SparringManager.Scenarios
 
 
     /// <summary>
-    /// Manage the scenario SimpleLine
+    /// Manage the scenario SimpleLine.
     /// </summary>
+    /// <inheritdoc cref="ScenarioControllerBehaviour"/>
     public class SimpleLineController : ScenarioControllerBehaviour
     {
         #region Attributs
@@ -68,7 +69,7 @@ namespace SparringManager.Scenarios
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
 
-            scenarioBehaviour.LineVelocity = scenario.accelerationMax;
+            scenarioBehaviour.objectVelocity[0] = scenario.accelerationMax;
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
         protected override void FixedUpdate()
@@ -102,12 +103,10 @@ namespace SparringManager.Scenarios
         //Method that changes parameters of a moving object
         public void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
         {
-            System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeVelocity)
+            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeMovement)
             {
-                scenarioBehaviour.LineVelocity = random.Next(-accelerationMax, accelerationMax);
-                scenarioBehaviour.DeltaTimeChangeVelocity = random.Next(deltaTimeMin, deltaTimeMax);
+                scenarioBehaviour.DeltaTimeChangeMovement = Random.Range(deltaTimeMin, deltaTimeMax);
 
                 previousTime = tTime;
             }

@@ -11,8 +11,24 @@ using UnityEngine;
 namespace SparringManager.Device
 {
 	/// <summary>
-	/// Inherit this if you want to represent a Movuino Data Type, it allows you to connect on an OSC server and get data of the correspondant address:
+	/// Inherit this if you want to represent a Movuino Data Type.
 	/// </summary>
+	/// <para>it allows you to connect on an OSC server and get data of the correspondant address:
+	/// <list type="OSCAdressList">
+	/// <item>
+	/// <term>/data</term>
+	/// <description>movuino 9axes</description>
+	/// </item>
+	/// <item>
+	/// <term>/gesture</term>
+	/// <description>xmm</description>
+	/// </item>
+	/// <item>
+	/// <term>/bm</term>
+	/// <description>polar</description>
+	/// </item>
+	/// </list>
+	/// </para>
 	public abstract class OSCDataHandler
 	{
 		/*
@@ -29,7 +45,11 @@ namespace SparringManager.Device
 
 		};
 
-		// <=> constructor
+		/// <summary>
+		/// Constructor of an OSCDataHandlerObject
+		/// </summary>
+		/// <typeparam name="T">Must be OSCDataHandler</typeparam>
+		/// <returns></returns>
 		public static T CreateOSCDataHandler<T> () where T : OSCDataHandler, new()
 		{
 			T newMovuinoData = new T ();
@@ -37,13 +57,23 @@ namespace SparringManager.Device
 		}
 
 		//Method that read data of an OSCmessage
+		/// <summary>
+		/// Read data of an OSCmessage
+		/// </summary>
+		/// <param name="message">Message to read cf OSC documentation</param>
 		public abstract void ToOSCDataHandler (OscMessage message);
+
+		/// <summary>
+		/// GetAddress
+		/// </summary>
+		/// <returns></returns>
 		protected abstract string GetAddress();
 	}
 
 	/// <summary>
 	/// Data of the accelerometer, the gyroscope and the magnetometer of Movuino
 	/// </summary>
+	/// <inheritdoc cref="OSCDataHandler"/>
 	public class OSCMovuinoSensorData : OSCDataHandler
 	{
 		/// <summary>
@@ -101,7 +131,13 @@ namespace SparringManager.Device
 	/// <remarks>It gets the gesture ID and his progression</remarks>
 	public class OSCMovuinoXMM : OSCDataHandler
 	{
+		/// <summary>
+		/// ID of gesture
+		/// </summary>
 		public int gestId;
+		/// <summary>
+		/// Progression of the gesture
+		/// </summary>
 		public float gestProg;
 
 		public static string address = "/gesture";
@@ -126,6 +162,12 @@ namespace SparringManager.Device
 			+ gestProg.ToString ());
 		}
 	}
+
+
+	/// <summary>
+	/// Data of the accelerometer, the gyroscope and the magnetometer of Movuino
+	/// </summary>
+	/// <inheritdoc cref="OSCDataHandler"/>
 	public class OSCPolarBPM : OSCDataHandler
 	{
 		public float bpm;

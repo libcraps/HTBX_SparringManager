@@ -68,8 +68,8 @@ namespace SparringManager.Scenarios
         protected Polar polar;
         protected ViveTrackerManager viveTrackerManager;
         protected int NbMovuino;
-        protected GameObject cameraObject;
-        protected float rangeSize;
+        public GameObject RenderCameraObject;
+        public float rangeSize;
 
         //time
         protected float previousTime;
@@ -77,17 +77,25 @@ namespace SparringManager.Scenarios
         protected float reactTime;
 
         protected object hit;
+
+        /// <value>Start time of the scenario</value>
         protected abstract float startTimeScenario { get; set; }
+
+        /// <value>Get the consigne of the scenario</value>
         protected abstract object consigne { get; }
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Initiase some variables
+        /// </summary>
         protected virtual void Awake()
         {
             operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
             NbMovuino = this.gameObject.GetComponentInParent<DeviceManager>().NbMovuino;
-            cameraObject = this.gameObject.GetComponentInParent<DeviceManager>().RenderCamera;
-            rangeSize = cameraObject.GetComponent<Camera>().orthographicSize;
+            RenderCameraObject = this.gameObject.GetComponentInParent<DeviceManager>().RenderCamera;
+            rangeSize = RenderCameraObject.GetComponent<Camera>().orthographicSize;
             nbApparition += 1;
         }
 
@@ -108,9 +116,25 @@ namespace SparringManager.Scenarios
             //Data management
             StockData();
         }
+
+        /// <summary>
+        /// Initialize parameters of the scenario.
+        /// </summary>
+        /// <para>Generaly it initializes :
+        /// <list type="ParametersInit">
+        /// <item><paramref name="scenario"/></item>
+        /// <item><paramref name="dataSessionlayer"/></item>
+        /// <item>And it has complete the DataController</item>
+        /// </list></para>
+        /// <remarks>It is called after his instantiation.</remarks>
+        /// <param name="structScenarios">Structure that parameterize different settings of a scenario</param>
         public virtual void Init(StructScenarios structScenarios)
         {
         }
+
+        /// <summary>
+        /// Search and get other devices in the scene
+        /// </summary>
         protected virtual void GetDevices()
         {
             /*
@@ -133,6 +157,9 @@ namespace SparringManager.Scenarios
             viveTrackerManager = GameObject.Find("ViveTrackerManager(Clone)").GetComponent<ViveTrackerManager>();
         }
 
+        /// <summary>
+        /// Stock Data in the DataSessionPlayer
+        /// </summary>
         protected virtual void StockData()
         {
 
@@ -143,13 +170,19 @@ namespace SparringManager.Scenarios
             dataSessionPlayer.DataSessionScenario.StockData(tTime, consigne);
             dataSessionPlayer.DataSessionViveTracker.StockData(tTime, viveTrackerManager.angle);
             dataSessionPlayer.DataSessionHit.StockData(tTime, hit);
-            dataSessionPlayer.DataSessionPolar.StockData(tTime, polar.polarBPM.bpm);
+            dataSessionPlayer.DataSessionPolar.StockData(tTime, polar.oscData.bpm);
             for (int i = 0; i < NbMovuino; i++)
             {
                 dataSessionPlayer.DataSessionMovuino[i].StockData(tTime, movuino[i].MovuinoSensorData.accelerometer, movuino[i].MovuinoSensorData.gyroscope, movuino[i].MovuinoSensorData.magnetometer);
                 dataSessionPlayer.DataSessionMovuinoXMM[i].StockData(tTime, movuino[i].MovuinoXMM.gestId, movuino[i].MovuinoXMM.gestProg);
             }
         }
+
+        void OnDestroy()
+        {
+            Debug.Log(this.gameObject.name + " has been destroyed");
+        }
+
         #endregion
 
     }

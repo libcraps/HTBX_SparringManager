@@ -27,7 +27,14 @@ namespace SparringManager.Scenarios
      *      Void LineInCameraRange() : Verifie that the line stay in the camera range
      *      void SetHit() : Indicates when the playe can hit by changing the color of the line
      */
-    public class HitLineBehaviour : Scenario1DLineDisplay
+
+
+    /// <summary>
+    /// Manage the behaviour of the HitLine.
+    /// </summary>
+    /// <remarks>Essentialy it moves the line, instantiates the hit and it makes sure that the line stays in the range of the camera</remarks>
+    /// <inheritdoc cref="ScenarioDisplayBehaviour"/>
+    public class HitLineBehaviour : ScenarioDisplayBehaviour
     {
         //General variables of a MovingLine
         private HitLineStruct structScenari;
@@ -65,7 +72,7 @@ namespace SparringManager.Scenarios
         {
             _tTime = Time.time - _startTimeScenario;
             ObjectInCameraRange();
-            MoveLine(_fixPosHitValue * _lineVelocity);
+            MoveObject(_fixPosHitValue * objectVelocity);
             SetHit();
         }
 
@@ -74,10 +81,6 @@ namespace SparringManager.Scenarios
             this.structScenari = (HitLineStruct)structScenari;
         }
 
-        private void MoveLine(float lineHorizontalAcceleration)
-        {
-            this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (lineHorizontalAcceleration, 0, 0);
-        }
         private void SetHit()
         {
             //change the color of the line if the player have to hit

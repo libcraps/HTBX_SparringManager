@@ -22,9 +22,6 @@ var dir_b6bbff61cf53ec2135dc9ef360742874 =
     [ "PlayerSceneController.cs", "_player_scene_controller_8cs.html", [
       [ "PlayerSceneController", "class_sparring_manager_1_1_device_1_1_player_scene_controller.html", "class_sparring_manager_1_1_device_1_1_player_scene_controller" ]
     ] ],
-    [ "PlayerSceneDataStruct.cs", "_player_scene_data_struct_8cs.html", [
-      [ "PlayerSceneDataStruct", "struct_sparring_manager_1_1_data_manager_1_1_player_scene_data_struct.html", "struct_sparring_manager_1_1_data_manager_1_1_player_scene_data_struct" ]
-    ] ],
     [ "Polar.cs", "_polar_8cs.html", [
       [ "Polar", "class_sparring_manager_1_1_device_1_1_polar.html", "class_sparring_manager_1_1_device_1_1_polar" ]
     ] ],

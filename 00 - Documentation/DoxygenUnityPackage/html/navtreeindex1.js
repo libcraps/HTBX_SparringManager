@@ -143,12 +143,6 @@ var NAVTREEINDEX1 =
 "namespace_sparring_manager_1_1_structures.html":[0,0,0,6],
 "namespaces.html":[0,0],
 "pages.html":[],
-"struct_sparring_manager_1_1_data_manager_1_1_player_scene_data_struct.html":[1,0,0,0,9],
-"struct_sparring_manager_1_1_data_manager_1_1_player_scene_data_struct.html#a0ad5da94dbecc1cad50ab7ee979c382b":[1,0,0,0,9,1],
-"struct_sparring_manager_1_1_data_manager_1_1_player_scene_data_struct.html#a4e14a5da194927ff55b23f388be752e7":[1,0,0,0,9,2],
-"struct_sparring_manager_1_1_data_manager_1_1_player_scene_data_struct.html#a6309f50c70b22ab9bdf33ee0ecc5f241":[1,0,0,0,9,0],
-"struct_sparring_manager_1_1_data_manager_1_1_player_scene_data_struct.html#abe861f874af7583932106b3487329e76":[1,0,0,0,9,3],
-"struct_sparring_manager_1_1_data_manager_1_1_player_scene_data_struct.html#acb99cf0d37cee8678a7c3aca0aba9553":[1,0,0,0,9,4],
 "struct_sparring_manager_1_1_device_structure.html":[1,0,0,11],
 "struct_sparring_manager_1_1_device_structure.html#a28e57116f3f5d3863606e0d1ca70e48f":[1,0,0,11,2],
 "struct_sparring_manager_1_1_device_structure.html#a467a4f053f838f601c08b4c6be322247":[1,0,0,11,0],
@@ -249,5 +243,8 @@ var NAVTREEINDEX1 =
 "struct_sparring_manager_1_1_structures_1_1_struct_vive_tracker.html#a5ef7748ef7cb67fbf52e3c5b69ff3b85aed318299014ad22286c7cbd77387f28c":[1,0,0,6,6,0,1],
 "struct_sparring_manager_1_1_structures_1_1_struct_vive_tracker.html#a5ef7748ef7cb67fbf52e3c5b69ff3b85af76fd08647c0275d32f7e2044b828c88":[1,0,0,6,6,0,17],
 "struct_sparring_manager_1_1_structures_1_1_struct_vive_tracker.html#a68c61a8889c0568062ca84b4fc1c5fc5":[1,0,0,6,6,3],
-"struct_sparring_manager_1_1_structures_1_1_struct_vive_tracker.html#a841c696810511b93746fe165f3212d50":[1,0,0,6,6,2]
+"struct_sparring_manager_1_1_structures_1_1_struct_vive_tracker.html#a841c696810511b93746fe165f3212d50":[1,0,0,6,6,2],
+"struct_sparring_manager_1_1_structures_1_1_struct_vive_tracker.html#aa77b2ec203676cb88b57f0d66f388e14":[1,0,0,6,6,5],
+"struct_sparring_manager_1_1_structures_1_1_struct_vive_tracker.html#ab077a1f99aeee04e5808d453ee916f2a":[1,0,0,6,6,4],
+"struct_sparring_manager_1_1_structures_1_1_struct_vive_tracker.html#abbe28c583b4b89bfae24e1510bcd8d01":[1,0,0,6,6,1]
 };

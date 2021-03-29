@@ -33,7 +33,7 @@ namespace SparringManager.Scenarios
      *  Void LineInCameraRange() : Verifie that the line stay in the camera range
      *  void SetHit() : Indicates when the playe can hit by changing the color of the line
      */
-    public class SplHitLineBehaviour : Scenario1DLineDisplay
+    public class SplHitLineBehaviour : ScenarioDisplayBehaviour
     {
         //General variables of a MovingLine
         private SplHitLineStruct structScenari;
@@ -112,18 +112,12 @@ namespace SparringManager.Scenarios
         {
             _tTime = Time.time - _startTimeScenario;
             ObjectInCameraRange();
-            MoveLine(_fixPosHitValue * _lineVelocity);
+            MoveObject(_fixPosHitValue * objectVelocity);
             SetHit(_lineToHit);
         }
         public override void Init(IStructScenario structScenari)
         {
             this.structScenari = (SplHitLineStruct)structScenari;
-        }
-
-        public void MoveLine(float lineHorizontalAcceleration)
-        {
-            //_lineRigidComponent.AddForce(new Vector3 (lineHorizontalAcceleration, 0, 0), ForceMode.Acceleration);
-            this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(lineHorizontalAcceleration, 0, 0);
         }
 
         public void SetHit(GameObject LineObject)
@@ -170,10 +164,5 @@ namespace SparringManager.Scenarios
             LineObject.transform.localPosition = linePos3d;
         }
 
-
-        void OnDestroy()
-        {
-            Debug.Log(this.gameObject.name + "has been destroyed");
-        }
     }
 }

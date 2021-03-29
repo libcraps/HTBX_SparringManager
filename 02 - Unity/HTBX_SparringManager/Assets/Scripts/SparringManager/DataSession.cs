@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using SparringManager.Device;
+using SparringManager.Structures;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
@@ -22,19 +23,41 @@ namespace SparringManager.DataManager
      *      DataSessonHit : data of hit
      *      
      */
+
+    /// <summary>
+    /// Abstract class that represent data types.
+    /// </summary>
+    /// <para>Inherit this class to create a new data tyes that is usefull to export</para>
+    /// <remarks>With this class we can create data type and stock data in order to transfert everything to the dataController, Notice that the file will be created with a list of datatables</remarks>
     public abstract class DataSession
     {
+        /// <summary>
+        /// Create an object derived from DataSession class
+        /// </summary>
+        /// <typeparam name="T">Must be inherited from DataSession</typeparam>
+        /// <returns>The DataSession object of type <typeparamref name="T"/> that has has been created</returns>
         public static T CreateDataObject<T>() where T : DataSession, new()
         {
             T dataObject = new T();
             return dataObject;
         }
 
+        /// <summary>
+        /// Create a DataTable
+        /// </summary>
+        /// <param name="data">Not usefull for the moment</param>
+        /// <returns>The dataTable that has been created</returns>
         public virtual DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
             return table;
         }
+
+        /// <summary>
+        /// Merge vertically DataTables
+        /// </summary>
+        /// <param name="data">DataTables to merge</param>
+        /// <returns>Result</returns>
         public static DataTable MergeDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
@@ -44,6 +67,12 @@ namespace SparringManager.DataManager
             }
             return table;
         }
+
+        /// <summary>
+        /// Merge horizontally (Join) different datatables that are in dataToJoin
+        /// </summary>
+        /// <param name="dataToJoin">DataTables to join</param>
+        /// <returns>Result</returns>
         public static DataTable JoinDataTable(params DataTable[] dataToJoin)
         {
             /*
@@ -78,6 +107,9 @@ namespace SparringManager.DataManager
         }
     }
 
+    /// <summary>
+    /// Class that represent all the data of a player during the session
+    /// </summary>
     public class DataSessionPlayer : DataSession
     {
         /*
@@ -90,22 +122,38 @@ namespace SparringManager.DataManager
         public DataSessionHit DataSessionHit;
         public DataSessionViveTracker DataSessionViveTracker;
 
+        /// <summary>
+        /// Get the DataTable of the DataSession object
+        /// </summary>
         public DataTable DataTable { get { return CreateDataTable(); } }
         public override void StockData(params object[] list)
         {
 
         }
+
+        /// <summary>
+        /// Create the DataTable of this object
+        /// </summary>
+        /// <remarks>It joins dataTables from the other DataSessionType</remarks>
+        /// <param name="data">Not usefull for the moment</param>
+        /// <returns>DataTable joined</returns>
         public override DataTable CreateDataTable(params DataTable[] data) //TODO
         {
             DataTable result = new DataTable();
             result = JoinDataTable(DataSessionScenario.DataTable, DataSessionViveTracker.DataTable, DataSessionHit.DataTable, DataSessionPolar.DataTable);
-            for(int i=0; i<DataSessionMovuino.Length;  i++)
+
+            for(int i=0; i<DataSessionMovuino.Length;  i++) //Loop because it can have multiple movuinos
             {
                 result = JoinDataTable(result, DataSessionMovuino[i].DataTable, DataSessionMovuinoXMM[i].DataTable);
             }
 
             return result;
         }
+
+        /// <summary>
+        /// Constructor of this DataSession object
+        /// </summary>
+        /// <param name="nbMov">Number of movuinos</param>
         public DataSessionPlayer(int nbMov)
         {
             DataSessionScenario = new DataSessionScenario();
@@ -123,19 +171,40 @@ namespace SparringManager.DataManager
         }
 
     }
+
+    /// <summary>
+    /// Class that represent all the data of a Scenario during the session
+    /// </summary>
+    /// <remarks>First we stock datas into lists and we convert them into DataTables</remarks>
     public class DataSessionScenario : DataSession
     {
+        /// <summary>
+        /// Consigne fo the scenario
+        /// </summary>
         public List<object> consigne = new List<object>();
         public List<object> time = new List<object>();
 
+        /// <value>Sum up of the scenario, used in the data controller</value>
         public Dictionary<string, string> scenarioSumUp = new Dictionary<string, string>();
+
+        /// <value>Get the DataTable of this DataSession object</value>
         public DataTable DataTable { get { return this.CreateDataTable(); } }
+
+        /// <summary>
+        /// Stock data from list in DataSession's lists
+        /// </summary>
+        /// <param name="list">Data to stock</param>
         public override void StockData(params object[] list)
         {
             time.Add(list[0]);
             consigne.Add(list[1]);
         }
 
+        /// <summary>
+        /// Create the DataTable of this object
+        /// </summary>
+        /// <param name="data">Not usefull for the moment</param>
+        /// <returns>DataTable</returns>
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
@@ -149,17 +218,28 @@ namespace SparringManager.DataManager
             return table;
         }
     }
+
+    /// <summary>
+    /// Class that represent all the data of a Movuino during the session
+    /// </summary>
+    /// <remarks>First we stock datas into lists and we convert them into DataTables</remarks>
     public class DataSessionMovuino : DataSession
     {
+        /// <value>Id of the movuino</value>
         public string id;
-
         public List<object> listTime = new List<object>();
         public List<Vector3> listAcceleration = new List<Vector3>();
         public List<Vector3> listGyroscope = new List<Vector3>();
         public List<Vector3> listMagneto = new List<Vector3>();
 
+        /// <value>Get the DataTable of this DataSession object</value>
         public DataTable DataTable { get { return this.CreateDataTable(); } }
 
+
+        /// <summary>
+        /// Stock data from list in DataSession's lists
+        /// </summary>
+        /// <param name="list">Data to stock</param>
         public override void StockData(params object[] list)
         {
             listTime.Add(list[0]);
@@ -167,6 +247,12 @@ namespace SparringManager.DataManager
             listGyroscope.Add((Vector3)list[2]);
             listMagneto.Add((Vector3)list[3]);
         }
+
+        /// <summary>
+        /// Create the DataTable of this object
+        /// </summary>
+        /// <param name="data">Not usefull for the moment</param>
+        /// <returns>DataTable</returns>
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
@@ -191,18 +277,35 @@ namespace SparringManager.DataManager
             return table;
         }
     }
+
+    /// <summary>
+    /// Class that represent all the data of a Polar (heartbite sensor) during the session
+    /// </summary>
+    /// <remarks>First we stock datas into lists and we convert them into DataTables</remarks>
     public class DataSessionPolar : DataSession
     {
         public List<object> listTime = new List<object>();
         public List<object> listBpm = new List<object>();
 
+        /// <value>Get the DataTable of this DataSession object</value>
         public DataTable DataTable { get { return this.CreateDataTable(); } }
 
+
+        /// <summary>
+        /// Stock data from list in DataSession's lists
+        /// </summary>
+        /// <param name="list">Data to stock</param>
         public override void StockData(params object[] list)
         {
             listTime.Add(list[0]);
             listBpm.Add(list[1]);
         }
+
+        /// <summary>
+        /// Create the DataTable of this object
+        /// </summary>
+        /// <param name="data">Not usefull for the moment</param>
+        /// <returns>DataTable</returns>
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
@@ -216,6 +319,11 @@ namespace SparringManager.DataManager
             return table;
         }
     }
+
+    /// <summary>
+    /// Class that represent all the data of a XMM analyse (gesture/mouvemement recognition) during the session
+    /// </summary>
+    /// <remarks>First we stock datas into lists and we convert them into DataTables</remarks>
     public class DataSessionMovuinoXMM : DataSession
     {
         public string id;
@@ -223,7 +331,14 @@ namespace SparringManager.DataManager
         public List<object> listTime = new List<object>();
         public List<object> listGestureID= new List<object>();
         public List<object> listGestureProb= new List<object>();
+
+        /// <value>Get the DataTable of this DataSession object</value>
         public DataTable DataTable { get { return this.CreateDataTable(); } }
+
+        /// <summary>
+        /// Stock data from list in DataSession's lists
+        /// </summary>
+        /// <param name="list">Data to stock</param>
 
         public override void StockData(params object[] list)
         {
@@ -231,6 +346,12 @@ namespace SparringManager.DataManager
             listGestureID.Add(list[1]);
             listGestureProb.Add(list[2]);
         }
+
+        /// <summary>
+        /// Create the DataTable of this object
+        /// </summary>
+        /// <param name="data">Not usefull for the moment</param>
+        /// <returns>DataTable</returns>
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
@@ -246,6 +367,11 @@ namespace SparringManager.DataManager
             return table;
         }
     }
+
+    /// <summary>
+    /// Class that represent all the data of hit during the session
+    /// </summary>
+    /// <remarks>First we stock datas into lists and we convert them into DataTables</remarks>
     public class DataSessionHit : DataSession
     {
         public List<object> listTime = new List<object>();
@@ -253,12 +379,25 @@ namespace SparringManager.DataManager
         public List<object> listReacTime = new List<object>();
 
         public float nbHit;
+
+        /// <value>Get the DataTable of this DataSession object</value>
         public DataTable DataTable { get { return this.CreateDataTable(); } }
+
+        /// <summary>
+        /// Stock data from list in DataSession's lists
+        /// </summary>
+        /// <param name="list">Data to stock</param>
         public override void StockData(params object[] list)
         {
             listTime.Add(list[0]);
             listHit.Add(list[1]);
         }
+
+        /// <summary>
+        /// Create the DataTable of this object
+        /// </summary>
+        /// <param name="data">Not usefull for the moment</param>
+        /// <returns>DataTable</returns>
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();
@@ -272,17 +411,34 @@ namespace SparringManager.DataManager
             return table;
         }
     }
+
+    /// <summary>
+    /// Class that represent all the data of a ViveTracker during the session
+    /// </summary>
+    /// <remarks>First we stock datas into lists and we convert them into DataTables</remarks>
     public class DataSessionViveTracker : DataSession
     {
         public List<object> listTime = new List<object>();
         public List<object> listAngle = new List<object>();
 
+        /// <value>Get the DataTable of this DataSession object</value>
         public DataTable DataTable { get { return this.CreateDataTable(); } }
+
+        /// <summary>
+        /// Stock data from list in DataSession's lists
+        /// </summary>
+        /// <param name="list">Data to stock</param>
         public override void StockData(params object[] list)
         {
             listTime.Add(list[0]);
             listAngle.Add(list[1]);
         }
+
+        /// <summary>
+        /// Create the DataTable of this object
+        /// </summary>
+        /// <param name="data">Not usefull for the moment</param>
+        /// <returns>DataTable</returns>
         public override DataTable CreateDataTable(params DataTable[] data)
         {
             DataTable table = new DataTable();

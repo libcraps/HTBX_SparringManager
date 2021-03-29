@@ -93,7 +93,7 @@ namespace SparringManager.Scenarios
             scenarioBehaviour = go.GetComponent<HitLineBehaviour>();
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
-            scenarioBehaviour.LineVelocity = scenario.accelerationMax;
+            scenarioBehaviour.DeltaTimeChangeMovement = scenario.accelerationMax;
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
         protected override void FixedUpdate()
@@ -136,12 +136,10 @@ namespace SparringManager.Scenarios
         //Method that change parameters of a moving object
         private void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
         {
-            System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeVelocity)
+            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeMovement)
             {
-                scenarioBehaviour.LineVelocity = random.Next(-accelerationMax, accelerationMax);
-                scenarioBehaviour.DeltaTimeChangeVelocity = random.Next(deltaTimeMin, deltaTimeMax);
+                scenarioBehaviour.DeltaTimeChangeMovement = Random.Range(deltaTimeMin, deltaTimeMax);
 
                 previousTime = tTime;
             }

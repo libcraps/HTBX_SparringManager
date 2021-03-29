@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace SparringManager.Scenarios
 {
+    /// <summary>
+    /// Abstract class for sccenarioBehaviour component, each scenario controller will dispose this attributs and methods (public and protected) 
+    /// </summary>
     public abstract class ScenarioDisplayBehaviour : MonoBehaviour
     {
         /*
@@ -19,64 +22,29 @@ namespace SparringManager.Scenarios
 
         #region Attributs
         protected int operationalArea;
+
+        public Vector3 objectVelocity = new Vector3(0,0,0);
+        public int DeltaTimeChangeMovement;
+        public float rangeSize;
+        public GameObject renderCamera;
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Initialize parameters of the scenario.
+        /// </summary>
+        /// <remarks>It is called after his instantiation.</remarks>
+        /// <param name="structScenarios">Structure that parameterize different settings of a scenario</param>
         public virtual void Init(IStructScenario structScenarios)
         {
 
         }
 
-        protected abstract void ObjectInCameraRange(); //function to say what to do if the Object get out of the camera range
-
-        protected virtual void Awake() 
-        {
-            operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
-        }
-        #endregion
-    }
-
-    public class Scenario1DLineDisplay : ScenarioDisplayBehaviour
-    {
-        /*
-         * Intermediate clas that allows us to control the behaviour of a 1D line
-         * Attributs : 
-         *      protected float _lineVelocity : Velocity of the Line
-         *      protected int _deltaTimeChangeVelocity : For random movement, it is the time that says if the velocity change 
-         *      
-         * Methods :
-         *      protected override void ObjectInCameraRange(): Keep the line in the range of the camera
-         *      
-         */
-        #region Attributs
-        protected float _lineVelocity;
-        protected int _deltaTimeChangeVelocity = 0;
-        public float LineVelocity
-        {
-            get
-            {
-                return _lineVelocity;
-            }
-            set
-            {
-                _lineVelocity = value;
-            }
-        }
-        public int DeltaTimeChangeVelocity
-        {
-            get
-            {
-                return _deltaTimeChangeVelocity;
-            }
-            set
-            {
-                _deltaTimeChangeVelocity = value;
-            }
-        }
-        #endregion
-
-        #region Methods
-        protected override void ObjectInCameraRange()
+        /// <summary>
+        /// Function to say what to do if the Object get out of the camera range.
+        /// </summary>
+        protected virtual void ObjectInCameraRange()
         {
             /* 
              * This method keeps the line in the camera range
@@ -84,14 +52,6 @@ namespace SparringManager.Scenarios
             Vector3 linePos3d;
             Vector3 renderCameraPos3d;
 
-            //-----------
-            GameObject _SimpleLineController = GameObject.Find(this.gameObject.transform.parent.name);
-            GameObject _Camera = _SimpleLineController.transform.GetComponentInParent<DeviceManager>().RenderCamera;
-            Camera renderCamera = _Camera.GetComponent<Camera>();
-            float rangeSize = renderCamera.GetComponent<Camera>().orthographicSize;
-            //------------- a enlever
-
-            float area = operationalArea / (float)360.0 * rangeSize;
 
             renderCameraPos3d.x = renderCamera.transform.localPosition.x;
             renderCameraPos3d.y = renderCamera.transform.localPosition.y;
@@ -101,32 +61,72 @@ namespace SparringManager.Scenarios
             linePos3d.y = this.gameObject.transform.localPosition.y;
             linePos3d.z = this.gameObject.transform.localPosition.z;
 
-            //Instruction whether the line gets out of the render camera range
-            if (linePos3d.x > renderCameraPos3d.x + area)
+            float area = operationalArea / (float)360.0 * rangeSize;
+
+            if ((int)area == rangeSize)
             {
-                if (operationalArea == 360)
+                //Instruction whether the line gets out of the render camera range
+                if (linePos3d.x > renderCameraPos3d.x + area)
                 {
                     linePos3d.x -= 2 * area;
                 }
-                else
+                else if (linePos3d.x < renderCameraPos3d.x - area)
                 {
-                    _lineVelocity = -_lineVelocity;
+                    linePos3d.x += 2 * area;
+                }
+
+                //Instruction whether the line gets out of the render camera range
+                if (linePos3d.y > renderCameraPos3d.y + area)
+                {
+                    linePos3d.y -= 2 * area;
+                }
+                else if (linePos3d.y < renderCameraPos3d.y - area)
+                {
+                    linePos3d.y += 2 * area;
                 }
             }
-            else if (linePos3d.x < renderCameraPos3d.x - area)
+            else
             {
-                if (operationalArea == 360)
+                //Instruction whether the line gets out of the render camera range
+                if ((linePos3d.x > renderCameraPos3d.x + area) || (linePos3d.x < renderCameraPos3d.x - area))
                 {
-                    linePos3d.x += 2 * rangeSize;
+                    objectVelocity.x = -objectVelocity.x;
                 }
-                else
+
+                //Instruction whether the line gets out of the render camera range
+                if ((linePos3d.y > renderCameraPos3d.x + area) || (linePos3d.y < renderCameraPos3d.y - area))
                 {
-                    _lineVelocity = -_lineVelocity;
+                    objectVelocity.y = -objectVelocity.y;
                 }
+
             }
+
 
             this.gameObject.transform.localPosition = linePos3d;
         }
+
+        /// <summary>
+        /// Move this object by changing his velocity
+        /// </summary>
+        /// <param name="objectVelocity"></param>
+        protected virtual void MoveObject(Vector3 objectVelocity)
+        {
+            this.gameObject.GetComponent<Rigidbody>().velocity = objectVelocity;
+        }
+
+
+        protected virtual void Awake() 
+        {
+            operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
+            rangeSize = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().rangeSize;
+            renderCamera = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().RenderCameraObject;
+        }
+
+        void OnDestroy()
+        {
+            Debug.Log(this.gameObject.name + "has been destroyed");
+        }
         #endregion
     }
+
 }

@@ -644,6 +644,105 @@ MonoBehaviour:
         _scaleMaxValue: 45
         _scaleSpeed: 2
         _fixPosHit: 0
+    - _scenarioPrefab: {fileID: 4281324017865965865, guid: 36567d5e12548c841a1195cf19e51db4,
+        type: 3}
+      _timerScenario: 5
+      _simpleLineStruct:
+        _accelerationMax: 0
+        _deltaTimeMax: 0
+        _deltaTimeMin: 0
+      _hitLineStruct:
+        _hitPrefab: {fileID: 0}
+        _accelerationMax: 0
+        _deltaTimeMax: 0
+        _deltaTimeMin: 0
+        _deltaHit: 0
+        _timeBeforeHit: 0
+        _fixPosHit: 0
+      _crossLineStruct:
+        _hitPrefab: {fileID: 0}
+        _accelerationMax: 0
+        _deltaTimeMax: 0
+        _deltaTimeMin: 0
+        _deltaHit: 0
+        _timeBeforeHit: 0
+        _fixPosHit: 0
+      _splHitLineStruct:
+        _hitPrefab: {fileID: 0}
+        _accelerationMax: 30
+        _deltaTimeMax: 0
+        _deltaTimeMin: 0
+        _deltaHit: 2
+        _timeBeforeHit: 2
+        _scaleMaxValue: 45
+        _scaleSpeed: 2
+        _fixPosHit: 0
+    - _scenarioPrefab: {fileID: 4281324017865965865, guid: 36567d5e12548c841a1195cf19e51db4,
+        type: 3}
+      _timerScenario: 5
+      _simpleLineStruct:
+        _accelerationMax: 0
+        _deltaTimeMax: 0
+        _deltaTimeMin: 0
+      _hitLineStruct:
+        _hitPrefab: {fileID: 0}
+        _accelerationMax: 0
+        _deltaTimeMax: 0
+        _deltaTimeMin: 0
+        _deltaHit: 0
+        _timeBeforeHit: 0
+        _fixPosHit: 0
+      _crossLineStruct:
+        _hitPrefab: {fileID: 0}
+        _accelerationMax: 0
+        _deltaTimeMax: 0
+        _deltaTimeMin: 0
+        _deltaHit: 0
+        _timeBeforeHit: 0
+        _fixPosHit: 0
+      _splHitLineStruct:
+        _hitPrefab: {fileID: 0}
+        _accelerationMax: 30
+        _deltaTimeMax: 0
+        _deltaTimeMin: 0
+        _deltaHit: 2
+        _timeBeforeHit: 2
+        _scaleMaxValue: 45
+        _scaleSpeed: 2
+        _fixPosHit: 0
+    - _scenarioPrefab: {fileID: 4281324017865965865, guid: 36567d5e12548c841a1195cf19e51db4,
+        type: 3}
+      _timerScenario: 5
+      _simpleLineStruct:
+        _accelerationMax: 0
+        _deltaTimeMax: 0
+        _deltaTimeMin: 0
+      _hitLineStruct:
+        _hitPrefab: {fileID: 0}
+        _accelerationMax: 0
+        _deltaTimeMax: 0
+        _deltaTimeMin: 0
+        _deltaHit: 0
+        _timeBeforeHit: 0
+        _fixPosHit: 0
+      _crossLineStruct:
+        _hitPrefab: {fileID: 0}
+        _accelerationMax: 0
+        _deltaTimeMax: 0
+        _deltaTimeMin: 0
+        _deltaHit: 0
+        _timeBeforeHit: 0
+        _fixPosHit: 0
+      _splHitLineStruct:
+        _hitPrefab: {fileID: 0}
+        _accelerationMax: 30
+        _deltaTimeMax: 0
+        _deltaTimeMin: 0
+        _deltaHit: 2
+        _timeBeforeHit: 2
+        _scaleMaxValue: 45
+        _scaleSpeed: 2
+        _fixPosHit: 0
 --- !u!1001 &1913551566
 PrefabInstance:
   m_ObjectHideFlags: 0

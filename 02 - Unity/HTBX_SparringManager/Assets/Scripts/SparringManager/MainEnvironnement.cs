@@ -33,6 +33,10 @@ namespace SparringManager
 
         [SerializeField]
         private bool _exportInFile;
+
+        /// <summary>
+        /// Bool to confirm if we want to export/save session's data in file
+        /// </summary>
         public bool ExportIntoFile
         {
             get
@@ -55,6 +59,9 @@ namespace SparringManager
             }
         }
 
+        /// <summary>
+        /// Get the number of player for the session.
+        /// </summary>
         public int NbPlayer
         {
             get
@@ -73,6 +80,9 @@ namespace SparringManager
         }
 
         //----------------------    Methods    --------------------------
+        /// <summary>
+        /// Instantiates PlayerCameras
+        /// </summary>
         void Awake()
         {
             //Instantiate and initailize component of the player camera

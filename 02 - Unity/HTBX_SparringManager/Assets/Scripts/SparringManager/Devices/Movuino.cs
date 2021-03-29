@@ -5,7 +5,11 @@ using UnityEngine;
 
 namespace SparringManager.Device
 {
-
+    /// <summary>
+    /// Class that manage the movuino object in the scene
+    /// </summary>
+    /// <remarks>Handle OSC conncetion too</remarks>
+    /// <inheritdoc cref="DeviceBehaviour"/>
     public class Movuino : DeviceBehaviour
     {
         /*

@@ -63,7 +63,6 @@ var hierarchy =
       [ "SparringManager.Device.OSCMovuinoXMM", "class_sparring_manager_1_1_device_1_1_o_s_c_movuino_x_m_m.html", null ],
       [ "SparringManager.Device.OSCPolarBPM", "class_sparring_manager_1_1_device_1_1_o_s_c_polar_b_p_m.html", null ]
     ] ],
-    [ "SparringManager.DataManager.PlayerSceneDataStruct", "struct_sparring_manager_1_1_data_manager_1_1_player_scene_data_struct.html", null ],
     [ "SparringManager.Scenarios.Scenario< CrossLineStruct >", "class_sparring_manager_1_1_scenarios_1_1_scenario.html", [
       [ "SparringManager.Scenarios.ScenarioCrossLine", "class_sparring_manager_1_1_scenarios_1_1_scenario_cross_line.html", null ]
     ] ],

@@ -7,54 +7,16 @@ using System.Data;
 using System.Text;
 using UnityEngine;
 
+/// <summary>
+/// Namespace relative to the scenarios SplHitLine
+/// </summary>
 namespace SparringManager.SplHitLine
 {
-    /* Class nof the SplHitLine Scenario Controller
-     * 
-     *  Summary :
-     *  This class manage the behaviour of the SplHitLine prefab.
-     *  
-     *  Attributs :
-     *      //Usefull parameters of the scenario, they are in the splhitLineStructure
-     *      int _accelerationMax : Maximum acceleration that the line can have
-     *      int _deltaTimeMax : Maximum time before the line change its acceleration
-     *      int _deltaTimeMin : Minimum time before the line change its acceleration
-     *      float _timeBeforeHit : Time when the hit will be setted
-     *      float _deltaHit : Time during which the player will be able to hit the line
-     *      
-     *      bool _hitted : Boolean that indicates fi the line is hitted or not
-     *      bool _fixPosHit : Boolean that indicates if the line stop during the hit
-     *      int _fixPosHitValue : if the boolean _fixPoshit is true we fix the value to 0 in order to have an acceleration null
-     *      float _startTimeScenario : absolut time of the beginning of the scenario
-     *      float _tTime : tTime
-     *      float _previousTime : Time that we keep in memory every changement of the comportement of the line
-     *      
-     *      static int nbApparition : Integer that counts the number of instantiation of the scenario
-     *      
-     *      // CONTAINERS
-     *      ScenarioController _scenarioControllerComponent : Allows us to stock the StructScenarios structure that comes from SessionManager (scenarios[i])
-     *      StructScenarios _controllerStruct : We stock in the _controllerStruct the structure that is in the _scenarioControllerComponent
-     *      SplHitLineStruct _splHitLineControllerStruct : We stock the part SplHitLineStruct of the _controllerStruct
-     *      SplHitLineDataStruct _splHitLineData : Structure that will contain the data of the SplHitline scenario
-     *      
-     *      GameObject _scenarioComposant : Prefab of the line
-     *      SplHitLineBehaviour _splHitLineComponent : SplHitLineBehaviour component of the prefab, it gives u acces ti different variable of the splHitLine Prefab
-     *      List<float> mouvementConsign : List that contain all the position of the line
-     *      List<float> timeListScenario : Time list of the scenario
 
-     *      
-     *  Methods :
-     *      GetHit(Vector2 position2d_) :
-     *      GetConsigne(float time, float pos) : 
-     *      RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax) : 
-     *      void SetLineToHit() : Choose which part of the line will be hitted
-     *      void SetControllerVariables() : Set variables of the controller
-     *      void SetPrefabComponentVAriables(): Set variables of the prefab component
-     */
     /// <summary>
     /// Manage the scenario SplHitLine.
     /// </summary>
-
+    /// <inheritdoc cref="ScenarioControllerBehaviour"/>
     public class SplHitLineController : ScenarioControllerBehaviour
     {
         #region Attributs
@@ -94,12 +56,12 @@ namespace SparringManager.SplHitLine
             scenarioBehaviour = go.GetComponent<SplHitLineBehaviour>();
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
-            scenarioBehaviour.LineVelocity = scenario.accelerationMax;
+            scenarioBehaviour.DeltaTimeChangeMovement = scenario.accelerationMax;
             SetLineToHit(); // We define at the beginning of the scenario which line will be scale and in which direction
         }
         protected override void FixedUpdate()
         {
-            base.FixedUpdate();//STock Data
+            base.FixedUpdate();//Stock Data
             
             //Update the "situation" of the line
             
@@ -135,15 +97,18 @@ namespace SparringManager.SplHitLine
 
         }
 
-        // ---> Method that change parameters of a moving object
-        private void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
+        /// <summary>
+        /// Randomize the movement of the line every deltaTime seconds
+        /// </summary>
+        /// <param name="VelocityMax">Maximum velocity of the line</param>
+        /// <param name="deltaTimeMin">Minimum time before the ine change his velocity</param>
+        /// <param name="deltaTimeMax">Maximum time before the ine change his velocity</param>
+        private void RandomizeParametersLineMovement(int VelocityMax, int deltaTimeMin, int deltaTimeMax)
         {
-            System.Random random = new System.Random();
             //Randomize the movement of the line every deltaTime seconds
-            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeVelocity)
+            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeMovement)
             {
-                scenarioBehaviour.LineVelocity = random.Next(-accelerationMax, accelerationMax);
-                scenarioBehaviour.DeltaTimeChangeVelocity = random.Next(deltaTimeMin, deltaTimeMax);
+                scenarioBehaviour.DeltaTimeChangeMovement = Random.Range(deltaTimeMin, deltaTimeMax);
 
                 previousTime = tTime;
             }
@@ -158,6 +123,12 @@ namespace SparringManager.SplHitLine
         {
             ImpactManager.onInteractPoint -= GetHit;
         }
+
+        /// <summary>
+        /// Get the hit and react to it
+        /// </summary>
+        /// <remarks>It is called by the event ImpactManager.InteractPoint</remarks>
+        /// <param name="position2d_">Position of the hit</param>
         public void GetHit(Vector2 position2d_)
         {
             RaycastHit hit;
@@ -178,7 +149,11 @@ namespace SparringManager.SplHitLine
             }
         }
 
-// ---> Specific method of the splHitLine scenario
+        // ---> Specific method of the splHitLine scenario
+
+        /// <summary>
+        /// Methode that defines which part of the line the player will have to hit and in which direction it will scale
+        /// </summary>
         private void SetLineToHit()
         {
             /*
@@ -187,9 +162,8 @@ namespace SparringManager.SplHitLine
              */
             if (scenarioBehaviour.LineToHit == null)
             {
-                System.Random random = new System.Random();
-                int randomLine = random.Next(2);
-                int randomScaleSide = random.Next(2);
+                int randomLine = Random.Range(0,2);
+                int randomScaleSide = Random.Range(0, 2);
 
                 scenarioBehaviour.LineToHit = GameObject.Find(scenarioBehaviour.transform.GetChild(randomLine).name);
 
