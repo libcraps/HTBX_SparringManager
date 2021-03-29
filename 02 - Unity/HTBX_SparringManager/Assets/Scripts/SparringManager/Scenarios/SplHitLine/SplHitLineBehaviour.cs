@@ -33,6 +33,12 @@ namespace SparringManager.Scenarios
      *  Void LineInCameraRange() : Verifie that the line stay in the camera range
      *  void SetHit() : Indicates when the playe can hit by changing the color of the line
      */
+
+    /// <summary>
+    /// Manage the behaviour of the SplHitLine.
+    /// </summary>
+    /// <remarks>Essentialy it moves the line, instantiates the hit and it makes sure that the line stays in the range of the camera</remarks>
+    /// <inheritdoc cref="ScenarioDisplayBehaviour"/>
     public class SplHitLineBehaviour : ScenarioDisplayBehaviour
     {
         //General variables of a MovingLine
@@ -40,9 +46,6 @@ namespace SparringManager.Scenarios
         private ScenarioSplHitLine scenario;
 
         //Variables of an Hitting Line
-        //Variables of an Hitting Line
-        private bool _hitted;
-        private int _fixPosHitValue = 1; // if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
         public float DeltaHit { get { return structScenari.DeltaHit; } }
         public float TimeBeforeHit { get { return structScenari.TimeBeforeHit; } }
         public bool FixPosHit { get { return structScenari.FixPosHit; } } //Boolean to indicate if the line continue to move when the hit is setted 
@@ -50,17 +53,13 @@ namespace SparringManager.Scenarios
         {
             get
             {
-                return _hitted;
+                return hitted;
             }
             set
             {
-                _hitted = value;
+                hitted = value;
             }
         }
-
-        //Global Time variable
-        private float _startTimeScenario;
-        private float _tTime;
 
         //Specific variables of SplHitLine
 
@@ -101,18 +100,14 @@ namespace SparringManager.Scenarios
             _initScale = LineToHit.transform.localScale;
             _initScale.x = _initScale.x * _scaleSide;
             LineToHit.transform.localScale = _initScale;
-
-            //Initialisation of the time
-            _startTimeScenario = Time.time;
-            _tTime = Time.time - _startTimeScenario;
-
         }
 
-        void FixedUpdate()
+        protected override void FixedUpdate()
         {
-            _tTime = Time.time - _startTimeScenario;
+            base.FixedUpdate(); //time update
             ObjectInCameraRange();
-            MoveObject(_fixPosHitValue * objectVelocity);
+            RandomizeObjectMovement(structScenari.AccelerationMax, structScenari.DeltaTimeMin, structScenari.DeltaTimeMax);
+            MoveObject(fixPosHitValue * objectVelocity);
             SetHit(_lineToHit);
         }
         public override void Init(IStructScenario structScenari)
@@ -125,7 +120,7 @@ namespace SparringManager.Scenarios
             Vector3 newScale;
             Vector3 linePos3d;
 
-            bool canHit = (_tTime > TimeBeforeHit && (_tTime - TimeBeforeHit) < DeltaHit);
+            bool canHit = (tTime > TimeBeforeHit && (tTime - TimeBeforeHit) < DeltaHit);
 
             newScale.x = LineObject.transform.localScale.x;
             newScale.y = LineObject.transform.localScale.y;
@@ -135,7 +130,7 @@ namespace SparringManager.Scenarios
             linePos3d.y = LineObject.transform.localPosition.y;
             linePos3d.z = LineObject.transform.localPosition.z;
 
-            if (canHit && _hitted == false)
+            if (canHit && base.hitted == false)
             {
                 LineObject.GetComponent<MeshRenderer>().material.color = Color.red;
 
@@ -146,7 +141,7 @@ namespace SparringManager.Scenarios
                 }
                 if (FixPosHit == true)
                 {
-                    _fixPosHitValue = 0;
+                    fixPosHitValue = 0;
                 }
             }
             else
@@ -157,7 +152,7 @@ namespace SparringManager.Scenarios
                     newScale.x -= ScaleSpeed * _scaleSide;
                     linePos3d.x -= _scaleSide * ScaleSpeed / 2;
                 }
-                _fixPosHitValue = 1;
+                fixPosHitValue = 1;
             }
 
             LineObject.transform.localScale = newScale;

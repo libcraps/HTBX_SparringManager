@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using SparringManager.DataManager;
-using SparringManager.Device;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SparringManager.Scenarios
 {
     /// <summary>
-    /// Abstract class for sccenarioBehaviour component, each scenario controller will dispose this attributs and methods (public and protected) 
+    /// Abstract class for ScenarioBehaviour component, each scenario controller will dispose this attributs and methods (public and protected) 
     /// </summary>
     public abstract class ScenarioDisplayBehaviour : MonoBehaviour
     {
@@ -21,11 +17,36 @@ namespace SparringManager.Scenarios
          */
 
         #region Attributs
+        /// <summary>
+        /// Arc where the bag is operational
+        /// </summary>
         protected int operationalArea;
 
+        /// <summary>
+        /// Velocity of this object
+        /// </summary>
         public Vector3 objectVelocity = new Vector3(0,0,0);
+
+        /// <summary>
+        /// Duration before the movement of the object change
+        /// </summary>
         public int DeltaTimeChangeMovement;
+
+        public bool hitted;
+
+        public int fixPosHitValue = 1; // if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
+
+        protected float previousTime;
+        protected float tTime;
+        protected float startTimeScenario;
+        /// <summary>
+        /// Range of the RenderCamera of the PlayerScene of this object
+        /// </summary>
         public float rangeSize;
+
+        /// <summary>
+        /// RenderCamera of the PlayerScene of this object
+        /// </summary>
         public GameObject renderCamera;
         #endregion
 
@@ -101,7 +122,6 @@ namespace SparringManager.Scenarios
 
             }
 
-
             this.gameObject.transform.localPosition = linePos3d;
         }
 
@@ -114,12 +134,42 @@ namespace SparringManager.Scenarios
             this.gameObject.GetComponent<Rigidbody>().velocity = objectVelocity;
         }
 
+        /// <summary>
+        /// Randomize the movement of the object every deltaTime seconds
+        /// </summary>
+        /// <param name="VelocityMax">Maximum velocity of the line</param>
+        /// <param name="deltaTimeMin">Minimum time before the ine change his velocity</param>
+        /// <param name="deltaTimeMax">Maximum time before the ine change his velocity</param>
+        protected virtual void RandomizeObjectMovement(int VelocityMax, int deltaTimeMin, int deltaTimeMax)
+        {
+            
+            //Randomize the movement of the line every deltaTime seconds
+            if ((tTime - previousTime) > DeltaTimeChangeMovement)
+            {
+                
+                DeltaTimeChangeMovement = Random.Range(deltaTimeMin, deltaTimeMax);
+                objectVelocity.x = Random.Range(-VelocityMax, VelocityMax);
+                objectVelocity.y = Random.Range(-VelocityMax, VelocityMax);
 
+                previousTime = tTime;
+            }
+        }
         protected virtual void Awake() 
         {
+            startTimeScenario = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().startTimeScenario;
             operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
             rangeSize = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().rangeSize;
             renderCamera = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().RenderCameraObject;
+
+            tTime = Time.time - startTimeScenario;
+            previousTime = tTime;
+
+            DeltaTimeChangeMovement = 0;
+        }
+
+        protected virtual void FixedUpdate()
+        {
+            tTime = Time.time - startTimeScenario;
         }
 
         void OnDestroy()

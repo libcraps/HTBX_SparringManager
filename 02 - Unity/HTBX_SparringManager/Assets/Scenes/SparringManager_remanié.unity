@@ -512,7 +512,7 @@ MonoBehaviour:
   _exportInFile: 1
   _mainStructure:
   - _name: Joshua
-    _operationalArea: 150
+    _operationalArea: 360
     _structHitBox:
       _prefab: {fileID: 155006673294057578, guid: 571b32308585a234e913cbea1a3f07d9,
         type: 3}
@@ -545,7 +545,7 @@ MonoBehaviour:
           type: 3}
         _onOff: 1
     _scenarios:
-    - _scenarioPrefab: {fileID: 4281324017865965865, guid: 81bcf515e42e28b499dc2c872ec52c77,
+    - _scenarioPrefab: {fileID: 4281324017865965865, guid: 36567d5e12548c841a1195cf19e51db4,
         type: 3}
       _timerScenario: 5
       _simpleLineStruct:
@@ -562,22 +562,22 @@ MonoBehaviour:
         _fixPosHit: 0
       _crossLineStruct:
         _hitPrefab: {fileID: 0}
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-        _deltaHit: 0
-        _timeBeforeHit: 0
+        _accelerationMax: 25
+        _deltaTimeMax: 5
+        _deltaTimeMin: 3
+        _deltaHit: 5
+        _timeBeforeHit: 3
         _fixPosHit: 0
       _splHitLineStruct:
         _hitPrefab: {fileID: 0}
-        _accelerationMax: 0
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
-        _deltaHit: 0
-        _timeBeforeHit: 0
-        _scaleMaxValue: 0
-        _scaleSpeed: 0
-        _fixPosHit: 0
+        _accelerationMax: 30
+        _deltaTimeMax: 3
+        _deltaTimeMin: 2
+        _deltaHit: 1
+        _timeBeforeHit: 2
+        _scaleMaxValue: 45
+        _scaleSpeed: 2
+        _fixPosHit: 1
     - _scenarioPrefab: {fileID: 7392076013187570363, guid: 1f5aea03649a01c4bac9b44cb338704f,
         type: 3}
       _timerScenario: 3
@@ -637,8 +637,8 @@ MonoBehaviour:
       _splHitLineStruct:
         _hitPrefab: {fileID: 0}
         _accelerationMax: 30
-        _deltaTimeMax: 0
-        _deltaTimeMin: 0
+        _deltaTimeMax: 6
+        _deltaTimeMin: 5
         _deltaHit: 2
         _timeBeforeHit: 2
         _scaleMaxValue: 45

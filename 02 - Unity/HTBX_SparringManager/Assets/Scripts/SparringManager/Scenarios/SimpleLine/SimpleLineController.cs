@@ -39,7 +39,7 @@ namespace SparringManager.Scenarios.SimpleLine
         public ScenarioSimpleLine scenario { get; set; }
         public SimpleLineBehaviour scenarioBehaviour;
 
-        protected override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        public override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         protected override object consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); }}
         #endregion
 
@@ -98,18 +98,6 @@ namespace SparringManager.Scenarios.SimpleLine
             dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<SimpleLineStruct>(scenario.structScenario);
             dataManagerComponent = GetComponentInParent<DataController>();
             dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp); //Mettre dans 
-        }
-
-        //Method that changes parameters of a moving object
-        public void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
-        {
-            //Randomize the movement of the line every deltaTime seconds
-            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeMovement)
-            {
-                scenarioBehaviour.DeltaTimeChangeMovement = Random.Range(deltaTimeMin, deltaTimeMax);
-
-                previousTime = tTime;
-            }
         }
         #endregion
     }

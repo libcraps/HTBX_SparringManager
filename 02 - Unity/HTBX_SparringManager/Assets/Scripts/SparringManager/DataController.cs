@@ -6,6 +6,10 @@ using SparringManager.Structures;
 using System.Data;
 using UnityEngine;
 
+
+/// <summary>
+/// Namespace relative to Data
+/// </summary>
 namespace SparringManager.DataManager
 {
     /* 

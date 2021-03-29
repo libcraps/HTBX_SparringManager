@@ -84,20 +84,23 @@ $(document).ready(function(){initNavTree('class_sparring_manager_1_1_scenarios_1
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="class_sparring_manager_1_1_scenarios_1_1_hit_line_behaviour-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">SparringManager.Scenarios.HitLineBehaviour Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Manage the behaviour of the HitLine.  
+ <a href="class_sparring_manager_1_1_scenarios_1_1_hit_line_behaviour.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for SparringManager.Scenarios.HitLineBehaviour:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_sparring_manager_1_1_scenarios_1_1_hit_line_behaviour.png" usemap="#SparringManager.Scenarios.HitLineBehaviour_map" alt=""/>
   <map id="SparringManager.Scenarios.HitLineBehaviour_map" name="SparringManager.Scenarios.HitLineBehaviour_map">
-<area href="class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display.html" title="Intermediate class that describe 1DLine scenario behaviour" alt="SparringManager.Scenarios.Scenario1DLineDisplay" shape="rect" coords="0,112,328,136"/>
-<area href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html" title="Abstract class for sccenarioBehaviour component, each scenario controller will dispose this attributs..." alt="SparringManager.Scenarios.ScenarioDisplayBehaviour" shape="rect" coords="0,56,328,80"/>
+<area href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html" title="Abstract class for ScenarioBehaviour component, each scenario controller will dispose this attributs ..." alt="SparringManager.Scenarios.ScenarioDisplayBehaviour" shape="rect" coords="0,56,328,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -111,6 +114,40 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a213be3cf5bc377cd41420b9652bad1d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_hit_line.html">ScenarioHitLine</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_hit_line_behaviour.html#a213be3cf5bc377cd41420b9652bad1d9">scenario</a></td></tr>
 <tr class="separator:a213be3cf5bc377cd41420b9652bad1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html">SparringManager.Scenarios.ScenarioDisplayBehaviour</a></td></tr>
+<tr class="memitem:a80ae4d251d2ea32630c15f14b8ae30a1 inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a80ae4d251d2ea32630c15f14b8ae30a1">objectVelocity</a> = new Vector3(0,0,0)</td></tr>
+<tr class="memdesc:a80ae4d251d2ea32630c15f14b8ae30a1 inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Velocity of this object  <a href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a80ae4d251d2ea32630c15f14b8ae30a1">More...</a><br /></td></tr>
+<tr class="separator:a80ae4d251d2ea32630c15f14b8ae30a1 inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17318839dee84ae15107b05a66930749 inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a17318839dee84ae15107b05a66930749">DeltaTimeChangeMovement</a></td></tr>
+<tr class="memdesc:a17318839dee84ae15107b05a66930749 inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duration before the movement of the object change  <a href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a17318839dee84ae15107b05a66930749">More...</a><br /></td></tr>
+<tr class="separator:a17318839dee84ae15107b05a66930749 inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc6dada19f1e7487a9d6f8e2b0323ab7 inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#adc6dada19f1e7487a9d6f8e2b0323ab7">hitted</a></td></tr>
+<tr class="separator:adc6dada19f1e7487a9d6f8e2b0323ab7 inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad23f07b9b521a72143c3e5fb7d6361fa inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#ad23f07b9b521a72143c3e5fb7d6361fa">fixPosHitValue</a> = 1</td></tr>
+<tr class="separator:ad23f07b9b521a72143c3e5fb7d6361fa inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac271803221b5fcf0ca8572272f9d120c inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#ac271803221b5fcf0ca8572272f9d120c">rangeSize</a></td></tr>
+<tr class="memdesc:ac271803221b5fcf0ca8572272f9d120c inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range of the RenderCamera of the PlayerScene of this object  <a href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#ac271803221b5fcf0ca8572272f9d120c">More...</a><br /></td></tr>
+<tr class="separator:ac271803221b5fcf0ca8572272f9d120c inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a38a6212ab3d736d90fc5d4ba76fc73 inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">GameObject&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a4a38a6212ab3d736d90fc5d4ba76fc73">renderCamera</a></td></tr>
+<tr class="memdesc:a4a38a6212ab3d736d90fc5d4ba76fc73 inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">RenderCamera of the PlayerScene of this object  <a href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a4a38a6212ab3d736d90fc5d4ba76fc73">More...</a><br /></td></tr>
+<tr class="separator:a4a38a6212ab3d736d90fc5d4ba76fc73 inherit pub_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a2bbbe7d65e99c022fb107cf592d916dc"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_hit_line_behaviour.html#a2bbbe7d65e99c022fb107cf592d916dc">FixedUpdate</a> ()</td></tr>
+<tr class="separator:a2bbbe7d65e99c022fb107cf592d916dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html">SparringManager.Scenarios.ScenarioDisplayBehaviour</a></td></tr>
+<tr class="memitem:a0de12114cc94bdf4ca8dc439a9769fa8 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a0de12114cc94bdf4ca8dc439a9769fa8">ObjectInCameraRange</a> ()</td></tr>
+<tr class="memdesc:a0de12114cc94bdf4ca8dc439a9769fa8 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to say what to do if the Object get out of the camera range.  <a href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a0de12114cc94bdf4ca8dc439a9769fa8">More...</a><br /></td></tr>
+<tr class="separator:a0de12114cc94bdf4ca8dc439a9769fa8 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d8a1adab5db2ce370d5c46ba33c2194 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a6d8a1adab5db2ce370d5c46ba33c2194">MoveObject</a> (Vector3 <a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a80ae4d251d2ea32630c15f14b8ae30a1">objectVelocity</a>)</td></tr>
+<tr class="memdesc:a6d8a1adab5db2ce370d5c46ba33c2194 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move this object by changing his velocity  <a href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a6d8a1adab5db2ce370d5c46ba33c2194">More...</a><br /></td></tr>
+<tr class="separator:a6d8a1adab5db2ce370d5c46ba33c2194 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6f7b4fea87c5e1a69413326c1691aa0 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#af6f7b4fea87c5e1a69413326c1691aa0">RandomizeObjectMovement</a> (int VelocityMax, int deltaTimeMin, int deltaTimeMax)</td></tr>
+<tr class="memdesc:af6f7b4fea87c5e1a69413326c1691aa0 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Randomize the movement of the object every deltaTime seconds  <a href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#af6f7b4fea87c5e1a69413326c1691aa0">More...</a><br /></td></tr>
+<tr class="separator:af6f7b4fea87c5e1a69413326c1691aa0 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e1b7d0bbc898cbbdd8ca836adf9c803 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a2e1b7d0bbc898cbbdd8ca836adf9c803">Awake</a> ()</td></tr>
+<tr class="separator:a2e1b7d0bbc898cbbdd8ca836adf9c803 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
@@ -122,31 +159,51 @@ Properties</h2></td></tr>
 <tr class="separator:a1a87c0d67eb0d6edc77c2e555c2e3a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80ea54ab4027b02378f8f5b6207d87ad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_hit_line_behaviour.html#a80ea54ab4027b02378f8f5b6207d87ad">Hitted</a><code> [get, set]</code></td></tr>
 <tr class="separator:a80ea54ab4027b02378f8f5b6207d87ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header properties_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td colspan="2" onclick="javascript:toggleInherit('properties_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display.html">SparringManager.Scenarios.Scenario1DLineDisplay</a></td></tr>
-<tr class="memitem:a9256731f622137818a060cc87c999b42 inherit properties_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display.html#a9256731f622137818a060cc87c999b42">LineVelocity</a><code> [get, set]</code></td></tr>
-<tr class="separator:a9256731f622137818a060cc87c999b42 inherit properties_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1cf694bff4efeedc0f499cae8aedc49 inherit properties_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display.html#ad1cf694bff4efeedc0f499cae8aedc49">DeltaTimeChangeVelocity</a><code> [get, set]</code></td></tr>
-<tr class="separator:ad1cf694bff4efeedc0f499cae8aedc49 inherit properties_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display.html">SparringManager.Scenarios.Scenario1DLineDisplay</a></td></tr>
-<tr class="memitem:acf323419a826489e41042d9d2e04b6f8 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display.html#acf323419a826489e41042d9d2e04b6f8">ObjectInCameraRange</a> ()</td></tr>
-<tr class="memdesc:acf323419a826489e41042d9d2e04b6f8 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to say what to do if the Object get out of the camera range.  <a href="class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display.html#acf323419a826489e41042d9d2e04b6f8">More...</a><br /></td></tr>
-<tr class="separator:acf323419a826489e41042d9d2e04b6f8 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html">SparringManager.Scenarios.ScenarioDisplayBehaviour</a></td></tr>
-<tr class="memitem:a2e1b7d0bbc898cbbdd8ca836adf9c803 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a2e1b7d0bbc898cbbdd8ca836adf9c803">Awake</a> ()</td></tr>
-<tr class="separator:a2e1b7d0bbc898cbbdd8ca836adf9c803 inherit pro_methods_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display.html">SparringManager.Scenarios.Scenario1DLineDisplay</a></td></tr>
-<tr class="memitem:a788d30d5f92d7f5632d1b0c0e66a19ec inherit pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display.html#a788d30d5f92d7f5632d1b0c0e66a19ec">_lineVelocity</a></td></tr>
-<tr class="separator:a788d30d5f92d7f5632d1b0c0e66a19ec inherit pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a590d5419aad813aa5902945a3086b604 inherit pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display.html#a590d5419aad813aa5902945a3086b604">_deltaTimeChangeVelocity</a> = 0</td></tr>
-<tr class="separator:a590d5419aad813aa5902945a3086b604 inherit pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html">SparringManager.Scenarios.ScenarioDisplayBehaviour</a></td></tr>
 <tr class="memitem:a0f2ab84c579d7230d346b0dc44bd0683 inherit pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a0f2ab84c579d7230d346b0dc44bd0683">operationalArea</a></td></tr>
+<tr class="memdesc:a0f2ab84c579d7230d346b0dc44bd0683 inherit pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arc where the bag is operational  <a href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a0f2ab84c579d7230d346b0dc44bd0683">More...</a><br /></td></tr>
 <tr class="separator:a0f2ab84c579d7230d346b0dc44bd0683 inherit pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a414b8ea3dc0eb9c1062c457e3dad653c inherit pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a414b8ea3dc0eb9c1062c457e3dad653c">previousTime</a></td></tr>
+<tr class="separator:a414b8ea3dc0eb9c1062c457e3dad653c inherit pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91261c59c79770735de032ba582843a3 inherit pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a91261c59c79770735de032ba582843a3">tTime</a></td></tr>
+<tr class="separator:a91261c59c79770735de032ba582843a3 inherit pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae32ab6953c3d5c9d1e61e1cb94984511 inherit pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#ae32ab6953c3d5c9d1e61e1cb94984511">startTimeScenario</a></td></tr>
+<tr class="separator:ae32ab6953c3d5c9d1e61e1cb94984511 inherit pro_attribs_class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Manage the behaviour of the HitLine. </p>
+<p>Essentialy it moves the line, instantiates the hit and it makes sure that the line stays in the range of the camera</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2bbbe7d65e99c022fb107cf592d916dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bbbe7d65e99c022fb107cf592d916dc">&#9670;&nbsp;</a></span>FixedUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void SparringManager.Scenarios.HitLineBehaviour.FixedUpdate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a1863eb8f3794d81abc266c8ef31697f0">SparringManager.Scenarios.ScenarioDisplayBehaviour</a>.</p>
+
+</div>
+</div>
 <a id="a6673aa04e1e595eaef7aba8142d8268d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6673aa04e1e595eaef7aba8142d8268d">&#9670;&nbsp;</a></span>Init()</h2>
 
@@ -297,7 +354,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_sparring_manager.html">SparringManager</a></li><li class="navelem"><a class="el" href="namespace_sparring_manager_1_1_scenarios.html">Scenarios</a></li><li class="navelem"><a class="el" href="class_sparring_manager_1_1_scenarios_1_1_hit_line_behaviour.html">HitLineBehaviour</a></li>
-    <li class="footer">Generated on Mon Mar 29 2021 14:17:21 for SparringManagerDoxygen by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Mar 29 2021 18:45:32 for SparringManagerDoxygen by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

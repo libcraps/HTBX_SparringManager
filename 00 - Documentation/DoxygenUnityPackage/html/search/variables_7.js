@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['id_441',['id',['../class_sparring_manager_1_1_data_manager_1_1_data_session_movuino.html#aec02f61afea01e0ff2e95b1a70a9c5ca',1,'SparringManager.DataManager.DataSessionMovuino.id()'],['../class_sparring_manager_1_1_data_manager_1_1_data_session_movuino_x_m_m.html#a9a638f4ceacc410aaec52f0b80fd0781',1,'SparringManager.DataManager.DataSessionMovuinoXMM.id()']]],
-  ['indexbag_442',['indexBag',['../struct_sparring_manager_1_1_structures_1_1_struct_vive_tracker.html#a841c696810511b93746fe165f3212d50',1,'SparringManager::Structures::StructViveTracker']]],
-  ['indexplayer_443',['indexPlayer',['../struct_sparring_manager_1_1_structures_1_1_struct_vive_tracker.html#a68c61a8889c0568062ca84b4fc1c5fc5',1,'SparringManager::Structures::StructViveTracker']]]
+  ['hit_438',['hit',['../class_sparring_manager_1_1_scenarios_1_1_scenario_controller_behaviour.html#ae1f8c74654fa6a3ef5061e48f1e31759',1,'SparringManager::Scenarios::ScenarioControllerBehaviour']]],
+  ['hitted_439',['hitted',['../class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#adc6dada19f1e7487a9d6f8e2b0323ab7',1,'SparringManager::Scenarios::ScenarioDisplayBehaviour']]]
 ];

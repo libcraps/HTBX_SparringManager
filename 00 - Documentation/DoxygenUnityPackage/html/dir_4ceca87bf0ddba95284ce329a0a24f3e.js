@@ -9,7 +9,6 @@ var dir_4ceca87bf0ddba95284ce329a0a24f3e =
       [ "ScenarioControllerBehaviour", "class_sparring_manager_1_1_scenarios_1_1_scenario_controller_behaviour.html", "class_sparring_manager_1_1_scenarios_1_1_scenario_controller_behaviour" ]
     ] ],
     [ "ScenarioDisplayBehaviour.cs", "_scenario_display_behaviour_8cs.html", [
-      [ "ScenarioDisplayBehaviour", "class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html", "class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour" ],
-      [ "Scenario1DLineDisplay", "class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display.html", "class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display" ]
+      [ "ScenarioDisplayBehaviour", "class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html", "class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour" ]
     ] ]
 ];

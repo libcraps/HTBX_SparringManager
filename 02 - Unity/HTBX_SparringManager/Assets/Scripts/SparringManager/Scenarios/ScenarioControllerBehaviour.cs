@@ -79,7 +79,7 @@ namespace SparringManager.Scenarios
         protected object hit;
 
         /// <value>Start time of the scenario</value>
-        protected abstract float startTimeScenario { get; set; }
+        public abstract float startTimeScenario { get; set; }
 
         /// <value>Get the consigne of the scenario</value>
         protected abstract object consigne { get; }
@@ -177,6 +177,7 @@ namespace SparringManager.Scenarios
                 dataSessionPlayer.DataSessionMovuinoXMM[i].StockData(tTime, movuino[i].MovuinoXMM.gestId, movuino[i].MovuinoXMM.gestProg);
             }
         }
+
 
         void OnDestroy()
         {

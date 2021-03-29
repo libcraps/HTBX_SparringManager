@@ -19,7 +19,7 @@ namespace SparringManager.Scenarios
         //Scenario
         public ScenarioSimpleHit scenario { get; set; }
 
-        protected override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        public override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         protected override object consigne { get { return " "; } }
 
         #endregion

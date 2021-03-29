@@ -41,8 +41,6 @@ namespace SparringManager.Scenarios
         public ScenarioHitLine scenario;
 
         //Variables of an Hitting Line
-        private bool _hitted;
-        private int _fixPosHitValue = 1; // if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
         public float DeltaHit { get { return structScenari.DeltaHit; } }
         public float TimeBeforeHit { get { return structScenari.TimeBeforeHit; } }
         public bool FixPosHit { get { return structScenari.FixPosHit; } } //Boolean to indicate if the line continue to move when the hit is setted 
@@ -50,11 +48,11 @@ namespace SparringManager.Scenarios
         {
             get
             {
-                return _hitted;
+                return base.hitted;
             }
             set
             {
-                _hitted = value;
+                base.hitted = value;
             }
         }
 
@@ -68,11 +66,11 @@ namespace SparringManager.Scenarios
             _startTimeScenario = Time.time;
             _tTime = Time.time - _startTimeScenario;
         }
-        void FixedUpdate()
+        protected override void FixedUpdate()
         {
             _tTime = Time.time - _startTimeScenario;
             ObjectInCameraRange();
-            MoveObject(_fixPosHitValue * objectVelocity);
+            MoveObject(fixPosHitValue * objectVelocity);
             SetHit();
         }
 
@@ -86,18 +84,18 @@ namespace SparringManager.Scenarios
             //change the color of the line if the player have to hit
             bool canHit = (_tTime > TimeBeforeHit && (_tTime - TimeBeforeHit) < DeltaHit);
 
-            if (canHit && _hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
+            if (canHit && base.hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
             {
                 this.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
                 if (FixPosHit == true)
                 {
-                    _fixPosHitValue = 0;
+                    fixPosHitValue = 0;
                 }
             }
             else
             {
                 this.gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
-                _fixPosHitValue = 1;
+                fixPosHitValue = 1;
             }
         }
 

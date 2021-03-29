@@ -1,7 +1,7 @@
 var class_sparring_manager_1_1_scenarios_1_1_spl_hit_line_behaviour =
 [
+    [ "FixedUpdate", "class_sparring_manager_1_1_scenarios_1_1_spl_hit_line_behaviour.html#ad1871cdfed2e71c038713e24833111e9", null ],
     [ "Init", "class_sparring_manager_1_1_scenarios_1_1_spl_hit_line_behaviour.html#a9e1c9496e5ffc2aea931a4a07b53e5fa", null ],
-    [ "MoveLine", "class_sparring_manager_1_1_scenarios_1_1_spl_hit_line_behaviour.html#a68e40ff76f4bbca47afbe64048b8a62d", null ],
     [ "SetHit", "class_sparring_manager_1_1_scenarios_1_1_spl_hit_line_behaviour.html#a14b519341a7f760fbd1e788572b94347", null ],
     [ "DeltaHit", "class_sparring_manager_1_1_scenarios_1_1_spl_hit_line_behaviour.html#ab7275912b00cbc643bd5335f277c59d8", null ],
     [ "FixPosHit", "class_sparring_manager_1_1_scenarios_1_1_spl_hit_line_behaviour.html#a42c7b3ff46916a3644ae3e1c2334d9aa", null ],

@@ -26,7 +26,7 @@ namespace SparringManager.Scenarios.SimpleLine
             _tTime = Time.time - _startTimeScenario;
         }
 
-        void FixedUpdate()
+        protected override void FixedUpdate()
         {
             _tTime = Time.time - _startTimeScenario;
             ObjectInCameraRange();

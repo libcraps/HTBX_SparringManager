@@ -4,14 +4,30 @@ using SparringManager.Serial;
 using SparringManager.Scenarios;
 using UnityEngine;
 
+/// <summary>
+/// Namespace relatives to Structures of data
+/// </summary>
 namespace SparringManager.Structures
 {
+    /// <summary>
+    /// Interface for Device
+    /// </summary>
     public interface IStructDevice
     {
+        /// <summary>
+        /// Prefab of the device you wnt to instantiate
+        /// </summary>
         GameObject Prefab { get; }
+
+        /// <summary>
+        /// True if we want to add the device to the scene and false if not
+        /// </summary>
         bool OnOff { get; set; }
     }
 
+    /// <summary>
+    /// PlayerCamera structure
+    /// </summary>
     [System.Serializable]
     public struct StructPlayerCamera
     {
@@ -26,6 +42,10 @@ namespace SparringManager.Structures
         [SerializeField]
         private StructScenarios[] _scenarios;
 
+
+        /// <summary>
+        /// Name of the player
+        /// </summary>
         public string Name
         {
             get
@@ -37,6 +57,10 @@ namespace SparringManager.Structures
                 _name = value;
             }
         }
+
+        /// <summary>
+        /// Structure of the bag Hitbox
+        /// </summary>
         public StructHitBox StructHitBox
         {
             get
@@ -48,6 +72,10 @@ namespace SparringManager.Structures
                 _structHitBox = value;
             }
         }
+
+        /// <summary>
+        /// STructure of the PlayerScene
+        /// </summary>
         public StructPlayerScene StructPlayerScene
         {
             get
@@ -59,6 +87,10 @@ namespace SparringManager.Structures
                 _structPlayerScene = value;
             }
         }
+
+        /// <summary>
+        /// Structure of Scenarios
+        /// </summary>
         public StructScenarios[] Scenarios
         {
             get
@@ -86,7 +118,12 @@ namespace SparringManager.Structures
         }
     }
 
+
     [System.Serializable]
+    /// <summary>
+    /// Structure of the HitBox
+    /// </summary>
+    /// <inheritdoc/>
     public struct StructHitBox : IStructDevice
     {
         [SerializeField]
@@ -103,6 +140,8 @@ namespace SparringManager.Structures
                 return _prefab;
             }
         }
+
+        /// <value>Serial settings of the bag</value>
         public SerialSettings SerialSettings
         {
             get
@@ -114,6 +153,7 @@ namespace SparringManager.Structures
                 _serialSettings = value;
             }
         }
+
         public bool OnOff
         {
             get
@@ -133,6 +173,11 @@ namespace SparringManager.Structures
             _onOff = onOff;
         }
     }
+
+    /// <summary>
+    /// Structure of the PlayerScene
+    /// </summary>
+    /// <inheritdoc cref="IStructDevice"/>
     [System.Serializable]
     public struct StructPlayerScene : IStructDevice
     {
@@ -167,6 +212,10 @@ namespace SparringManager.Structures
                 _onOff = value;
             }
         }
+
+        /// <summary>
+        /// Id of the player, usefull with adress for movuinos
+        /// </summary>
         public string IdPlayer
         {
             get
@@ -178,6 +227,10 @@ namespace SparringManager.Structures
                 _idPlayer = value;
             }
         }
+
+        /// <summary>
+        /// ViveTracker's Settings
+        /// </summary>
         public StructViveTracker StructViveTracker
         {
             get
@@ -189,6 +242,10 @@ namespace SparringManager.Structures
                 _structViveTracker = value;
             }
         }
+
+        /// <summary>
+        /// Movuino's settings
+        /// </summary>
         public StructMovuino[] StructMovuino
         {
             get
@@ -200,6 +257,10 @@ namespace SparringManager.Structures
                 _structMovuino = value;
             }
         }
+
+        /// <summary>
+        /// Polar's settings
+        /// </summary>
         public StructPolar StructPolar
         {
             get
@@ -223,6 +284,10 @@ namespace SparringManager.Structures
         }
     }
 
+    /// <summary>
+    /// Movuino's settings
+    /// </summary>
+    /// <inheritdoc cref="IStructDevice"/>
     [System.Serializable]
     public struct StructMovuino : IStructDevice
     {
@@ -253,6 +318,10 @@ namespace SparringManager.Structures
             }
         }
 
+        /// <summary>
+        /// Id of the movuino
+        /// </summary>
+        /// <remarks>Usefull if we had to differentiate more movuinos</remarks>
         public string Id
         {
             get
@@ -272,6 +341,12 @@ namespace SparringManager.Structures
             _id = id;
         }
     }
+
+
+    /// <summary>
+    /// Polar settings
+    /// </summary>
+    /// <inheritdoc cref="IStructDevice"/>
     [System.Serializable]
     public struct StructPolar : IStructDevice
     {
@@ -304,6 +379,12 @@ namespace SparringManager.Structures
             _onOff = onOff;
         }
     }
+
+
+    /// <summary>
+    /// ViveTracker settings
+    /// </summary>
+    /// <inheritdoc cref="IStructDevice"/>
     [System.Serializable]
     public struct StructViveTracker : IStructDevice
     {

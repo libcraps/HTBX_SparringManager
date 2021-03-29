@@ -26,6 +26,12 @@ namespace SparringManager
      *  Methods :
      *      void InstantiateAndBuildScenario(StructScenarios strucObject, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
      */
+
+    /// <summary>
+    /// Class of the SessionManager, it manages the session. 
+    /// <para>It manages sthe session by instantiating scenarios</para>
+    /// </summary>
+    /// <remarks>It is a component of each PlayerCamera prefab.</remarks>
     public class SessionManager : MonoBehaviour
     {
         #region Attributs

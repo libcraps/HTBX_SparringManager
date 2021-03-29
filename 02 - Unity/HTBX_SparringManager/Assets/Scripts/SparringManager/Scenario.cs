@@ -30,7 +30,7 @@ namespace SparringManager.Scenarios
     }
 
     /// <summary>
-    /// <para>Abstract class that manage general scenarios caracterisics and methods.</para>
+    /// Abstract class that manage general scenarios caracterisics and methods.
     /// <para>Mother class of scenarios, also it allows us to stock easily data of scenarios.</para>
     /// </summary>
     /// <typeparam name="StructScenario">Structure that need to be IStructScenario</typeparam>

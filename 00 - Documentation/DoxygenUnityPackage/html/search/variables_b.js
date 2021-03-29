@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['operationalarea_459',['operationalArea',['../class_sparring_manager_1_1_scenarios_1_1_scenario_controller_behaviour.html#a450456a72333307ecd22667a3d0b2d0d',1,'SparringManager.Scenarios.ScenarioControllerBehaviour.operationalArea()'],['../class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html#a0f2ab84c579d7230d346b0dc44bd0683',1,'SparringManager.Scenarios.ScenarioDisplayBehaviour.operationalArea()']]],
-  ['oscdata_460',['oscData',['../class_sparring_manager_1_1_device_1_1_device_behaviour.html#a992a5d4fa1605d859a0797a5c06f7462',1,'SparringManager::Device::DeviceBehaviour']]]
+  ['nbapparition_455',['nbApparition',['../class_sparring_manager_1_1_scenarios_1_1_scenario_controller_behaviour.html#adbc1be34700bd5f12ad8f79ca2703b6b',1,'SparringManager::Scenarios::ScenarioControllerBehaviour']]],
+  ['nbhit_456',['nbHit',['../class_sparring_manager_1_1_data_manager_1_1_data_session_hit.html#ab71a9e1de9bbce9a4c542b0f0a6bdb12',1,'SparringManager::DataManager::DataSessionHit']]],
+  ['nbmovuino_457',['NbMovuino',['../class_sparring_manager_1_1_scenarios_1_1_scenario_controller_behaviour.html#a6ccf1f567b16cea2b8bb4a3b1e33422e',1,'SparringManager::Scenarios::ScenarioControllerBehaviour']]]
 ];

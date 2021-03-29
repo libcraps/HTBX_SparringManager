@@ -65,7 +65,7 @@ namespace SparringManager.Scenarios
         public ScenarioHitLine scenario { get; set; }
         private HitLineBehaviour scenarioBehaviour;
 
-        protected override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        public override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         protected override object consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
 
         #endregion

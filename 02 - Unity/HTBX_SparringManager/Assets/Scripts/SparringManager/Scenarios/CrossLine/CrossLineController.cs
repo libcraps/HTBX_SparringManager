@@ -38,7 +38,7 @@ namespace SparringManager.Scenarios.CrossLine
         public ScenarioCrossLine scenario { get; set; }
         public CrossLineBehaviour scenarioBehaviour { get; set; }
 
-        protected override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        public override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         protected override object consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
         #endregion
 
@@ -86,7 +86,7 @@ namespace SparringManager.Scenarios.CrossLine
             dataManagerComponent.EndScenarioForData = true;
             GetComponentInParent<SessionManager>().EndScenario = true;
             reactTime = 0;
-            scenarioBehaviour.Hitted = false;
+            scenarioBehaviour.hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
 
@@ -137,10 +137,10 @@ namespace SparringManager.Scenarios.CrossLine
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
             bool canHit = (tTime > scenario.timeBeforeHit && (tTime - scenario.timeBeforeHit) < scenario.deltaHit);
 
-            if (rayOnTarget && canHit && scenarioBehaviour.Hitted == false)
+            if (rayOnTarget && canHit && scenarioBehaviour.hitted == false)
             {
                 reactTime = tTime - scenario.timeBeforeHit;
-                scenarioBehaviour.Hitted = true;
+                scenarioBehaviour.hitted = true;
                 this.hit = true;
                 Debug.Log("Line touched : " + position2d_);
                 Debug.Log("React time : " + reactTime);

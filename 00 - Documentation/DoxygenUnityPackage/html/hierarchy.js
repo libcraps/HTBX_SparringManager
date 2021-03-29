@@ -43,16 +43,14 @@ var hierarchy =
         [ "SparringManager.Scenarios.CrossLine.CrossLineController", "class_sparring_manager_1_1_scenarios_1_1_cross_line_1_1_cross_line_controller.html", null ],
         [ "SparringManager.Scenarios.HitLineController", "class_sparring_manager_1_1_scenarios_1_1_hit_line_controller.html", null ],
         [ "SparringManager.Scenarios.SimpleHitController", "class_sparring_manager_1_1_scenarios_1_1_simple_hit_controller.html", null ],
-        [ "SparringManager.Scenarios.SimpleLineController", "class_sparring_manager_1_1_scenarios_1_1_simple_line_controller.html", null ],
+        [ "SparringManager.Scenarios.SimpleLine.SimpleLineController", "class_sparring_manager_1_1_scenarios_1_1_simple_line_1_1_simple_line_controller.html", null ],
         [ "SparringManager.SplHitLine.SplHitLineController", "class_sparring_manager_1_1_spl_hit_line_1_1_spl_hit_line_controller.html", null ]
       ] ],
       [ "SparringManager.Scenarios.ScenarioDisplayBehaviour", "class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html", [
-        [ "SparringManager.Scenarios.CrossLineBehaviour", "class_sparring_manager_1_1_scenarios_1_1_cross_line_behaviour.html", null ],
-        [ "SparringManager.Scenarios.Scenario1DLineDisplay", "class_sparring_manager_1_1_scenarios_1_1_scenario1_d_line_display.html", [
-          [ "SparringManager.Scenarios.HitLineBehaviour", "class_sparring_manager_1_1_scenarios_1_1_hit_line_behaviour.html", null ],
-          [ "SparringManager.Scenarios.SimpleLineBehaviour", "class_sparring_manager_1_1_scenarios_1_1_simple_line_behaviour.html", null ],
-          [ "SparringManager.Scenarios.SplHitLineBehaviour", "class_sparring_manager_1_1_scenarios_1_1_spl_hit_line_behaviour.html", null ]
-        ] ]
+        [ "SparringManager.Scenarios.CrossLine.CrossLineBehaviour", "class_sparring_manager_1_1_scenarios_1_1_cross_line_1_1_cross_line_behaviour.html", null ],
+        [ "SparringManager.Scenarios.HitLineBehaviour", "class_sparring_manager_1_1_scenarios_1_1_hit_line_behaviour.html", null ],
+        [ "SparringManager.Scenarios.SimpleLine.SimpleLineBehaviour", "class_sparring_manager_1_1_scenarios_1_1_simple_line_1_1_simple_line_behaviour.html", null ],
+        [ "SparringManager.Scenarios.SplHitLineBehaviour", "class_sparring_manager_1_1_scenarios_1_1_spl_hit_line_behaviour.html", null ]
       ] ],
       [ "SparringManager.Serial.Example.Player_Movement_Follower", "class_sparring_manager_1_1_serial_1_1_example_1_1_player___movement___follower.html", null ],
       [ "SparringManager.SessionManager", "class_sparring_manager_1_1_session_manager.html", null ],

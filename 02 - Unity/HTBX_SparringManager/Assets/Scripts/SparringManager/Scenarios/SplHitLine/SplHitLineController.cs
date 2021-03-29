@@ -25,7 +25,7 @@ namespace SparringManager.SplHitLine
         public ScenarioSplHitLine scenario { get; set; }
         private SplHitLineBehaviour scenarioBehaviour;
 
-        protected override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
+        public override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         protected override object consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
 
         #endregion
@@ -56,7 +56,7 @@ namespace SparringManager.SplHitLine
             scenarioBehaviour = go.GetComponent<SplHitLineBehaviour>();
             scenarioBehaviour.Init(scenario.structScenario);
             Destroy(go, scenario.timerScenario);
-            scenarioBehaviour.DeltaTimeChangeMovement = scenario.accelerationMax;
+
             SetLineToHit(); // We define at the beginning of the scenario which line will be scale and in which direction
         }
         protected override void FixedUpdate()
@@ -95,23 +95,6 @@ namespace SparringManager.SplHitLine
             dataManagerComponent = GetComponentInParent<DataController>();
             dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp); //Mettre dans 
 
-        }
-
-        /// <summary>
-        /// Randomize the movement of the line every deltaTime seconds
-        /// </summary>
-        /// <param name="VelocityMax">Maximum velocity of the line</param>
-        /// <param name="deltaTimeMin">Minimum time before the ine change his velocity</param>
-        /// <param name="deltaTimeMax">Maximum time before the ine change his velocity</param>
-        private void RandomizeParametersLineMovement(int VelocityMax, int deltaTimeMin, int deltaTimeMax)
-        {
-            //Randomize the movement of the line every deltaTime seconds
-            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeMovement)
-            {
-                scenarioBehaviour.DeltaTimeChangeMovement = Random.Range(deltaTimeMin, deltaTimeMax);
-
-                previousTime = tTime;
-            }
         }
 
 // ---> Method for an hitting object

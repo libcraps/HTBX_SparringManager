@@ -107,6 +107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0a36994a1825b408d6e05a806bb619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectVelocity: {x: 0, y: 0, z: 0}
+  DeltaTimeChangeMovement: 0
+  hitted: 0
+  fixPosHitValue: 1
+  rangeSize: 0
+  renderCamera: {fileID: 0}
 --- !u!54 &7430206276994596526
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -121,5 +127,5 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 124
   m_CollisionDetection: 0
