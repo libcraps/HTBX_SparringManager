@@ -35,10 +35,7 @@ namespace SparringManager.Scenarios.CrossLine
         #region Attributs
         //----------- ATTRIBUTS ----------------------
         //Scenario
-        public ScenarioCrossLine scenario { get; set; }
         public CrossLineBehaviour scenarioBehaviour { get; set; }
-
-        public override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         protected override object consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
         #endregion
 
@@ -55,7 +52,7 @@ namespace SparringManager.Scenarios.CrossLine
             base.Start();
             GetDevices();
             
-            Debug.Log(NbMovuino);
+            Debug.Log(nbMovuino);
 
             //Instantiation of scenario behaviour display
             Vector3 pos3d;
@@ -65,7 +62,7 @@ namespace SparringManager.Scenarios.CrossLine
 
             var go = Instantiate(PrefabScenarioComposant, pos3d, Quaternion.identity, this.gameObject.transform);
             scenarioBehaviour = go.GetComponent<CrossLineBehaviour>();
-            scenarioBehaviour.Init(scenario.structScenario);
+            scenarioBehaviour.Init(scenario.structScenari);
             Destroy(go, scenario.timerScenario);
 
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
@@ -91,16 +88,15 @@ namespace SparringManager.Scenarios.CrossLine
         }
 
         //Methods that set variables
-        public override void Init(StructScenarios structScenarios)
+        public override void Init(GeneriqueScenarioStruct structScenarios)
         {
             //Initialize this Class
             //Scenario controller
-            scenario = Scenario<CrossLineStruct>.CreateScenarioObject<ScenarioCrossLine>();
-            scenario.Init(structScenarios);
+            scenario = new Scenario(structScenarios);
 
             //StructPlayerSCene
-            dataSessionPlayer = new DataSessionPlayer(NbMovuino);
-            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<CrossLineStruct>(scenario.structScenario);
+            dataSessionPlayer = new DataSessionPlayer(nbMovuino);
+            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<GeneriqueScenarioStruct>(scenario.structScenari);
             dataManagerComponent = GetComponentInParent<DataController>();
             dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp); //Mettre dans 
 

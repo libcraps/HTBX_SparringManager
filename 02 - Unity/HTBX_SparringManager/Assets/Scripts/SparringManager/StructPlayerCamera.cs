@@ -40,7 +40,7 @@ namespace SparringManager.Structures
         [SerializeField]
         private StructPlayerScene _structPlayerScene;
         [SerializeField]
-        private StructScenarios[] _scenarios;
+        private GeneriqueScenarioStruct[] _scenarios;
 
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace SparringManager.Structures
         /// <summary>
         /// Structure of Scenarios
         /// </summary>
-        public StructScenarios[] Scenarios
+        public GeneriqueScenarioStruct[] Scenarios
         {
             get
             {
@@ -108,7 +108,7 @@ namespace SparringManager.Structures
             set { _operationalArea = value; }
         }
 
-        public StructPlayerCamera(string name, int operationalArea,StructHitBox structHitBox, StructPlayerScene structPlayerScene, StructScenarios[] scenarios)
+        public StructPlayerCamera(string name, int operationalArea,StructHitBox structHitBox, StructPlayerScene structPlayerScene, GeneriqueScenarioStruct[] scenarios)
         {
             _name = name;
             _structHitBox = structHitBox;

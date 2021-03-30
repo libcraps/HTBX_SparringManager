@@ -34,7 +34,7 @@ namespace SparringManager.Scenarios
     /// <para>Mother class of scenarios, also it allows us to stock easily data of scenarios.</para>
     /// </summary>
     /// <typeparam name="StructScenario">Structure that need to be IStructScenario</typeparam>
-    public abstract class Scenario<StructScenario> : IScenarioClass where StructScenario: IStructScenario
+    public class Scenario
     {
         /*
          * Mother class of scenarios, it allows us to stock easily data of scenarios
@@ -50,128 +50,59 @@ namespace SparringManager.Scenarios
          * Methods : 
          */
 
-        /// <summary>
-        /// Create an object of the type <typeparamref name="T"/>.
-        /// </summary>
-        /// <returns>The object of type <typeparamref name="T"/></returns>
-        public static T CreateScenarioObject<T>() where T : Scenario<StructScenario>, new()
-        {
-            T myObj = new T();
-            return myObj;
-        }
-
         #region Attributs/properties
         /// <summary>
         /// Structure that contain scenario parameters
         /// </summary>
-        public StructScenario structScenario { get; set; }
-        public float timerScenario { get; set; }
+        public GeneriqueScenarioStruct structScenari { get; set; }
         public float startTimeScenario { get; set; }
+        public float timerScenario { get { return structScenari.TimerScenario; } }
+        public float speed { get { return structScenari.Speed; } }
+        public float rythme { get { return structScenari.Rythme; } }
+
+        public int timeBeforeHit = 2;
+
+        public int deltaHit = 2;
+
         #endregion
 
         #region Methods
-        public virtual void Init(StructScenarios structScenarios)
+        /// <summary>
+        /// Initialize scenario settings
+        /// </summary>
+        /// <param name="structScenarios"></param>
+        public virtual void Init(GeneriqueScenarioStruct structScenarios)
         {
             /*
              * Initialize the structure
              */
+            this.structScenari = structScenari;
         }
+
+        /// <summary>
+        /// Convert a (x,y,z) consigne in a degree consigne
+        /// </summary>
+        /// <remarks>The screen is centered/symetrised on 0</remarks>
+        /// <param name="screenSize">Size of the screen, it is a reference</param>
+        /// <param name="coord">Coordinates</param>
+        /// <returns>The angle</returns>
         public virtual object PosToAngle(float screenSize, object coord)
         {
-            /*
-             * Function that allows us to convert a (x,y,z) consigne in a degree consigne
-             * 
-             * Screen size -> reference
-             * 
-             */
             object angle;
-            angle = (float)coord * 180.0/ screenSize;
+            angle = (float)coord * 180.0 / screenSize;
             return angle;
         }
         #endregion
-    }
 
-    public class ScenarioCrossLine : Scenario<CrossLineStruct>
-    {
 
-        //Usefull parameters of the scenario, they are in the crossLineStructure
-        public int accelerationMax { get { return structScenario.AccelerationMax; } }
-        public int deltaTimeMax { get { return structScenario.DeltaTimeMax; } }
-        public int deltaTimeMin { get { return structScenario.DeltaTimeMin; } }
-        public float deltaHit { get { return structScenario.DeltaHit; } }
-        public float timeBeforeHit { get { return structScenario.TimeBeforeHit; } }
-
-        public override void Init(StructScenarios structScenarios)
+        /// <summary>
+        /// Constructor of the scenario class
+        /// </summary>
+        /// <param name="structScenari">Settings of the scenari</param>
+        public Scenario(GeneriqueScenarioStruct structScenari)
         {
-            structScenario = new CrossLineStruct();
-            structScenario = structScenarios.CrossLineStruct;
-
-            timerScenario = structScenarios.TimerScenario;
-        }
-    }
-    public class ScenarioHitLine : Scenario<HitLineStruct>
-    {
-        //Usefull parameters of the scenario, they are in the crossLineStructure
-        public int accelerationMax { get { return structScenario.AccelerationMax; } }
-        public int deltaTimeMax { get { return structScenario.DeltaTimeMax; } }
-        public int deltaTimeMin { get { return structScenario.DeltaTimeMin; } }
-        public float deltaHit { get { return structScenario.DeltaHit; } }
-        public float timeBeforeHit { get { return structScenario.TimeBeforeHit; } }
-
-        public override void Init(StructScenarios structScenarios)
-        {
-            structScenario = new HitLineStruct();
-            structScenario = structScenarios.HitLineStruct;
-
-            timerScenario = structScenarios.TimerScenario;
-        }
-
-    }
-    public class ScenarioSimpleLine : Scenario<SimpleLineStruct>
-    {
-        //Usefull parameters of the scenario, they are in the crossLineStructure
-        public int accelerationMax { get { return structScenario.AccelerationMax; } }
-        public int deltaTimeMax { get { return structScenario.DeltaTimeMax; } }
-        public int deltaTimeMin { get { return structScenario.DeltaTimeMin; } }
-
-        public override void Init(StructScenarios structScenarios)
-        {
-            structScenario = new SimpleLineStruct();
-            structScenario = structScenarios.SimpleLineStruct;
-
-            timerScenario = structScenarios.TimerScenario;
-        }
-
-    }
-    public class ScenarioSplHitLine : Scenario<SplHitLineStruct>
-    {
-        //Usefull parameters of the scenario, they are in the crossLineStructure
-        public int accelerationMax { get { return structScenario.AccelerationMax; } }
-        public int deltaTimeMax { get { return structScenario.DeltaTimeMax; } }
-        public int deltaTimeMin { get { return structScenario.DeltaTimeMin; } }
-        public float deltaHit { get { return structScenario.DeltaHit; } }
-        public float timeBeforeHit { get { return structScenario.TimeBeforeHit; } }
-        public int ScaleMaxValue { get { return structScenario.ScaleMaxValue; } }
-        public float ScaleSpeed { get { return structScenario.ScaleSpeed; } }
-
-        public override void Init(StructScenarios structScenarios)
-        {
-            //_structScenario = new SplHitLineStruct();
-            structScenario = structScenarios.SplHitLineStruct;
-
-            timerScenario = structScenarios.TimerScenario;
-        }
-
-    }
-    public class ScenarioSimpleHit : Scenario<SimpleHitStruct>
-    {
-
-        public override void Init(StructScenarios structScenarios)
-        {
-            structScenario = new SimpleHitStruct();
-            structScenario = structScenarios.SimpleHitStruct;
-
-            timerScenario = structScenarios.TimerScenario;
+            this.structScenari = structScenari;
+            this.startTimeScenario = Time.time;
         }
     }
 }

@@ -42,12 +42,10 @@ namespace SparringManager.Scenarios
     public class SplHitLineBehaviour : ScenarioDisplayBehaviour
     {
         //General variables of a MovingLine
-        private SplHitLineStruct structScenari;
-        private ScenarioSplHitLine scenario;
 
         //Variables of an Hitting Line
-        public float DeltaHit { get { return structScenari.DeltaHit; } }
-        public float TimeBeforeHit { get { return structScenari.TimeBeforeHit; } }
+        public float DeltaHit { get; set; }
+        public float TimeBeforeHit { get; set; }
         public bool FixPosHit { get { return structScenari.FixPosHit; } } //Boolean to indicate if the line continue to move when the hit is setted 
         public bool Hitted
         {
@@ -88,14 +86,18 @@ namespace SparringManager.Scenarios
                 _scaleSide = value;
             }
         }
-        public int ScaleMaxValue { get { return structScenari.ScaleMaxValue; } }
-        public float ScaleSpeed { get { return structScenari.ScaleSpeed; } }
+
+        [SerializeField]
+        private int _scaleMaxValue = 45;
+        [SerializeField]
+        private float _scaleSpeed = 2;
 
         // -> other usefull variables
         private Vector3 _initScale;
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
             //Initialisation of the scale
             _initScale = LineToHit.transform.localScale;
             _initScale.x = _initScale.x * _scaleSide;
@@ -106,13 +108,9 @@ namespace SparringManager.Scenarios
         {
             base.FixedUpdate(); //time update
             ObjectInCameraRange();
-            RandomizeObjectMovement(structScenari.AccelerationMax, structScenari.DeltaTimeMin, structScenari.DeltaTimeMax);
+            //RandomizeObjectMovement(structScenari.AccelerationMax, structScenari.DeltaTimeMin, structScenari.DeltaTimeMax);
             MoveObject(fixPosHitValue * objectVelocity);
             SetHit(_lineToHit);
-        }
-        public override void Init(IStructScenario structScenari)
-        {
-            this.structScenari = (SplHitLineStruct)structScenari;
         }
 
         public void SetHit(GameObject LineObject)
@@ -134,10 +132,10 @@ namespace SparringManager.Scenarios
             {
                 LineObject.GetComponent<MeshRenderer>().material.color = Color.red;
 
-                if (Mathf.Abs(LineObject.transform.localScale.x) < ScaleMaxValue)
+                if (Mathf.Abs(LineObject.transform.localScale.x) < _scaleMaxValue)
                 {
-                    newScale.x += _scaleSide * ScaleSpeed;
-                    linePos3d.x += _scaleSide * ScaleSpeed / 2;
+                    newScale.x += _scaleSide * _scaleSpeed;
+                    linePos3d.x += _scaleSide * _scaleSpeed / 2;
                 }
                 if (FixPosHit == true)
                 {
@@ -149,8 +147,8 @@ namespace SparringManager.Scenarios
                 LineObject.GetComponent<MeshRenderer>().material.color = Color.white;
                 if (Mathf.Abs(LineObject.transform.localScale.x) > Mathf.Abs(_initScale.x))
                 {
-                    newScale.x -= ScaleSpeed * _scaleSide;
-                    linePos3d.x -= _scaleSide * ScaleSpeed / 2;
+                    newScale.x -= _scaleSpeed * _scaleSide;
+                    linePos3d.x -= _scaleSide * _scaleSpeed / 2;
                 }
                 fixPosHitValue = 1;
             }

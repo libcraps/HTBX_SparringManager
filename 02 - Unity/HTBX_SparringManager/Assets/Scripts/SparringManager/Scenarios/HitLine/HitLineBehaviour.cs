@@ -36,13 +36,9 @@ namespace SparringManager.Scenarios
     /// <inheritdoc cref="ScenarioDisplayBehaviour"/>
     public class HitLineBehaviour : ScenarioDisplayBehaviour
     {
-        //General variables of a MovingLine
-        private HitLineStruct structScenari;
-        public ScenarioHitLine scenario;
-
         //Variables of an Hitting Line
-        public float DeltaHit { get { return structScenari.DeltaHit; } }
-        public float TimeBeforeHit { get { return structScenari.TimeBeforeHit; } }
+        public float DeltaHit { get { return scenario.deltaHit; } }
+        public float TimeBeforeHit { get { return scenario.timeBeforeHit; } }
         public bool FixPosHit { get { return structScenari.FixPosHit; } } //Boolean to indicate if the line continue to move when the hit is setted 
         public bool Hitted
         {
@@ -56,33 +52,18 @@ namespace SparringManager.Scenarios
             }
         }
 
-        //Global Time variable
-        private float _startTimeScenario;
-        private float _tTime;
-
-        void Start()
-        {
-            //Initialisation of the time
-            _startTimeScenario = Time.time;
-            _tTime = Time.time - _startTimeScenario;
-        }
         protected override void FixedUpdate()
         {
-            _tTime = Time.time - _startTimeScenario;
+            base.FixedUpdate();
             ObjectInCameraRange();
             MoveObject(fixPosHitValue * objectVelocity);
             SetHit();
         }
 
-        public override void Init(IStructScenario structScenari)
-        {
-            this.structScenari = (HitLineStruct)structScenari;
-        }
-
         private void SetHit()
         {
             //change the color of the line if the player have to hit
-            bool canHit = (_tTime > TimeBeforeHit && (_tTime - TimeBeforeHit) < DeltaHit);
+            bool canHit = (tTime > TimeBeforeHit && (tTime - TimeBeforeHit) < DeltaHit);
 
             if (canHit && base.hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
             {

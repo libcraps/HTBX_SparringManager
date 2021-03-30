@@ -33,12 +33,10 @@ namespace SparringManager.Scenarios.CrossLine
     public class CrossLineBehaviour : ScenarioDisplayBehaviour
     {
         //General variables of a MovingLine
-        private CrossLineStruct structScenari;
-        private ScenarioCrossLine scenario;
 
         //Variables of an Hitting Line
-        public float DeltaHit { get  {return structScenari.DeltaHit ; } }
-        public float TimeBeforeHit { get { return structScenari.TimeBeforeHit; } }
+        public float DeltaHit { get; set; }
+        public float TimeBeforeHit { get; set; }
         public bool FixPosHit { get { return structScenari.FixPosHit; } } //Boolean to indicate if the line continue to move when the hit is setted 
 
 
@@ -64,11 +62,7 @@ namespace SparringManager.Scenarios.CrossLine
             SetHit();
         }
 
-        public override void Init(IStructScenario structScenari)
-        {
-            this.structScenari = (CrossLineStruct)structScenari;
-        }
-        public void Init(ScenarioCrossLine scenario)
+        public void Init(Scenario scenario)
         {
                 this.scenario = scenario;
         }

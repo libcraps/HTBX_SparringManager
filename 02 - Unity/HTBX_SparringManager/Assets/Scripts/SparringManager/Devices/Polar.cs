@@ -34,10 +34,6 @@ namespace SparringManager.Device
             _oscManager.SetAddressHandler(id + base.oscData.OSCAddress, base.oscData.ToOSCDataHandler);
         }
 
-        private void FixedUpdate()
-        {
-            Debug.Log(id + base.oscData.OSCAddress);
-        }
 
     }
 

@@ -56,7 +56,7 @@ namespace SparringManager.Scenarios
             }
         }
         //Scenario
-        //TOCHECK
+        public Scenario scenario;
         protected int operationalArea;
         protected static int nbApparition;
         //Data
@@ -67,9 +67,9 @@ namespace SparringManager.Scenarios
         protected Movuino[] movuino;
         protected Polar polar;
         protected ViveTrackerManager viveTrackerManager;
-        protected int NbMovuino;
-        public GameObject RenderCameraObject;
-        public float rangeSize;
+        protected int nbMovuino;
+        protected GameObject renderCameraObject;
+        protected float rangeSize;
 
         //time
         protected float previousTime;
@@ -79,10 +79,13 @@ namespace SparringManager.Scenarios
         protected object hit;
 
         /// <value>Start time of the scenario</value>
-        public abstract float startTimeScenario { get; set; }
+        public float startTimeScenario { get { return scenario.startTimeScenario; } }
 
         /// <value>Get the consigne of the scenario</value>
         protected abstract object consigne { get; }
+
+        public float RangeSize { get { return rangeSize; } }
+        public GameObject RenderCameraObject { get { return renderCameraObject; } }
         #endregion
 
         #region Methods
@@ -93,21 +96,14 @@ namespace SparringManager.Scenarios
         protected virtual void Awake()
         {
             operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
-            NbMovuino = this.gameObject.GetComponentInParent<DeviceManager>().NbMovuino;
-            RenderCameraObject = this.gameObject.GetComponentInParent<DeviceManager>().RenderCamera;
-            rangeSize = RenderCameraObject.GetComponent<Camera>().orthographicSize;
+            nbMovuino = this.gameObject.GetComponentInParent<DeviceManager>().NbMovuino;
+            renderCameraObject = this.gameObject.GetComponentInParent<DeviceManager>().RenderCamera;
+            rangeSize = renderCameraObject.GetComponent<Camera>().orthographicSize;
             nbApparition += 1;
         }
 
         protected virtual void Start()
         {
-            Debug.Log("------------" + " ScenarioControllerBehaviour Start" + "---------------");
-            
-            //Initialisation of the time and the acceleration
-            startTimeScenario = Time.time;
-            previousTime = 0;
-
-
         }
         protected virtual void FixedUpdate()
         {
@@ -128,7 +124,7 @@ namespace SparringManager.Scenarios
         /// </list></para>
         /// <remarks>It is called after his instantiation.</remarks>
         /// <param name="structScenarios">Structure that parameterize different settings of a scenario</param>
-        public virtual void Init(StructScenarios structScenarios)
+        public virtual void Init(GeneriqueScenarioStruct structScenarios)
         {
         }
 
@@ -142,8 +138,8 @@ namespace SparringManager.Scenarios
              */
 
             //movuino
-            movuino = new Movuino[NbMovuino];
-            for (int i = 0; i < NbMovuino; i++)
+            movuino = new Movuino[nbMovuino];
+            for (int i = 0; i < nbMovuino; i++)
             {
                 movuino[i] = GameObject.FindGameObjectsWithTag("Movuino")[i].GetComponent<Movuino>();
                 dataSessionPlayer.DataSessionMovuino[i].id = movuino[i].id; //We need the id of the movuino to have different column names and identifie thmen
@@ -162,16 +158,15 @@ namespace SparringManager.Scenarios
         /// </summary>
         protected virtual void StockData()
         {
-
             /*
-             * Stock Data in the dataessionPlayer
+             * Stock Data in the DataSessionPlayer
              */
 
             dataSessionPlayer.DataSessionScenario.StockData(tTime, consigne);
             dataSessionPlayer.DataSessionViveTracker.StockData(tTime, viveTrackerManager.angle);
             dataSessionPlayer.DataSessionHit.StockData(tTime, hit);
             dataSessionPlayer.DataSessionPolar.StockData(tTime, polar.oscData.bpm);
-            for (int i = 0; i < NbMovuino; i++)
+            for (int i = 0; i < nbMovuino; i++)
             {
                 dataSessionPlayer.DataSessionMovuino[i].StockData(tTime, movuino[i].MovuinoSensorData.accelerometer, movuino[i].MovuinoSensorData.gyroscope, movuino[i].MovuinoSensorData.magnetometer);
                 dataSessionPlayer.DataSessionMovuinoXMM[i].StockData(tTime, movuino[i].MovuinoXMM.gestId, movuino[i].MovuinoXMM.gestProg);

@@ -17,6 +17,8 @@ namespace SparringManager.Scenarios
          */
 
         #region Attributs
+        protected GeneriqueScenarioStruct structScenari;
+        protected Scenario scenario;
         /// <summary>
         /// Arc where the bag is operational
         /// </summary>
@@ -25,7 +27,7 @@ namespace SparringManager.Scenarios
         /// <summary>
         /// Velocity of this object
         /// </summary>
-        public Vector3 objectVelocity = new Vector3(0,0,0);
+        public Vector3 objectVelocity;
 
         /// <summary>
         /// Duration before the movement of the object change
@@ -52,14 +54,46 @@ namespace SparringManager.Scenarios
 
         #region Methods
 
+        #region Unity Methods
+        protected virtual void Awake()
+        {
+            scenario = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().scenario;
+            startTimeScenario = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().scenario.startTimeScenario;
+            operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
+            rangeSize = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().RangeSize;
+            renderCamera = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().RenderCameraObject;
+
+            tTime = Time.time - startTimeScenario;
+            previousTime = tTime;
+
+            DeltaTimeChangeMovement = 1;
+            objectVelocity = new Vector3(scenario.speed, 0, 0);
+        }
+
+        protected virtual void Start()
+        {
+
+        }
+
+        protected virtual void FixedUpdate()
+        {
+            tTime = Time.time - startTimeScenario;
+        }
+
+        void OnDestroy()
+        {
+            Debug.Log(this.gameObject.name + "has been destroyed");
+        }
+        #endregion 
+
         /// <summary>
         /// Initialize parameters of the scenario.
         /// </summary>
         /// <remarks>It is called after his instantiation.</remarks>
         /// <param name="structScenarios">Structure that parameterize different settings of a scenario</param>
-        public virtual void Init(IStructScenario structScenarios)
+        public virtual void Init(GeneriqueScenarioStruct structScenari)
         {
-
+            this.structScenari = structScenari;
         }
 
         /// <summary>
@@ -137,45 +171,29 @@ namespace SparringManager.Scenarios
         /// <summary>
         /// Randomize the movement of the object every deltaTime seconds
         /// </summary>
-        /// <param name="VelocityMax">Maximum velocity of the line</param>
-        /// <param name="deltaTimeMin">Minimum time before the ine change his velocity</param>
-        /// <param name="deltaTimeMax">Maximum time before the ine change his velocity</param>
-        protected virtual void RandomizeObjectMovement(int VelocityMax, int deltaTimeMin, int deltaTimeMax)
+        /// <param name="speedAverage">Maximum velocity of the line</param>
+        /// <param name="deltaTimeAverage">Minimum time before the ine change his velocity</param>
+        /// <param name="deltaTimeAmplitude">Maximum time before the ine change his velocity</param>
+        protected virtual void RandomizeObjectMovement(int speedAverage, int speedAmplitude, int deltaTimeAverage, int deltaTimeAmplitude)
         {
             
             //Randomize the movement of the line every deltaTime seconds
             if ((tTime - previousTime) > DeltaTimeChangeMovement)
             {
-                
+
+                int deltaTimeMin = deltaTimeAverage - deltaTimeAmplitude;
+                int deltaTimeMax = deltaTimeAverage + deltaTimeAmplitude;
+
+                int speedMax = speedAverage + speedAmplitude;
+
                 DeltaTimeChangeMovement = Random.Range(deltaTimeMin, deltaTimeMax);
-                objectVelocity.x = Random.Range(-VelocityMax, VelocityMax);
-                objectVelocity.y = Random.Range(-VelocityMax, VelocityMax);
+                objectVelocity.x = Random.Range(-speedMax, speedMax);
+                objectVelocity.y = Random.Range(-speedMax, speedMax);
 
                 previousTime = tTime;
             }
         }
-        protected virtual void Awake() 
-        {
-            startTimeScenario = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().startTimeScenario;
-            operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
-            rangeSize = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().rangeSize;
-            renderCamera = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().RenderCameraObject;
 
-            tTime = Time.time - startTimeScenario;
-            previousTime = tTime;
-
-            DeltaTimeChangeMovement = 0;
-        }
-
-        protected virtual void FixedUpdate()
-        {
-            tTime = Time.time - startTimeScenario;
-        }
-
-        void OnDestroy()
-        {
-            Debug.Log(this.gameObject.name + "has been destroyed");
-        }
         #endregion
     }
 

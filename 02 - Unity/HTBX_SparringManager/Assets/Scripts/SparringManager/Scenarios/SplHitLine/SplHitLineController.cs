@@ -21,11 +21,7 @@ namespace SparringManager.SplHitLine
     {
         #region Attributs
         //----------- ATTRIBUTS ----------------------
-
-        public ScenarioSplHitLine scenario { get; set; }
         private SplHitLineBehaviour scenarioBehaviour;
-
-        public override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         protected override object consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
 
         #endregion
@@ -42,7 +38,6 @@ namespace SparringManager.SplHitLine
             base.Start();
             GetDevices();
             //Initialisation of the time and the acceleration
-            startTimeScenario = Time.time;
             tTime = Time.time - startTimeScenario;
             previousTime = tTime;
             
@@ -54,7 +49,7 @@ namespace SparringManager.SplHitLine
 
             var go = Instantiate(_prefabScenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform);
             scenarioBehaviour = go.GetComponent<SplHitLineBehaviour>();
-            scenarioBehaviour.Init(scenario.structScenario);
+            scenarioBehaviour.Init(scenario.structScenari);
             Destroy(go, scenario.timerScenario);
 
             SetLineToHit(); // We define at the beginning of the scenario which line will be scale and in which direction
@@ -82,16 +77,14 @@ namespace SparringManager.SplHitLine
         }
 
         // ---> Methods that set variables
-        public override void Init(StructScenarios structScenarios)
+        public override void Init(GeneriqueScenarioStruct structScenari)
         {
             //Initialize this Class
             //Scenario controller
-            scenario = Scenario<SplHitLineStruct>.CreateScenarioObject<ScenarioSplHitLine>();
-            scenario.Init(structScenarios);
+            scenario = new Scenario(structScenari);
+            dataSessionPlayer = new DataSessionPlayer(nbMovuino);
 
-            dataSessionPlayer = new DataSessionPlayer(NbMovuino);
-
-            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<SplHitLineStruct>(scenario.structScenario);
+            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<GeneriqueScenarioStruct>(scenario.structScenari);
             dataManagerComponent = GetComponentInParent<DataController>();
             dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp); //Mettre dans 
 

@@ -17,9 +17,6 @@ namespace SparringManager.Scenarios
         #region Attributs
         //----------- ATTRIBUTS ----------------------
         //Scenario
-        public ScenarioSimpleHit scenario { get; set; }
-
-        public override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         protected override object consigne { get { return " "; } }
 
         #endregion
@@ -54,16 +51,14 @@ namespace SparringManager.Scenarios
         }
 
 
-        public override void Init(StructScenarios structScenarios)
+        public override void Init(GeneriqueScenarioStruct structScenari)
         {
             //Initialize this Class
             //Scenario controller
-            scenario = Scenario<SimpleHitStruct>.CreateScenarioObject<ScenarioSimpleHit>();
-            scenario.Init(structScenarios);
+            scenario = new Scenario(structScenari);
+            dataSessionPlayer = new DataSessionPlayer(nbMovuino);
 
-            dataSessionPlayer = new DataSessionPlayer(NbMovuino);
-
-            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<SimpleHitStruct>(scenario.structScenario);
+            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<GeneriqueScenarioStruct>(scenario.structScenari);
             dataManagerComponent = GetComponentInParent<DataController>();
             dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp); //Mettre dans 
         }

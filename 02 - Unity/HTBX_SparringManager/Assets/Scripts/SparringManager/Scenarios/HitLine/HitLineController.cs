@@ -62,10 +62,7 @@ namespace SparringManager.Scenarios
         //----------- ATTRIBUTS ---------------------- 
 
         //Scenario
-        public ScenarioHitLine scenario { get; set; }
         private HitLineBehaviour scenarioBehaviour;
-
-        public override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         protected override object consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
 
         #endregion
@@ -91,9 +88,9 @@ namespace SparringManager.Scenarios
 
             var go = Instantiate(_prefabScenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform);
             scenarioBehaviour = go.GetComponent<HitLineBehaviour>();
-            scenarioBehaviour.Init(scenario.structScenario);
+            scenarioBehaviour.Init(scenario.structScenari);
             Destroy(go, scenario.timerScenario);
-            scenarioBehaviour.DeltaTimeChangeMovement = scenario.accelerationMax;
+
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
         protected override void FixedUpdate()
@@ -119,30 +116,16 @@ namespace SparringManager.Scenarios
         }
 
         //Method that set variables.
-        public override void Init(StructScenarios structScenarios)
+        public override void Init(GeneriqueScenarioStruct structScenarios)
         {
             //Initialize this Class
             //Scenario controller
-            scenario = Scenario<HitLineStruct>.CreateScenarioObject<ScenarioHitLine>();
-            scenario.Init(structScenarios);
-
+            scenario = new Scenario(structScenarios);
             //Data
-            dataSessionPlayer = new DataSessionPlayer(NbMovuino);
-            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<HitLineStruct>(scenario.structScenario);
+            dataSessionPlayer = new DataSessionPlayer(nbMovuino);
+            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<GeneriqueScenarioStruct>(scenario.structScenari);
             dataManagerComponent = GetComponentInParent<DataController>();
             dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp);
-        }
-
-        //Method that change parameters of a moving object
-        private void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax)
-        {
-            //Randomize the movement of the line every deltaTime seconds
-            if ((tTime - previousTime) > scenarioBehaviour.DeltaTimeChangeMovement)
-            {
-                scenarioBehaviour.DeltaTimeChangeMovement = Random.Range(deltaTimeMin, deltaTimeMax);
-
-                previousTime = tTime;
-            }
         }
 
         //Method for an hitting object

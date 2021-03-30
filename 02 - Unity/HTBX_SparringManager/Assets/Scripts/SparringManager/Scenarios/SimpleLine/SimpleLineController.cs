@@ -36,10 +36,9 @@ namespace SparringManager.Scenarios.SimpleLine
         //----------- ATTRIBUTS ----------------------
         //Usefull parameters of the scenario, they are in the SimpleLineStructure
         //Object that contain datas (structures)
-        public ScenarioSimpleLine scenario { get; set; }
+
         public SimpleLineBehaviour scenarioBehaviour;
 
-        public override float startTimeScenario { get { return scenario.startTimeScenario; } set { scenario.startTimeScenario = value; } }
         protected override object consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); }}
         #endregion
 
@@ -55,7 +54,6 @@ namespace SparringManager.Scenarios.SimpleLine
         {
             GetDevices();
             //Initialisation of the time
-            startTimeScenario = Time.time;
             tTime = Time.time - startTimeScenario;
             previousTime = tTime;
 
@@ -66,18 +64,14 @@ namespace SparringManager.Scenarios.SimpleLine
 
             var go = Instantiate(_prefabScenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform);
             scenarioBehaviour = go.GetComponent<SimpleLineBehaviour>();
-            scenarioBehaviour.Init(scenario.structScenario);
+            scenarioBehaviour.Init(scenario.structScenari);
             Destroy(go, scenario.timerScenario);
 
-            scenarioBehaviour.objectVelocity[0] = scenario.accelerationMax;
             Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
         }
         protected override void FixedUpdate()
         {
             base.FixedUpdate(); //StockData
-
-            //Behaviour Management
-            //RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
         }
         void OnDestroy()
         {
@@ -87,15 +81,14 @@ namespace SparringManager.Scenarios.SimpleLine
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
         //Methods that set variables
-        public override void Init(StructScenarios structScenarios)
+        public override void Init(GeneriqueScenarioStruct structScenari)
         {
             //Initialize this Class
             //Scenario controller
-            scenario = Scenario<SimpleLineStruct>.CreateScenarioObject<ScenarioSimpleLine>();
-            scenario.Init(structScenarios);
+            scenario = new Scenario(structScenari);
 
-            dataSessionPlayer = new DataSessionPlayer(NbMovuino);
-            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<SimpleLineStruct>(scenario.structScenario);
+            dataSessionPlayer = new DataSessionPlayer(nbMovuino);
+            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<GeneriqueScenarioStruct>(scenario.structScenari);
             dataManagerComponent = GetComponentInParent<DataController>();
             dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp); //Mettre dans 
         }

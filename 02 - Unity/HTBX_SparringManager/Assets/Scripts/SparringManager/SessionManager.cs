@@ -37,7 +37,7 @@ namespace SparringManager
         #region Attributs
         //----------------------    ATTRIBUTS    --------------------------
         private string _name;
-        private StructScenarios[] _scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
+        private GeneriqueScenarioStruct[] _scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
         private StructPlayerScene _structPlayerScene;
         private int _operationalArea;
         public bool EndScenario { get; set; }
@@ -82,7 +82,7 @@ namespace SparringManager
 
         }
         //Method that instantiate a scenario
-        private void InstantiateAndBuildScenario(StructScenarios strucObject, StructPlayerScene structPlayerScene, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
+        private void InstantiateAndBuildScenario(GeneriqueScenarioStruct strucObject, StructPlayerScene structPlayerScene, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
         {
             /*
              * Function that instatiate an object, the prefab of this object is in the structureScenarios, it contains all the data that is usefull for the scenarios
@@ -111,7 +111,7 @@ namespace SparringManager
             Debug.Log(prefabObject.name + " has been instantiated");
         }
 
-        public void Init(StructScenarios[] scenarios,StructPlayerScene structPlayerScene, int actionAngle, string name, bool export)
+        public void Init(GeneriqueScenarioStruct[] scenarios,StructPlayerScene structPlayerScene, int actionAngle, string name, bool export)
         {
             _scenarios = scenarios;
             _structPlayerScene = structPlayerScene;

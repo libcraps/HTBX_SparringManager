@@ -13,28 +13,18 @@ namespace SparringManager.Scenarios.SimpleLine
     public class SimpleLineBehaviour : ScenarioDisplayBehaviour
     {
         //General variables of a MovingLine
-        private SimpleLineStruct structScenari;
 
-        //Global Time variable
-        private float _startTimeScenario;
-        private float _tTime;
-
-        void Start()
-        {
-            //Initialisation of the time
-            _startTimeScenario = Time.time;
-            _tTime = Time.time - _startTimeScenario;
-        }
 
         protected override void FixedUpdate()
         {
-            _tTime = Time.time - _startTimeScenario;
+            base.FixedUpdate();
             ObjectInCameraRange();
             MoveObject(objectVelocity);
+            Debug.Log(objectVelocity);
         }
-        public override void Init(IStructScenario structScenari)
+        public override void Init(GeneriqueScenarioStruct structScenari)
         {
-            this.structScenari = (SimpleLineStruct)structScenari;
+            this.structScenari = structScenari;
         }
 
     }
