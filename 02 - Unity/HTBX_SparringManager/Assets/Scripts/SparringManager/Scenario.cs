@@ -63,7 +63,6 @@ namespace SparringManager.Scenarios
         public int timeBeforeHit = 2;
 
         public int deltaHit = 2;
-
         #endregion
 
         #region Methods
@@ -103,6 +102,7 @@ namespace SparringManager.Scenarios
         {
             this.structScenari = structScenari;
             this.startTimeScenario = Time.time;
+            Debug.Log(startTimeScenario);
         }
     }
 }

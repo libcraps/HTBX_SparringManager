@@ -8,7 +8,7 @@ using System.Text;
 using UnityEngine;
 
 /// <summary>
-/// Namespace relative to the scenarios SplHitLine
+/// Namespace relative to the scenario SplHitLine
 /// </summary>
 namespace SparringManager.SplHitLine
 {
@@ -51,12 +51,10 @@ namespace SparringManager.SplHitLine
             scenarioBehaviour = go.GetComponent<SplHitLineBehaviour>();
             scenarioBehaviour.Init(scenario.structScenari);
             Destroy(go, scenario.timerScenario);
-
-            SetLineToHit(); // We define at the beginning of the scenario which line will be scale and in which direction
         }
         protected override void FixedUpdate()
         {
-            base.FixedUpdate();//Stock Data
+            base.FixedUpdate(); //Stock Data
             
             //Update the "situation" of the line
             
@@ -117,7 +115,6 @@ namespace SparringManager.SplHitLine
             if (rayOnTarget && canHit && scenarioBehaviour.Hitted == false)
             {
                 reactTime = tTime - scenario.timeBeforeHit;
-
                 scenarioBehaviour.Hitted = true;
                 this.hit = true;
                 Debug.Log("Line touched : " + position2d_);
@@ -125,33 +122,5 @@ namespace SparringManager.SplHitLine
             }
         }
 
-        // ---> Specific method of the splHitLine scenario
-
-        /// <summary>
-        /// Methode that defines which part of the line the player will have to hit and in which direction it will scale
-        /// </summary>
-        private void SetLineToHit()
-        {
-            /*
-             * Methode that defines which part of the line the player will have to hit and in which direction it will scale
-             * 
-             */
-            if (scenarioBehaviour.LineToHit == null)
-            {
-                int randomLine = Random.Range(0,2);
-                int randomScaleSide = Random.Range(0, 2);
-
-                scenarioBehaviour.LineToHit = GameObject.Find(scenarioBehaviour.transform.GetChild(randomLine).name);
-
-                if (randomScaleSide == 0)
-                {
-                    scenarioBehaviour.ScaleSide = -1;
-                }
-                else
-                {
-                    scenarioBehaviour.ScaleSide = 1;
-                }
-            }
-        }
     }
 }

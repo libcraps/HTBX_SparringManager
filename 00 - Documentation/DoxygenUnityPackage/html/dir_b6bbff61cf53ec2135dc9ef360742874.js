@@ -16,9 +16,6 @@ var dir_b6bbff61cf53ec2135dc9ef360742874 =
     [ "Player_Movement_Follower.cs", "_player___movement___follower_8cs.html", [
       [ "Player_Movement_Follower", "class_sparring_manager_1_1_serial_1_1_example_1_1_player___movement___follower.html", "class_sparring_manager_1_1_serial_1_1_example_1_1_player___movement___follower" ]
     ] ],
-    [ "PlayerBehaviour.cs", "_player_behaviour_8cs.html", [
-      [ "PlayerBehaviour", "class_sparring_manager_1_1_device_1_1_player_behaviour.html", null ]
-    ] ],
     [ "PlayerSceneController.cs", "_player_scene_controller_8cs.html", [
       [ "PlayerSceneController", "class_sparring_manager_1_1_device_1_1_player_scene_controller.html", "class_sparring_manager_1_1_device_1_1_player_scene_controller" ]
     ] ],

@@ -3,56 +3,12 @@ using SparringManager.Device;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SparringManager.Scenarios
-{
-    /* Class nof the HitLine Scenario Controller
-     * 
-     *  Summary :
-     *  This class manage the behaviour of the HitLine prefab.
-     *  
-     *  Attributs :
-     *      //Usefull parameters of the scenario, they are in the splhitLineStructure
-     *      int _accelerationMax : Maximum acceleration that the line can have
-     *      int _deltaTimeMax : Maximum time before the line change its acceleration
-     *      int _deltaTimeMin : Minimum time before the line change its acceleration
-     *      float _timeBeforeHit : Time when the hit will be setted
-     *      float _deltaHit : Time during which the player will be able to hit the line
-     *      
-     *      float _startTimeScenario : absolut time of the beginning of the scenario
-     *      float _tTime : tTime
-     *      float _previousTime : Time that we keep in memory every changement of the comportement of the line
-     *      float _reactTime :
-     *      float _timerScenario :
-     *      
-     *      // CONTAINERS
-     *      ScenarioController _scenarioControllerComponent : Allows us to stock the StructScenarios structure that comes from SessionManager (scenarios[i])
-     *      StructScenarios _controllerStruct : We stock in the _controllerStruct the structure that is in the _scenarioControllerComponent
-     *      SplHitLineStruct _splHitLineControllerStruct : We stock the part SplHitLineStruct of the _controllerStruct
-     *      SplHitLineDataStruct _splHitLineData : Structure that will contain the data of the SplHitline scenario
-     *      
-     *      GameObject _scenarioComposant : Prefab of the line
-     *      SplHitLineBehaviour _splHitLineComponent : SplHitLineBehaviour component of the prefab, it gives u acces ti different variable of the splHitLine Prefab
-     *      
-     *      List<float> mouvementConsign : List that contain all the position of the line
-     *      List<float> timeListScenario : Time list of the scenario
-     *      
-     *  Methods :
-     *      //Methods that set variables
-     *      void SetControllerVariables() : Set variables of the controller
-     *      void SetPrefabComponentVAriables(): Set variables of the prefab component
-     *      
-     *      //Method for the data exportation
-     *      void GetConsigne(float time, float pos) : Get the tTime data in a list
-     *      void GetExportDataInStructure() : Put the data that we need in the dataStruture of the controller
-     *      void ExportDataInDataManager() : Export the data into the DataManager
-     *      
-     *      //Method that change parameters of a moving object
-     *      void RandomizeParametersLineMovement(int accelerationMax, int deltaTimeMin, int deltaTimeMax) : Randomize the movement of the cross
-     *      
-     *      Method for an hitting object
-     *      void GetHit(Vector2 position2d_) : Get the Hit of the position2d_ (use events)
-     */
 
+/// <summary>
+/// Namespace relative to the scenario HitLine
+/// </summary>
+namespace SparringManager.Scenarios.HitLine
+{
     /// <summary>
     /// Manage the scenario HitLine.
     /// </summary>
@@ -95,7 +51,7 @@ namespace SparringManager.Scenarios
         }
         protected override void FixedUpdate()
         {
-            base.FixedUpdate(); //StockData
+            base.FixedUpdate(); //StockData and time update
 
             //Behaviour Management
             

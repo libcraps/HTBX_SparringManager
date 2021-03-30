@@ -33,30 +33,25 @@ namespace SparringManager.Scenarios.CrossLine
     public class CrossLineBehaviour : ScenarioDisplayBehaviour
     {
         //General variables of a MovingLine
+        GameObject VertLineObject;
+        GameObject HorizLineObject;
 
         //Variables of an Hitting Line
         public float DeltaHit { get; set; }
         public float TimeBeforeHit { get; set; }
         public bool FixPosHit { get { return structScenari.FixPosHit; } } //Boolean to indicate if the line continue to move when the hit is setted 
 
-
-        //Global Time variable
-        private float _startTimeScenario;
-        private float _tTime;
-
         protected override void Awake()
         {
             base.Awake();
-            //Initialisation of the time
-            _startTimeScenario = Time.time;
-            _tTime = Time.time - _startTimeScenario;
 
-            objectVelocity = new Vector3(35, 35, 0);
+            VertLineObject = GameObject.Find(this.gameObject.transform.GetChild(0).name);
+            HorizLineObject = GameObject.Find(this.gameObject.transform.GetChild(1).name);
         }
 
         protected override void FixedUpdate()
         {
-            _tTime = Time.time - _startTimeScenario;
+            base.FixedUpdate();
             ObjectInCameraRange();
             MoveObject(fixPosHitValue * objectVelocity);
             SetHit();
@@ -74,9 +69,7 @@ namespace SparringManager.Scenarios.CrossLine
         public void SetHit()
         {
             //change the color of the line if the player have to hit
-            bool canHit = (_tTime > TimeBeforeHit && (_tTime - TimeBeforeHit) < DeltaHit);
-            GameObject VertLineObject = GameObject.Find(this.gameObject.transform.GetChild(0).name);
-            GameObject HorizLineObject = GameObject.Find(this.gameObject.transform.GetChild(1).name);
+            bool canHit = (tTime > TimeBeforeHit && (tTime - TimeBeforeHit) < DeltaHit);
 
             if (canHit && hitted == false)
             {

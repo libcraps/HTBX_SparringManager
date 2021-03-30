@@ -5,35 +5,6 @@ using UnityEngine;
 
 namespace SparringManager.Scenarios
 {
-    /* Class nof the SplHitLine Prefab
-     * 
-     *  Summary :
-     *  This class leads the behaviour of the SplHitLine prefab.
-     *  The SplHitLine only moves lateraly and vertically and it instantiates an hit at the bottom or the top of the line afeter _timeBeforeHit seconds
-     *  The part of the line scale that the player have to hit scale itself in an aleatory direction
-     *  
-     *  Attributs :
-     *      float _lineVelocity : Acceleration at a tTime of the 
-     *      int _deltaTimeChangeVelocity : Time during which the line will keep tis acceleration
-     *      float _timeBeforeHit : Time when the hit will be setted
-     *      float _deltaHit : Time during which the player will be able to hit the line
-     *      bool _hitted : Boolean that indicates fi the line is hitted or not
-     *      bool _fixPosHit : Boolean that indicates if the line stop during the hit
-     *      int _fixPosHitValue : if the boolean _fixPoshit is true we fix the value to 0 in order to have an acceleration null
-     *      float _startTimeScenario : absolut time of the beginning of the scenario
-     *      float _tTime : tTime
-     *      GameObject _lineToHit : GameObject that representent the part of the line that  will be hitted
-     *      int _scaleMaxValue : Maximum scale that the line can have
-     *      float _scaleSpeed : Speed of the scale
-     *      int _scaleSide : Takes the value -1 or 1 and it indicates in which side the line will scale
-     *      Vector3 _initScale : Initial scale of the line
-     *      
-     *  Methods :
-     *  void MoveLine(int lineAcceleration) : moves the line at the lineAcceleration
-     *  Void LineInCameraRange() : Verifie that the line stay in the camera range
-     *  void SetHit() : Indicates when the playe can hit by changing the color of the line
-     */
-
     /// <summary>
     /// Manage the behaviour of the SplHitLine.
     /// </summary>
@@ -44,9 +15,17 @@ namespace SparringManager.Scenarios
         //General variables of a MovingLine
 
         //Variables of an Hitting Line
-        public float DeltaHit { get; set; }
-        public float TimeBeforeHit { get; set; }
-        public bool FixPosHit { get { return structScenari.FixPosHit; } } //Boolean to indicate if the line continue to move when the hit is setted 
+        private float _deltaHit { get { return scenario.deltaHit; } }
+        private float _timeBeforeHit { get { return scenario.timeBeforeHit; } }
+
+        /// <summary>
+        /// Boolean to indicate if the line continue to move when the hit is setted 
+        /// </summary>
+        public bool FixPosHit { get { return structScenari.FixPosHit; } } 
+
+        /// <summary>
+        /// Boolean to indicates if the target is hitted or not
+        /// </summary>
         public bool Hitted
         {
             get
@@ -60,32 +39,8 @@ namespace SparringManager.Scenarios
         }
 
         //Specific variables of SplHitLine
-
         private GameObject _lineToHit;
         private int _scaleSide; //-1 ou 1
-        //UseFull only for SplHitLine
-        public GameObject LineToHit
-        {
-            get
-            {
-                return _lineToHit;
-            }
-            set
-            {
-                _lineToHit = value;
-            }
-        }
-        public int ScaleSide
-        {
-            get
-            {
-                return _scaleSide;
-            }
-            set
-            {
-                _scaleSide = value;
-            }
-        }
 
         [SerializeField]
         private int _scaleMaxValue = 45;
@@ -99,9 +54,10 @@ namespace SparringManager.Scenarios
         {
             base.Start();
             //Initialisation of the scale
-            _initScale = LineToHit.transform.localScale;
+            SetLineToHit();
+            _initScale = _lineToHit.transform.localScale;
             _initScale.x = _initScale.x * _scaleSide;
-            LineToHit.transform.localScale = _initScale;
+            _lineToHit.transform.localScale = _initScale;
         }
 
         protected override void FixedUpdate()
@@ -118,7 +74,7 @@ namespace SparringManager.Scenarios
             Vector3 newScale;
             Vector3 linePos3d;
 
-            bool canHit = (tTime > TimeBeforeHit && (tTime - TimeBeforeHit) < DeltaHit);
+            bool canHit = (tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit);
 
             newScale.x = LineObject.transform.localScale.x;
             newScale.y = LineObject.transform.localScale.y;
@@ -128,7 +84,7 @@ namespace SparringManager.Scenarios
             linePos3d.y = LineObject.transform.localPosition.y;
             linePos3d.z = LineObject.transform.localPosition.z;
 
-            if (canHit && base.hitted == false)
+            if (canHit && hitted == false)
             {
                 LineObject.GetComponent<MeshRenderer>().material.color = Color.red;
 
@@ -155,6 +111,34 @@ namespace SparringManager.Scenarios
 
             LineObject.transform.localScale = newScale;
             LineObject.transform.localPosition = linePos3d;
+        }
+
+        // ---> Specific method of the splHitLine scenario
+        /// <summary>
+        /// Methode that defines which part of the line the player will have to hit and in which direction it will scale
+        /// </summary>
+        private void SetLineToHit()
+        {
+            /*
+             * Methode that defines which part of the line the player will have to hit and in which direction it will scale
+             * 
+             */
+            if (_lineToHit == null)
+            {
+                int randomLine = Random.Range(0, 2);
+                int randomScaleSide = Random.Range(0, 2);
+
+                _lineToHit = GameObject.Find(this.gameObject.transform.GetChild(randomLine).name);
+
+                if (randomScaleSide == 0)
+                {
+                    _scaleSide = -1;
+                }
+                else
+                {
+                    _scaleSide = 1;
+                }
+            }
         }
 
     }

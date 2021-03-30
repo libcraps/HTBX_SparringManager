@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['impactmanager_2ecs_349',['ImpactManager.cs',['../_impact_manager_8cs.html',1,'']]]
+  ['hitlinebehaviour_2ecs_300',['HitLineBehaviour.cs',['../_hit_line_behaviour_8cs.html',1,'']]],
+  ['hitlinecontroller_2ecs_301',['HitLineController.cs',['../_hit_line_controller_8cs.html',1,'']]]
 ];

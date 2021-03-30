@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['editdatatable_506',['EditDataTable',['../class_sparring_manager_1_1_data_manager_1_1_data_controller.html#a848c1d8fb5b6a47e456d32d59146cab6',1,'SparringManager::DataManager::DataController']]],
-  ['endscenario_507',['EndScenario',['../class_sparring_manager_1_1_session_manager.html#a0b03166b498d23207b79a9f495dd9bd7',1,'SparringManager::SessionManager']]],
-  ['endscenariofordata_508',['EndScenarioForData',['../class_sparring_manager_1_1_data_manager_1_1_data_controller.html#a3acc0d19363277445deccfe4e94bb28b',1,'SparringManager::DataManager::DataController']]],
-  ['exportintofile_509',['ExportIntoFile',['../class_sparring_manager_1_1_data_manager_1_1_data_controller.html#a8d7efb5c43f1ffa6d30cc2eae8496e0d',1,'SparringManager.DataManager.DataController.ExportIntoFile()'],['../class_sparring_manager_1_1_main_environnement.html#ad0ae804a3084c01f12722b03bf805a69',1,'SparringManager.MainEnvironnement.ExportIntoFile()']]]
+  ['filepath_448',['FilePath',['../class_sparring_manager_1_1_data_manager_1_1_data_controller.html#a6517daacfd06c59f96bc8e1d4adf3158',1,'SparringManager::DataManager::DataController']]],
+  ['fixposhit_449',['FixPosHit',['../struct_sparring_manager_1_1_scenarios_1_1_generique_scenario_struct.html#a1be3df5314b37bd959179b7b3b7bd378',1,'SparringManager.Scenarios.GeneriqueScenarioStruct.FixPosHit()'],['../class_sparring_manager_1_1_scenarios_1_1_cross_line_1_1_cross_line_behaviour.html#a15ee49e38461aa9fed3a7bfbd4af716a',1,'SparringManager.Scenarios.CrossLine.CrossLineBehaviour.FixPosHit()'],['../class_sparring_manager_1_1_scenarios_1_1_hit_line_behaviour.html#a1a87c0d67eb0d6edc77c2e555c2e3a84',1,'SparringManager.Scenarios.HitLineBehaviour.FixPosHit()'],['../class_sparring_manager_1_1_scenarios_1_1_spl_hit_line_behaviour.html#a42c7b3ff46916a3644ae3e1c2334d9aa',1,'SparringManager.Scenarios.SplHitLineBehaviour.FixPosHit()']]]
 ];
