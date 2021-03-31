@@ -38,7 +38,6 @@ namespace SparringManager
         //----------------------    ATTRIBUTS    --------------------------
         private string _name;
         private GeneriqueScenarioStruct[] _scenarios; //List of StructScenarios, it contains every parameters of the session of the scenario
-        private StructPlayerScene _structPlayerScene;
         private int _operationalArea;
         public bool EndScenario { get; set; }
         private int _indexScenario = 0;
@@ -99,10 +98,16 @@ namespace SparringManager
             Debug.Log(prefabObject.name + " has been instantiated");
         }
 
-        public void Init(GeneriqueScenarioStruct[] scenarios,StructPlayerScene structPlayerScene, int actionAngle, string name, bool export)
+        /// <summary>
+        /// Init session's settings
+        /// </summary>
+        /// <param name="scenarios"></param>
+        /// <param name="actionAngle"></param>
+        /// <param name="name"></param>
+        /// <param name="export"></param>
+        public void Init(GeneriqueScenarioStruct[] scenarios, int actionAngle, string name, bool export)
         {
             _scenarios = scenarios;
-            _structPlayerScene = structPlayerScene;
             _operationalArea = actionAngle;
             _name = name;
         }

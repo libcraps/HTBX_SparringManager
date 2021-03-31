@@ -100,8 +100,7 @@ var menudata={children:[
 {text:"p",url:"functions_prop.html#index_p"},
 {text:"r",url:"functions_prop.html#index_r"},
 {text:"s",url:"functions_prop.html#index_s"},
-{text:"t",url:"functions_prop.html#index_t"},
-{text:"v",url:"functions_prop.html#index_v"}]},
+{text:"t",url:"functions_prop.html#index_t"}]},
 {text:"Events",url:"functions_evnt.html"}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"}]}]}

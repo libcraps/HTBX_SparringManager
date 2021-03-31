@@ -33,8 +33,7 @@ var dir_aed7e806c5f9501f54cf7ffb95d930a8 =
       [ "Scenario", "class_sparring_manager_1_1_scenarios_1_1_scenario.html", "class_sparring_manager_1_1_scenarios_1_1_scenario" ]
     ] ],
     [ "SessionManager.cs", "_session_manager_8cs.html", [
-      [ "SessionManager", "class_sparring_manager_1_1_session_manager.html", "class_sparring_manager_1_1_session_manager" ],
-      [ "DeviceStructure", "struct_sparring_manager_1_1_device_structure.html", "struct_sparring_manager_1_1_device_structure" ]
+      [ "SessionManager", "class_sparring_manager_1_1_session_manager.html", "class_sparring_manager_1_1_session_manager" ]
     ] ],
     [ "StructPlayerCamera.cs", "_struct_player_camera_8cs.html", [
       [ "IStructDevice", "interface_sparring_manager_1_1_structures_1_1_i_struct_device.html", "interface_sparring_manager_1_1_structures_1_1_i_struct_device" ],

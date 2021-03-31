@@ -29,7 +29,12 @@ var annotated_dup =
           [ "CrossLineController", "class_sparring_manager_1_1_scenarios_1_1_cross_line_1_1_cross_line_controller.html", "class_sparring_manager_1_1_scenarios_1_1_cross_line_1_1_cross_line_controller" ]
         ] ],
         [ "HitLine", "namespace_sparring_manager_1_1_scenarios_1_1_hit_line.html", [
+          [ "HitLineBehaviour", "class_sparring_manager_1_1_scenarios_1_1_hit_line_1_1_hit_line_behaviour.html", "class_sparring_manager_1_1_scenarios_1_1_hit_line_1_1_hit_line_behaviour" ],
           [ "HitLineController", "class_sparring_manager_1_1_scenarios_1_1_hit_line_1_1_hit_line_controller.html", "class_sparring_manager_1_1_scenarios_1_1_hit_line_1_1_hit_line_controller" ]
+        ] ],
+        [ "SimpleHit", "namespace_sparring_manager_1_1_scenarios_1_1_simple_hit.html", [
+          [ "SimpleHit", "class_sparring_manager_1_1_scenarios_1_1_simple_hit_1_1_simple_hit.html", null ],
+          [ "SimpleHitController", "class_sparring_manager_1_1_scenarios_1_1_simple_hit_1_1_simple_hit_controller.html", "class_sparring_manager_1_1_scenarios_1_1_simple_hit_1_1_simple_hit_controller" ]
         ] ],
         [ "SimpleLine", "namespace_sparring_manager_1_1_scenarios_1_1_simple_line.html", [
           [ "SimpleLineBehaviour", "class_sparring_manager_1_1_scenarios_1_1_simple_line_1_1_simple_line_behaviour.html", "class_sparring_manager_1_1_scenarios_1_1_simple_line_1_1_simple_line_behaviour" ],
@@ -39,19 +44,14 @@ var annotated_dup =
         [ "GeneriqueScenarioStruct", "struct_sparring_manager_1_1_scenarios_1_1_generique_scenario_struct.html", "struct_sparring_manager_1_1_scenarios_1_1_generique_scenario_struct" ],
         [ "IScenarioClass", "interface_sparring_manager_1_1_scenarios_1_1_i_scenario_class.html", "interface_sparring_manager_1_1_scenarios_1_1_i_scenario_class" ],
         [ "Scenario", "class_sparring_manager_1_1_scenarios_1_1_scenario.html", "class_sparring_manager_1_1_scenarios_1_1_scenario" ],
-        [ "HitLineBehaviour", "class_sparring_manager_1_1_scenarios_1_1_hit_line_behaviour.html", "class_sparring_manager_1_1_scenarios_1_1_hit_line_behaviour" ],
         [ "ScenarioControllerBehaviour", "class_sparring_manager_1_1_scenarios_1_1_scenario_controller_behaviour.html", "class_sparring_manager_1_1_scenarios_1_1_scenario_controller_behaviour" ],
         [ "ScenarioDisplayBehaviour", "class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour.html", "class_sparring_manager_1_1_scenarios_1_1_scenario_display_behaviour" ],
-        [ "SimpleHitController", "class_sparring_manager_1_1_scenarios_1_1_simple_hit_controller.html", "class_sparring_manager_1_1_scenarios_1_1_simple_hit_controller" ],
         [ "SplHitLineBehaviour", "class_sparring_manager_1_1_scenarios_1_1_spl_hit_line_behaviour.html", "class_sparring_manager_1_1_scenarios_1_1_spl_hit_line_behaviour" ]
       ] ],
       [ "Serial", "namespace_sparring_manager_1_1_serial.html", [
         [ "Example", "namespace_sparring_manager_1_1_serial_1_1_example.html", [
           [ "Player_Movement_Follower", "class_sparring_manager_1_1_serial_1_1_example_1_1_player___movement___follower.html", "class_sparring_manager_1_1_serial_1_1_example_1_1_player___movement___follower" ]
         ] ]
-      ] ],
-      [ "SimpleHit", "namespace_sparring_manager_1_1_simple_hit.html", [
-        [ "SimpleHit", "class_sparring_manager_1_1_simple_hit_1_1_simple_hit.html", null ]
       ] ],
       [ "SplHitLine", "namespace_sparring_manager_1_1_spl_hit_line.html", [
         [ "SplHitLineController", "class_sparring_manager_1_1_spl_hit_line_1_1_spl_hit_line_controller.html", "class_sparring_manager_1_1_spl_hit_line_1_1_spl_hit_line_controller" ]
@@ -68,7 +68,6 @@ var annotated_dup =
       [ "DeviceManager", "class_sparring_manager_1_1_device_manager.html", "class_sparring_manager_1_1_device_manager" ],
       [ "ImpactManager", "class_sparring_manager_1_1_impact_manager.html", "class_sparring_manager_1_1_impact_manager" ],
       [ "MainEnvironnement", "class_sparring_manager_1_1_main_environnement.html", "class_sparring_manager_1_1_main_environnement" ],
-      [ "SessionManager", "class_sparring_manager_1_1_session_manager.html", "class_sparring_manager_1_1_session_manager" ],
-      [ "DeviceStructure", "struct_sparring_manager_1_1_device_structure.html", "struct_sparring_manager_1_1_device_structure" ]
+      [ "SessionManager", "class_sparring_manager_1_1_session_manager.html", "class_sparring_manager_1_1_session_manager" ]
     ] ]
 ];
