@@ -3,6 +3,10 @@ using SparringManager.Device;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Namesace relative to C# objects that help to manage the SimpleLine scenario
+/// </summary>
 namespace SparringManager.Scenarios.SimpleLine
 {
     /* Class nof the SimpleLine Scenario Controller

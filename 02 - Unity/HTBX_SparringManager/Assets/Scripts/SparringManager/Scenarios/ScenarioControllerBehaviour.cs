@@ -4,6 +4,10 @@ using SparringManager.DataManager;
 using SparringManager.Device;
 using UnityEngine;
 
+/// <summary>
+/// Namespace relative to hitbox's scenarios 
+/// <para>It concerns all Scenrio controllers, scenraios<structSCenarios> object, scenario behaviour display</structSCenarios></para>
+/// </summary>
 namespace SparringManager.Scenarios
 {
     /*

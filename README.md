@@ -18,4 +18,6 @@ Unity part of the project, it contains all you need to connect on the hitbox and
 In the scene SparringManager_INSEP you can set your HitBox session in the Unity inspector of the MainEnvironnementObject
 It is possible to connect ViveTracker, polar heartbeat sensor and movuino.
 
-Cf 
+Cf __________
+
+This is one of the big part of the project, you can also find a documentation of it in Documentation

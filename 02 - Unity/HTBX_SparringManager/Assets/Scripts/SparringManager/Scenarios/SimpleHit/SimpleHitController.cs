@@ -3,10 +3,9 @@ using SparringManager.Device;
 using UnityEngine;
 
 /// <summary>
-/// Namespace relative to hitbox's scenarios 
-/// <para>It concerns all Scenrio controllers, scenraios<structSCenarios> object, scenario behaviour display</structSCenarios></para>
+/// Namesace relative to C# objects that help to manage the SimpleHit scenario
 /// </summary>
-namespace SparringManager.Scenarios
+namespace SparringManager.Scenarios.SimpleHit
 {
     /// <summary>
     /// Manage the scenario HitLine.

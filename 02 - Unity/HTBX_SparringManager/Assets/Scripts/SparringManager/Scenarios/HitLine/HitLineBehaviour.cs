@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using SparringManager.DataManager;
 using UnityEngine;
 
-namespace SparringManager.Scenarios
+namespace SparringManager.Scenarios.HitLine
 {
     /* Class of the HitLine Prefab
      * 

@@ -4,6 +4,10 @@ using SparringManager.DataManager;
 using SparringManager.Structures;
 using UnityEngine;
 
+
+/// <summary>
+/// Namespace regrouping avery object : functions, classes, structures that are usefull or important for the good launch of the project
+/// </summary>
 namespace SparringManager
 {
     /*
@@ -23,8 +27,9 @@ namespace SparringManager
 
 
     /// <summary>
-    /// Instantiates every PlayerCamera from the <paramref name="StructPlayerCamera[]">MainStructure</paramref>
+    /// MonoBehaviour class that manage the MainEnvironnement
     /// </summary>
+    /// <para>Instantiates every PlayerCamera from the <paramref name="StructPlayerCamera[]">MainStructure</paramref></para>
     public class MainEnvironnement : MonoBehaviour
     {
         //----------------------    ATTRIBUTS    --------------------------

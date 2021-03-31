@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
-namespace SparringManager.SimpleHit
+namespace SparringManager.Scenarios.SimpleHit
 {
-    //Class of the SimpleHit Scenario
+    /// <summary>
+    /// Class that manage the prefab object that will represent an hit
+    /// </summary>
     [RequireComponent(typeof(SpriteRenderer))]
     public class SimpleHit : MonoBehaviour
     {

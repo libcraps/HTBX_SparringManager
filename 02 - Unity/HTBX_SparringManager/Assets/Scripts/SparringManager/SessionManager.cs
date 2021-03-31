@@ -70,7 +70,7 @@ namespace SparringManager
                 //Deal with the instantiation of scenarios
                 if (_indexScenario < (_scenarios.Length))
                 {
-                    InstantiateAndBuildScenario(_scenarios[_indexScenario], _structPlayerScene, this.gameObject, this.gameObject.transform.position);
+                    InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
                     
                     _indexScenario += 1;
                 }
@@ -81,30 +81,18 @@ namespace SparringManager
         {
 
         }
-        //Method that instantiate a scenario
-        private void InstantiateAndBuildScenario(GeneriqueScenarioStruct strucObject, StructPlayerScene structPlayerScene, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
+        /// <summary>
+        /// Method that instantaiates scenarios
+        /// </summary>
+        /// <para>Function that instatiate an object, the prefab of this object is in the structureScenarios, it contains all the data that is usefull for the scenarios</para>
+        /// <param name="strucObject">Structure that contains scenario settings</param>
+        /// <param name="referenceGameObject">Use to choose the parent of our object, it often this.gameObjetct</param>
+        /// <param name="pos3d">Position where we want to instantiate our object</param>
+        private void InstantiateAndBuildScenario(GeneriqueScenarioStruct strucObject, GameObject referenceGameObject, Vector3 pos3d)
         {
-            /*
-             * Function that instatiate an object, the prefab of this object is in the structureScenarios, it contains all the data that is usefull for the scenarios
-             * 
-             * Parameters :
-             *      strucObject : structure that contains parameters of the scenario, the type is the same for everyone because it allows us to unified the type and to choose a more specified type after
-             *      referenceGameObject : use to choose the parent of our object, it often this.gameObjetct
-             *      _pos3D : position where we want to instantiate our object
-             *      prefabGameObject : it is here to be able to use this fonction for scenario composants (because the scenario_controller is in the structure and the scenario composent in the scenario controller)
-             */
-            GameObject scenario;
-            if (prefabObject == null)
-            {
-                prefabObject = strucObject.ScenarioPrefab; //if we don't specified the prefab we used the prefab that is in the structure (so the prefab of the scenario)
-            }
+            GameObject prefabObject = strucObject.ScenarioPrefab;
+            GameObject scenario = Instantiate(prefabObject, pos3d, Quaternion.identity, referenceGameObject.transform);
 
-            if (_pos3d == null)
-            {
-                _pos3d = referenceGameObject.transform.position; //if the position isn't specified we place the object a the same place of the reference
-            }
-
-            scenario = Instantiate(prefabObject, _pos3d, Quaternion.identity, referenceGameObject.transform);
             scenario.GetComponent<ScenarioControllerBehaviour>().Init(strucObject);
             Destroy(scenario, strucObject.TimerScenario);
 
@@ -119,57 +107,5 @@ namespace SparringManager
             _name = name;
         }
         #endregion
-    }
-
-    [Serializable]
-    public struct DeviceStructure
-    {
-        [SerializeField]
-        private bool _viveTracker;
-        [SerializeField]
-        private bool _polar;
-        [SerializeField]
-        private bool _movuino;
-
-        public bool ViveTracker
-        {
-            get
-            {
-                return _viveTracker;
-            }
-            set
-            {
-                _viveTracker = value;
-            }
-        }
-        public bool Polar
-        {
-            get
-            {
-                return _polar;
-            }
-            set
-            {
-                _polar = value;
-            }
-        }
-        public bool Movuino
-        {
-            get
-            {
-                return _movuino;
-            }
-            set
-            {
-                _movuino = value;
-            }
-        }
-
-        public DeviceStructure(bool viveTracker, bool polar, bool movuino)
-        {
-            _viveTracker = viveTracker;
-            _polar = polar;
-            _movuino = movuino;
-        }
     }
 }
