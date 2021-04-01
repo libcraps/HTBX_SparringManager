@@ -32,13 +32,16 @@ namespace SparringManager
     /// <para>Instantiates every PlayerCamera from the <paramref name="StructPlayerCamera[]">MainStructure</paramref></para>
     public class MainEnvironnement : MonoBehaviour
     {
-        //----------------------    ATTRIBUTS    --------------------------
+
         [SerializeField]
         private GameObject _prefabPlayerCamera;
+
 
         [SerializeField]
         private bool _exportInFile;
 
+        [SerializeField]
+        private StructPlayerCamera[] _mainStructure;
         /// <summary>
         /// Bool to confirm if we want to export/save session's data in file
         /// </summary>
@@ -47,20 +50,6 @@ namespace SparringManager
             get
             {
                 return _exportInFile;
-            }
-        }
-
-        [SerializeField]
-        private StructPlayerCamera[] _mainStructure; //TODO Pb si scénarios trop identiques -> mvt == pareil -> pb de system.random peut etre
-        public StructPlayerCamera[] MainStructure
-        {
-            get
-            {
-                return _mainStructure;
-            }
-            set
-            {
-                _mainStructure = value;
             }
         }
 

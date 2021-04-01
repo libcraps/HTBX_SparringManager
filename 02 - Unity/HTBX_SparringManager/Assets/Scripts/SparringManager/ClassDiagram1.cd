@@ -1,154 +1,154 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="UDPPacketIO" Collapsed="true">
-    <Position X="46.25" Y="4.75" Width="1.5" />
+    <Position X="50.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAgQIAAIAgCAIAAAAAAAIAAAAAAEAAAMAAAAAICIAAA=</HashCode>
       <FileName>Assets\OSC\OSC.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OscMessage" Collapsed="true">
-    <Position X="41" Y="2.75" Width="1.5" />
+    <Position X="45.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAEAAAAAAAAAAIAACAAAAAAAACAAAA=</HashCode>
       <FileName>Assets\OSC\OSC.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OSC" Collapsed="true">
-    <Position X="39.25" Y="2.75" Width="1.5" />
+    <Position X="43.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQBAAAAACABAgAZAFAAgEAwAAAACKAABABIAAKgIEI=</HashCode>
       <FileName>Assets\OSC\OSC.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ExampleSerialController" Collapsed="true">
-    <Position X="48" Y="0.75" Width="1.5" />
+    <Position X="52.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAgAAAECAAAAEAAAIAACAABCAACAAEEAAAAQAYAAI=</HashCode>
       <FileName>Assets\Scripts\Serial\Examples\ExampleSerialController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ReceivePosition" Collapsed="true">
-    <Position X="48" Y="2.75" Width="1.5" />
+    <Position X="52.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAAAAAAAEEAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\TestOSC\ReceivePosition.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Serial.Example.ExampleDebugTextController" Collapsed="true">
-    <Position X="46.25" Y="0.75" Width="1.5" />
+    <Position X="50.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQCAAAAAAAAAAAAAAAAAAAAAABAAAAIAAAAAAAACAA=</HashCode>
       <FileName>Assets\Scripts\Examples\DebugText\ExampleDebugTextController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Serial.Example.HitFeedbackAnimator" Collapsed="true">
-    <Position X="39.25" Y="1.75" Width="1.5" />
+    <Position X="43.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQBAAAAACAIAAAAAAAAAgAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Examples\MovingTarget\HitFeedbackAnimator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Serial.Example.MovementController" Collapsed="true">
-    <Position X="48" Y="1.75" Width="1.5" />
+    <Position X="52.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAARAAiAAAAAAAAIEAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
       <FileName>Assets\Scripts\Examples\MovingTarget\MovementController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Serial.Example.Target" Collapsed="true">
-    <Position X="39.25" Y="4.75" Width="1.5" />
+    <Position X="43.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>iAQAAAAAAKAAAgAAAgIAQAAAAAAQAAAAICAAAAAAAEg=</HashCode>
       <FileName>Assets\Scripts\Examples\MovingTarget\Target.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Serial.Example.TargetController" Collapsed="true">
-    <Position X="42.75" Y="4.75" Width="1.5" />
+    <Position X="47" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAIAAAAAAAAAAAAIAAAgQCAACEA=</HashCode>
       <FileName>Assets\Scripts\Examples\MovingTarget\TargetController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Serial.Example.SimpleHit" Collapsed="true">
-    <Position X="46.25" Y="3.75" Width="1.5" />
+    <Position X="50.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAICAAAAQAAAAAAAAAEAAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Examples\SimpleHit\SimpleHit.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Serial.Example.SimpleHitController" Collapsed="true">
-    <Position X="48" Y="3.75" Width="1.5" />
+    <Position X="52.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAIAAAAAAAAAAAAAAAAAAAAIIAAAAAAAACAA=</HashCode>
       <FileName>Assets\Scripts\Examples\SimpleHit\SimpleHitController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Serial.Example.Player_Movement_Follower" Collapsed="true">
-    <Position X="44.5" Y="2.75" Width="1.5" />
+    <Position X="48.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQACCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Devices\Player_Movement_Follower.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hitbox.PingPong2X.ImpactManager" Collapsed="true">
-    <Position X="41" Y="1.75" Width="1.5" />
+    <Position X="45.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAAAAABAgAAIAAAAAACAAADIAgAAEAAACEA=</HashCode>
       <FileName>Assets\Scripts\Examples\PingPong2X\ImpactManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hitbox.PingPong2X.PingPongManager" Collapsed="true">
-    <Position X="42.75" Y="2.75" Width="1.5" />
+    <Position X="47" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAQACAAACAAAAAAAAAAABAAAAAAAAAAAIAAAAA=</HashCode>
       <FileName>Assets\Scripts\Examples\PingPong2X\PingPongManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hitbox.PingPong2X.TargetBehavior" Collapsed="true">
-    <Position X="41" Y="4.75" Width="1.5" />
+    <Position X="45.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAIAiAAAIIgAAAAAAQAAAAAAAEAACAAAGQ=</HashCode>
       <FileName>Assets\Scripts\Examples\PingPong2X\TargetBehavior.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hitbox.PingPong2X.TargetsManager" Collapsed="true">
-    <Position X="44.5" Y="4.75" Width="1.5" />
+    <Position X="48.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAABgAQAAAAAAAAAAAAAAAAAAAAAAAAAAAEM=</HashCode>
       <FileName>Assets\Scripts\Examples\PingPong2X\TargetsManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Serial.CameraExtensions" Collapsed="true">
-    <Position X="39.25" Y="0.75" Width="1.5" />
+    <Position X="43.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Serial\CameraExtensions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Serial.DatapointControl" Collapsed="true">
-    <Position X="42.75" Y="0.75" Width="1.5" />
+    <Position X="47" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAwAgEoAAkAAAAoAABAACCAAEIBAAAAAABQgAhABIEA=</HashCode>
       <FileName>Assets\Scripts\Serial\DatapointControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Serial.SerialControllerCameraHitBox" Collapsed="true">
-    <Position X="42.75" Y="3.75" Width="1.5" />
+    <Position X="47" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAgAAAECAAAAEAAAIAACAABAAACAQEMAAAAQAYAAI=</HashCode>
       <FileName>Assets\Scripts\Serial\Examples\SerialControllerCameraHitBox.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Serial.ImpactPointControl" Collapsed="true">
-    <Position X="44.5" Y="1.75" Width="1.5" />
+    <Position X="48.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQCEAAIAiQAAAAAgAAAIEAQACAAABAAABAAoAAAAEA=</HashCode>
       <FileName>Assets\Scripts\Serial\ImpactPointControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Serial.RenderTextureExtensions" Collapsed="true">
-    <Position X="39.25" Y="3.75" Width="1.5" />
+    <Position X="43.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Serial\RenderTextureExtensions.cs</FileName>
@@ -176,7 +176,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.DataManager.DataController" Collapsed="true">
-    <Position X="20" Y="2" Width="1.5" />
+    <Position X="24.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAgAAABAAAAABAACAEBAAMCAgAQAMABGAAAEAEg=</HashCode>
       <FileName>Assets\Scripts\SparringManager\DataController.cs</FileName>
@@ -239,32 +239,42 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.DeviceManager" Collapsed="true">
-    <Position X="22" Y="2" Width="1.5" />
+    <Position X="26.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CgEAEAgAAiAAAAggAAAAAQAABAAAAAAAAAADIACIAEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\DeviceManager.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_structHitBox" />
+      <Field Name="_structPlayerScene" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="SparringManager.ImpactManager" Collapsed="true">
-    <Position X="42.75" Y="1.75" Width="1.5" />
+    <Position X="47" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAQAAAAAAAAAAAAAAAAAAAACAAABIAgAAAAAACEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\ImpactManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.MainEnvironnement" Collapsed="true">
-    <Position X="22" Y="0.75" Width="1.5" />
+    <Position X="28" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAABAgCAAAAAEAAABAEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\MainEnvironnement.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_mainStructure" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="SparringManager.SessionManager" Collapsed="true">
-    <Position X="24.25" Y="2" Width="1.5" />
+    <Position X="29.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQBIAAgACAAACAAAAAAAABAAAAAAAAAEggCAAQAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\SessionManager.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_scenarios" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="SparringManager.Device.DeviceBehaviour" Collapsed="true">
     <Position X="3" Y="15.5" Width="2" />
@@ -312,7 +322,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Device.PlayerSceneController" Collapsed="true">
-    <Position X="22" Y="3.25" Width="1.5" />
+    <Position X="35.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAiQAAAASAAAACQAAAAAAAAAAAAACIAEAEAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Devices\PlayerSceneController.cs</FileName>
@@ -332,8 +342,8 @@
       <FileName>Assets\Scripts\SparringManager\Devices\ViveTrackerManager.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SparringManager.Scenarios.Scenario" Collapsed="true">
-    <Position X="11" Y="5.75" Width="1.5" />
+  <Class Name="SparringManager.Scenarios.Scenario">
+    <Position X="13.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAEAIAEAAAAAAAAAAAAABAAQAAIAADAAAABAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenario.cs</FileName>
@@ -427,21 +437,21 @@
     </TypeIdentifier>
   </Class>
   <Struct Name="SparringManager.Serial.Example.TargetControllerHitEventArgs" Collapsed="true">
-    <Position X="48" Y="7" Width="1.5" />
+    <Position X="52.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAACAEA=</HashCode>
       <FileName>Assets\Scripts\Examples\MovingTarget\TargetController.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Hitbox.PingPong2X.PlayerSettings" Collapsed="true">
-    <Position X="42.75" Y="6" Width="1.5" />
+    <Position X="47" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Examples\PingPong2X\PingPongManager.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="SparringManager.Serial.SerialGrid" Collapsed="true">
-    <Position X="44.5" Y="6" Width="1.5" />
+    <Position X="48.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Serial\Examples\SerialGrid.cs</FileName>
@@ -455,7 +465,7 @@
     </TypeIdentifier>
   </Struct>
   <Struct Name="SparringManager.Serial.ImpactPointControlEventArgs" Collapsed="true">
-    <Position X="41" Y="6" Width="1.5" />
+    <Position X="45.25" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEI=</HashCode>
       <FileName>Assets\Scripts\Serial\ImpactPointControl.cs</FileName>
@@ -470,20 +480,6 @@
   </Struct>
   <Struct Name="SparringManager.Structures.StructPlayerCamera" Collapsed="true">
     <Position X="28" Y="8.25" Width="1.5" />
-    <AssociationLine Name="StructPlayerScene" Type="SparringManager.Structures.StructPlayerScene" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="28" Y="8.688" />
-        <Point X="24.938" Y="8.688" />
-        <Point X="24.938" Y="9.5" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="Scenarios" Type="SparringManager.Scenarios.GeneriqueScenarioStruct" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="29.5" Y="8.562" />
-        <Point X="31.625" Y="8.562" />
-        <Point X="31.625" Y="9.5" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAEAIAggAAAAIAAAAAAAAAQAAAAAAAAAAAACIBAAAAI=</HashCode>
       <FileName>Assets\Scripts\SparringManager\StructPlayerCamera.cs</FileName>
@@ -495,7 +491,7 @@
     </ShowAsAssociation>
   </Struct>
   <Struct Name="SparringManager.Structures.StructHitBox" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="28" Y="9.5" Width="1.5" />
+    <Position X="28" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAgAAgAAAAAAAAAAAAAAAAAgEAAAAAI=</HashCode>
       <FileName>Assets\Scripts\SparringManager\StructPlayerCamera.cs</FileName>
@@ -506,14 +502,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
   <Struct Name="SparringManager.Structures.StructPlayerScene" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="24.25" Y="9.5" Width="1.5" />
-    <AssociationLine Name="StructViveTracker" Type="SparringManager.Structures.StructViveTracker" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="25.75" Y="9.75" />
-        <Point X="26.75" Y="9.75" />
-        <Point X="26.75" Y="11.25" />
-      </Path>
-    </AssociationLine>
+    <Position X="24" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACCAAABACAAAAgBAgAAAAAAAAAAAEAAAAAAkAAEEAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\StructPlayerCamera.cs</FileName>
@@ -526,7 +515,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
   <Struct Name="SparringManager.Structures.StructMovuino" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="22.5" Y="11.25" Width="1.5" />
+    <Position X="22.25" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAgAAgBAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\StructPlayerCamera.cs</FileName>
@@ -534,7 +523,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
   <Struct Name="SparringManager.Structures.StructPolar" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="24.25" Y="11.25" Width="1.5" />
+    <Position X="24" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAgAAgAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\StructPlayerCamera.cs</FileName>
@@ -542,7 +531,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
   <Struct Name="SparringManager.Structures.StructViveTracker" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="26" Y="11.25" Width="1.5" />
+    <Position X="25.75" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAEAAAAAgAAgAAAAEAAAAAAAAAAAAAEAAAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\StructPlayerCamera.cs</FileName>
@@ -550,14 +539,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
   <Interface Name="SparringManager.Scenarios.IStructScenario" Collapsed="true">
-    <Position X="42.75" Y="8.25" Width="1.5" />
+    <Position X="47" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\GeneriqueScenarioStruct.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="SparringManager.Scenarios.IScenarioClass" Collapsed="true">
-    <Position X="39.25" Y="8.25" Width="1.5" />
+    <Position X="43.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAABAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenario.cs</FileName>
@@ -571,21 +560,21 @@
     </TypeIdentifier>
   </Interface>
   <Delegate Name="OscMessageHandler" Collapsed="true">
-    <Position X="41" Y="9.25" Width="1.5" />
+    <Position X="45.25" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
       <FileName>Assets\OSC\OSC.cs</FileName>
     </TypeIdentifier>
   </Delegate>
   <Delegate Name="SparringManager.Serial.Example.TargetControllerHitEventHandler" Collapsed="true">
-    <Position X="42.75" Y="9.25" Width="1.5" />
+    <Position X="47" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Examples\MovingTarget\TargetController.cs</FileName>
     </TypeIdentifier>
   </Delegate>
   <Delegate Name="SparringManager.Serial.ImpactPointControlEventHandler" Collapsed="true">
-    <Position X="39.25" Y="9.25" Width="1.5" />
+    <Position X="43.5" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAA=</HashCode>
       <FileName>Assets\Scripts\Serial\ImpactPointControl.cs</FileName>
