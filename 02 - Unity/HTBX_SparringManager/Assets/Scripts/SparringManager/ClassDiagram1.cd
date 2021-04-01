@@ -17,7 +17,7 @@
   <Class Name="OSC" Collapsed="true">
     <Position X="40.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQBAAAAACABAgAZAFAAgEAwAAAACKAABABIAAKgIEI=</HashCode>
+      <HashCode>AAQBAAAAACABAgAJAFAAAEAgAAAAAIAAAABIAACgIEI=</HashCode>
       <FileName>Assets\OSC\OSC.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -176,7 +176,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.DataManager.DataController" Collapsed="true">
-    <Position X="18.5" Y="2.5" Width="1.5" />
+    <Position X="19.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAgAAABAAAAABAACAEBAAMCAgAQAMABGAAAEAEg=</HashCode>
       <FileName>Assets\Scripts\SparringManager\DataController.cs</FileName>
@@ -253,14 +253,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.MainEnvironnement" Collapsed="true">
-    <Position X="21.5" Y="0.75" Width="1.5" />
+    <Position X="21.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAABAgCAAAAAEAAABAEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\MainEnvironnement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.SessionManager" Collapsed="true">
-    <Position X="24" Y="2.5" Width="1.5" />
+    <Position X="23.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQBIAAgACAAACAAAAAAAABAAAAAAAAAEggCAAQAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\SessionManager.cs</FileName>
@@ -312,7 +312,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Device.PlayerSceneController" Collapsed="true">
-    <Position X="17.75" Y="4.75" Width="1.5" />
+    <Position X="19.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAiQAAAASAAAACQAAAAAAAAAAAAACIAEAEAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Devices\PlayerSceneController.cs</FileName>
@@ -333,14 +333,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Scenarios.Scenario">
-    <Position X="32.5" Y="4.75" Width="1.5" />
+    <Position X="33.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAEAIAEAAAAAAAAAAAAABAAQAAIAADAAAABAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenario.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Scenarios.ScenarioControllerBehaviour" Collapsed="true">
-    <Position X="25" Y="4.75" Width="2" />
+    <Position X="25.75" Y="4.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AQABgABAAiBEAgAAAAAAAIBAMAFBAACMBAAGAhEABEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\ScenarioControllerBehaviour.cs</FileName>
@@ -350,77 +350,77 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="SparringManager.Scenarios.ScenarioDisplayBehaviour" Collapsed="true">
-    <Position X="25" Y="9.25" Width="2" />
+    <Position X="25.75" Y="8.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AQIBgAAAAiIBAAAAAAAAIAQAEAABAAAEAAAKAhAABEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\ScenarioDisplayBehaviour.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Scenarios.SplHitLineBehaviour" Collapsed="true">
-    <Position X="27.25" Y="10.75" Width="2" />
+    <Position X="28" Y="10.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAiAIEGEAAAAIAQAgAAgAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\SplHitLine\SplHitLineBehaviour.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Scenarios.CrossLine.CrossLineBehaviour" Collapsed="true">
-    <Position X="29.5" Y="10.75" Width="2" />
+    <Position X="30.25" Y="10.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAkAAACAAAAAIAAAAAAAAAAAAAAACCCAAAUA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\CrossLine\CrossLineBehaviour.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Scenarios.CrossLine.CrossLineController" Collapsed="true">
-    <Position X="20.5" Y="6.75" Width="2" />
+    <Position X="21.25" Y="6.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAiAAAAAAAAAAAIAAAAAAAAAIAAACQAACCEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\CrossLine\CrossLineController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Scenarios.HitLine.HitLineBehaviour" Collapsed="true">
-    <Position X="20.5" Y="10.75" Width="2" />
+    <Position X="21.25" Y="10.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAgAAACAAAAAIAAAAAAAAAAAAAAAABCAAAQA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\HitLine\HitLineBehaviour.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Scenarios.HitLine.HitLineController" Collapsed="true">
-    <Position X="22.75" Y="6.75" Width="2" />
+    <Position X="23.5" Y="6.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAiAAAAAAAAAAAIAAAAAAAAAIAAACQAACCEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\HitLine\HitLineController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Scenarios.SimpleHit.SimpleHit" Collapsed="true">
-    <Position X="22.75" Y="10.75" Width="2" />
+    <Position X="23.5" Y="10.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAIiAAAAQAAAAAAAAAEAAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\SimpleHit\SimpleHit.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Scenarios.SimpleHit.SimpleHitController" Collapsed="true">
-    <Position X="25" Y="6.75" Width="2" />
+    <Position X="25.75" Y="6.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAiAAAAAAAAAAAIAAAAAAgAAIAAACAAAACEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\SimpleHit\SimpleHitController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Scenarios.SimpleLine.SimpleLineBehaviour" Collapsed="true">
-    <Position X="25" Y="10.75" Width="2" />
+    <Position X="25.75" Y="10.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\SimpleLine\SimpleLineBehaviour.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Scenarios.SimpleLine.SimpleLineController" Collapsed="true">
-    <Position X="27.25" Y="6.75" Width="2" />
+    <Position X="28" Y="6.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAiAAAAAAAAAAAIAAAAAAAAAAAAACQAAAAEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\SimpleLine\SimpleLineController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.SplHitLine.SplHitLineController" Collapsed="true">
-    <Position X="29.5" Y="6.75" Width="2" />
+    <Position X="30.25" Y="6.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAiAAAAAAAAAAAIAAAAAAAAAIAAACQAACCEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\SplHitLine\SplHitLineController.cs</FileName>
@@ -552,7 +552,7 @@
   <Delegate Name="OscMessageHandler" Collapsed="true">
     <Position X="42" Y="9.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\OSC\OSC.cs</FileName>
     </TypeIdentifier>
   </Delegate>
