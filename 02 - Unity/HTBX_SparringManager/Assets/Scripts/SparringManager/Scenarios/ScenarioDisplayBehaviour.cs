@@ -7,14 +7,6 @@ namespace SparringManager.Scenarios
     /// </summary>
     public abstract class ScenarioDisplayBehaviour : MonoBehaviour
     {
-        /*
-         * Abstract class for sccenarioBehaviour component, each scenario controller will dispose this attributs and methods (public and protected) 
-         * Attributs :
-         *      protected int operationalArea : Arc where the hitbox is operational (from the center to +/- operationalArc/2)
-         *      
-         * Methods : 
-         *      public virtual void Init(IStructScenario structScenarios) : Init componenets variables of the scenario
-         */
 
         #region Attributs
         protected GeneriqueScenarioStruct structScenari;

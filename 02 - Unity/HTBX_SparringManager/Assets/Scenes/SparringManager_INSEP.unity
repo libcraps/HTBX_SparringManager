@@ -545,7 +545,7 @@ MonoBehaviour:
           type: 3}
         _onOff: 1
     _scenarios:
-    - _scenarioPrefab: {fileID: 4281324017865965865, guid: 36567d5e12548c841a1195cf19e51db4,
+    - _scenarioPrefab: {fileID: 7392076013187570363, guid: 1f5aea03649a01c4bac9b44cb338704f,
         type: 3}
       _timerScenario: 5
       _speed: 25

@@ -6,7 +6,7 @@ namespace SparringManager.Scenarios.SimpleHit
     /// Class that manage the prefab object that will represent an hit
     /// </summary>
     [RequireComponent(typeof(SpriteRenderer))]
-    public class SimpleHit : MonoBehaviour
+    public class SimpleHit : ScenarioDisplayBehaviour
     {
         [SerializeField]
         [Tooltip("Time until the target fades away completely (in sec).")]
@@ -15,12 +15,18 @@ namespace SparringManager.Scenarios.SimpleHit
         private Color _targetColor;
         private float _startTime;
 
-        private void Start()
+        protected override void Start()
         {
             _renderer = GetComponent<SpriteRenderer>();
             _targetColor = new Color(_targetColor.r, _targetColor.g, _targetColor.b, 0.0f);
             _startTime = Time.time;
         }
+
+        protected override void FixedUpdate()
+        {
+            base.FixedUpdate();
+        }
+
 
         private void Update()
         {
