@@ -8,14 +8,17 @@
 #include <WiFiUdp.h>
 #include "Wire.h"
 #include "I2Cdev.h"
-#include "MPU6050.h"
+#include "MPU9250.h"
 #include <OSCBundle.h>
 #include <OSCMessage.h>
 #include <OSCTiming.h>
 #include <SLIPEncodedSerial.h>
 #include <SLIPEncodedUSBSerial.h>
 
-// Set your wifi network configuration here
+// WIFI
+ESP8266WiFiMulti WiFiMulti;
+WiFiClient client;
+int packetNumber = 0;
 char * ssid = "GHG9D7511A0001 2565";                     // your network SSID (name of the wifi network)
 char * pass = "A!26p741";                     // your network password
 char * hostIP =  "192.168.137.1";       // IP address of the host computer
@@ -24,10 +27,10 @@ const unsigned int portIn = 7401;                // local port to listen for UDP
 char movuinoIP[4];
 const char* idMov = "/movPlayer";
 
-MPU6050 accelgyro;
-ESP8266WiFiMulti WiFiMulti;
-WiFiClient client;
-int packetNumber = 0;
+// MPU
+MPU9250 IMU(Wire, 0x69); //address get with I2C scanner
+int status;
+
 int16_t ax, ay, az; // store accelerometre values
 int16_t gx, gy, gz; // store gyroscope values
 int16_t mx, my, mz; // store magneto values
@@ -73,11 +76,22 @@ void setup() {
 
   Wire.begin();
   Serial.begin(115200);
-  delay(10);
+  delay(1000);
 
   // initialize device
   Serial.println("Initializing I2C devices...");
-  accelgyro.initialize();
+  status = IMU.begin();
+  Serial.print("Status: ");
+  Serial.println(status);
+  
+  if (status < 0) {
+    Serial.println("IMU initialization unsuccessful");
+    Serial.println("Check IMU wiring or try cycling power");
+
+    while(1) {}
+  }
+  
+  //accelgyro.initialize();
 
   // We start by connecting to a WiFi network
   startWifi();
@@ -89,15 +103,16 @@ void loop() {
 
   // BUTTON CHECK
   checkButton();
+  // read the sensor
+  IMU.readSensor();
+  print9axesDataMPU(IMU);
 
+  delay(100);
   // MOVUINO DATA
   if (WiFi.status() == WL_CONNECTED) {
     IPAddress myIp = WiFi.localIP();
 
-    // GET MOVUINO DATA
-    accelgyro.getMotion9(&ax, &ay, &az, &gx, &gy, &gz, &mx, &my, &mz); // Get all 9 axis data (acc + gyro + magneto)
-    //---- OR -----//
-    printMovuinoData();
+    
     
     //delay(5);
     magnetometerAutoCallibration();
