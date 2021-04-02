@@ -7,7 +7,7 @@
 //#include "I2Cdev.h"
 #include <MPU9250_asukiaaa.h>
 
-//Bluetooth connection
+//Bluetooth
 BLEUUID serviceUUID(BLEUUID((uint16_t)0x180D)); // remote service
 BLEUUID charUUID(BLEUUID((uint16_t)0x2A37)); // Caract of remote service
 BLEAddress *pServerAd;
