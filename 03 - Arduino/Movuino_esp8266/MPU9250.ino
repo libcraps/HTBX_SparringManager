@@ -21,19 +21,19 @@ void printTempDataMPU(MPU9250 IMU){
     Serial.println(IMU.getTemperature_C(),6);
 }
 
-void get9axesDataMPU(MPU9250 IMU){
+void get9axesDataMPU(MPU9250 IMU, float* ax, float* ay, float* az, float* gx, float* gy, float* gz, float* mx, float* my, float* mz){
     //Accel
-    ax = IMU.getAccelX_mss();
-    ay = IMU.getAccelY_mss();
-    az = IMU.getAccelZ_mss();
+    *ax = IMU.getAccelX_mss();
+    *ay = IMU.getAccelY_mss();
+    *az = IMU.getAccelZ_mss();
     //Gyro
-    gx = IMU.getGyroX_rads();
-    gy = IMU.getGyroY_rads();
-    gz = IMU.getGyroZ_rads();
+    *gx = IMU.getGyroX_rads();
+    *gy = IMU.getGyroY_rads();
+    *gz = IMU.getGyroZ_rads();
     //Mag
-    mx = IMU.getMagX_uT();
-    my = IMU.getMagY_uT();
-    mz = IMU.getMagZ_uT();
+    *mx = IMU.getMagX_uT();
+    *my = IMU.getMagY_uT();
+    *mz = IMU.getMagZ_uT();
 }
 
 

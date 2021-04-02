@@ -31,9 +31,9 @@ const char* idMov = "/movPlayer";
 MPU9250 IMU(Wire, 0x69); //address get with I2C scanner
 int status;
 
-int16_t ax, ay, az; // store accelerometre values
-int16_t gx, gy, gz; // store gyroscope values
-int16_t mx, my, mz; // store magneto values
+float ax, ay, az; // store accelerometre values
+float gx, gy, gz; // store gyroscope values
+float mx, my, mz; // store magneto values
 int magRange[] = {666, -666, 666, -666, 666, -666}; // magneto range values for callibration
 
 // Button variables
@@ -81,18 +81,15 @@ void setup() {
   // initialize device
   Serial.println("Initializing I2C devices...");
   status = IMU.begin();
-  Serial.print("Status: ");
-  Serial.println(status);
   
   if (status < 0) {
     Serial.println("IMU initialization unsuccessful");
     Serial.println("Check IMU wiring or try cycling power");
-
+    Serial.print("Status: ");
+    Serial.println(status);
     while(1) {}
   }
   
-  //accelgyro.initialize();
-
   // We start by connecting to a WiFi network
   startWifi();
   
@@ -105,15 +102,13 @@ void loop() {
   checkButton();
   // read the sensor
   IMU.readSensor();
-  print9axesDataMPU(IMU);
-
+  //print9axesDataMPU(IMU);
+  get9axesDataMPU(IMU, &ax, &ay, &az, &gx, &gy, &gz, &mx, &my, &mz);
   delay(100);
   // MOVUINO DATA
   if (WiFi.status() == WL_CONNECTED) {
     IPAddress myIp = WiFi.localIP();
 
-    
-    
     //delay(5);
     magnetometerAutoCallibration();
 
@@ -121,20 +116,19 @@ void loop() {
       printMovuinoData(); // optional
     }
 
-    
     delay(2);
     if(!digitalRead(pinVibro)){
       // SEND MOVUINO DATA
       OSCMessage msg(idMov); // create an OSC message on address "/movuinOSC"
-      msg.add(splitFloatDecimal(-ax / 32768.0));   // add acceleration X data as message
-      msg.add(splitFloatDecimal(-ay / 32768.0));   // add acceleration Y data
-      msg.add(splitFloatDecimal(-az / 32768.0));   // add ...
-      msg.add(splitFloatDecimal(gx / 32768.0));
-      msg.add(splitFloatDecimal(gy / 32768.0));
-      msg.add(splitFloatDecimal(gz / 32768.0));    // you can add as many data as you want
-      msg.add(splitFloatDecimal(my / 100.0));
-      msg.add(splitFloatDecimal(mx / 100.0));
-      msg.add(splitFloatDecimal(-mz / 100.0));
+      msg.add(ax);   // add acceleration X data as message
+      msg.add(ay);   // add acceleration Y data
+      msg.add(az);   // add ...
+      msg.add(gx);
+      msg.add(gy);
+      msg.add(gz);    // you can add as many data as you want
+      msg.add(mx);
+      msg.add(my);
+      msg.add(mz);
       Udp.beginPacket(hostIP, portOut); // send message to computer target with "hostIP" on "port"
       msg.send(Udp);
       Udp.endPacket();
@@ -171,17 +165,17 @@ void loop() {
 }
 
 void printMovuinoData() {
-  Serial.print(ax / float(32768));
+  Serial.print(ax);
   Serial.print("\t ");
-  Serial.print(ay / float(32768));
+  Serial.print(ay);
   Serial.print("\t ");
-  Serial.print(az / float(32768));
+  Serial.print(az);
   Serial.print("\t ");
-  Serial.print(gx / float(32768));
+  Serial.print(gx);
   Serial.print("\t ");
-  Serial.print(gy / float(32768));
+  Serial.print(gy);
   Serial.print("\t ");
-  Serial.print(gz / float(32768));
+  Serial.print(gz);
   Serial.print("\t ");
   Serial.print(mx);
   Serial.print("\t ");
