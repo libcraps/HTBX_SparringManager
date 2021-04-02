@@ -23,6 +23,7 @@ const unsigned int portOut = 7400;               // port on which data are sent 
 const unsigned int portIn = 7401;                // local port to listen for UDP packets (receive OSC message)
 char movuinoIP[4];
 const char* idMov = "/movPlayer";
+
 MPU6050 accelgyro;
 ESP8266WiFiMulti WiFiMulti;
 WiFiClient client;
