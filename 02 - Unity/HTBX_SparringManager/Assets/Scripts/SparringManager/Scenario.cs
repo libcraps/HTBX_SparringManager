@@ -51,13 +51,32 @@ namespace SparringManager.Scenarios
          */
 
         #region Attributs/properties
+
+        private float _startTimeScenario;
+        private GeneriqueScenarioStruct _structScenari;
         /// <summary>
         /// Structure that contain scenario parameters
         /// </summary>
-        public GeneriqueScenarioStruct structScenari { get; set; }
-        public float startTimeScenario { get; set; }
+        public GeneriqueScenarioStruct structScenari { get { return _structScenari; } }
+
+        /// <summary>
+        /// Start time of the scenario
+        /// </summary>
+        public float startTimeScenario { get { return _startTimeScenario;} }
+
+        /// <summary>
+        /// Duration of the scenario
+        /// </summary>
         public float timerScenario { get { return structScenari.TimerScenario; } }
+
+        /// <summary>
+        /// Velocity of the object
+        /// </summary>
         public float speed { get { return structScenari.Speed; } }
+
+        /// <summary>
+        /// rythme of the session (hit) 
+        /// </summary>
         public float rythme { get { return structScenari.Rythme; } }
 
         public int timeBeforeHit = 2;
@@ -69,13 +88,13 @@ namespace SparringManager.Scenarios
         /// <summary>
         /// Initialize scenario settings
         /// </summary>
-        /// <param name="structScenarios"></param>
+        /// <param name="structScenarios">structure fothe scenai</param>
         public virtual void Init(GeneriqueScenarioStruct structScenarios)
         {
             /*
              * Initialize the structure
              */
-            this.structScenari = structScenari;
+            this._structScenari = structScenari;
         }
 
         /// <summary>
@@ -100,8 +119,8 @@ namespace SparringManager.Scenarios
         /// <param name="structScenari">Settings of the scenari</param>
         public Scenario(GeneriqueScenarioStruct structScenari)
         {
-            this.structScenari = structScenari;
-            this.startTimeScenario = Time.time;
+            this._structScenari = structScenari;
+            this._startTimeScenario = Time.time;
             Debug.Log(startTimeScenario);
         }
     }

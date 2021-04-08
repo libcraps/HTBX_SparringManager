@@ -12,7 +12,7 @@ namespace SparringManager.Scenarios
         protected GeneriqueScenarioStruct structScenari;
         protected Scenario scenario;
         /// <summary>
-        /// Arc where the bag is operational
+        /// Part of the bag that is operational
         /// </summary>
         protected int operationalArea;
 
