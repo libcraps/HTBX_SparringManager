@@ -36,53 +36,26 @@ namespace SparringManager.Scenarios.HitLine
     /// <inheritdoc cref="ScenarioDisplayBehaviour"/>
     public class HitLineBehaviour : ScenarioDisplayBehaviour
     {
-        //Variables of an Hitting Line
-        public float DeltaHit { get { return scenario.deltaHit; } }
-        public float TimeBeforeHit { get { return scenario.timeBeforeHit; } }
-        public bool FixPosHit { get { return structScenari.FixPosHit; } } //Boolean to indicate if the line continue to move when the hit is setted 
-        public bool Hitted
-        {
-            get
-            {
-                return base.hitted;
-            }
-            set
-            {
-                base.hitted = value;
-            }
-        }
 
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
             ObjectInCameraRange();
             MoveObject(fixPosHitValue * objectVelocity);
-            SetHit();
+            SetHit(this.gameObject);
         }
 
-        private void SetHit()
+        protected override void SetHit(GameObject LineObject)
         {
             //change the color of the line if the player have to hit
-            bool canHit = (tTime > TimeBeforeHit && (tTime - TimeBeforeHit) < DeltaHit);
-
-            if (canHit && base.hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
+            if (TimeToHit && hitted == false) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
             {
                 this.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-                if (FixPosHit == true)
-                {
-                    fixPosHitValue = 0;
-                }
             }
             else
             {
                 this.gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
-                fixPosHitValue = 1;
             }
-        }
-
-        void OnDestroy()
-        {
-            Debug.Log(this.gameObject.name + "has been destroyed");
         }
     }
 }

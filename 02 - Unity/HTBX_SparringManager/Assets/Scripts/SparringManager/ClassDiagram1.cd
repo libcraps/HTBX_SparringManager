@@ -338,6 +338,7 @@
       <HashCode>AAAABAAAEAIAEAAAAAAAAAAAAABAAQAAIAADQAAABAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenario.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="SparringManager.Scenarios.ScenarioControllerBehaviour" Collapsed="true">
     <Position X="25.75" Y="4.25" Width="2" />
@@ -352,14 +353,14 @@
   <Class Name="SparringManager.Scenarios.ScenarioDisplayBehaviour" Collapsed="true">
     <Position X="25.75" Y="8.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AQIBgAAAAiIBAAAAAAAAIAQAEAABAAAEAAAKAhAABEA=</HashCode>
+      <HashCode>AQIBgAAAAiIBAGIAAAAIoQQAEAABAAAEAAAKAhAABEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\ScenarioDisplayBehaviour.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Scenarios.SplHitLineBehaviour" Collapsed="true">
     <Position X="28" Y="10.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAiAIEGEAAAAIAQAgAAgAAAAAAAAABAAAAAA=</HashCode>
+      <HashCode>AAAAAABAAiAIECEAAAAAAAAgAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\SplHitLine\SplHitLineBehaviour.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -380,7 +381,7 @@
   <Class Name="SparringManager.Scenarios.HitLine.HitLineBehaviour" Collapsed="true">
     <Position X="21.25" Y="10.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAAgAAACAAAAAIAAAAAAAAAAAAAAAABCAAAQA=</HashCode>
+      <HashCode>AAAAAAAAAgAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\HitLine\HitLineBehaviour.cs</FileName>
     </TypeIdentifier>
   </Class>

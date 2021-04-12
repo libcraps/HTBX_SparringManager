@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 698.0, 85.0, 774.0, 913.0 ],
+		"rect" : [ 34.0, 77.0, 1122.0, 713.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -167,7 +167,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 153.287629187107086, 338.855100536346526, 207.0, 36.0 ],
+					"patching_rect" : [ 141.287629187107086, 331.855100536346526, 207.0, 36.0 ],
 					"text" : "/Romuald/RightArm/data 0.09 0.04 0.9 0.165 0.785 0.315 -0.45 0.06 0."
 				}
 
@@ -703,12 +703,12 @@
 								"name" : "textbutton001",
 								"default" : 								{
 									"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
 									"fontsize" : [ 18.0 ],
-									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
+									"fontname" : [ "Museo Sans Rounded 300" ],
 									"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
-									"fontname" : [ "Museo Sans Rounded 300" ]
+									"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+									"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ]
 								}
 ,
 								"parentstyle" : "",
@@ -1071,21 +1071,21 @@
 ,
 		"dependency_cache" : [ 			{
 				"name" : "movuinoStream.maxpat",
-				"bootpath" : "~/Documents/GitHub/HTBX_SparringManager/PatchMax/patchers",
+				"bootpath" : "~/Documents/GitHub/HTBX_SparringManager/01 - Max msp/PatchMax/patchers",
 				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "MovingMean.js",
-				"bootpath" : "~/Documents/GitHub/HTBX_SparringManager/PatchMax/code",
+				"bootpath" : "~/Documents/GitHub/HTBX_SparringManager/01 - Max msp/PatchMax/code",
 				"patcherrelativepath" : "../code",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "integrateData.js",
-				"bootpath" : "~/Documents/GitHub/HTBX_SparringManager/PatchMax/code",
+				"bootpath" : "~/Documents/GitHub/HTBX_SparringManager/01 - Max msp/PatchMax/code",
 				"patcherrelativepath" : "../code",
 				"type" : "TEXT",
 				"implicit" : 1
@@ -1108,12 +1108,12 @@
 				"name" : "textbutton001",
 				"default" : 				{
 					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
 					"fontsize" : [ 18.0 ],
-					"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ],
-					"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+					"accentcolor" : [ 0.92549, 0.364706, 0.341176, 0.0 ],
+					"fontname" : [ "Museo Sans Rounded 300" ],
 					"bgcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
-					"fontname" : [ "Museo Sans Rounded 300" ]
+					"elementcolor" : [ 0.368627, 0.537255, 0.929412, 1.0 ],
+					"selectioncolor" : [ 0.815686, 0.858824, 0.34902, 0.0 ]
 				}
 ,
 				"parentstyle" : "",

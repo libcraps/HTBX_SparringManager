@@ -12,18 +12,7 @@ namespace SparringManager.Scenarios
     /// <inheritdoc cref="ScenarioDisplayBehaviour"/>
     public class SplHitLineBehaviour : ScenarioDisplayBehaviour
     {
-        //General variables of a MovingLine
-
-        //Variables of an Hitting Line
-        private float _deltaHit { get { return scenario.deltaHit; } }
-        private float _timeBeforeHit { get { return scenario.timeBeforeHit; } }
-
-        /// <summary>
-        /// Boolean to indicate if the line continue to move when the hit is setted 
-        /// </summary>
-        public bool FixPosHit { get { return structScenari.FixPosHit; } } 
-
-
+        //General variables of a MovingLin
 
         //Specific variables of SplHitLine
         private GameObject _lineToHit;
@@ -50,28 +39,26 @@ namespace SparringManager.Scenarios
         protected override void FixedUpdate()
         {
             base.FixedUpdate(); //time update
-            ObjectInCameraRange();
+            
             //RandomizeObjectMovement(structScenari.AccelerationMax, structScenari.DeltaTimeMin, structScenari.DeltaTimeMax);
             MoveObject(fixPosHitValue * objectVelocity);
             SetHit(_lineToHit);
         }
 
-        public void SetHit(GameObject LineObject)
+        protected override void SetHit(GameObject LineObject)
         {
             Vector3 newScale;
-            Vector3 linePos3d;
-
-            bool canHit = (tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit);
+            Vector3 linePos3d; //Because the scale over move the object
 
             newScale.x = LineObject.transform.localScale.x;
             newScale.y = LineObject.transform.localScale.y;
             newScale.z = LineObject.transform.localScale.z;
-
+            
             linePos3d.x = LineObject.transform.localPosition.x;
             linePos3d.y = LineObject.transform.localPosition.y;
             linePos3d.z = LineObject.transform.localPosition.z;
 
-            if (canHit && hitted == false)
+            if (TimeToHit && hitted == false)
             {
                 LineObject.GetComponent<MeshRenderer>().material.color = Color.red;
 
@@ -79,10 +66,6 @@ namespace SparringManager.Scenarios
                 {
                     newScale.x += _scaleSide * _scaleSpeed;
                     linePos3d.x += _scaleSide * _scaleSpeed / 2;
-                }
-                if (FixPosHit == true)
-                {
-                    fixPosHitValue = 0;
                 }
             }
             else
@@ -93,7 +76,6 @@ namespace SparringManager.Scenarios
                     newScale.x -= _scaleSpeed * _scaleSide;
                     linePos3d.x -= _scaleSide * _scaleSpeed / 2;
                 }
-                fixPosHitValue = 1;
             }
 
             LineObject.transform.localScale = newScale;

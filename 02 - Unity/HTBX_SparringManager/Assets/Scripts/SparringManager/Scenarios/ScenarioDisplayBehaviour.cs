@@ -26,12 +26,36 @@ namespace SparringManager.Scenarios
         /// </summary>
         public int DeltaTimeChangeMovement;
 
+        //Variable of an hitting line
         /// <summary>
         /// Boolean to indicates if the target is hitted or not
         /// </summary>
         public bool hitted;
+        protected bool TimeToHit { get { return tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit; } }
+        protected float _deltaHit { get { return scenario.deltaHit; } }
+        protected float _timeBeforeHit { get { return scenario.timeBeforeHit; } }
 
-        public int fixPosHitValue = 1; // if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
+        /// <summary>
+        /// Boolean to indicate if the line continue to move when the hit is setted 
+        /// </summary>
+        protected virtual bool FixPosHit { get { return structScenari.FixPosHit; } }
+        private int _fixPosHitValue;
+        public int fixPosHitValue
+        {
+            get
+            {
+                if (TimeToHit && hitted == false && FixPosHit == true) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
+                {
+                    _fixPosHitValue = 0;
+                }
+                else
+                {
+                    _fixPosHitValue = 1;
+                }
+                return _fixPosHitValue;
+            }
+            
+        }// if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
 
         protected float previousTime;
         protected float tTime;
@@ -73,9 +97,10 @@ namespace SparringManager.Scenarios
         protected virtual void FixedUpdate()
         {
             tTime = Time.time - startTimeScenario;
+            ObjectInCameraRange();
         }
 
-        void OnDestroy()
+        protected virtual void OnDestroy()
         {
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
@@ -187,6 +212,11 @@ namespace SparringManager.Scenarios
 
                 previousTime = tTime;
             }
+        }
+
+        protected virtual void SetHit(GameObject LineObject)
+        {
+
         }
 
         #endregion
