@@ -16,6 +16,7 @@ namespace SparringManager.Scenarios.SimpleHit
         #region Attributs
         //----------- ATTRIBUTS ----------------------
         //Scenario
+
         protected override object consigne { get { return " "; } }
 
         #endregion
@@ -30,44 +31,24 @@ namespace SparringManager.Scenarios.SimpleHit
         protected override void Start()
         {
             base.Start();
-            GetDevices();
         }
 
         protected override void FixedUpdate()
         {
             base.FixedUpdate(); //StockData
-            hit = " ";
         }
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
-
-            dataManagerComponent.DataBase.Add(dataSessionPlayer.DataTable);
-
-            dataManagerComponent.EndScenarioForData = true;
-            GetComponentInParent<SessionManager>().EndScenario = true;
-
-            Debug.Log(this.gameObject.name + "has been destroyed");
+            base.OnDestroy();
         }
 
-
-        public override void Init(GeneriqueScenarioStruct structScenari)
-        {
-            //Initialize this Class
-            //Scenario controller
-            scenario = new Scenario(structScenari);
-            dataSessionPlayer = new DataSessionPlayer(nbMovuino);
-
-            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<GeneriqueScenarioStruct>(scenario.structScenari);
-            dataManagerComponent = GetComponentInParent<DataController>();
-            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp); //Mettre dans 
-        }
         //Method for an hitting object
-        private void OnEnable()
+        protected override void OnEnable()
         {
             ImpactManager.onInteractPoint += SetImpactPosition;
             
         }
-        private void OnDisable()
+        protected override void OnDisable()
         {
             ImpactManager.onInteractPoint -= SetImpactPosition;
             

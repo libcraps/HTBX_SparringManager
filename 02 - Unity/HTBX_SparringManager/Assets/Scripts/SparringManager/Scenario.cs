@@ -25,8 +25,8 @@ namespace SparringManager.Scenarios
     /// </summary>
     public interface IScenarioClass
     {
-        float timerScenario { get; set; }
-        float startTimeScenario { get; set; }
+        float timerScenario { get; }
+        float startTimeScenario { get;}
     }
 
     /// <summary>
@@ -34,21 +34,8 @@ namespace SparringManager.Scenarios
     /// <para>Mother class of scenarios, also it allows us to stock easily data of scenarios.</para>
     /// </summary>
     /// <typeparam name="StructScenario">Structure that need to be IStructScenario</typeparam>
-    public class Scenario
+    public class Scenario : IScenarioClass
     {
-        /*
-         * Mother class of scenarios, it allows us to stock easily data of scenarios
-         * 
-         * Static methods : 
-         *      public static T  CreateScenarioObject<T>() where T : Scenario<StructScenario> and StructScenario : IStructScenario
-         * 
-         * Attributs:
-         *      public StructScenario structScenario { get; set; }
-         *      public float timerScenario { get; set; }
-         *      public float startTimeScenario { get; set; }
-         * 
-         * Methods : 
-         */
 
         #region Attributs/properties
 

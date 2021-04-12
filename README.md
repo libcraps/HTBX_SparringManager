@@ -20,4 +20,11 @@ It is possible to connect ViveTracker, polar heartbeat sensor and movuino.
 
 Cf __________
 
+
+
 This is one of the big part of the project, you can also find a documentation of it in Documentation
+
+ * http://thomasfredericks.github.io/UnityOSC/
+ * 
+ * https://github.com/thomasfredericks/UnityOSC
+ */

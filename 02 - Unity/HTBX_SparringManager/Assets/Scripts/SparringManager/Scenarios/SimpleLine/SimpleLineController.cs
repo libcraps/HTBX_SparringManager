@@ -41,9 +41,19 @@ namespace SparringManager.Scenarios.SimpleLine
         //Usefull parameters of the scenario, they are in the SimpleLineStructure
         //Object that contain datas (structures)
 
-        public SimpleLineBehaviour scenarioBehaviour;
+        private new SimpleLineBehaviour scenarioBehaviour
+        {
+            get
+            {
+                return (SimpleLineBehaviour)base.scenarioBehaviour;
+            }
+            set
+            {
+                base.scenarioBehaviour = value;
+            }
+        }
 
-        protected override object consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); }}
+        protected override object consigne { get { return Scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); }}
         #endregion
 
         #region Methods
@@ -56,45 +66,16 @@ namespace SparringManager.Scenarios.SimpleLine
         }
         protected override void Start()
         {
-            GetDevices();
-            //Initialisation of the time
-            tTime = Time.time - startTimeScenario;
-            previousTime = tTime;
-
-            Vector3 _pos3d;
-            _pos3d.x = this.gameObject.transform.position.x;
-            _pos3d.y = this.gameObject.transform.position.y;
-            _pos3d.z = this.gameObject.transform.position.z + 100f;
-
-            var go = Instantiate(_prefabScenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform);
-            scenarioBehaviour = go.GetComponent<SimpleLineBehaviour>();
-            scenarioBehaviour.Init(scenario.structScenari);
-            Destroy(go, scenario.timerScenario);
-
-            Debug.Log(this.gameObject.name + " for " + scenario.timerScenario + " seconds");
+            base.Start();
         }
         protected override void FixedUpdate()
         {
             base.FixedUpdate(); //StockData
         }
-        void OnDestroy()
-        {
-            dataManagerComponent.DataBase.Add(dataSessionPlayer.DataTable);
-            dataManagerComponent.EndScenarioForData = true;
-            GetComponentInParent<SessionManager>().EndScenario = true;
-            Debug.Log(this.gameObject.name + "has been destroyed");
-        }
-        //Methods that set variables
-        public override void Init(GeneriqueScenarioStruct structScenari)
-        {
-            //Initialize this Class
-            //Scenario controller
-            scenario = new Scenario(structScenari);
 
-            dataSessionPlayer = new DataSessionPlayer(nbMovuino);
-            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<GeneriqueScenarioStruct>(scenario.structScenari);
-            dataManagerComponent = GetComponentInParent<DataController>();
-            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp); //Mettre dans 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
         }
         #endregion
     }

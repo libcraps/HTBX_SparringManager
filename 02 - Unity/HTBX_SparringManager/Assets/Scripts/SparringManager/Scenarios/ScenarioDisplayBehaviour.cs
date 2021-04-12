@@ -26,6 +26,9 @@ namespace SparringManager.Scenarios
         /// </summary>
         public int DeltaTimeChangeMovement;
 
+        /// <summary>
+        /// Boolean to indicates if the target is hitted or not
+        /// </summary>
         public bool hitted;
 
         public int fixPosHitValue = 1; // if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
@@ -49,8 +52,8 @@ namespace SparringManager.Scenarios
         #region Unity Methods
         protected virtual void Awake()
         {
-            scenario = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().scenario;
-            startTimeScenario = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().scenario.startTimeScenario;
+            scenario = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().Scenario;
+            startTimeScenario = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().Scenario.startTimeScenario;
             operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
             rangeSize = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().RangeSize;
             renderCamera = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().RenderCameraObject;

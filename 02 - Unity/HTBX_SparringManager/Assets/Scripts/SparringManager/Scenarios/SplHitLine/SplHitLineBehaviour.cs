@@ -23,20 +23,7 @@ namespace SparringManager.Scenarios
         /// </summary>
         public bool FixPosHit { get { return structScenari.FixPosHit; } } 
 
-        /// <summary>
-        /// Boolean to indicates if the target is hitted or not
-        /// </summary>
-        public bool Hitted
-        {
-            get
-            {
-                return hitted;
-            }
-            set
-            {
-                hitted = value;
-            }
-        }
+
 
         //Specific variables of SplHitLine
         private GameObject _lineToHit;

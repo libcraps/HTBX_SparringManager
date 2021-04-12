@@ -12,30 +12,6 @@ using UnityEngine;
 /// </summary>
 namespace SparringManager.DataManager
 {
-    /* 
-     * Class of the DataController
-    *  
-    *  Attributs :
-    *      bool _exportIntoFile : Boolean that indicates us if the user want to export the data in a .csv and a .txt
-    *      bool _editDataTable : Boolean that indicates to tha datamanager when he can store the data in the datatable (format for the extract in the .csv)
-    *      bool EndScenarioForData : Indicates to the datamanager when the scenario ended
-    *      List<DataTable> _dataBase : this list gets every scenario data in a dataTable
-    *      string _filePath : Path of the data folder, it is initialized to .\_data\
-    *      
-    *      Dictionary<string, string> _generaralSectionSumUp : Global summary of a Session (general part - Intro)
-    *      Dictionary<string, Dictionary<string,string>> _sessionSumUp : Summary of the ession, it e be extract in a .txt
-    *      
-    *  Methods :
-    *       void ToCSV(DataTable dtDataTable, string strFilePath) : 
-    *       void ToCSVGlobal(List<DataTable> dtDataBase, string strFilePath) : Stock une DataTable in a csv
-    *       void DicoToTXT(Dictionary<string, Dictionary<string, string>> dico, string strFilePath) : Stock the SessionSumUp in a .txt file
-    *       Dictionary<string, string> StructToDictionary<StructType>(StructType structure) : Generic method that go throw a structure and get her data into a dictionary
-    *       void AddContentToSumUp(string key, Dictionary<string, string> content) : Method that Add to the _sessionSumUp dictionary a new item "content" a the key "key"
-    *       void InitSumUp(string name, string filepath, int NbScenarios) : Initialise the GeeralSectionSumUp
-    *       void Init(bool export, string filepath) : 
-    *       void GetScenarioExportDataInStructure(List<float> timeListScenario, List<Vector3> mouvementConsigne) : Put the scenario export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
-    *       void GetSceneExportDataInStructure(List<Vector3> mouvementPlayer, List<Vector3> mouvementBag) : Put the export data in the dataStructure, it is call at the end of the scenario (in the destroy methods)
-    */
 
     /// <summary>
     /// MonoBehaviour class, it represent the DataController, it is associated to each PlayerCameraObject in the HitBox project.
