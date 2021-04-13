@@ -9,10 +9,6 @@ namespace SparringManager.Scenarios
     /// <inheritdoc cref="ScenarioDisplayBehaviour"/>
     public class SplHitLineBehaviour : ScenarioDisplayBehaviour
     {
-        //General variables of a MovingLin
-
-
-
         [SerializeField]
         private int _scaleMaxValue = 45;
         [SerializeField]
@@ -65,8 +61,8 @@ namespace SparringManager.Scenarios
 
             if (Mathf.Abs(DisplayObject.transform.localScale.x) < _scaleMaxValue)
             {
-                newScale.x += _oldScaleSide * _scaleSpeed;
-                linePos3d.x += _oldScaleSide * _scaleSpeed / 2;
+                newScale.x += _scaleSide * _scaleSpeed;
+                linePos3d.x += _scaleSide * _scaleSpeed / 2;
             }
 
             DisplayObject.transform.localScale = newScale;
@@ -110,25 +106,21 @@ namespace SparringManager.Scenarios
         /// </summary>
         private void SetLineToHit()
         {
-            /*
-             * Methode that defines which part of the line the player will have to hit and in which direction it will scale
-             * 
-             */
-            if (_lineToHit == null)
-            {
-                int randomLine = Random.Range(0, 2);
-                int randomScaleSide = Random.Range(0, 2);
+            int randomLine = Random.Range(0, 2);
+            int randomScaleSide = Random.Range(0, 2);
 
-                _lineToHit = GameObject.Find(this.gameObject.transform.GetChild(randomLine).name);
-                _oldScaleSide = _scaleSide;
-                if (randomScaleSide == 0)
-                {
-                    _scaleSide = -1;
-                }
-                else
-                {
-                    _scaleSide = 1;
-                }
+            _lineToHit = GameObject.Find(this.gameObject.transform.GetChild(randomLine).name);
+            _oldScaleSide = _scaleSide;
+
+            Debug.Log("random Line : " + randomLine);
+            Debug.Log("random ScaleSide : " + randomScaleSide);
+            if (randomScaleSide == 0)
+            {
+                _scaleSide = -1;
+            }
+            else
+            {
+                _scaleSide = 1;
             }
             _lineToHit.transform.localScale *= _scaleSide;
         }
