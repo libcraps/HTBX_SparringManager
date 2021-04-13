@@ -32,6 +32,7 @@ namespace SparringManager.Scenarios
             _barDown = GameObject.Find(this.gameObject.transform.GetChild(1).name);
         }
 
+
         protected override void Start()
         {
             base.Start();
@@ -114,7 +115,6 @@ namespace SparringManager.Scenarios
             base.HitManager();
             SetLineToHit();
         }
-
 
 
     }
