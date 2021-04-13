@@ -31,9 +31,11 @@ namespace SparringManager.Scenarios
         /// Boolean to indicates if the target is hitted or not
         /// </summary>
         public bool hitted;
-        protected bool TimeToHit { get { return tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit; } }
-        protected float _deltaHit { get { return scenario.deltaHit; } }
-        protected float _timeBeforeHit { get { return scenario.timeBeforeHit; } }
+        public bool TimeToHit { get { return tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit; } }
+
+        public int _timeBeforeHit = 2;
+
+        public int _deltaHit = 2;
 
         /// <summary>
         /// Boolean to indicate if the line continue to move when the hit is setted 
@@ -72,6 +74,8 @@ namespace SparringManager.Scenarios
         #endregion
 
         #region Methods
+        public delegate void HitEventHandler();
+        public event HitEventHandler onHitEvent;
 
         #region Unity Methods
         protected virtual void Awake()
@@ -87,6 +91,8 @@ namespace SparringManager.Scenarios
 
             DeltaTimeChangeMovement = 1;
             objectVelocity = new Vector3(scenario.speed, 0, 0);
+
+            onHitEvent = HitManager;
         }
 
         protected virtual void Start()
@@ -98,6 +104,7 @@ namespace SparringManager.Scenarios
         {
             tTime = Time.time - startTimeScenario;
             ObjectInCameraRange();
+            hitted = false;
         }
 
         protected virtual void OnDestroy()
@@ -141,7 +148,7 @@ namespace SparringManager.Scenarios
             if ((int)area == rangeSize)
             {
                 //Instruction whether the line gets out of the render camera range
-                if (linePos3d.x > renderCameraPos3d.x + area)
+                if (linePos3d.x > (renderCameraPos3d.x + area))
                 {
                     linePos3d.x -= 2 * area;
                 }
@@ -159,6 +166,7 @@ namespace SparringManager.Scenarios
                 {
                     linePos3d.y += 2 * area;
                 }
+                this.gameObject.transform.localPosition = linePos3d;
             }
             else
             {
@@ -176,7 +184,7 @@ namespace SparringManager.Scenarios
 
             }
 
-            this.gameObject.transform.localPosition = linePos3d;
+            
         }
 
         /// <summary>
@@ -214,9 +222,60 @@ namespace SparringManager.Scenarios
             }
         }
 
-        protected virtual void SetHit(GameObject LineObject)
+        /// <summary>
+        /// Manage the display of an hitting moment
+        /// </summary>
+        /// <param name="DisplayObject">Object that show/Unshow the hit</param>
+        protected virtual void SetHit(GameObject DisplayObject)
         {
+            if (TimeToHit && hitted == false)
+            {
+                DisplayHit(DisplayObject);
+            }
+            else
+            {
+                UndisplayHit(DisplayObject);
+            }
+        }
 
+        /// <summary>
+        /// Show the hit on the displayObject
+        /// </summary>
+        /// <param name="DisplayObject">Object that show the hit</param>
+        protected virtual void DisplayHit(GameObject DisplayObject)
+        {
+            DisplayObject.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+
+        /// <summary>
+        /// Unshow the hit on the display object
+        /// </summary>
+        /// <param name="DisplayObject"></param>
+        protected virtual void UndisplayHit(GameObject DisplayObject)
+        {
+            DisplayObject.GetComponent<MeshRenderer>().material.color = Color.white;
+        }
+
+
+        /// <summary>
+        /// Manage actions when an hit i recieved
+        /// </summary>
+        public virtual void HitManager()
+        {
+            hitted = true;
+            _timeBeforeHit = Random.Range((int)(tTime + 2 ), (int)(tTime + scenario.rythme/100 + 2));
+            
+            Debug.Log("new timeBeforeHit : " + _timeBeforeHit);
+
+        }
+
+        /// <summary>
+        /// Notify the event onHitEvent
+        /// </summary>
+        public virtual void onHit()
+        {
+            if (onHitEvent != null)
+                onHitEvent();
         }
 
         #endregion

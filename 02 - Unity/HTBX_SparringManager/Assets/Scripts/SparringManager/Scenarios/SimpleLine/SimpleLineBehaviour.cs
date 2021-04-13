@@ -13,12 +13,9 @@ namespace SparringManager.Scenarios.SimpleLine
     public class SimpleLineBehaviour : ScenarioDisplayBehaviour
     {
         //General variables of a MovingLine
-
-
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            ObjectInCameraRange();
             MoveObject(objectVelocity);
             Debug.Log(objectVelocity);
         }

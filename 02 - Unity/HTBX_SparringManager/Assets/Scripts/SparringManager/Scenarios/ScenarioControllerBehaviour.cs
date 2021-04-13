@@ -113,7 +113,20 @@ namespace SparringManager.Scenarios
         /// <summary>
         /// hit variable, True if hitted, " " if not
         /// </summary>
-        protected object hit;
+        protected object hitDataValue 
+        { 
+            get
+            {
+                if (scenarioBehaviour.hitted == true)
+                {
+                    return true;
+                } 
+                else
+                {
+                    return " ";
+                }
+            } 
+        }
 
         /// <value>Start time of the scenario</value>
         public float startTimeScenario { get { return Scenario.startTimeScenario; } }
@@ -163,7 +176,6 @@ namespace SparringManager.Scenarios
 
             //Data management
             StockData();
-            hit = " ";
         }
         protected virtual void OnDestroy()
         {
@@ -176,9 +188,6 @@ namespace SparringManager.Scenarios
             scenarioBehaviour.hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
-        #endregion
-
-        #region Hitting Methods
         protected virtual void OnEnable()
         {
             ImpactManager.onInteractPoint += GetHit;
@@ -187,6 +196,10 @@ namespace SparringManager.Scenarios
         {
             ImpactManager.onInteractPoint -= GetHit;
         }
+        #endregion
+
+        #region Hitting Methods
+
         /// <summary>
         /// Get the hit of the player
         /// </summary>
@@ -198,13 +211,12 @@ namespace SparringManager.Scenarios
             Vector3 rayCastDirection = new Vector3(0, 0, 1);
 
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
-            bool canHit = (tTime > Scenario.timeBeforeHit && (tTime - Scenario.timeBeforeHit) < Scenario.deltaHit);
 
-            if (rayOnTarget && canHit && scenarioBehaviour.hitted == false)
+            if (rayOnTarget && scenarioBehaviour.TimeToHit && scenarioBehaviour.hitted == false)
             {
-                reactTime = tTime - Scenario.timeBeforeHit;
-                scenarioBehaviour.hitted = true;
-                this.hit = true;
+                reactTime = tTime - scenarioBehaviour._timeBeforeHit;
+
+                scenarioBehaviour.onHit();
 
                 Debug.Log("Line touched : " + position2d_);
                 Debug.Log("React time : " + reactTime);
@@ -271,7 +283,7 @@ namespace SparringManager.Scenarios
 
             dataSessionPlayer.DataSessionScenario.StockData(tTime, consigne);
             dataSessionPlayer.DataSessionViveTracker.StockData(tTime, viveTrackerManager.angle);
-            dataSessionPlayer.DataSessionHit.StockData(tTime, hit);
+            dataSessionPlayer.DataSessionHit.StockData(tTime, hitDataValue);
             dataSessionPlayer.DataSessionPolar.StockData(tTime, polar.oscData.bpm);
             for (int i = 0; i < nbMovuino; i++)
             {

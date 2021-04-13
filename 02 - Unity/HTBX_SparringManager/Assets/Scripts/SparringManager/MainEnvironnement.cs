@@ -10,22 +10,6 @@ using UnityEngine;
 /// </summary>
 namespace SparringManager
 {
-    /*
-     * Summary :
-     * 
-     * MonoBehaviour class that is used to generate the main environnement : instantiate scenarios and gymnase scene
-     * 
-     *  Attributs :
-     *      GameObject _prefabPlayerCamera : Prefab of the player environnement, at the moment it contains : a player scene (gymnase environnement) and a renderCamera for the bag
-     *      GameObject _coachCamera : GameObject of the Coach Camera
-     *      StructPlayerCamera[] _mainStructure : List of StructPlayerCamera that contain all the usefull data for the Gymnase scene, scenario,... for every player 
-     *      bool _exportInFile : Boolean for the exportation data
-     *      
-     *  Methods :
-     *      void Awake(): Instantiate and initailize component of the player camera
-     */
-
-
     /// <summary>
     /// MonoBehaviour class that manage the MainEnvironnement
     /// </summary>
@@ -93,7 +77,6 @@ namespace SparringManager
 
             for (int i = 0; i< NbPlayer; i++)
             {
-
                 clonePlayerCamera = Instantiate(_prefabPlayerCamera, posPlayerCamera, Quaternion.identity, this.gameObject.transform); 
                 clonePlayerCamera.GetComponent<SessionManager>().Init(_mainStructure[i].Scenarios, _mainStructure[i].operationalArea, _mainStructure[i].Name, _exportInFile);
                 clonePlayerCamera.GetComponent<DeviceManager>().Init(_mainStructure[i].StructHitBox, _mainStructure[i].StructPlayerScene, _mainStructure[i].Name, i);

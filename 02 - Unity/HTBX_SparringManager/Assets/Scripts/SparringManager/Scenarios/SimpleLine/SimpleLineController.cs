@@ -62,7 +62,6 @@ namespace SparringManager.Scenarios.SimpleLine
         protected override void Awake()
         {
             base.Awake();
-            hit = " ";
         }
         protected override void Start()
         {

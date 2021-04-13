@@ -66,9 +66,7 @@ namespace SparringManager.Scenarios
         /// </summary>
         public float rythme { get { return structScenari.Rythme; } }
 
-        public int timeBeforeHit = 2;
 
-        public int deltaHit = 2;
         #endregion
 
         #region Methods

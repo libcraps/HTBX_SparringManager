@@ -37,5 +37,9 @@ namespace SparringManager.Scenarios.SimpleHit
             else
                 Destroy(gameObject);
         }
+
+        protected override void OnDestroy()
+        {
+        }
     }
 }

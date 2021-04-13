@@ -267,6 +267,12 @@ namespace SparringManager.DataManager
             this.GeneraralSectionSumUp.Add("Nb scenarios : ", NbScenarios.ToString());
             this.AddContentToSumUp("General", this.GeneraralSectionSumUp);
         }
+
+        /// <summary>
+        /// Initializes datasettings
+        /// </summary>
+        /// <param name="export"></param>
+        /// <param name="filepath"></param>
         public void Init(bool export, string filepath)
         {
             //Set DataManager's attributs

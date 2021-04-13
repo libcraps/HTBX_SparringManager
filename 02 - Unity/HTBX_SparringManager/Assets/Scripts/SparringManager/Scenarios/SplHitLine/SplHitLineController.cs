@@ -50,12 +50,6 @@ namespace SparringManager.SplHitLine
         protected override void FixedUpdate()
         {
             base.FixedUpdate(); //Stock Data
-            
-            //Update the "situation" of the line
-            
-            //RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
-            hit = " ";
-
         }
 
         protected override void OnDestroy()

@@ -30,7 +30,10 @@ namespace SparringManager.Scenarios.SimpleHit
         //General Methods
         protected override void Start()
         {
-            base.Start();
+            GetDevices();
+            //Initialisation of the time and the acceleration
+            tTime = Time.time - startTimeScenario;
+            previousTime = tTime;
         }
 
         protected override void FixedUpdate()
@@ -39,7 +42,11 @@ namespace SparringManager.Scenarios.SimpleHit
         }
         protected override void OnDestroy()
         {
-            base.OnDestroy();
+            dataManagerComponent.DataBase.Add(dataSessionPlayer.DataTable);
+            dataManagerComponent.EndScenarioForData = true;
+
+            GetComponentInParent<SessionManager>().EndScenario = true;
+            Debug.Log(this.gameObject.name + "has been destroyed");
         }
 
         //Method for an hitting object
@@ -63,7 +70,7 @@ namespace SparringManager.Scenarios.SimpleHit
         {
             Vector3 pos3d_ = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z + 20f);
             Instantiate(_prefabScenarioComposant, pos3d_, Quaternion.identity, this.gameObject.transform);
-            hit = true;
+            scenarioBehaviour.onHit();
         }
     }
 }
