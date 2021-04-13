@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7267607213896846645}
   - component: {fileID: 5062481087463228592}
   - component: {fileID: 3265599903055632309}
+  - component: {fileID: 5294730993004352027}
   m_Layer: 0
   m_Name: UpLine
   m_TagString: Untagged
@@ -93,6 +94,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5294730993004352027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619405542291562551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecbd9a966417254cb880826be06adbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &6681613717435480839
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,9 +172,11 @@ MonoBehaviour:
   objectVelocity: {x: 0, y: 0, z: 0}
   DeltaTimeChangeMovement: 0
   hitted: 0
-  fixPosHitValue: 1
+  _timeBeforeHit: 2
+  _deltaHit: 2
   rangeSize: 0
   renderCamera: {fileID: 0}
+  _scaleSpeed: 2
 --- !u!1 &8614765362817902088
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +189,7 @@ GameObject:
   - component: {fileID: 8417092478178514036}
   - component: {fileID: 8552546582156892514}
   - component: {fileID: 1305534487259845745}
+  - component: {fileID: 6155289112476792698}
   m_Layer: 0
   m_Name: DownLine
   m_TagString: Untagged
@@ -254,3 +271,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6155289112476792698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8614765362817902088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecbd9a966417254cb880826be06adbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
