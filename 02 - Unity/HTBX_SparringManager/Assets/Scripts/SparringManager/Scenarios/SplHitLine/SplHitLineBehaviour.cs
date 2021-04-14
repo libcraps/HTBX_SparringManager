@@ -27,8 +27,9 @@ namespace SparringManager.Scenarios
         protected override void Awake()
         {
             base.Awake();
-            _barUp = GameObject.Find(this.gameObject.transform.GetChild(0).name);
             _barDown = GameObject.Find(this.gameObject.transform.GetChild(1).name);
+            _barUp = GameObject.Find(this.gameObject.transform.GetChild(0).name);
+           
         }
 
         protected override void Start()
@@ -62,9 +63,9 @@ namespace SparringManager.Scenarios
 
             TargetMovingBar movingBar = DisplayObject.GetComponent<TargetMovingBar>();
 
-            if (TimeToHit && hitted == false)
+            if (TimeToHit)
             {
-                if (movingBar.activated == true)
+                if (movingBar.activated == true && hitted == false)
                 {
                     DisplayHit(DisplayObject);
                 }
@@ -87,14 +88,8 @@ namespace SparringManager.Scenarios
             TargetMovingBar movingBar = DisplayObject.GetComponent<TargetMovingBar>();
 
             DisplayObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            movingBar.ScaleLine(_scaleSpeed);
 
-            if (movingBar.currentCoroutine == movingBar.UnScaleLine(_scaleSpeed))
-            {
-                StopCoroutine(movingBar.currentCoroutine);
-            }
-
-            movingBar.currentCoroutine = movingBar.ScaleLine(_scaleSpeed);
-            StartCoroutine(movingBar.currentCoroutine);
         }
 
         /// <summary>
@@ -106,14 +101,7 @@ namespace SparringManager.Scenarios
             TargetMovingBar movingBar = DisplayObject.GetComponent<TargetMovingBar>();
 
             DisplayObject.GetComponent<MeshRenderer>().material.color = Color.white;
-
-            if (movingBar.currentCoroutine == movingBar.ScaleLine(_scaleSpeed))
-            {
-                StopCoroutine(movingBar.currentCoroutine);
-            }
-
-            movingBar.currentCoroutine = movingBar.UnScaleLine(_scaleSpeed);
-            StartCoroutine(movingBar.currentCoroutine);
+            movingBar.UnScaleLine(_scaleSpeed);
         }
 
         // ---> Specific method of the splHitLine scenario
