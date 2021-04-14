@@ -21,7 +21,7 @@ namespace SparringManager.Scenarios
         private GameObject _scenarioPrefab;
         [SerializeField]
         [Tooltip("Scenario duration")]
-        private int _timerScenario;
+        private float _timerScenario;
         [SerializeField]
         [Tooltip("Speed of the object")]
         private int _speed;
@@ -43,7 +43,7 @@ namespace SparringManager.Scenarios
                 _scenarioPrefab = value;
             }
         }
-        public int TimerScenario
+        public float TimerScenario
         {
             get
             {

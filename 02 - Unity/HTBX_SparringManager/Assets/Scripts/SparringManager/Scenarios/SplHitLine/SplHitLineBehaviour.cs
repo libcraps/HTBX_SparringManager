@@ -45,38 +45,13 @@ namespace SparringManager.Scenarios
             //RandomizeObjectMovement(structScenari.AccelerationMax, structScenari.DeltaTimeMin, structScenari.DeltaTimeMax);
             MoveObject(fixPosHitValue * objectVelocity);
 
+
             if (_lineToHit == null || _lineToHit.GetComponent<TargetMovingBar>().activated == false)
             {
                 SetLineToHit();
             }
 
             SetHit(_lineToHit);
-        }
-
-
-        /// <summary>
-        /// Manage the display of an hitting moment
-        /// </summary>
-        /// <param name="DisplayObject">Object that show/Unshow the hit</param>
-        protected override void SetHit(GameObject DisplayObject)
-        {
-
-            TargetMovingBar movingBar = DisplayObject.GetComponent<TargetMovingBar>();
-
-            if (TimeToHit)
-            {
-                if (movingBar.activated == true && hitted == false)
-                {
-                    DisplayHit(DisplayObject);
-                }
-            }
-            else
-            {
-                if (movingBar.activated == true)
-                {
-                    UndisplayHit(DisplayObject);
-                }
-            }
         }
 
         /// <summary>
@@ -87,9 +62,11 @@ namespace SparringManager.Scenarios
         {
             TargetMovingBar movingBar = DisplayObject.GetComponent<TargetMovingBar>();
 
-            DisplayObject.GetComponent<MeshRenderer>().material.color = Color.red;
-            movingBar.ScaleLine(_scaleSpeed);
-
+            if (movingBar.activated == true && hitted == false)
+            {
+                DisplayObject.GetComponent<MeshRenderer>().material.color = Color.red;
+                movingBar.ScaleLine(_scaleSpeed);
+            }
         }
 
         /// <summary>
@@ -100,8 +77,11 @@ namespace SparringManager.Scenarios
         {
             TargetMovingBar movingBar = DisplayObject.GetComponent<TargetMovingBar>();
 
-            DisplayObject.GetComponent<MeshRenderer>().material.color = Color.white;
-            movingBar.UnScaleLine(_scaleSpeed);
+            if (movingBar.activated == true)
+            {
+                DisplayObject.GetComponent<MeshRenderer>().material.color = Color.white;
+                movingBar.UnScaleLine(_scaleSpeed);
+            }
         }
 
         // ---> Specific method of the splHitLine scenario

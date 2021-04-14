@@ -217,6 +217,7 @@ namespace SparringManager.Scenarios
                 reactTime = tTime - scenarioBehaviour._timeBeforeHit;
 
                 scenarioBehaviour.onHit();
+                scenarioBehaviour.hittedChangement = true;
 
                 Debug.Log("Line touched : " + position2d_);
                 Debug.Log("React time : " + reactTime);

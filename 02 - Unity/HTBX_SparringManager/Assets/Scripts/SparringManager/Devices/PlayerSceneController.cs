@@ -6,26 +6,6 @@ using UnityEngine;
 
 namespace SparringManager.Device
 {
-    /*
-     * Summary :
-     * MonoBehaviour class that is used to manages the player scene
-     * 
-     *  Attributs :
-     *      StructPlayerScene _structPlayerScene : _Structure of the Player scene
-     *      GameObject _player:  GameObject that represent the player
-     *      GameObject _bag: GameObject that represent the bag
-     *      GameObject _movuino
-     *      GameObject _polar
-     *      GameObject _viveTracker
-     *      string _idPlayer
-     *      
-     *  Methods :
-     *      void Start(): used for the first frame
-     *      GameObject InstantiateDevice<StructDevice>(StructDevice structure, GameObject parent) where StructDevice : IStructDevice
-     *      void Init(StructPlayerScene structPlayerScene)
-     *      
-     */
-
     /// <summary>
     /// Manage the PlayerScene object.
     /// </summary>
@@ -35,9 +15,17 @@ namespace SparringManager.Device
         //----------------------    ATTRIBUTS    --------------------------
         [SerializeField]
         private StructPlayerScene _structPlayerScene;
+        [SerializeField]
+        private GameObject _playerZone;
+        [SerializeField]
+        private GameObject _vectorBagPlayer;
+        [SerializeField]
+        private GameObject _playerDistRepresentationOnGymnase;
+
 
         private GameObject _player;
         private GameObject _bag;
+        private GameObject _ground;
 
         private GameObject _movuino;
         private GameObject _polar;
@@ -48,12 +36,15 @@ namespace SparringManager.Device
         public int NbMovuino { get { return _structPlayerScene.StructMovuino.Length; } }
 
         //---------------------------     METHODS    -------------------------------
-        private void Start()
+        private void Awake()
         {
             _player = GameObject.Find("Player");
             _bag = GameObject.Find("BagTracker");
+            _ground = GameObject.Find("PlaneReferenceGymnase");
             _idPlayer = _structPlayerScene.IdPlayer;
-
+        }
+        private void Start()
+        {
             //Instantiation of Devices if Struct.OnOff = On
             _viveTracker = InstantiateDevice<ViveTrackerManager>(_structPlayerScene.StructViveTracker, this.gameObject, _idPlayer);
             _polar = InstantiateDevice<Polar>(_structPlayerScene.StructPolar, _player, "/" + _idPlayer);
@@ -63,10 +54,35 @@ namespace SparringManager.Device
                 _movuino = InstantiateDevice<Movuino>(mov, _player, "/" + _idPlayer + mov.Id);
             }
 
+            Vector3 posPlayerCircle = new Vector3(_player.transform.position.x,  _ground.transform.position.y, _player.transform.position.z);
+            Vector3 posBagCircle = new Vector3(_bag.transform.localPosition.x, _ground.transform.position.y, _bag.transform.localPosition.z);
+            Vector3 posVector = new Vector3(_bag.transform.localPosition.x, _ground.transform.position.y, _bag.transform.localPosition.z);
+
+            _playerZone = Instantiate(_playerZone, posPlayerCircle, Quaternion.identity, this.gameObject.transform);
+            _playerDistRepresentationOnGymnase = Instantiate(_playerDistRepresentationOnGymnase, posBagCircle, Quaternion.identity, this.gameObject.transform);
+            _vectorBagPlayer = Instantiate(_vectorBagPlayer, posVector, Quaternion.identity, this.gameObject.transform);
+
+
         }
         private void FixedUpdate()
         {
+            Vector3 posPlayerCircle = new Vector3(_player.transform.position.x, _ground.transform.position.y, _player.transform.position.z);
+            Vector3 posBagCircle = new Vector3(_bag.transform.localPosition.x, _ground.transform.position.y-0.02f, _bag.transform.localPosition.z);
+            Vector3 posVector = new Vector3(_bag.transform.localPosition.x, _ground.transform.position.y-0.015f, _bag.transform.localPosition.z);
+            Vector3 _bagDir = posBagCircle - posPlayerCircle;
+            Vector3 _bagDirNormalized = Vector3.Normalize(new Vector3(_bagDir.x, 0, _bagDir.z));
+            Vector3 vectorAngle = _vectorBagPlayer.transform.localEulerAngles;
+            float radius = _bagDir.magnitude;
 
+            _playerZone.transform.position = posPlayerCircle;
+            _playerDistRepresentationOnGymnase.transform.position = posBagCircle;
+            _vectorBagPlayer.transform.position = posVector;
+
+            _playerDistRepresentationOnGymnase.transform.localScale = new Vector3(2 * _bagDir.magnitude, 0.001f, 2 * _bagDir.magnitude);
+            _vectorBagPlayer.transform.localScale = new Vector3(radius, 0.001f, _vectorBagPlayer.transform.localScale.z);
+
+            _vectorBagPlayer.transform.localEulerAngles = new Vector3(0, Vector3.SignedAngle(_bagDirNormalized, -_bag.transform.right, -_bag.transform.forward), 0);
+            print(vectorAngle);
         }
         
         public void Init(StructPlayerScene structPlayerScene)

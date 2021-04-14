@@ -559,7 +559,7 @@ MonoBehaviour:
         type: 3}
       _timerScenario: 10
       _speed: 25
-      _rythme: 3
+      _rythme: 100
       _fixPosHit: 1
     - _scenarioPrefab: {fileID: 4281324017865965865, guid: 30bee1edd9312e54da96df824042ceec,
         type: 3}

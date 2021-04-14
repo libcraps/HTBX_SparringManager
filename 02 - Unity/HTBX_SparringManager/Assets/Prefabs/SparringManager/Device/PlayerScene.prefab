@@ -220,6 +220,12 @@ MonoBehaviour:
     _structPolar:
       _prefab: {fileID: 0}
       _onOff: 0
+  _playerZone: {fileID: 2721460972890404694, guid: b082971e321457841978ad4a1ed8c676,
+    type: 3}
+  _vectorBagPlayer: {fileID: 3921843920153024660, guid: 3118dad4617b3e740b0528116647c07d,
+    type: 3}
+  _playerDistRepresentationOnGymnase: {fileID: 2721460972890404694, guid: 5926dff18c274ee46a6ac3842a412ae4,
+    type: 3}
 --- !u!1 &3567670231890544952
 GameObject:
   m_ObjectHideFlags: 0

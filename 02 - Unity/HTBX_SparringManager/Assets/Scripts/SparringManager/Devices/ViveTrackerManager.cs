@@ -57,7 +57,6 @@ namespace SparringManager.Device
             _bagDir = bag.transform.position - player.transform.position; //Computing vector between player and bag
             Vector3 _bagDirNormalized = Vector3.Normalize(new Vector3(_bagDir.x, 0, _bagDir.z)); //Getting rid of the height for the vector and normalizing
             Vector3 _playerOrientation = Vector3.Normalize(transform.up); //Normalizing player orientation
-
             angle = Vector3.SignedAngle(_bagDirNormalized, -bag.transform.up, bag.transform.right);
             calibratePosPlayer();
         }

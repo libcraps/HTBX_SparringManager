@@ -31,9 +31,11 @@ namespace SparringManager.Scenarios
         /// Boolean to indicates if the target is hitted or not
         /// </summary>
         public bool hitted;
+
+        public bool hittedChangement;
         public bool TimeToHit { get { return tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit; } }
 
-        public int _timeBeforeHit = 2;
+        public float _timeBeforeHit;
 
         public int _deltaHit = 2;
 
@@ -74,8 +76,7 @@ namespace SparringManager.Scenarios
         #endregion
 
         #region Methods
-        public delegate void HitEventHandler();
-        public event HitEventHandler onHitEvent;
+
 
         #region Unity Methods
         protected virtual void Awake()
@@ -91,7 +92,9 @@ namespace SparringManager.Scenarios
 
             DeltaTimeChangeMovement = 1;
             objectVelocity = new Vector3(scenario.speed, 0, 0);
+            _timeBeforeHit = tTime + 1/(1+scenario.rythme)*100;
 
+            hittedChangement = false;
             onHitEvent = HitManager;
         }
 
@@ -222,6 +225,10 @@ namespace SparringManager.Scenarios
             }
         }
 
+        #region Hitting Methods
+        public delegate void HitEventHandler();
+        public event HitEventHandler onHitEvent;
+
         /// <summary>
         /// Manage the display of an hitting moment
         /// </summary>
@@ -236,11 +243,14 @@ namespace SparringManager.Scenarios
             {
                 UndisplayHit(DisplayObject);
             }
+
+
         }
 
         /// <summary>
         /// Show the hit on the displayObject
         /// </summary>
+        /// <remarks>By default we only change its color</remarks>
         /// <param name="DisplayObject">Object that show the hit</param>
         protected virtual void DisplayHit(GameObject DisplayObject)
         {
@@ -250,12 +260,12 @@ namespace SparringManager.Scenarios
         /// <summary>
         /// Unshow the hit on the display object
         /// </summary>
+        /// <remarks>By default we only change its color</remarks>
         /// <param name="DisplayObject"></param>
         protected virtual void UndisplayHit(GameObject DisplayObject)
         {
             DisplayObject.GetComponent<MeshRenderer>().material.color = Color.white;
         }
-
 
         /// <summary>
         /// Manage actions when an hit i recieved
@@ -263,9 +273,7 @@ namespace SparringManager.Scenarios
         public virtual void HitManager()
         {
             hitted = true;
-            _timeBeforeHit = Random.Range((int)(tTime + 2), (int)(tTime + 4));
-            Debug.Log("new timeBeforeHit : " + _timeBeforeHit);
-
+            _timeBeforeHit = tTime + 1 / (1 + scenario.rythme) * 100;
         }
 
         /// <summary>
@@ -276,7 +284,7 @@ namespace SparringManager.Scenarios
             if (onHitEvent != null)
                 onHitEvent();
         }
-
+        #endregion
         #endregion
     }
 
