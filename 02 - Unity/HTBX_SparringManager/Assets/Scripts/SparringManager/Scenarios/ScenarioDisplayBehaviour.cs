@@ -263,8 +263,7 @@ namespace SparringManager.Scenarios
         public virtual void HitManager()
         {
             hitted = true;
-            _timeBeforeHit = Random.Range((int)(tTime + 5 ), (int)(tTime + scenario.rythme/100 + 5));
-            _timeBeforeHit = (int)(tTime + 5);
+            _timeBeforeHit = Random.Range((int)(tTime + 2), (int)(tTime + 4));
             Debug.Log("new timeBeforeHit : " + _timeBeforeHit);
 
         }

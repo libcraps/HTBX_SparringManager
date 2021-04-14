@@ -18,7 +18,6 @@ namespace SparringManager.Scenarios
         //Specific variables of SplHitLine
         private GameObject _lineToHit;
         private int _scaleSide; //-1 ou 1
-        private int _oldScaleSide;
         // -> other usefull variables
         private Vector3 _initScale;
 
@@ -32,15 +31,10 @@ namespace SparringManager.Scenarios
             _barDown = GameObject.Find(this.gameObject.transform.GetChild(1).name);
         }
 
-
         protected override void Start()
         {
             base.Start();
-            //Initialisation of the scale
             SetLineToHit();
-            _oldScaleSide = _scaleSide;
-            _initScale = _lineToHit.transform.localScale;
-
         }
 
         protected override void FixedUpdate()
@@ -49,7 +43,39 @@ namespace SparringManager.Scenarios
             
             //RandomizeObjectMovement(structScenari.AccelerationMax, structScenari.DeltaTimeMin, structScenari.DeltaTimeMax);
             MoveObject(fixPosHitValue * objectVelocity);
+
+            if (_lineToHit == null || _lineToHit.GetComponent<TargetMovingBar>().activated == false)
+            {
+                SetLineToHit();
+            }
+
             SetHit(_lineToHit);
+        }
+
+
+        /// <summary>
+        /// Manage the display of an hitting moment
+        /// </summary>
+        /// <param name="DisplayObject">Object that show/Unshow the hit</param>
+        protected override void SetHit(GameObject DisplayObject)
+        {
+
+            TargetMovingBar movingBar = DisplayObject.GetComponent<TargetMovingBar>();
+
+            if (TimeToHit && hitted == false)
+            {
+                if (movingBar.activated == true)
+                {
+                    DisplayHit(DisplayObject);
+                }
+            }
+            else
+            {
+                if (movingBar.activated == true)
+                {
+                    UndisplayHit(DisplayObject);
+                }
+            }
         }
 
         /// <summary>
@@ -58,16 +84,17 @@ namespace SparringManager.Scenarios
         /// <param name="DisplayObject">Object that show the hit</param>
         protected override void DisplayHit(GameObject DisplayObject)
         {
+            TargetMovingBar movingBar = DisplayObject.GetComponent<TargetMovingBar>();
+
             DisplayObject.GetComponent<MeshRenderer>().material.color = Color.red;
 
-            if (DisplayObject.GetComponentInChildren<TargetMovingBar>().currentCoroutine != null)
+            if (movingBar.currentCoroutine == movingBar.UnScaleLine(_scaleSpeed))
             {
-                StopCoroutine(DisplayObject.GetComponentInChildren<TargetMovingBar>().currentCoroutine);
+                StopCoroutine(movingBar.currentCoroutine);
             }
 
-            DisplayObject.GetComponentInChildren<TargetMovingBar>().currentCoroutine = DisplayObject.GetComponentInChildren<TargetMovingBar>().ScaleLine(_scaleSide, _scaleSpeed);
-            StartCoroutine(DisplayObject.GetComponentInChildren<TargetMovingBar>().currentCoroutine);
-            Debug.Log(DisplayObject.GetComponentInChildren<TargetMovingBar>().currentCoroutine);
+            movingBar.currentCoroutine = movingBar.ScaleLine(_scaleSpeed);
+            StartCoroutine(movingBar.currentCoroutine);
         }
 
         /// <summary>
@@ -76,15 +103,17 @@ namespace SparringManager.Scenarios
         /// <param name="DisplayObject"></param>
         protected override void UndisplayHit(GameObject DisplayObject)
         {
+            TargetMovingBar movingBar = DisplayObject.GetComponent<TargetMovingBar>();
+
             DisplayObject.GetComponent<MeshRenderer>().material.color = Color.white;
 
-            if (DisplayObject.GetComponentInChildren<TargetMovingBar>().currentCoroutine != null)
+            if (movingBar.currentCoroutine == movingBar.ScaleLine(_scaleSpeed))
             {
-                StopCoroutine(DisplayObject.GetComponentInChildren<TargetMovingBar>().currentCoroutine);
+                StopCoroutine(movingBar.currentCoroutine);
             }
 
-            DisplayObject.GetComponentInChildren<TargetMovingBar>().currentCoroutine = DisplayObject.GetComponentInChildren<TargetMovingBar>().UnScaleLine(_oldScaleSide, _scaleSpeed);
-            StartCoroutine(DisplayObject.GetComponentInChildren<TargetMovingBar>().currentCoroutine);
+            movingBar.currentCoroutine = movingBar.UnScaleLine(_scaleSpeed);
+            StartCoroutine(movingBar.currentCoroutine);
         }
 
         // ---> Specific method of the splHitLine scenario
@@ -96,24 +125,35 @@ namespace SparringManager.Scenarios
             int randomLine = Random.Range(0, 2);
             int randomScaleSide = Random.Range(0, 2);
 
-            _oldScaleSide = _scaleSide;
+            int scaleSide;
 
             if (randomLine == 0)
+            {
                 _lineToHit = _barUp;
+            }
             else
+            {
                 _lineToHit = _barDown;
+            }
 
             if (randomScaleSide == 0)
-                _scaleSide = -1;
+            {
+                scaleSide = -1;
+            }
             else
-                _scaleSide = 1;
+            {
+                scaleSide = 1;
+            }
 
+            _lineToHit.GetComponent<TargetMovingBar>().activated = true;
+            _lineToHit.GetComponent<TargetMovingBar>().scaleSide = scaleSide;
+            _lineToHit.transform.localScale *= scaleSide;
         }
 
         public override void HitManager()
         {
             base.HitManager();
-            SetLineToHit();
+            //SetLineToHit();
         }
 
 
