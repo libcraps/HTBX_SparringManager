@@ -78,11 +78,11 @@ namespace SparringManager.Device
             _playerDistRepresentationOnGymnase.transform.position = posBagCircle;
             _vectorBagPlayer.transform.position = posVector;
 
-            _playerDistRepresentationOnGymnase.transform.localScale = new Vector3(2 * _bagDir.magnitude, 0.001f, 2 * _bagDir.magnitude);
-            _vectorBagPlayer.transform.localScale = new Vector3(radius, 0.001f, _vectorBagPlayer.transform.localScale.z);
+            _playerDistRepresentationOnGymnase.transform.localScale = new Vector3(2 * radius, 0.001f, 2 * radius);
+            _vectorBagPlayer.transform.localScale = new Vector3(radius + 0.1f , 0.001f, _vectorBagPlayer.transform.localScale.z);
 
             _vectorBagPlayer.transform.localEulerAngles = new Vector3(0, Vector3.SignedAngle(_bagDirNormalized, -_bag.transform.right, -_bag.transform.forward), 0);
-            print(vectorAngle);
+            
         }
         
         public void Init(StructPlayerScene structPlayerScene)
