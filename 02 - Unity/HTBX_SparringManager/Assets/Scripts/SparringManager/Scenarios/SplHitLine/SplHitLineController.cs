@@ -32,7 +32,7 @@ namespace SparringManager.SplHitLine
                 base.scenarioBehaviour = value;
             }
         }
-        protected override object consigne { get { return Scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
+        public override float consigne { get { return Scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
         #endregion
 
         //--------------------------    METHODS     ----------------------------------------

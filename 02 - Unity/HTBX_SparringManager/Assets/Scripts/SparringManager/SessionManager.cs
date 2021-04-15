@@ -49,6 +49,8 @@ namespace SparringManager
         public int NbScenarios { get { return _scenarios.Length; } }
         public int OperationalArea { get { return _operationalArea; } }
 
+        public GameObject scenarioPlayed;
+
         #endregion
         #region Methods
         //----------------------    METHODS    -------------------------------
@@ -90,10 +92,10 @@ namespace SparringManager
         private void InstantiateAndBuildScenario(GeneriqueScenarioStruct strucObject, GameObject referenceGameObject, Vector3 pos3d)
         {
             GameObject prefabObject = strucObject.ScenarioPrefab;
-            GameObject scenario = Instantiate(prefabObject, pos3d, Quaternion.identity, referenceGameObject.transform);
+            scenarioPlayed = Instantiate(prefabObject, pos3d, Quaternion.identity, referenceGameObject.transform);
 
-            scenario.GetComponent<ScenarioControllerBehaviour>().Init(strucObject);
-            Destroy(scenario, strucObject.TimerScenario);
+            scenarioPlayed.GetComponent<ScenarioControllerBehaviour>().Init(strucObject);
+            Destroy(scenarioPlayed, strucObject.TimerScenario);
 
             Debug.Log(prefabObject.name + " has been instantiated");
         }

@@ -17,7 +17,7 @@ namespace SparringManager.Scenarios.SimpleHit
         //----------- ATTRIBUTS ----------------------
         //Scenario
 
-        protected override object consigne { get { return " "; } }
+        public override object consigne { get { return " "; } }
 
         #endregion
 

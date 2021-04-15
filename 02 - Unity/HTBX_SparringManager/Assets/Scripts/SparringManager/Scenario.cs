@@ -89,10 +89,10 @@ namespace SparringManager.Scenarios
         /// <param name="screenSize">Size of the screen, it is a reference</param>
         /// <param name="coord">Coordinates</param>
         /// <returns>The angle</returns>
-        public virtual object PosToAngle(float screenSize, object coord)
+        public virtual float PosToAngle(float screenSize, object coord)
         {
-            object angle;
-            angle = (float)coord * 180.0 / screenSize;
+            float angle;
+            angle = (float)coord * 180.0f / screenSize;
             return angle;
         }
         #endregion

@@ -53,7 +53,7 @@ namespace SparringManager.Scenarios.SimpleLine
             }
         }
 
-        protected override object consigne { get { return Scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); }}
+        public override float consigne { get { return Scenario.PosToAngle(rangeSize, base.scenarioBehaviour.transform.localPosition.x); }}
         #endregion
 
         #region Methods

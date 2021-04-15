@@ -226,6 +226,8 @@ MonoBehaviour:
     type: 3}
   _playerDistRepresentationOnGymnase: {fileID: 2721460972890404694, guid: 5926dff18c274ee46a6ac3842a412ae4,
     type: 3}
+  _vectorConsigne: {fileID: 3921843920153024660, guid: 79864964d1f851c4db3626f2e6ed99ae,
+    type: 3}
 --- !u!1 &3567670231890544952
 GameObject:
   m_ObjectHideFlags: 0

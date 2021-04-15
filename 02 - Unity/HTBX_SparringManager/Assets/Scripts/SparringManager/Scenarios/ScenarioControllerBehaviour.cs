@@ -132,7 +132,7 @@ namespace SparringManager.Scenarios
         public float startTimeScenario { get { return Scenario.startTimeScenario; } }
 
         /// <value>Get the consigne of the scenario</value>
-        protected abstract object consigne { get; }
+        public abstract float consigne { get; }
 
         public float RangeSize { get { return rangeSize; } }
         public GameObject RenderCameraObject { get { return renderCameraObject; } }
