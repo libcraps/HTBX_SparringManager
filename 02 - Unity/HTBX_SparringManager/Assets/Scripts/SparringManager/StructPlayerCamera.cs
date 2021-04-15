@@ -622,11 +622,14 @@ namespace SparringManager.Structures
         [SerializeField]
         private string _idPlayer;
         [SerializeField]
+        private StructGymnaseRepresentation _structGymnaseRepresentation;
+        [SerializeField]
         private StructViveTracker _structViveTracker;
         [SerializeField]
         private StructMovuino[] _structMovuino;
         [SerializeField]
         private StructPolar _structPolar;
+
 
         public GameObject Prefab
         {
@@ -707,7 +710,19 @@ namespace SparringManager.Structures
             }
         }
 
-        public StructPlayerScene(GameObject prefab, bool onOff, string idPlayer, StructViveTracker viveTracker, StructMovuino[] movuino, StructPolar polar)
+        public StructGymnaseRepresentation StructGymnaseRepresentation
+        {
+            get
+            {
+                return _structGymnaseRepresentation;
+            }
+            set
+            {
+                _structGymnaseRepresentation = value;
+            }
+        }
+
+        public StructPlayerScene(GameObject prefab, bool onOff, string idPlayer, StructViveTracker viveTracker, StructMovuino[] movuino, StructPolar polar, StructGymnaseRepresentation gymnaseRepresentation)
         {
             _prefab = prefab;
             _onOff = onOff;
@@ -715,6 +730,59 @@ namespace SparringManager.Structures
             _structViveTracker = viveTracker;
             _structMovuino = movuino;
             _structPolar = polar;
+            _structGymnaseRepresentation = gymnaseRepresentation;
+        }
+    }
+
+    [System.Serializable]
+    public struct StructGymnaseRepresentation : IStructDevice
+    {
+        [SerializeField]
+        private GameObject _prefab;
+        [SerializeField]
+        private bool _onOff;
+
+        private string _id;
+
+        public GameObject Prefab
+        {
+            get
+            {
+                return _prefab;
+            }
+        }
+
+        public bool OnOff
+        {
+            get
+            {
+                return _onOff;
+            }
+            set
+            {
+                _onOff = value;
+            }
+        }
+
+        public string Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+            }
+        }
+
+
+
+        public StructGymnaseRepresentation(GameObject prefab, bool onOff, string id)
+        {
+            _prefab = prefab;
+            _onOff = onOff;
+            _id = id;
         }
     }
 

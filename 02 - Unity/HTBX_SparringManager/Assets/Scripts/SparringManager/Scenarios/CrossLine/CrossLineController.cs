@@ -29,7 +29,7 @@ namespace SparringManager.Scenarios.CrossLine
                 base.scenarioBehaviour = value;
             }
         }
-        public override object consigne { get { return Scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
+        public override float consigne { get { return Scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
         #endregion
 
         #region Methods

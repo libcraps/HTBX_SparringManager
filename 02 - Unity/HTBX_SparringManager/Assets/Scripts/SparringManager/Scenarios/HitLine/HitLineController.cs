@@ -27,7 +27,7 @@ namespace SparringManager.Scenarios.HitLine
                 base.scenarioBehaviour = value;
             }
         }
-        public override object consigne { get { return Scenario.PosToAngle(rangeSize, base.scenarioBehaviour.transform.localPosition.x); } }
+        public override float consigne { get { return Scenario.PosToAngle(rangeSize, base.scenarioBehaviour.transform.localPosition.x); } }
 
         #endregion
 
