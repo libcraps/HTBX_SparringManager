@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2721460971708688799}
   - component: {fileID: 2721460971708688793}
   - component: {fileID: 2721460971708688798}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: CirclePlayerZoneBlack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 2721460972890404691}
   - component: {fileID: 2721460972890404688}
   - component: {fileID: 2721460972890404689}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GymnaseCircleBagZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 590c28f9302cf5b4eb69f90235665934, type: 2}
+  - {fileID: 2100000, guid: 57f42309cd2497d4e9bd884f39eaffa8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

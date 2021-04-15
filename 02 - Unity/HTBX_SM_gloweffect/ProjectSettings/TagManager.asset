@@ -3,13 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - datapoint
-  - Trail
-  - target
-  - HitboxCamera
-  - Movuino
-  - Polar
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -19,13 +13,13 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
-  - Player1
-  - Player2
-  - Player3
-  - Player4
-  - IgnoreLine
   - Glow
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
