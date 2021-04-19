@@ -27,6 +27,10 @@ namespace SparringManager.Device
         private GameObject _viveTracker;
         private GameObject _scenarioPlayedController;
 
+        public GameObject movuino { get { return _movuino;  } }
+        public GameObject polar { get { return _polar;  } }
+        public GameObject viveTracker { get { return _viveTracker;  } }
+
         private string _idPlayer;
 
         public int NbMovuino { get { return _structPlayerScene.StructMovuino.Length; } }

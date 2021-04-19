@@ -7,10 +7,10 @@ namespace SparringManager.Scenarios
     /// </summary>
     public abstract class ScenarioDisplayBehaviour : MonoBehaviour
     {
-
         #region Attributs
         protected GeneriqueScenarioStruct structScenari;
         protected Scenario scenario;
+
         /// <summary>
         /// Part of the bag that is operational
         /// </summary>
@@ -26,7 +26,6 @@ namespace SparringManager.Scenarios
         /// </summary>
         public int DeltaTimeChangeMovement;
 
-        //Variable of an hitting line
         /// <summary>
         /// Boolean to indicates if the target is hitted or not
         /// </summary>

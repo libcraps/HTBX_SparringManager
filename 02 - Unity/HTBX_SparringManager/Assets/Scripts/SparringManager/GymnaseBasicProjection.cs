@@ -4,15 +4,14 @@ using SparringManager.Scenarios;
 using UnityEngine;
 
 
-/// <summary>
-/// Namespace relative to gymnase application
-/// </summary>
 namespace SparringManager.Device
 {
+
     /// <summary>
     /// Class that manage a basic projection of an Hitbox session's on the gymnase connecté
     /// </summary>
     /// <remarks>It needs one GymnaseBasicProjection per Player</remarks>
+    /// <remarks>To add another projetcion you have to create it</remarks>
     public class GymnaseBasicProjection : DeviceBehaviour
     {
         private GameObject _playerZone;
@@ -20,12 +19,13 @@ namespace SparringManager.Device
         private GameObject _bagZone;
         private GameObject _vectorConsigne;
 
-        public GameObject player { get { return playerSceneController.player;  } }
-        private GameObject bag { get { return playerSceneController.bag; } }
-        private GameObject ground { get { return playerSceneController.ground; } }
+        public GameObject player { get { return _playerSceneController.player;  } }
+        private GameObject bag { get { return _playerSceneController.bag; } }
+        private GameObject ground { get { return _playerSceneController.ground; } }
 
-        private PlayerSceneController playerSceneController;
-        private GameObject _scenarioPlayedController;
+        private PlayerSceneController _playerSceneController;
+        private SessionManager _sessionManager;
+        private ScenarioControllerBehaviour _scenarioPlayedController;
 
 
         Vector3 posPlayerCircle;
@@ -41,7 +41,7 @@ namespace SparringManager.Device
         // Start is called before the first frame update
         void Awake()
         {
-            playerSceneController = GetComponentInParent<PlayerSceneController>();
+
 
             _playerZone = this.gameObject.transform.Find("ShapeGymnaseCirclePlayerZone").gameObject;
             _vectorBagPlayer = this.gameObject.transform.Find("ShapeGymnaseVectorPlayerBag").gameObject;
@@ -49,16 +49,17 @@ namespace SparringManager.Device
             _vectorConsigne = this.gameObject.transform.Find("ShapeGymnaseVectorConsigne").gameObject;
         }
 
+        private void Start()
+        {
+            _playerSceneController = GetComponentInParent<PlayerSceneController>();
+            _sessionManager = this.gameObject.transform.parent.GetComponentInParent<SessionManager>();
+            _scenarioPlayedController = _sessionManager.scenarioPlayed.GetComponent<ScenarioControllerBehaviour>();
+        }
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (GameObject.FindObjectOfType<ScenarioControllerBehaviour>())
-            {
-                _scenarioPlayedController = GameObject.FindObjectOfType<ScenarioControllerBehaviour>().gameObject;
-                Debug.Log(_scenarioPlayedController.GetComponent<ScenarioControllerBehaviour>().consigne);
-                _vectorConsigne.transform.localEulerAngles = new Vector3(0, _scenarioPlayedController.GetComponent<ScenarioControllerBehaviour>().consigne, 0);
-
-            }
+            
+            //_vectorConsigne.transform.localEulerAngles = new Vector3(0, _scenarioPlayedController.consigne, 0);
             posPlayerCircle = new Vector3(player.transform.localPosition.x, ground.transform.localPosition.y, player.transform.localPosition.z);
             posBagCircle = new Vector3(bag.transform.localPosition.x, ground.transform.localPosition.y - 0.02f, bag.transform.localPosition.z);
             posVectorPlayer = new Vector3(bag.transform.localPosition.x, ground.transform.localPosition.y - 0.015f, bag.transform.localPosition.z);
