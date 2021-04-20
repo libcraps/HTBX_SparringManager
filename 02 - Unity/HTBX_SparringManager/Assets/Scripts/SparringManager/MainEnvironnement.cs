@@ -20,7 +20,6 @@ namespace SparringManager
         [SerializeField]
         private GameObject _prefabPlayerCamera;
 
-
         [SerializeField]
         private bool _exportInFile;
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using SparringManager.Scenarios;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace SparringManager.Device
 
         private PlayerSceneController _playerSceneController;
         private SessionManager _sessionManager;
-        private ScenarioControllerBehaviour _scenarioPlayedController;
+        private ScenarioControllerBehaviour _scenarioPlayedController { get { return _sessionManager.scenarioPlayed.GetComponent<ScenarioControllerBehaviour>();  } }
 
 
         Vector3 posPlayerCircle;
@@ -41,8 +42,6 @@ namespace SparringManager.Device
         // Start is called before the first frame update
         void Awake()
         {
-
-
             _playerZone = this.gameObject.transform.Find("ShapeGymnaseCirclePlayerZone").gameObject;
             _vectorBagPlayer = this.gameObject.transform.Find("ShapeGymnaseVectorPlayerBag").gameObject;
             _bagZone = this.gameObject.transform.Find("ShapeGymnaseCircleBagZone").gameObject;
@@ -53,13 +52,16 @@ namespace SparringManager.Device
         {
             _playerSceneController = GetComponentInParent<PlayerSceneController>();
             _sessionManager = this.gameObject.transform.parent.GetComponentInParent<SessionManager>();
-            _scenarioPlayedController = _sessionManager.scenarioPlayed.GetComponent<ScenarioControllerBehaviour>();
         }
         // Update is called once per frame
         void FixedUpdate()
         {
             
-            //_vectorConsigne.transform.localEulerAngles = new Vector3(0, _scenarioPlayedController.consigne, 0);
+            if (Convert.ToBoolean(_scenarioPlayedController.consigne))
+            {
+                _vectorConsigne.transform.localEulerAngles = new Vector3(0, _scenarioPlayedController.consigne, 0);
+            }
+
             posPlayerCircle = new Vector3(player.transform.localPosition.x, ground.transform.localPosition.y, player.transform.localPosition.z);
             posBagCircle = new Vector3(bag.transform.localPosition.x, ground.transform.localPosition.y - 0.02f, bag.transform.localPosition.z);
             posVectorPlayer = new Vector3(bag.transform.localPosition.x, ground.transform.localPosition.y - 0.015f, bag.transform.localPosition.z);

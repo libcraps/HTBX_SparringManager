@@ -17,7 +17,7 @@
   <Class Name="OSC" Collapsed="true">
     <Position X="40.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQBAAAAACABAgAJAFAAAEAgAAAAAIAAAABIAACgIEI=</HashCode>
+      <HashCode>AAQBAAAAACABAgAZAFAAgEAwAAAACKAABABIAAKgIEI=</HashCode>
       <FileName>Assets\OSC\OSC.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -262,7 +262,7 @@
   <Class Name="SparringManager.SessionManager" Collapsed="true">
     <Position X="23.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQBIAAgACAAACAAAAAAAABAAAAAAAAAEggCAAQAAAA=</HashCode>
+      <HashCode>AAQBIAAgACCAACAAAAAAAABAAAAAAAAAEggCAAQAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\SessionManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -314,7 +314,7 @@
   <Class Name="SparringManager.Device.PlayerSceneController" Collapsed="true">
     <Position X="19.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAiQAAAASAAAACQAAAAAAAAAAAAACIAEAEAA=</HashCode>
+      <HashCode>AAAQCAAAAiQAAAASBAAAAQAAEAAAAACBAAACpAAAEEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Devices\PlayerSceneController.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -353,14 +353,14 @@
   <Class Name="SparringManager.Scenarios.ScenarioDisplayBehaviour" Collapsed="true">
     <Position X="25.75" Y="8.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AQIBgAAAAiIBAGIwAAAIoQQAEAABAAAEIAAKQhAABEA=</HashCode>
+      <HashCode>AQIBgBAAAiIBAGIwAAAIoQQAEAABAAAEIAAKQhAABEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\ScenarioDisplayBehaviour.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SparringManager.Scenarios.SplHitLineBehaviour" Collapsed="true">
     <Position X="28" Y="10.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAiAIEAEQAAAAAAAgAAgAACAAIAAIAAAAAAA=</HashCode>
+      <HashCode>AUAAAABAAmAIEAAQAAAAAAAgAAgAAAAAIAAIAAAAAEA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\SplHitLine\SplHitLineBehaviour.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -462,13 +462,6 @@
       <FileName>Assets\Scripts\Serial\ImpactPointControl.cs</FileName>
     </TypeIdentifier>
   </Struct>
-  <Struct Name="SparringManager.Scenarios.GeneriqueScenarioStruct" Collapsed="true">
-    <Position X="11" Y="7.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AQAQAAAAAAAAAAAAAAAYAAABAAQAAAgIRAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\SparringManager\GeneriqueScenarioStruct.cs</FileName>
-    </TypeIdentifier>
-  </Struct>
   <Struct Name="SparringManager.Structures.StructPlayerCamera" Collapsed="true">
     <Position X="8" Y="6.25" Width="1.5" />
     <TypeIdentifier>
@@ -495,7 +488,7 @@
   <Struct Name="SparringManager.Structures.StructPlayerScene" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="4" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACCAAABACAAAAgBAgAAAAAAAAAAAEAAAAAAkAAEEAA=</HashCode>
+      <HashCode>AACCAAABACAACEgBAgAAAAAAAAAAAEAAAAAAkAAEEAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\StructPlayerCamera.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -529,13 +522,13 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
-  <Interface Name="SparringManager.Scenarios.IStructScenario" Collapsed="true">
-    <Position X="43.75" Y="8.5" Width="1.5" />
+  <Struct Name="SparringManager.Scenarios.GeneriqueScenarioStruct" Collapsed="true">
+    <Position X="11" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAQAAAAAAAAAAAAAAAYAAABAAQAAAgIRAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\GeneriqueScenarioStruct.cs</FileName>
     </TypeIdentifier>
-  </Interface>
+  </Struct>
   <Interface Name="SparringManager.Scenarios.IScenarioClass" Collapsed="true">
     <Position X="40.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
@@ -550,10 +543,17 @@
       <FileName>Assets\Scripts\SparringManager\StructPlayerCamera.cs</FileName>
     </TypeIdentifier>
   </Interface>
+  <Interface Name="SparringManager.Scenarios.IStructScenario" Collapsed="true">
+    <Position X="43.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\SparringManager\GeneriqueScenarioStruct.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Delegate Name="OscMessageHandler" Collapsed="true">
     <Position X="42" Y="9.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
       <FileName>Assets\OSC\OSC.cs</FileName>
     </TypeIdentifier>
   </Delegate>
