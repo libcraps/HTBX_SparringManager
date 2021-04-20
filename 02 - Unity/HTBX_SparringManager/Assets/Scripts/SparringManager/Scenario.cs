@@ -106,7 +106,6 @@ namespace SparringManager.Scenarios
         {
             this._structScenari = structScenari;
             this._startTimeScenario = Time.time;
-            Debug.Log(startTimeScenario);
         }
     }
 }

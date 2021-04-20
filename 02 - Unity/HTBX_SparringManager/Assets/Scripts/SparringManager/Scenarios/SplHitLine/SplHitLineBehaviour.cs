@@ -27,9 +27,9 @@ namespace SparringManager.Scenarios
         protected override void Awake()
         {
             base.Awake();
-            _barDown = GameObject.Find(this.gameObject.transform.GetChild(1).name);
-            _barUp = GameObject.Find(this.gameObject.transform.GetChild(0).name);
-           
+            _barDown = this.gameObject.transform.GetChild(1).gameObject;
+            _barUp = this.gameObject.transform.GetChild(0).gameObject;
+
         }
 
         protected override void Start()

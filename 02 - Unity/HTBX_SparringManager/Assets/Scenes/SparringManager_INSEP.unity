@@ -627,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d09bdb487b347b241b5a6970a9f55b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefabPlayerCamera: {fileID: 4022297913529616506, guid: 8ba886fddd6ea3e4eac06ef771e3d4b7,
+  _prefabPlayerPrefab: {fileID: 4022297913529616506, guid: 8ba886fddd6ea3e4eac06ef771e3d4b7,
     type: 3}
   _exportInFile: 1
   _mainStructure:

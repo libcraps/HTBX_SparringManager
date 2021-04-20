@@ -18,13 +18,13 @@ namespace SparringManager
     {
 
         [SerializeField]
-        private GameObject _prefabPlayerCamera;
+        private GameObject _prefabPlayerPrefab;
 
         [SerializeField]
         private bool _exportInFile;
 
         [SerializeField]
-        private StructPlayerCamera[] _mainStructure;
+        private StructPlayerPrefab[] _mainStructure;
         /// <summary>
         /// Bool to confirm if we want to export/save session's data in file
         /// </summary>
@@ -76,7 +76,7 @@ namespace SparringManager
 
             for (int i = 0; i< NbPlayer; i++)
             {
-                clonePlayerCamera = Instantiate(_prefabPlayerCamera, posPlayerCamera, Quaternion.identity, this.gameObject.transform); 
+                clonePlayerCamera = Instantiate(_prefabPlayerPrefab, posPlayerCamera, Quaternion.identity, this.gameObject.transform); 
                 clonePlayerCamera.GetComponent<SessionManager>().Init(_mainStructure[i].Scenarios, _mainStructure[i].operationalArea, _mainStructure[i].Name, _exportInFile);
                 clonePlayerCamera.GetComponent<DeviceManager>().Init(_mainStructure[i].StructHitBox, _mainStructure[i].StructPlayerScene, _mainStructure[i].Name, i);
                 clonePlayerCamera.GetComponent<DataController>().Init(_exportInFile, ".\\_data\\" + _mainStructure[i].Name+"\\");
