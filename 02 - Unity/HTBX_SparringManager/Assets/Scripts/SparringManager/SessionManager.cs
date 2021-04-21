@@ -6,27 +6,6 @@ using System;
 
 namespace SparringManager
 {
-    /* Class of the Session Manager
-     * 
-     *  Summary :
-     *  This class manage the session :
-     *      - it instantiates scenarios
-     *      - it deals with the DataManager
-     *  
-     *  Attributs :
-     *      //Usefull parameters of the class
-     *      string _name :  Name of the player 
-     *      StructScenarios[] _scenarios : List of StructScenarios, it contains every parameters of the session of the scenario
-     *      int _indexScenario: index of the current secnario that is playing
-     *      
-     *      //Variables for the DataManager
-     *      string _filePath : Path of the data folder, it is initialized to .\_data\
-     *      DataManager.DataManager _dataManager : DataManager component
-     *      
-     *  Methods :
-     *      void InstantiateAndBuildScenario(StructScenarios strucObject, GameObject referenceGameObject, Vector3 _pos3d, GameObject prefabObject = null)
-     */
-
     /// <summary>
     /// Class of the SessionManager, it manages the session. 
     /// <para>It manages sthe session by instantiating scenarios</para>
