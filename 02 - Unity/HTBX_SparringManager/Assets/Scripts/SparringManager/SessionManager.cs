@@ -43,19 +43,15 @@ namespace SparringManager
             _indexScenario = 0;
             EndScenario = true; //We initialise to true in order to go in the loop
         }
-        private void Update()
+
+        private void OnEnable()
         {
-            if (EndScenario == true) //(Time.time - _timeStartScenarioI) > _timerScenarioI)
-            {
-                //Deal with the instantiation of scenarios
-                if (_indexScenario < (_scenarios.Length))
-                {
-                    InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
-                    
-                    _indexScenario += 1;
-                }
-                EndScenario = false;
-            }
+            ImpactManager.onInteractPoint += LaunchScenario;
+        }
+
+        private void OnDisable()
+        {
+            ImpactManager.onInteractPoint -= LaunchScenario;
         }
         private void OnDestroy()
         {
@@ -70,13 +66,36 @@ namespace SparringManager
         /// <param name="pos3d">Position where we want to instantiate our object</param>
         private void InstantiateAndBuildScenario(GeneriqueScenarioStruct strucObject, GameObject referenceGameObject, Vector3 pos3d)
         {
-            GameObject prefabObject = strucObject.ScenarioPrefab;
-            scenarioPlayed = Instantiate(prefabObject, pos3d, Quaternion.identity, referenceGameObject.transform);
+            scenarioPlayed = Instantiate(strucObject.ScenarioPrefab, pos3d, Quaternion.identity, referenceGameObject.transform);
 
             scenarioPlayed.GetComponent<ScenarioControllerBehaviour>().Init(strucObject);
             Destroy(scenarioPlayed, strucObject.TimerScenario);
 
-            Debug.Log(prefabObject.name + " has been instantiated");
+            Debug.Log(scenarioPlayed.name + " has been instantiated");
+        }
+
+
+        /// <summary>
+        /// Method that launch a scenario when it is called
+        /// </summary>
+        /// <param name="position2d_">Position of the scenario</param>
+        public void LaunchScenario(Vector2 position2d_)
+        {
+            Vector3 pos3d_ = this.gameObject.transform.position;
+            pos3d_.x = position2d_.x;
+
+
+            if (EndScenario == true) //(Time.time - _timeStartScenarioI) > _timerScenarioI)
+            {
+                //Deal with the instantiation of scenarios
+                if (_indexScenario < (_scenarios.Length))
+                {
+                    //InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, pos3d_);   ---> TO CHOOSE <---
+                    InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
+                    _indexScenario += 1;
+                }
+                EndScenario = false;
+            }
         }
 
         /// <summary>
