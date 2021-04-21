@@ -11,7 +11,7 @@ namespace SparringManager
         private Camera _debugCamera;  // debug camera --> manager mouse click (for debug)
 
         public delegate void InteractPointEventHandler(Vector2 interactPoint);
-        public static event InteractPointEventHandler onInteractPoint;
+        public event InteractPointEventHandler onInteractPoint;
 
         private void OnEnable()
         {

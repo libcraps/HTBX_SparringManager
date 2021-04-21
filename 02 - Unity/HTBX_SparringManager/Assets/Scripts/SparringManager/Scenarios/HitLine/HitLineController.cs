@@ -34,6 +34,7 @@ namespace SparringManager.Scenarios.HitLine
         #region Methods
         //------------ METHODS -------------------
         //General Methods
+        #region Unity Methods
         protected override void Awake()
         {
             base.Awake();
@@ -55,6 +56,8 @@ namespace SparringManager.Scenarios.HitLine
         {
             base.OnDestroy();
         }
+        #endregion
+
         #endregion
 
     }

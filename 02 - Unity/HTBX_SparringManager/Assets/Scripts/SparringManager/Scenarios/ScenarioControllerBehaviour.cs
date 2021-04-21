@@ -89,6 +89,8 @@ namespace SparringManager.Scenarios
         /// </summary>
         protected GameObject renderCameraObject;
 
+        protected ImpactManager renderCameraIM;
+
         /// <summary>
         /// range of the render camera
         /// </summary>
@@ -113,7 +115,7 @@ namespace SparringManager.Scenarios
         /// <summary>
         /// hit variable, True if hitted, " " if not
         /// </summary>
-        protected object hitDataValue 
+        protected virtual object hitDataValue 
         { 
             get
             {
@@ -149,6 +151,7 @@ namespace SparringManager.Scenarios
             operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
             nbMovuino = this.gameObject.GetComponentInParent<DeviceManager>().NbMovuino;
             renderCameraObject = this.gameObject.GetComponentInParent<DeviceManager>().RenderCamera;
+            renderCameraIM = renderCameraObject.GetComponent<ImpactManager>();
             rangeSize = renderCameraObject.GetComponent<Camera>().orthographicSize;
             nbApparition += 1;
         }
@@ -188,41 +191,9 @@ namespace SparringManager.Scenarios
             scenarioBehaviour.hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
-        protected virtual void OnEnable()
-        {
-            ImpactManager.onInteractPoint += GetHit;
-        }
-        protected virtual void OnDisable()
-        {
-            ImpactManager.onInteractPoint -= GetHit;
-        }
         #endregion
 
-        #region Hitting Methods
 
-        /// <summary>
-        /// Get the hit of the player
-        /// </summary>
-        /// <param name="position2d_">Position of the hit</param>
-        protected virtual void GetHit(Vector2 position2d_)
-        {
-            RaycastHit hit;
-            Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z);
-            Vector3 rayCastDirection = new Vector3(0, 0, 1);
-
-            bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
-
-            if (rayOnTarget && scenarioBehaviour.TimeToHit && scenarioBehaviour.hitted == false)
-            {
-                reactTime = tTime - scenarioBehaviour._timeBeforeHit;
-
-                scenarioBehaviour.onHit();
-
-                Debug.Log("Line touched : " + position2d_);
-                Debug.Log("React time : " + reactTime);
-            }
-        }
-        #endregion
 
         /// <summary>
         /// Initialize parameters of the scenario.

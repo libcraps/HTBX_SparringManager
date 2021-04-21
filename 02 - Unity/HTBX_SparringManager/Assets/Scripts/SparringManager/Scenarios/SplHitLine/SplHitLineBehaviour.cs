@@ -16,7 +16,6 @@ namespace SparringManager.Scenarios
         private float _scaleSpeed = 2;
 
         //Specific variables of SplHitLine
-        private GameObject _lineToHit;
         private int _scaleSide; //-1 ou 1
         // -> other usefull variables
         private Vector3 _initScale;
@@ -35,7 +34,7 @@ namespace SparringManager.Scenarios
         protected override void Start()
         {
             base.Start();
-            SetLineToHit();
+            SetObjectToHit();
         }
 
         protected override void FixedUpdate()
@@ -46,12 +45,12 @@ namespace SparringManager.Scenarios
             MoveObject(fixPosHitValue * objectVelocity);
 
 
-            if (_lineToHit == null || _lineToHit.GetComponent<TargetMovingBar>().activated == false)
+            if (_objectToHit == null || _objectToHit.GetComponent<TargetMovingBar>().activated == false)
             {
-                SetLineToHit();
+                SetObjectToHit();
             }
 
-            SetHit(_lineToHit);
+            SetHit(_objectToHit);
         }
 
         /// <summary>
@@ -88,7 +87,7 @@ namespace SparringManager.Scenarios
         /// <summary>
         /// Methode that defines which part of the line the player will have to hit and in which direction it will scale
         /// </summary>
-        private void SetLineToHit()
+        protected override void SetObjectToHit()
         {
             int randomLine = Random.Range(0, 2);
             int randomScaleSide = Random.Range(0, 2);
@@ -97,11 +96,11 @@ namespace SparringManager.Scenarios
 
             if (randomLine == 0)
             {
-                _lineToHit = _barUp;
+                _objectToHit = _barUp;
             }
             else
             {
-                _lineToHit = _barDown;
+                _objectToHit = _barDown;
             }
 
             if (randomScaleSide == 0)
@@ -113,9 +112,9 @@ namespace SparringManager.Scenarios
                 scaleSide = 1;
             }
 
-            _lineToHit.GetComponent<TargetMovingBar>().activated = true;
-            _lineToHit.GetComponent<TargetMovingBar>().scaleSide = scaleSide;
-            _lineToHit.transform.localScale *= scaleSide;
+            _objectToHit.GetComponent<TargetMovingBar>().activated = true;
+            _objectToHit.GetComponent<TargetMovingBar>().scaleSide = scaleSide;
+            _objectToHit.transform.localScale *= scaleSide;
         }
 
         public override void HitManager()

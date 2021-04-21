@@ -16,6 +16,15 @@ namespace SparringManager.Scenarios
         /// </summary>
         protected int operationalArea;
 
+        protected GameObject _objectToHit;
+        public GameObject objectToHit
+        {
+            get
+            {
+                return _objectToHit;
+            }
+        }
+
         /// <summary>
         /// Velocity of this object
         /// </summary>
@@ -37,6 +46,8 @@ namespace SparringManager.Scenarios
         public float _timeBeforeHit;
 
         public int _deltaHit = 2;
+
+        float reactTime;
 
         /// <summary>
         /// Boolean to indicate if the line continue to move when the hit is setted 
@@ -69,7 +80,7 @@ namespace SparringManager.Scenarios
         public float rangeSize;
 
         /// <summary>
-        /// RenderCamera of the PlayerScene of this object
+        /// RenderCamera of the PlayerPrefab of this object
         /// </summary>
         public GameObject renderCamera;
         #endregion
@@ -94,7 +105,6 @@ namespace SparringManager.Scenarios
             _timeBeforeHit = tTime + 1/(1+scenario.rythme)*100;
 
             hittedChangement = false;
-            onHitEvent = HitManager;
         }
 
         protected virtual void Start()
@@ -107,6 +117,16 @@ namespace SparringManager.Scenarios
             tTime = Time.time - startTimeScenario;
             ObjectInCameraRange();
             hitted = false;
+        }
+
+        private void OnEnable()
+        {
+            renderCamera.GetComponent<ImpactManager>().onInteractPoint += GetHit;
+        }
+
+        private void OnDisable()
+        {
+            renderCamera.GetComponent<ImpactManager>().onInteractPoint -= GetHit;
         }
 
         protected virtual void OnDestroy()
@@ -225,8 +245,11 @@ namespace SparringManager.Scenarios
         }
 
         #region Hitting Methods
-        public delegate void HitEventHandler();
-        public event HitEventHandler onHitEvent;
+
+        protected virtual void SetObjectToHit()
+        {
+
+        }
 
         /// <summary>
         /// Manage the display of an hitting moment
@@ -245,6 +268,32 @@ namespace SparringManager.Scenarios
 
 
         }
+
+        #region Hitting Methods
+
+        /// <summary>
+        /// Get the hit of the player
+        /// </summary>
+        /// <param name="position2d_">Position of the hit</param>
+        protected virtual void GetHit(Vector2 position2d_)
+        {
+            RaycastHit hit;
+            Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z);
+            Vector3 rayCastDirection = new Vector3(0, 0, 1);
+
+            bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
+
+            if (rayOnTarget && TimeToHit && hitted == false && hit.collider.gameObject == objectToHit)
+            {
+                reactTime = tTime - _timeBeforeHit;
+
+                HitManager();
+
+                Debug.Log("Line touched : " + position2d_);
+                Debug.Log("React time : " + reactTime);
+            }
+        }
+        #endregion
 
         /// <summary>
         /// Show the hit on the displayObject
@@ -273,15 +322,6 @@ namespace SparringManager.Scenarios
         {
             hitted = true;
             _timeBeforeHit = tTime + 1 / (1 + scenario.rythme) * 100;
-        }
-
-        /// <summary>
-        /// Notify the event onHitEvent
-        /// </summary>
-        public virtual void onHit()
-        {
-            if (onHitEvent != null)
-                onHitEvent();
         }
         #endregion
         #endregion

@@ -13,11 +13,22 @@ namespace SparringManager.Scenarios.HitLine
     public class HitLineBehaviour : ScenarioDisplayBehaviour
     {
 
+        protected override void Awake()
+        {
+            base.Awake();
+            SetObjectToHit();
+        }
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
             MoveObject(fixPosHitValue * objectVelocity);
             SetHit(this.gameObject);
+        }
+
+
+        protected override void SetObjectToHit()
+        {
+            _objectToHit = this.gameObject;
         }
 
     }

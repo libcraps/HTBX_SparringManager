@@ -82,6 +82,7 @@ namespace SparringManager
             {
                 _renderCamera = InstantiatePrefab(_structHitBox.Prefab, _posRenderCamera);
                 _renderCamera.GetComponent<SerialControllerCameraHitBox>().InitSerialController(_structHitBox.SerialSettings, SerialControllerCameraHitBox.i);
+                _renderCamera.GetComponent<ImpactManager>().onInteractPoint += GetComponent<SessionManager>().LaunchScenario; //Launch scenario when Hit
             }
 
             if (_structPlayerScene.OnOff == true)

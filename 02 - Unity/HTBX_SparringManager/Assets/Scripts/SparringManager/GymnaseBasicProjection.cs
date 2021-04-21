@@ -66,9 +66,32 @@ namespace SparringManager.Device
             }
         }
 
+        float bpm
+        {
+            get
+            {
+                if (Convert.ToBoolean(_playerSceneController.polar))
+                {
+                    return _playerSceneController.polar.GetComponent<Polar>().oscData.bpm;
+                } 
+                else
+                {
+                    return 0f;
+                }
+            }
+        }
+        public float _bpm;
+        void makeBeat()
+        {
+            float bpmRythme;
+
+            bpmRythme = (bpm / 60)/Time.deltaTime ;//bp-second
+        }
+
         // Start is called before the first frame update
         void Awake()
         {
+            _bpm = 1;
             _playerZone = this.gameObject.transform.Find("ShapeGymnaseCirclePlayerZone").gameObject;
             _vectorBagPlayer = this.gameObject.transform.Find("ShapeGymnaseVectorPlayerBag").gameObject;
             _bagZone = this.gameObject.transform.Find("ShapeGymnaseCircleBagZone").gameObject;
@@ -83,6 +106,7 @@ namespace SparringManager.Device
         // Update is called once per frame
         void FixedUpdate()
         {
+            makeBeat();
             posPlayerCircle = new Vector3(player.transform.localPosition.x, ground.transform.localPosition.y, player.transform.localPosition.z);
             posBagCircle = new Vector3(bag.transform.localPosition.x, ground.transform.localPosition.y - 0.02f, bag.transform.localPosition.z);
             posVectorPlayer = new Vector3(bag.transform.localPosition.x, ground.transform.localPosition.y - 0.015f, bag.transform.localPosition.z);
@@ -101,8 +125,7 @@ namespace SparringManager.Device
             _bagZone.transform.localScale = new Vector3(radius, _bagZone.transform.localScale.y, radius);
             _vectorBagPlayer.transform.localScale = new Vector3(radius + 0.1f, _vectorBagPlayer.transform.localScale.y, _vectorBagPlayer.transform.localScale.z);
             _vectorConsigne.transform.localScale = new Vector3(radius + 0.1f, _vectorConsigne.transform.localScale.y, _vectorConsigne.transform.localScale.z);
-
-
+          
             _vectorConsigne.transform.localEulerAngles = new Vector3(0, consignePlayedScenario, 0);
             _vectorBagPlayer.transform.localEulerAngles = new Vector3(0, Vector3.SignedAngle(_bagDirNormalized, -bag.transform.right, -bag.transform.forward), 0);
         }

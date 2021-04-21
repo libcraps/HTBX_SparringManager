@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4022297913529616505}
   - component: {fileID: 2354126363246166998}
   m_Layer: 0
-  m_Name: PlayerCamera
+  m_Name: PlayerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,74 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03e67d0bcb8145b4197cc57013327b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scenarios:
-  - _scenarioPrefab: {fileID: 4281324017865965865, guid: 81bcf515e42e28b499dc2c872ec52c77,
-      type: 3}
-    _timerScenario: 5
-    _simpleLineStruct:
-      _accelerationMax: 18
-      _deltaTimeMax: 5
-      _deltaTimeMin: 3
-    _hitLineStruct:
-      _hitPrefab: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
-      _fixPosHit: 0
-    _crossLineStruct:
-      _hitPrefab: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
-      _fixPosHit: 0
-    _splHitLineStruct:
-      _hitPrefab: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
-      _scaleMaxValue: 0
-      _scaleSpeed: 0
-      _fixPosHit: 0
-  - _scenarioPrefab: {fileID: 4281324017865965865, guid: 30bee1edd9312e54da96df824042ceec,
-      type: 3}
-    _timerScenario: 5
-    _simpleLineStruct:
-      _accelerationMax: 18
-      _deltaTimeMax: 5
-      _deltaTimeMin: 3
-    _hitLineStruct:
-      _hitPrefab: {fileID: 7726583474970102550, guid: 4794520515d32ec4c82475371822dcaa,
-        type: 3}
-      _accelerationMax: 20
-      _deltaTimeMax: 3
-      _deltaTimeMin: 1
-      _deltaHit: 2
-      _timeBeforeHit: 3
-      _fixPosHit: 1
-    _crossLineStruct:
-      _hitPrefab: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
-      _fixPosHit: 0
-    _splHitLineStruct:
-      _hitPrefab: {fileID: 0}
-      _accelerationMax: 0
-      _deltaTimeMax: 0
-      _deltaTimeMin: 0
-      _deltaHit: 0
-      _timeBeforeHit: 0
-      _scaleMaxValue: 0
-      _scaleSpeed: 0
-      _fixPosHit: 0
+  scenarioPlayed: {fileID: 0}
+  renderCameraIM: {fileID: 0}
 --- !u!114 &4022297913529616505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,16 +73,25 @@ MonoBehaviour:
   _structPlayerScene:
     _prefab: {fileID: 0}
     _onOff: 0
+    _idPlayer: 
+    _structGymnaseRepresentation:
+      _prefab: {fileID: 0}
+      _onOff: 0
     _structViveTracker:
       _prefab: {fileID: 0}
       _onOff: 0
+      indexBag: 0
+      indexPlayer: 0
     _structMovuino:
-      _prefab: {fileID: 0}
+    - _prefab: {fileID: 0}
       _onOff: 0
+      _id: 
+    - _prefab: {fileID: 0}
+      _onOff: 0
+      _id: 
     _structPolar:
       _prefab: {fileID: 0}
       _onOff: 0
-  _indexSac: 0
 --- !u!114 &2354126363246166998
 MonoBehaviour:
   m_ObjectHideFlags: 0

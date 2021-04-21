@@ -23,6 +23,7 @@ namespace SparringManager
 
         //Variables for the DataManager
         private DataController _dataManager;
+        private DeviceManager _deviceManager;
 
         //Properties
         public int NbScenarios { get { return _scenarios.Length; } }
@@ -30,33 +31,25 @@ namespace SparringManager
 
         public GameObject scenarioPlayed;
 
+        public ImpactManager renderCameraIM;
+
         #endregion
         #region Methods
         //----------------------    METHODS    -------------------------------
         // ---> General Methods
+        private void Awake()
+        {
+            _dataManager = GetComponent<DataController>();
+            _deviceManager = GetComponent<DeviceManager>();
+        }
         void Start()
         {
             //DATA MANAGER
-            _dataManager = GetComponent<DataController>(); 
             _dataManager.InitGeneralSectionSumUp(_name, _dataManager.FilePath, NbScenarios); //DataController completed
-
             _indexScenario = 0;
             EndScenario = true; //We initialise to true in order to go in the loop
         }
 
-        private void OnEnable()
-        {
-            ImpactManager.onInteractPoint += LaunchScenario;
-        }
-
-        private void OnDisable()
-        {
-            ImpactManager.onInteractPoint -= LaunchScenario;
-        }
-        private void OnDestroy()
-        {
-
-        }
         /// <summary>
         /// Method that instantaiates scenarios
         /// </summary>

@@ -20,6 +20,7 @@ namespace SparringManager.Scenarios.CrossLine
 
             VertLineObject = GameObject.Find(this.gameObject.transform.GetChild(0).name);
             HorizLineObject = GameObject.Find(this.gameObject.transform.GetChild(1).name);
+            SetObjectToHit();
         }
 
         protected override void Start()
@@ -50,6 +51,11 @@ namespace SparringManager.Scenarios.CrossLine
                 UndisplayHit(VertLineObject);
                 UndisplayHit(HorizLineObject);
             }
+        }
+
+        protected override void SetObjectToHit()
+        {
+            _objectToHit = this.gameObject;
         }
 
     }
