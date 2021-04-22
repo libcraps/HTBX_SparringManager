@@ -282,7 +282,6 @@ namespace SparringManager.Scenarios
             Vector3 rayCastDirection = new Vector3(0, 0, 1);
 
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
-
             if (rayOnTarget && TimeToHit && hitted == false && hit.collider.gameObject == objectToHit)
             {
                 reactTime = tTime - _timeBeforeHit;

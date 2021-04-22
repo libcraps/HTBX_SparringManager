@@ -25,6 +25,7 @@ namespace SparringManager
 
         [SerializeField]
         private StructPlayerPrefab[] _mainStructure;
+
         /// <summary>
         /// Bool to confirm if we want to export/save session's data in file
         /// </summary>
@@ -58,7 +59,7 @@ namespace SparringManager
 
         //----------------------    Methods    --------------------------
         /// <summary>
-        /// Instantiates PlayerCameras
+        /// Instantiates PlayerPrefabs
         /// </summary>
         void Awake()
         {

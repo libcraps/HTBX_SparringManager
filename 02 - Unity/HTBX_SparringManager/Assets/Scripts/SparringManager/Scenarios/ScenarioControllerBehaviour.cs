@@ -34,7 +34,6 @@ namespace SparringManager.Scenarios
                 _prefabScenarioComposant = value;
             }
         }
-        //Scenario
         /// <summary>
         /// Scenario Object
         /// </summary>
@@ -51,7 +50,6 @@ namespace SparringManager.Scenarios
         /// number of apparition of the scenario
         /// </summary>
         protected static int nbApparition;
-        //Data
 
         /// <summary>
         /// Stock all the data of the scenario (movuinos, consigne, player mouvement, hit...etc) cf doc of DataSessionPlayerq
@@ -63,7 +61,6 @@ namespace SparringManager.Scenarios
         /// </summary>
         protected DataController dataManagerComponent;
 
-        //Devices
         /// <summary>
         /// Movuinos present in the scene for the scenario
         /// </summary>
@@ -96,7 +93,6 @@ namespace SparringManager.Scenarios
         /// </summary>
         protected float rangeSize;
 
-        //time
         /// <summary>
         /// time variable where we stock the previous time
         /// </summary>
@@ -139,7 +135,6 @@ namespace SparringManager.Scenarios
         public float RangeSize { get { return rangeSize; } }
         public GameObject RenderCameraObject { get { return renderCameraObject; } }
         #endregion
-
         #region Methods
 
         #region Unity implemented Methods
