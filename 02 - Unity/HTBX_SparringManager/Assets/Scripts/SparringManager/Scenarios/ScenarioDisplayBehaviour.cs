@@ -122,11 +122,13 @@ namespace SparringManager.Scenarios
         private void OnEnable()
         {
             ImpactManager.onInteractPoint += GetHit;
+            onHitEvent += HitManager;
         }
 
         private void OnDisable()
         {
             ImpactManager.onInteractPoint -= GetHit;
+            onHitEvent += HitManager;
         }
 
         protected virtual void OnDestroy()
@@ -271,6 +273,8 @@ namespace SparringManager.Scenarios
 
         #region Hitting Methods
 
+        public delegate void OnHitEvent();
+        public event OnHitEvent onHitEvent;
         /// <summary>
         /// Get the hit of the player
         /// </summary>
@@ -287,7 +291,7 @@ namespace SparringManager.Scenarios
             {
                 reactTime = tTime - _timeBeforeHit;
                 Debug.Log("OOOOOKKKKK");
-                HitManager();
+                OnHit();
 
                 Debug.Log("Line touched : " + position2d_);
                 Debug.Log("React time : " + reactTime);
@@ -313,6 +317,12 @@ namespace SparringManager.Scenarios
         protected virtual void UndisplayHit(GameObject DisplayObject)
         {
             DisplayObject.GetComponent<MeshRenderer>().material.color = Color.white;
+        }
+
+        public void OnHit()
+        {
+            if (onHitEvent != null)
+                onHitEvent();
         }
 
         /// <summary>

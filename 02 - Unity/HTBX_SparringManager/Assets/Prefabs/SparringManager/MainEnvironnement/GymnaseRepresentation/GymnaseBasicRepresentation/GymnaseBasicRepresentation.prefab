@@ -79,6 +79,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acba8825423408947af85b6dd0da5921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitMaterial: {fileID: 2100000, guid: 6aa6c58baac623a4d8367bb564a0b2aa, type: 2}
+  normalMaterial: {fileID: 2100000, guid: 57f42309cd2497d4e9bd884f39eaffa8, type: 2}
+  _bpm: 0
 --- !u!1 &667982194357475526
 GameObject:
   m_ObjectHideFlags: 0

@@ -42,6 +42,11 @@ namespace SparringManager.Scenarios
         public Scenario Scenario { get { return scenario;  } }
 
         protected ScenarioDisplayBehaviour scenarioBehaviour;
+
+        public ScenarioDisplayBehaviour scenarioBehavior
+        {
+            get { return scenarioBehaviour; }
+        }
         /// <summary>
         /// Arc where the hitbox is operational (from the center to +/- operationalArc/2)
         /// </summary>
