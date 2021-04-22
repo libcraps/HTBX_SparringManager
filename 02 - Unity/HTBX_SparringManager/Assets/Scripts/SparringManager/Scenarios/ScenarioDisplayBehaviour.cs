@@ -121,12 +121,12 @@ namespace SparringManager.Scenarios
 
         private void OnEnable()
         {
-            renderCamera.GetComponent<ImpactManager>().onInteractPoint += GetHit;
+            ImpactManager.onInteractPoint += GetHit;
         }
 
         private void OnDisable()
         {
-            renderCamera.GetComponent<ImpactManager>().onInteractPoint -= GetHit;
+            ImpactManager.onInteractPoint -= GetHit;
         }
 
         protected virtual void OnDestroy()
@@ -278,14 +278,15 @@ namespace SparringManager.Scenarios
         protected virtual void GetHit(Vector2 position2d_)
         {
             RaycastHit hit;
-            Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z);
+            Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, renderCamera.transform.position.z - 10);
             Vector3 rayCastDirection = new Vector3(0, 0, 1);
 
-            bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 250);
+            bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 1000);
+
             if (rayOnTarget && TimeToHit && hitted == false && hit.collider.gameObject == objectToHit)
             {
                 reactTime = tTime - _timeBeforeHit;
-
+                Debug.Log("OOOOOKKKKK");
                 HitManager();
 
                 Debug.Log("Line touched : " + position2d_);

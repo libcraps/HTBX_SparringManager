@@ -50,6 +50,16 @@ namespace SparringManager
             EndScenario = true; //We initialise to true in order to go in the loop
         }
 
+        private void OnEnable()
+        {
+            ImpactManager.onInteractPoint += LaunchScenario; //Launch scenario when Hit
+        }
+
+        private void OnDisable()
+        {
+            ImpactManager.onInteractPoint -= LaunchScenario; //Launch scenario when Hit
+        }
+
         /// <summary>
         /// Method that instantaiates scenarios
         /// </summary>
