@@ -161,7 +161,6 @@ namespace SparringManager.Device
 
                 Debug.Log("2");
                 bagMesh.material = hitMaterial;
-                _bagZone.transform.localScale *= 0.5f;
                 
                 yield return null;
             }
