@@ -12,7 +12,6 @@ using UnityEngine;
 /// </summary>
 namespace SparringManager.Data
 {
-
     /// <summary>
     /// MonoBehaviour class, it represent the DataManager, it is associated to each PlayerCameraObject in the HitBox project.
     /// </summary>

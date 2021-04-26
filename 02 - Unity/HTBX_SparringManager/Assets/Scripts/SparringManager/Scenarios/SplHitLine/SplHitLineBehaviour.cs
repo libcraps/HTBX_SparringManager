@@ -48,7 +48,7 @@ namespace SparringManager.Scenarios
                 SetObjectToHit();
             }
 
-            SetHit(_objectToHit);
+            HitManager(_objectToHit);
         }
 
         /// <summary>
@@ -115,10 +115,9 @@ namespace SparringManager.Scenarios
             _objectToHit.transform.localScale *= scaleSide;
         }
 
-        public override void HitManager()
+        public override void TargetTouched()
         {
-            base.HitManager();
-            //SetLineToHit();
+            base.TargetTouched();
         }
 
 

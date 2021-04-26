@@ -31,10 +31,10 @@ namespace SparringManager.Scenarios.SimpleHit
         {
             Vector3 pos3d_ = new Vector3(position2d_.x, position2d_.y, this.gameObject.transform.position.z + 20f);
             Instantiate(prefabObject, pos3d_, Quaternion.identity, this.gameObject.transform);
-            HitManager();
+            TargetTouched();
         }
 
-        public override void HitManager()
+        public override void TargetTouched()
         {
             hitted = true;
         }

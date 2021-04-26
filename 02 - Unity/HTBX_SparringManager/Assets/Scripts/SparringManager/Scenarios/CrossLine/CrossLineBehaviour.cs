@@ -32,24 +32,30 @@ namespace SparringManager.Scenarios.CrossLine
         {
             base.FixedUpdate();
             MoveObject(fixPosHitValue * objectVelocity);
-            SetHit(null);
+            HitManager(null);
         }
 
         /// <summary>
         /// Display when the player has to hit the object
         /// </summary>
-        protected override void SetHit(GameObject lineObject)
+        protected override void HitManager(GameObject lineObject)
         {
 
             if (TimeToHit && hitted == false)
             {
-                DisplayHit(VertLineObject);
-                DisplayHit(HorizLineObject);
+                SetHit(VertLineObject);
+                SetHit(HorizLineObject);
+            }
+            else if (tTime >= timeBeforeHit && hitted == false)
+            {
+                UnsetHit(VertLineObject);
+                UnsetHit(HorizLineObject);
+                MissedTarget();
             }
             else
             {
-                UndisplayHit(VertLineObject);
-                UndisplayHit(HorizLineObject);
+                UnsetHit(VertLineObject);
+                UnsetHit(HorizLineObject);
             }
         }
 

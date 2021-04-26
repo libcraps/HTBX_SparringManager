@@ -119,17 +119,7 @@ namespace SparringManager.Scenarios
             hitted = false;
         }
 
-        private void OnEnable()
-        {
-            ImpactManager.onInteractPoint += GetHit;
-            onHitEvent += HitManager;
-        }
 
-        private void OnDisable()
-        {
-            ImpactManager.onInteractPoint -= GetHit;
-            onHitEvent += HitManager;
-        }
 
         protected virtual void OnDestroy()
         {
@@ -248,6 +238,70 @@ namespace SparringManager.Scenarios
 
         #region Hitting Methods
 
+        private void OnEnable()
+        {
+            ImpactManager.onInteractPoint += GetHit;
+            targetHittedEvent += TargetTouched;
+            setHitEvent += DisplayHit;
+            unsetHitEvent += UndisplayHit;
+        }
+
+        private void OnDisable()
+        {
+            ImpactManager.onInteractPoint -= GetHit;
+            targetHittedEvent -= TargetTouched;
+            setHitEvent -= DisplayHit;
+            unsetHitEvent -= UndisplayHit;
+        }
+
+        public delegate void TargetHittedEvent();
+        /// <summary>
+        /// Event notified when the target is hitted
+        /// </summary>
+        public event TargetHittedEvent targetHittedEvent;
+
+        public delegate void UnsetHitEvent(GameObject DisplayObject);
+        /// <summary>
+        /// Event notified when the Hit has to be removed
+        /// </summary>
+        public event UnsetHitEvent unsetHitEvent;
+
+        public delegate void SetHitEvent(GameObject DisplayObject);
+        /// <summary>
+        /// Event notified when the Hit has to be setted
+        /// </summary>
+        public event SetHitEvent setHitEvent;
+
+        public delegate void TargetMissedEvent();
+        /// <summary>
+        /// EVent notified when the target isn't hit on time
+        /// </summary>
+        public event TargetMissedEvent missedTargetEvent;
+
+        public void SetHit(GameObject DisplayObject)
+        {
+            if (setHitEvent != null)
+                setHitEvent(DisplayObject);
+        }
+
+        public void TargetHitted()
+        {
+            if (targetHittedEvent != null)
+                targetHittedEvent();
+        }
+
+        public void UnsetHit(GameObject DisplayObject)
+        {
+            if (unsetHitEvent != null)
+                unsetHitEvent(DisplayObject);
+        }
+
+        public void MissedTarget()
+        {
+            if (missedTargetEvent != null)
+                missedTargetEvent();
+        }
+
         protected virtual void SetObjectToHit()
         {
 
@@ -257,28 +311,22 @@ namespace SparringManager.Scenarios
         /// Manage the display of an hitting moment
         /// </summary>
         /// <param name="DisplayObject">Object that show/Unshow the hit</param>
-        protected virtual void SetHit(GameObject DisplayObject)
+        protected virtual void HitManager(GameObject DisplayObject)
         {
             if (TimeToHit && hitted == false)
             {
-                DisplayHit(DisplayObject);
+                SetHit(DisplayObject);
             }
-            else if (tTime >= timeBeforeHit && !false)
+            else if (tTime >= timeBeforeHit && hitted == false)
             {
-                timeBeforeHit = tTime + 1 / (1 + scenario.rythme) * 100;
+                UnsetHit(DisplayObject);
+                MissedTarget();
             }
             else
             {
-                UndisplayHit(DisplayObject);
+                UnsetHit(DisplayObject);
             }
-
-
         }
-
-        #region Hitting Methods
-
-        public delegate void OnHitEvent();
-        public event OnHitEvent onHitEvent;
 
         /// <summary>
         /// Get the hit of the player
@@ -295,13 +343,12 @@ namespace SparringManager.Scenarios
             if (rayOnTarget && TimeToHit && hitted == false && hit.collider.gameObject == objectToHit)
             {
                 reactTime = tTime - timeBeforeHit;
-                OnHit();
+                TargetHitted();
 
                 Debug.Log("Line touched : " + position2d_);
                 Debug.Log("React time : " + reactTime);
             }
         }
-        #endregion
 
         /// <summary>
         /// Show the hit on the displayObject
@@ -323,18 +370,17 @@ namespace SparringManager.Scenarios
             DisplayObject.GetComponent<MeshRenderer>().material.color = Color.white;
         }
 
-        public void OnHit()
-        {
-            if (onHitEvent != null)
-                onHitEvent();
-        }
-
         /// <summary>
         /// Manage actions when an hit i recieved
         /// </summary>
-        public virtual void HitManager()
+        public virtual void TargetTouched()
         {
             hitted = true;
+            timeBeforeHit = tTime + 1 / (1 + scenario.rythme) * 100;
+        }
+
+        public virtual void TargetMissed()
+        {
             timeBeforeHit = tTime + 1 / (1 + scenario.rythme) * 100;
         }
         #endregion

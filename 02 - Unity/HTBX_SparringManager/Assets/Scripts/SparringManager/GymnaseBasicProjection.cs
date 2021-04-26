@@ -19,6 +19,10 @@ namespace SparringManager.Device
         private Material glowRedMaterial;
         [SerializeField]
         private Material glowWhiteMaterial;
+        [SerializeField]
+        private Material glowBlueMaterial;
+        [SerializeField]
+        private Material glowGreenMaterial;
 
         private GameObject _playerZone;
         private GameObject _vectorBagPlayer;
@@ -114,12 +118,18 @@ namespace SparringManager.Device
             if (Convert.ToBoolean(_scenarioPlayedController) && _isScenarioRunning == false)
             {
                 _isScenarioRunning = true;
-                _scenarioPlayedController.scenarioBehavior.onHitEvent += DisplayHit;
+                _scenarioPlayedController.scenarioBehavior.setHitEvent += DisplayTarget;
+                _scenarioPlayedController.scenarioBehavior.missedTargetEvent += DisplayTargetMissed;
+                _scenarioPlayedController.scenarioBehavior.unsetHitEvent += UndisplayTarget;
+                _scenarioPlayedController.scenarioBehavior.targetHittedEvent += DisplayTargetHitted;
             }
             else if (!Convert.ToBoolean(_scenarioPlayedController) && _isScenarioRunning == true)
             {
                 _isScenarioRunning = false;
-                _scenarioPlayedController.scenarioBehavior.onHitEvent -= DisplayHit;
+                _scenarioPlayedController.scenarioBehavior.targetHittedEvent -= DisplayTargetHitted;
+                _scenarioPlayedController.scenarioBehavior.missedTargetEvent -= DisplayTargetMissed;
+                _scenarioPlayedController.scenarioBehavior.setHitEvent -= DisplayTarget;
+                _scenarioPlayedController.scenarioBehavior.unsetHitEvent -= UndisplayTarget;
             }
 
             //makeBeat();
@@ -159,13 +169,25 @@ namespace SparringManager.Device
 
             for (int i = 0; i < 10; i++)
             {
+                bagMesh.material = glowGreenMaterial;
+                yield return null;
+            }
+            bagMesh.material = glowWhiteMaterial;
+        }
+
+        IEnumerator displayTargetMissedHit()
+        {
+            MeshRenderer bagMesh = _bagZone.transform.Find("ExteriorCircle").gameObject.GetComponent<MeshRenderer>();
+
+            for (int i = 0; i < 15; i++)
+            {
                 bagMesh.material = glowRedMaterial;
                 yield return null;
             }
             bagMesh.material = glowWhiteMaterial;
         }
 
-        void DisplayHit()
+        void DisplayTargetHitted()
         {
             if (currentCoroutine != null)
             {
@@ -175,6 +197,29 @@ namespace SparringManager.Device
             StartCoroutine(currentCoroutine);
         }
 
+        void DisplayTargetMissed()
+        {
+            if (currentCoroutine != null)
+            {
+                StopCoroutine(currentCoroutine);
+            }
+            currentCoroutine = displayTargetMissedHit();
+            StartCoroutine(currentCoroutine);
+        }
+
+        void DisplayTarget(GameObject display)
+        {
+            MeshRenderer vectMesh = _vectorConsigne.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+            vectMesh.material = glowRedMaterial;
+        }
+
+        void UndisplayTarget(GameObject display)
+        {
+            MeshRenderer vectMesh = _vectorConsigne.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+            vectMesh.material = glowBlueMaterial;
+        }
+
     }
+
 
 }

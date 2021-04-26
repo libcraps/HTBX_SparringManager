@@ -5,21 +5,6 @@ using UnityEngine;
 
 namespace SparringManager.Scenarios
 {
-    /*
-     * Class that allows us tu control scenarios
-     * Mother class : Scenario<StructScenario>
-     * 
-     * Test interface : IScenarioClass
-     * 
-     * Scenario created by inheretent of Scenario<StructScenario>:
-     *      ScenarioCrossLine : Scenario<CrossLineStruct>
-     *      ScenarioHitLine : Scenario<HitLineStruct>
-     *      ScenarioSimpleLine : Scenario<SimpleLineStruct>
-     *      ScenarioSplHitLine : Scenario<SplHitLineStruct>
-     *      ScenarioSimpleHit : Scenario<SimpleHitStruct>
-     */
-
-
     /// <summary>
     /// Interface test for scenarios
     /// </summary>

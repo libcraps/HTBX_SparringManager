@@ -221,10 +221,6 @@ namespace SparringManager.Scenarios
         /// </summary>
         protected virtual void GetDevices()
         {
-            /*
-             * Search other devices in the scene
-             */
-
             //movuino
             movuino = new Movuino[nbMovuino];
             for (int i = 0; i < nbMovuino; i++)
@@ -246,10 +242,6 @@ namespace SparringManager.Scenarios
         /// </summary>
         protected virtual void StockData()
         {
-            /*
-             * Stock Data in the DataSessionPlayer
-             */
-
             dataSessionPlayer.DataSessionScenario.StockData(tTime, consigne);
             dataSessionPlayer.DataSessionViveTracker.StockData(tTime, viveTrackerManager.angle);
             dataSessionPlayer.DataSessionHit.StockData(tTime, hitDataValue);
@@ -260,9 +252,6 @@ namespace SparringManager.Scenarios
                 dataSessionPlayer.DataSessionMovuinoXMM[i].StockData(tTime, movuino[i].MovuinoXMM.gestId, movuino[i].MovuinoXMM.gestProg);
             }
         }
-
-
-
         #endregion
 
     }

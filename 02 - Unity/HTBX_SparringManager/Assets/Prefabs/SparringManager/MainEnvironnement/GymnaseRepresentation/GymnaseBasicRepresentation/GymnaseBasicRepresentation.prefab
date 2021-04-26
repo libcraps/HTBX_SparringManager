@@ -81,6 +81,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glowRedMaterial: {fileID: 2100000, guid: 6aa6c58baac623a4d8367bb564a0b2aa, type: 2}
   glowWhiteMaterial: {fileID: 2100000, guid: 57f42309cd2497d4e9bd884f39eaffa8, type: 2}
+  glowBlueMaterial: {fileID: 2100000, guid: 40fcf55c4ad654341aec94e0212bad79, type: 2}
+  glowGreenMaterial: {fileID: 2100000, guid: a5dfa17b8c0ce19479a48c12b185dfff, type: 2}
   _bpm: 0
 --- !u!1 &667982194357475526
 GameObject:

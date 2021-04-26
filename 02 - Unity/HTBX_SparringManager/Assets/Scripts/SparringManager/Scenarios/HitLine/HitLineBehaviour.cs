@@ -22,7 +22,7 @@ namespace SparringManager.Scenarios.HitLine
         {
             base.FixedUpdate();
             MoveObject(fixPosHitValue * objectVelocity);
-            SetHit(this.gameObject);
+            HitManager(this.gameObject);
         }
 
 
