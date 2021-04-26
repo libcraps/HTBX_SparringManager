@@ -41,11 +41,11 @@ namespace SparringManager.Scenarios
         public bool hitted;
 
         public bool hittedChangement;
-        public bool TimeToHit { get { return tTime > _timeBeforeHit && (tTime - _timeBeforeHit) < _deltaHit; } }
+        public bool TimeToHit { get { return tTime > timeBeforeHit && (tTime - timeBeforeHit) < deltaHit; } }
 
-        public float _timeBeforeHit;
+        public float timeBeforeHit;
 
-        public int _deltaHit = 2;
+        public int deltaHit = 2;
 
         float reactTime;
 
@@ -102,7 +102,7 @@ namespace SparringManager.Scenarios
 
             DeltaTimeChangeMovement = 1;
             objectVelocity = new Vector3(scenario.speed, 0, 0);
-            _timeBeforeHit = tTime + 1/(1+scenario.rythme)*100;
+            timeBeforeHit = tTime + 1/(1+scenario.rythme)*100;
 
             hittedChangement = false;
         }
@@ -263,6 +263,10 @@ namespace SparringManager.Scenarios
             {
                 DisplayHit(DisplayObject);
             }
+            else if (tTime >= timeBeforeHit && !false)
+            {
+                timeBeforeHit = tTime + 1 / (1 + scenario.rythme) * 100;
+            }
             else
             {
                 UndisplayHit(DisplayObject);
@@ -275,6 +279,7 @@ namespace SparringManager.Scenarios
 
         public delegate void OnHitEvent();
         public event OnHitEvent onHitEvent;
+
         /// <summary>
         /// Get the hit of the player
         /// </summary>
@@ -289,8 +294,7 @@ namespace SparringManager.Scenarios
 
             if (rayOnTarget && TimeToHit && hitted == false && hit.collider.gameObject == objectToHit)
             {
-                reactTime = tTime - _timeBeforeHit;
-                Debug.Log("OOOOOKKKKK");
+                reactTime = tTime - timeBeforeHit;
                 OnHit();
 
                 Debug.Log("Line touched : " + position2d_);
@@ -331,7 +335,7 @@ namespace SparringManager.Scenarios
         public virtual void HitManager()
         {
             hitted = true;
-            _timeBeforeHit = tTime + 1 / (1 + scenario.rythme) * 100;
+            timeBeforeHit = tTime + 1 / (1 + scenario.rythme) * 100;
         }
         #endregion
         #endregion

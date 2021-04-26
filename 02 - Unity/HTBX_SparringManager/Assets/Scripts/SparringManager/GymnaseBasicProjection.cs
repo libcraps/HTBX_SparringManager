@@ -50,6 +50,7 @@ namespace SparringManager.Device
 
         bool _isScenarioRunning;
 
+        IEnumerator currentCoroutine;
 
         Vector3 posPlayerCircle;
         Vector3 posBagCircle;
@@ -170,7 +171,12 @@ namespace SparringManager.Device
 
         void DisplayHit()
         {
-            StartCoroutine(displayOnBagZoneHit());
+            if (currentCoroutine != null)
+            {
+                StopCoroutine(currentCoroutine);
+            }
+            currentCoroutine = displayOnBagZoneHit();
+            StartCoroutine(currentCoroutine);
         }
 
     }
