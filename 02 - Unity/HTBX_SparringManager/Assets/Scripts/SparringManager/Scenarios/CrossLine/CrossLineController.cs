@@ -1,4 +1,4 @@
-﻿using SparringManager.DataManager;
+﻿using SparringManager.Data;
 using SparringManager.Device;
 using SparringManager.Structures;
 using UnityEngine;
@@ -13,7 +13,7 @@ namespace SparringManager.Scenarios.CrossLine
     /// Manage the scenario CrossLine.
     /// </summary>
     /// <inheritdoc cref="ScenarioControllerBehaviour"/>
-    public class CrossLineController : ScenarioControllerBehaviour
+    public class CrossLineController : ScenarioController
     {
         #region Attributs
         //----------- ATTRIBUTS ----------------------

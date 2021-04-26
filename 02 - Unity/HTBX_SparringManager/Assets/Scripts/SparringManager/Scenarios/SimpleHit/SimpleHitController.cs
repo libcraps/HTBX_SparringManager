@@ -1,4 +1,4 @@
-﻿using SparringManager.DataManager;
+﻿using SparringManager.Data;
 using SparringManager.Device;
 using System.Collections;
 using System;
@@ -13,7 +13,7 @@ namespace SparringManager.Scenarios.SimpleHit
     /// Manage the scenario HitLine.
     /// </summary>
     /// <inheritdoc cref="ScenarioControllerBehaviour"/>
-    public class SimpleHitController : ScenarioControllerBehaviour
+    public class SimpleHitController : ScenarioController
     {
         #region Attributs
 

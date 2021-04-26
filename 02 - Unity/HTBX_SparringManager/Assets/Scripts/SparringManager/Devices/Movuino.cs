@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using SparringManager.DataManager;
+using SparringManager.Data;
 using UnityEngine;
 
 namespace SparringManager.Device

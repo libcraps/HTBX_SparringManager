@@ -10,13 +10,13 @@ using UnityEngine;
 /// <summary>
 /// Namespace relative to Data
 /// </summary>
-namespace SparringManager.DataManager
+namespace SparringManager.Data
 {
 
     /// <summary>
-    /// MonoBehaviour class, it represent the DataController, it is associated to each PlayerCameraObject in the HitBox project.
+    /// MonoBehaviour class, it represent the DataManager, it is associated to each PlayerCameraObject in the HitBox project.
     /// </summary>
-    public class DataController : MonoBehaviour
+    public class DataManager : MonoBehaviour
     {
 //--------------------------    ATTRIBUTS    -------------------------------
         private bool _exportIntoFile;

@@ -1,4 +1,4 @@
-﻿using SparringManager.DataManager;
+﻿using SparringManager.Data;
 using SparringManager.Device;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +12,7 @@ namespace SparringManager.Scenarios.HitLine
     /// <summary>
     /// Manage the scenario HitLine.
     /// </summary>
-    public class HitLineController : ScenarioControllerBehaviour
+    public class HitLineController : ScenarioController
     {
         #region Attributs
         //----------- ATTRIBUTS ---------------------- 

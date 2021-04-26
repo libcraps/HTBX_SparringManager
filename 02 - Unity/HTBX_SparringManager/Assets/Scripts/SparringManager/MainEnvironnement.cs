@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using SparringManager.DataManager;
+using SparringManager.Data;
 using SparringManager.Structures;
 using UnityEngine;
 
@@ -65,24 +65,24 @@ namespace SparringManager
         {
             //Instantiate and initailize component of the player camera
             GameObject _coachCamera = GameObject.Find("CoachCamera");
-            GameObject clonePlayerCamera;
+            GameObject clonePlayerPrefab;
+            Vector3 posPlayerPrefab = new Vector3();
 
-            Vector3 posPlayerCamera = new Vector3();
             float rangeSize = _coachCamera.GetComponent<Camera>().orthographicSize;
             float sizeSection = rangeSize * 2 / (NbPlayer*2);
 
-            posPlayerCamera.x = this.gameObject.transform.localPosition.x - sizeSection*(NbPlayer-1);
-            posPlayerCamera.y = this.gameObject.transform.localPosition.y;
-            posPlayerCamera.z = this.gameObject.transform.localPosition.z;
+            posPlayerPrefab.x = this.gameObject.transform.localPosition.x - sizeSection*(NbPlayer-1);
+            posPlayerPrefab.y = this.gameObject.transform.localPosition.y;
+            posPlayerPrefab.z = this.gameObject.transform.localPosition.z;
 
             for (int i = 0; i< NbPlayer; i++)
             {
-                clonePlayerCamera = Instantiate(_prefabPlayerPrefab, posPlayerCamera, Quaternion.identity, this.gameObject.transform); 
-                clonePlayerCamera.GetComponent<SessionManager>().Init(_mainStructure[i].Scenarios, _mainStructure[i].operationalArea, _mainStructure[i].Name, _exportInFile);
-                clonePlayerCamera.GetComponent<DeviceManager>().Init(_mainStructure[i].StructHitBox, _mainStructure[i].StructPlayerScene, _mainStructure[i].Name, i);
-                clonePlayerCamera.GetComponent<DataController>().Init(_exportInFile, ".\\_data\\" + _mainStructure[i].Name+"\\");
+                clonePlayerPrefab = Instantiate(_prefabPlayerPrefab, posPlayerPrefab, Quaternion.identity, this.gameObject.transform); 
+                clonePlayerPrefab.GetComponent<SessionManager>().Init(_mainStructure[i].Scenarios, _mainStructure[i].operationalArea, _mainStructure[i].Name, _exportInFile);
+                clonePlayerPrefab.GetComponent<DeviceManager>().Init(_mainStructure[i].StructHitBox, _mainStructure[i].StructPlayerScene, _mainStructure[i].Name, i);
+                clonePlayerPrefab.GetComponent<DataManager>().Init(_exportInFile, ".\\_data\\" + _mainStructure[i].Name+"\\");
 
-                posPlayerCamera.x += sizeSection*2;
+                posPlayerPrefab.x += sizeSection*2;
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using SparringManager.DataManager;
+﻿using SparringManager.Data;
 using SparringManager.Device;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,7 +34,7 @@ namespace SparringManager.Scenarios.SimpleLine
     /// Manage the scenario SimpleLine.
     /// </summary>
     /// <inheritdoc cref="ScenarioControllerBehaviour"/>
-    public class SimpleLineController : ScenarioControllerBehaviour
+    public class SimpleLineController : ScenarioController
     {
         #region Attributs
         //----------- ATTRIBUTS ----------------------

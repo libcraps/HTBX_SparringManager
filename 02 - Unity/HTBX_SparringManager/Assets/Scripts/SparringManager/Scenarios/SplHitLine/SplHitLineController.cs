@@ -1,4 +1,4 @@
-﻿using SparringManager.DataManager;
+﻿using SparringManager.Data;
 using SparringManager.Device;
 using SparringManager.Scenarios;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace SparringManager.SplHitLine
     /// Manage the scenario SplHitLine.
     /// </summary>
     /// <inheritdoc cref="ScenarioControllerBehaviour"/>
-    public class SplHitLineController : ScenarioControllerBehaviour
+    public class SplHitLineController : ScenarioController
     {
         #region Attributs
         //----------- ATTRIBUTS ----------------------

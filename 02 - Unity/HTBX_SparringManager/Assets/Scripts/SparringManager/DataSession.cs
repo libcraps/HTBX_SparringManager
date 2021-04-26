@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 
-namespace SparringManager.DataManager
+namespace SparringManager.Data
 {
     /*
      * Classes that allows us to deal with result of a session

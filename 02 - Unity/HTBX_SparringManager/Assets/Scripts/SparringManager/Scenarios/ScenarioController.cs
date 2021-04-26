@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using SparringManager.DataManager;
+using SparringManager.Data;
 using SparringManager.Device;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ namespace SparringManager.Scenarios
     /// <summary>
     /// Abstract class of a ScenarioController, each scenario controller will dispose this attributs and methods (public and protected) 
     /// </summary>
-    public abstract class ScenarioControllerBehaviour : MonoBehaviour
+    public abstract class ScenarioController : MonoBehaviour
     {
         #region Attributs
         [SerializeField]
@@ -62,9 +62,9 @@ namespace SparringManager.Scenarios
         protected DataSessionPlayer dataSessionPlayer;
 
         /// <summary>
-        /// Component DataController of the PlayerScene object
+        /// Component DataManager of the PlayerScene object
         /// </summary>
-        protected DataController dataManagerComponent;
+        protected DataManager dataManagerComponent;
 
         /// <summary>
         /// Movuinos present in the scene for the scenario
@@ -187,8 +187,6 @@ namespace SparringManager.Scenarios
 
             GetComponentInParent<SessionManager>().EndScenario = true;
 
-            reactTime = 0;
-            scenarioBehaviour.hitted = false;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
         #endregion
@@ -202,7 +200,7 @@ namespace SparringManager.Scenarios
         /// <list type="ParametersInit">
         /// <item><paramref name="scenario"/></item>
         /// <item><paramref name="dataSessionlayer"/></item>
-        /// <item>And it has complete the DataController</item>
+        /// <item>And it has complete the DataManager</item>
         /// </list></para>
         /// <remarks>It is called after his instantiation.</remarks>
         /// <param name="structScenarios">Structure that parameterize different settings of a scenario</param>
@@ -213,8 +211,8 @@ namespace SparringManager.Scenarios
             scenario = new Scenario(structScenarios);
             //Data
             dataSessionPlayer = new DataSessionPlayer(nbMovuino);
-            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataController.StructToDictionary<GeneriqueScenarioStruct>(Scenario.structScenari);
-            dataManagerComponent = GetComponentInParent<DataController>();
+            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataManager.StructToDictionary<GeneriqueScenarioStruct>(Scenario.structScenari);
+            dataManagerComponent = GetComponentInParent<DataManager>();
             dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp);
         }
 

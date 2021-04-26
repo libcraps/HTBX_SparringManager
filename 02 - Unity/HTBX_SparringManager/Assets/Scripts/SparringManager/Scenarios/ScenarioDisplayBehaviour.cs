@@ -91,11 +91,11 @@ namespace SparringManager.Scenarios
         #region Unity Methods
         protected virtual void Awake()
         {
-            scenario = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().Scenario;
-            startTimeScenario = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().Scenario.startTimeScenario;
+            scenario = this.gameObject.GetComponentInParent<ScenarioController>().Scenario;
+            startTimeScenario = this.gameObject.GetComponentInParent<ScenarioController>().Scenario.startTimeScenario;
             operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
-            rangeSize = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().RangeSize;
-            renderCamera = this.gameObject.GetComponentInParent<ScenarioControllerBehaviour>().RenderCameraObject;
+            rangeSize = this.gameObject.GetComponentInParent<ScenarioController>().RangeSize;
+            renderCamera = this.gameObject.GetComponentInParent<ScenarioController>().RenderCameraObject;
 
             tTime = Time.time - startTimeScenario;
             previousTime = tTime;

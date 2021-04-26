@@ -40,8 +40,6 @@ namespace SparringManager.Scenarios
         protected override void FixedUpdate()
         {
             base.FixedUpdate(); //time update
-            
-            //RandomizeObjectMovement(structScenari.AccelerationMax, structScenari.DeltaTimeMin, structScenari.DeltaTimeMax);
             MoveObject(fixPosHitValue * objectVelocity);
 
 

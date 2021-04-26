@@ -96,12 +96,6 @@ namespace SparringManager
                 _playerScene.GetComponent<PlayerSceneController>().Init(_structPlayerScene);
             }
         }
-        private void FixedUpdate()
-        {
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-            }
-        }
         /// <summary>
         /// Initialise structure of the bag and the PlayerScene.
         /// </summary>

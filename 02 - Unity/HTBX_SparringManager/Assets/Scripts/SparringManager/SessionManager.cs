@@ -1,5 +1,5 @@
 ﻿using SparringManager.Scenarios;
-using SparringManager.DataManager;
+using SparringManager.Data;
 using SparringManager.Structures;
 using UnityEngine;
 using System;
@@ -22,7 +22,7 @@ namespace SparringManager
         private int _indexScenario = 0;
 
         //Variables for the DataManager
-        private DataController _dataManager;
+        private DataManager _dataManager;
         private DeviceManager _deviceManager;
 
         //Properties
@@ -39,13 +39,13 @@ namespace SparringManager
         // ---> General Methods
         private void Awake()
         {
-            _dataManager = GetComponent<DataController>();
+            _dataManager = GetComponent<DataManager>();
             _deviceManager = GetComponent<DeviceManager>();
         }
         void Start()
         {
             //DATA MANAGER
-            _dataManager.InitGeneralSectionSumUp(_name, _dataManager.FilePath, NbScenarios); //DataController completed
+            _dataManager.InitGeneralSectionSumUp(_name, _dataManager.FilePath, NbScenarios); //DataManager completed
             _indexScenario = 0;
             EndScenario = true; //We initialise to true in order to go in the loop
         }
@@ -71,7 +71,7 @@ namespace SparringManager
         {
             scenarioPlayed = Instantiate(strucObject.ScenarioPrefab, pos3d, Quaternion.identity, referenceGameObject.transform);
 
-            scenarioPlayed.GetComponent<ScenarioControllerBehaviour>().Init(strucObject);
+            scenarioPlayed.GetComponent<ScenarioController>().Init(strucObject);
             Destroy(scenarioPlayed, strucObject.TimerScenario);
 
             Debug.Log(scenarioPlayed.name + " has been instantiated");

@@ -16,9 +16,9 @@ namespace SparringManager.Device
     public class GymnaseBasicProjection : DeviceBehaviour
     {
         [SerializeField]
-        private Material hitMaterial;
+        private Material glowRedMaterial;
         [SerializeField]
-        private Material normalMaterial;
+        private Material glowWhiteMaterial;
 
         private GameObject _playerZone;
         private GameObject _vectorBagPlayer;
@@ -31,13 +31,13 @@ namespace SparringManager.Device
 
         private PlayerSceneController _playerSceneController;
         private SessionManager _sessionManager;
-        private ScenarioControllerBehaviour _scenarioPlayedController 
+        private ScenarioController _scenarioPlayedController 
         { 
             get 
             { 
-                if (Convert.ToBoolean(_sessionManager.scenarioPlayed.GetComponent<ScenarioControllerBehaviour>()))
+                if (Convert.ToBoolean(_sessionManager.scenarioPlayed.GetComponent<ScenarioController>()))
                 {
-                    return _sessionManager.scenarioPlayed.GetComponent<ScenarioControllerBehaviour>();
+                    return _sessionManager.scenarioPlayed.GetComponent<ScenarioController>();
                 } 
                 else
                 {
@@ -111,7 +111,7 @@ namespace SparringManager.Device
 
         void FixedUpdate()
         {
-            if (Convert.ToBoolean(_scenarioPlayedController))
+            if (Convert.ToBoolean(_scenarioPlayedController) && _isScenarioRunning == false)
             {
                 _isScenarioRunning = true;
                 _scenarioPlayedController.scenarioBehavior.onHitEvent += DisplayHit;
@@ -155,18 +155,14 @@ namespace SparringManager.Device
 
         IEnumerator displayOnBagZoneHit()
         {
-            Debug.Log("1");
             MeshRenderer bagMesh = _bagZone.transform.Find("ExteriorCircle").gameObject.GetComponent<MeshRenderer>();
-            while(bagMesh.material != hitMaterial)
-            {
 
-                Debug.Log("2");
-                bagMesh.material = hitMaterial;
-                
+            for (int i = 0; i < 10; i++)
+            {
+                bagMesh.material = glowRedMaterial;
                 yield return null;
             }
-            
-            print("3");
+            bagMesh.material = glowWhiteMaterial;
         }
 
         void DisplayHit()
