@@ -16,8 +16,7 @@ namespace SparringManager.Scenarios.SimpleLine
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            MoveObject(objectVelocity);
-            Debug.Log(objectVelocity);
+            MoveObject(this.gameObject, objectVelocity);
         }
         public override void Init(GeneriqueScenarioStruct structScenari)
         {

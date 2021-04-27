@@ -21,7 +21,7 @@ namespace SparringManager.Scenarios.HitLine
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            MoveObject(fixPosHitValue * objectVelocity);
+            MoveObject(this.gameObject, fixPosHitValue * objectVelocity);
             HitManager(this.gameObject);
         }
 

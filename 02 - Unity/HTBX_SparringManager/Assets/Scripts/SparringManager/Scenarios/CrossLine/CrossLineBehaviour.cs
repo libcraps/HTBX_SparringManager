@@ -31,7 +31,7 @@ namespace SparringManager.Scenarios.CrossLine
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            MoveObject(fixPosHitValue * objectVelocity);
+            MoveObject(this.gameObject, fixPosHitValue * objectVelocity);
             HitManager(null);
         }
 
@@ -41,7 +41,7 @@ namespace SparringManager.Scenarios.CrossLine
         protected override void HitManager(GameObject lineObject)
         {
 
-            if (TimeToHit && hitted == false)
+            if (timeToHit && hitted == false)
             {
                 SetHit(VertLineObject);
                 SetHit(HorizLineObject);

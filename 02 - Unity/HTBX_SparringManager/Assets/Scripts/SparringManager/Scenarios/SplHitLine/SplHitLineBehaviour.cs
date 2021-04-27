@@ -40,7 +40,7 @@ namespace SparringManager.Scenarios
         protected override void FixedUpdate()
         {
             base.FixedUpdate(); //time update
-            MoveObject(fixPosHitValue * objectVelocity);
+            MoveObject(this.gameObject, fixPosHitValue * objectVelocity);
 
 
             if (_objectToHit == null || _objectToHit.GetComponent<TargetMovingBar>().activated == false)

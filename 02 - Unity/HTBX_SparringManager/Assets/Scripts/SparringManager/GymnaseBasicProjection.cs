@@ -29,19 +29,17 @@ namespace SparringManager.Device
         private GameObject _bagZone;
         private GameObject _vectorConsigne;
 
-        public GameObject player { get { return _playerSceneController.player;  } }
-        private GameObject bag { get { return _playerSceneController.bag; } }
-        private GameObject ground { get { return _playerSceneController.ground; } }
+        private GameObject playerPrefab;
 
-        private PlayerSceneController _playerSceneController;
-        private SessionManager _sessionManager;
+        private PlayerSceneController playerSceneController;
+        private SessionManager sessionManager;
         private ScenarioController _scenarioPlayedController 
         { 
             get 
             { 
-                if (Convert.ToBoolean(_sessionManager.scenarioPlayed.GetComponent<ScenarioController>()))
+                if (Convert.ToBoolean(sessionManager.scenarioPlayed.GetComponent<ScenarioController>()))
                 {
-                    return _sessionManager.scenarioPlayed.GetComponent<ScenarioController>();
+                    return sessionManager.scenarioPlayed.GetComponent<ScenarioController>();
                 } 
                 else
                 {
@@ -84,9 +82,9 @@ namespace SparringManager.Device
         {
             get
             {
-                if (Convert.ToBoolean(_playerSceneController.polar))
+                if (Convert.ToBoolean(playerSceneController.polar))
                 {
-                    return _playerSceneController.polar.GetComponent<Polar>().oscData.bpm;
+                    return playerSceneController.polar.GetComponent<Polar>().oscData.bpm;
                 } 
                 else
                 {
@@ -94,6 +92,7 @@ namespace SparringManager.Device
                 }
             }
         }
+
         public float _bpm;
 
         void Awake()
@@ -108,13 +107,16 @@ namespace SparringManager.Device
 
         private void Start()
         {
-            _playerSceneController = GetComponentInParent<PlayerSceneController>();
-            _sessionManager = this.gameObject.transform.parent.GetComponentInParent<SessionManager>();
+            playerPrefab = this.gameObject.transform.parent.parent.gameObject;
+            sessionManager = playerPrefab.GetComponent<SessionManager>();
+            playerSceneController = playerPrefab.GetComponent<DeviceManager>().PlayerScene.GetComponent<PlayerSceneController>(); ;
+            
         }
         
 
         void FixedUpdate()
         {
+            ///When a scenario is available we subscribe to his events
             if (Convert.ToBoolean(_scenarioPlayedController) && _isScenarioRunning == false)
             {
                 _isScenarioRunning = true;
@@ -133,10 +135,10 @@ namespace SparringManager.Device
             }
 
             //makeBeat();
-            posPlayerCircle = new Vector3(player.transform.localPosition.x, ground.transform.localPosition.y, player.transform.localPosition.z);
-            posBagCircle = new Vector3(bag.transform.localPosition.x, ground.transform.localPosition.y - 0.02f, bag.transform.localPosition.z);
-            posVectorPlayer = new Vector3(bag.transform.localPosition.x, ground.transform.localPosition.y - 0.015f, bag.transform.localPosition.z);
-            posVectorConsigne = new Vector3(bag.transform.localPosition.x, ground.transform.localPosition.y - 0.015f, bag.transform.localPosition.z);
+            posPlayerCircle = new Vector3(playerSceneController.player.transform.localPosition.x, playerSceneController.ground.transform.localPosition.y, playerSceneController.player.transform.localPosition.z);
+            posBagCircle = new Vector3(playerSceneController.bag.transform.localPosition.x, playerSceneController.ground.transform.localPosition.y - 0.02f, playerSceneController.bag.transform.localPosition.z);
+            posVectorPlayer = new Vector3(playerSceneController.bag.transform.localPosition.x, playerSceneController.ground.transform.localPosition.y - 0.015f, playerSceneController.bag.transform.localPosition.z);
+            posVectorConsigne = new Vector3(playerSceneController.bag.transform.localPosition.x, playerSceneController.ground.transform.localPosition.y - 0.015f, playerSceneController.bag.transform.localPosition.z);
 
             _bagDir = posBagCircle - posPlayerCircle;
             _bagDirNormalized = Vector3.Normalize(new Vector3(_bagDir.x, 0, _bagDir.z));
@@ -153,7 +155,7 @@ namespace SparringManager.Device
             _vectorConsigne.transform.localScale = new Vector3(radius + 0.1f, _vectorConsigne.transform.localScale.y, _vectorConsigne.transform.localScale.z);
           
             _vectorConsigne.transform.localEulerAngles = new Vector3(0, consignePlayedScenario, 0);
-            _vectorBagPlayer.transform.localEulerAngles = new Vector3(0, Vector3.SignedAngle(_bagDirNormalized, -bag.transform.right, -bag.transform.forward), 0);
+            _vectorBagPlayer.transform.localEulerAngles = new Vector3(0, Vector3.SignedAngle(_bagDirNormalized, -playerSceneController.bag.transform.right, -playerSceneController.bag.transform.forward), 0);
         }
 
         void makeBeat()
@@ -179,7 +181,7 @@ namespace SparringManager.Device
         {
             MeshRenderer bagMesh = _bagZone.transform.Find("ExteriorCircle").gameObject.GetComponent<MeshRenderer>();
 
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 20; i++)
             {
                 bagMesh.material = glowRedMaterial;
                 yield return null;

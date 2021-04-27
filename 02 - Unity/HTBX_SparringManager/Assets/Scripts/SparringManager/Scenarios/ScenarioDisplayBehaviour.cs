@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 namespace SparringManager.Scenarios
 {
@@ -9,21 +10,12 @@ namespace SparringManager.Scenarios
     {
         #region Attributs
         protected GeneriqueScenarioStruct structScenari;
+        protected ScenarioController scenarioController;
         protected Scenario scenario;
 
-        /// <summary>
-        /// Part of the bag that is operational
-        /// </summary>
-        protected int operationalArea;
-
         protected GameObject _objectToHit;
-        public GameObject objectToHit
-        {
-            get
-            {
-                return _objectToHit;
-            }
-        }
+
+        protected Dictionary<string, GameObject> dictGameObjects;
 
         /// <summary>
         /// Velocity of this object
@@ -31,34 +23,55 @@ namespace SparringManager.Scenarios
         public Vector3 objectVelocity;
 
         /// <summary>
-        /// Duration before the movement of the object change
-        /// </summary>
-        public int DeltaTimeChangeMovement;
-
-        /// <summary>
         /// Boolean to indicates if the target is hitted or not
         /// </summary>
         public bool hitted;
-
-        public bool hittedChangement;
-        public bool TimeToHit { get { return tTime > timeBeforeHit && (tTime - timeBeforeHit) < deltaHit; } }
-
         public float timeBeforeHit;
-
         public int deltaHit = 2;
+        public float reactTime;
+        private int _fixPosHitValue;
 
-        float reactTime;
+        protected float previousTime;
+        protected float tTime;
+        protected float startTimeScenario;
 
+        /// <summary>
+        /// Range of the RenderCamera of the PlayerScene of this object
+        /// </summary>
+        public float rangeSize;
+        /// <summary>
+        /// RenderCamera of the PlayerPrefab of this object
+        /// </summary>
+        public GameObject renderCamera;
+        /// <summary>
+        /// Part of the bag that is operational
+        /// </summary>
+        protected int operationalArea;
+        /// <summary>
+        /// Duration before the movement of the object change
+        /// </summary>
+        public int deltaTimeChangeMovement;
+        #endregion
+
+
+        #region Properties
+        public GameObject objectToHit
+        {
+            get
+            {
+                return _objectToHit;
+            }
+        }
+        public bool timeToHit { get { return tTime > timeBeforeHit && (tTime - timeBeforeHit) < deltaHit; } }
         /// <summary>
         /// Boolean to indicate if the line continue to move when the hit is setted 
         /// </summary>
-        protected virtual bool FixPosHit { get { return structScenari.FixPosHit; } }
-        private int _fixPosHitValue;
+        protected virtual bool fixPosHit { get { return structScenari.FixPosHit; } }
         public int fixPosHitValue
         {
             get
             {
-                if (TimeToHit && hitted == false && FixPosHit == true) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
+                if (timeToHit && hitted == false && fixPosHit == true) // warning if hitLine controller == instantiated 2 times -> problem need to be solved
                 {
                     _fixPosHitValue = 0;
                 }
@@ -68,43 +81,36 @@ namespace SparringManager.Scenarios
                 }
                 return _fixPosHitValue;
             }
-            
+
         }// if fix Pos hit == true we fix the value to 0 in order to have an acceleration null
-
-        protected float previousTime;
-        protected float tTime;
-        protected float startTimeScenario;
-        /// <summary>
-        /// Range of the RenderCamera of the PlayerScene of this object
-        /// </summary>
-        public float rangeSize;
-
-        /// <summary>
-        /// RenderCamera of the PlayerPrefab of this object
-        /// </summary>
-        public GameObject renderCamera;
         #endregion
 
         #region Methods
 
-
         #region Unity Methods
         protected virtual void Awake()
         {
-            scenario = this.gameObject.GetComponentInParent<ScenarioController>().Scenario;
-            startTimeScenario = this.gameObject.GetComponentInParent<ScenarioController>().Scenario.startTimeScenario;
+            scenarioController = this.gameObject.GetComponentInParent<ScenarioController>();
+            scenario = scenarioController.Scenario;
+            startTimeScenario = scenario.startTimeScenario;
+            renderCamera = scenarioController.renderCameraObject;
             operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
-            rangeSize = this.gameObject.GetComponentInParent<ScenarioController>().RangeSize;
-            renderCamera = this.gameObject.GetComponentInParent<ScenarioController>().RenderCameraObject;
+
 
             tTime = Time.time - startTimeScenario;
             previousTime = tTime;
 
-            DeltaTimeChangeMovement = 1;
+            deltaTimeChangeMovement = 1;
             objectVelocity = new Vector3(scenario.speed, 0, 0);
             timeBeforeHit = tTime + 1/(1+scenario.rythme)*100;
 
-            hittedChangement = false;
+            //Get every objects of the scenario
+            dictGameObjects = new Dictionary<string, GameObject>();
+            for (int i=0; i< gameObject.transform.childCount; i++)
+            {
+                GameObject go = gameObject.transform.GetChild(i).gameObject;
+                dictGameObjects[go.name] = go;
+            }
         }
 
         protected virtual void Start()
@@ -115,17 +121,17 @@ namespace SparringManager.Scenarios
         protected virtual void FixedUpdate()
         {
             tTime = Time.time - startTimeScenario;
-            ObjectInCameraRange();
+            ObjectInCameraRange(this.gameObject);
             hitted = false;
         }
-
-
 
         protected virtual void OnDestroy()
         {
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
         #endregion 
+
+
 
         /// <summary>
         /// Initialize parameters of the scenario.
@@ -138,60 +144,60 @@ namespace SparringManager.Scenarios
         }
 
         /// <summary>
-        /// Function to say what to do if the Object get out of the camera range.
+        /// Keep the object in the camera range.
         /// </summary>
-        protected virtual void ObjectInCameraRange()
+        protected virtual void ObjectInCameraRange(GameObject obj)
         {
             /* 
              * This method keeps the line in the camera range
              */
-            Vector3 linePos3d;
+            Vector3 objPos3d;
             Vector3 renderCameraPos3d;
 
 
-            renderCameraPos3d.x = renderCamera.transform.localPosition.x;
-            renderCameraPos3d.y = renderCamera.transform.localPosition.y;
-            renderCameraPos3d.z = renderCamera.transform.localPosition.z;
+            renderCameraPos3d.x = scenarioController.renderCameraObject.transform.localPosition.x;
+            renderCameraPos3d.y = scenarioController.renderCameraObject.transform.localPosition.y;
+            renderCameraPos3d.z = scenarioController.renderCameraObject.transform.localPosition.z;
 
-            linePos3d.x = this.gameObject.transform.localPosition.x;
-            linePos3d.y = this.gameObject.transform.localPosition.y;
-            linePos3d.z = this.gameObject.transform.localPosition.z;
+            objPos3d.x = obj.transform.localPosition.x;
+            objPos3d.y = obj.transform.localPosition.y;
+            objPos3d.z = obj.transform.localPosition.z;
 
-            float area = operationalArea / (float)360.0 * rangeSize;
+            float area = operationalArea / (float)360.0 * scenarioController.rangeSize;
 
-            if ((int)area == rangeSize)
+            if ((int)area == scenarioController.rangeSize)
             {
                 //Instruction whether the line gets out of the render camera range
-                if (linePos3d.x > (renderCameraPos3d.x + area))
+                if (objPos3d.x > (renderCameraPos3d.x + area))
                 {
-                    linePos3d.x -= 2 * area;
+                    objPos3d.x -= 2 * area;
                 }
-                else if (linePos3d.x < renderCameraPos3d.x - area)
+                else if (objPos3d.x < renderCameraPos3d.x - area)
                 {
-                    linePos3d.x += 2 * area;
+                    objPos3d.x += 2 * area;
                 }
 
                 //Instruction whether the line gets out of the render camera range
-                if (linePos3d.y > renderCameraPos3d.y + area)
+                if (objPos3d.y > renderCameraPos3d.y + area)
                 {
-                    linePos3d.y -= 2 * area;
+                    objPos3d.y -= 2 * area;
                 }
-                else if (linePos3d.y < renderCameraPos3d.y - area)
+                else if (objPos3d.y < renderCameraPos3d.y - area)
                 {
-                    linePos3d.y += 2 * area;
+                    objPos3d.y += 2 * area;
                 }
-                this.gameObject.transform.localPosition = linePos3d;
+                obj.transform.localPosition = objPos3d;
             }
             else
             {
                 //Instruction whether the line gets out of the render camera range
-                if ((linePos3d.x > renderCameraPos3d.x + area) || (linePos3d.x < renderCameraPos3d.x - area))
+                if ((objPos3d.x > renderCameraPos3d.x + area) || (objPos3d.x < renderCameraPos3d.x - area))
                 {
                     objectVelocity.x = -objectVelocity.x;
                 }
 
                 //Instruction whether the line gets out of the render camera range
-                if ((linePos3d.y > renderCameraPos3d.x + area) || (linePos3d.y < renderCameraPos3d.y - area))
+                if ((objPos3d.y > renderCameraPos3d.x + area) || (objPos3d.y < renderCameraPos3d.y - area))
                 {
                     objectVelocity.y = -objectVelocity.y;
                 }
@@ -205,9 +211,9 @@ namespace SparringManager.Scenarios
         /// Move this object by changing his velocity
         /// </summary>
         /// <param name="objectVelocity"></param>
-        protected virtual void MoveObject(Vector3 objectVelocity)
+        protected virtual void MoveObject(GameObject obj, Vector3 objectVelocity)
         {
-            this.gameObject.GetComponent<Rigidbody>().velocity = objectVelocity;
+            obj.GetComponent<Rigidbody>().velocity = objectVelocity;
         }
 
         /// <summary>
@@ -220,7 +226,7 @@ namespace SparringManager.Scenarios
         {
             
             //Randomize the movement of the line every deltaTime seconds
-            if ((tTime - previousTime) > DeltaTimeChangeMovement)
+            if ((tTime - previousTime) > deltaTimeChangeMovement)
             {
 
                 int deltaTimeMin = deltaTimeAverage - deltaTimeAmplitude;
@@ -228,7 +234,7 @@ namespace SparringManager.Scenarios
 
                 int speedMax = speedAverage + speedAmplitude;
 
-                DeltaTimeChangeMovement = Random.Range(deltaTimeMin, deltaTimeMax);
+                deltaTimeChangeMovement = Random.Range(deltaTimeMin, deltaTimeMax);
                 objectVelocity.x = Random.Range(-speedMax, speedMax);
                 objectVelocity.y = Random.Range(-speedMax, speedMax);
 
@@ -237,11 +243,11 @@ namespace SparringManager.Scenarios
         }
 
         #region Hitting Methods
-
         private void OnEnable()
         {
             ImpactManager.onInteractPoint += GetHit;
             targetHittedEvent += TargetTouched;
+            missedTargetEvent += TargetMissed;
             setHitEvent += DisplayHit;
             unsetHitEvent += UndisplayHit;
         }
@@ -250,6 +256,7 @@ namespace SparringManager.Scenarios
         {
             ImpactManager.onInteractPoint -= GetHit;
             targetHittedEvent -= TargetTouched;
+            missedTargetEvent -= TargetMissed;
             setHitEvent -= DisplayHit;
             unsetHitEvent -= UndisplayHit;
         }
@@ -278,24 +285,37 @@ namespace SparringManager.Scenarios
         /// </summary>
         public event TargetMissedEvent missedTargetEvent;
 
+        /// <summary>
+        /// Method that calls the sethit event
+        /// </summary>
+        /// <param name="DisplayObject">Object where the hit will be</param>
         public void SetHit(GameObject DisplayObject)
         {
             if (setHitEvent != null)
                 setHitEvent(DisplayObject);
         }
-
-        public void TargetHitted()
-        {
-            if (targetHittedEvent != null)
-                targetHittedEvent();
-        }
-
+        /// <summary>
+        /// Method that calls the Unsethit event
+        /// </summary>
+        /// <param name="DisplayObject">Object where the hit was</param>
         public void UnsetHit(GameObject DisplayObject)
         {
             if (unsetHitEvent != null)
                 unsetHitEvent(DisplayObject);
         }
 
+        /// <summary>
+        /// Method that calls the targetHitted event
+        /// </summary>
+        public void TargetHitted()
+        {
+            if (targetHittedEvent != null)
+                targetHittedEvent();
+        }
+
+        /// <summary>
+        /// Method that calls the missedTarget event
+        /// </summary>
         public void MissedTarget()
         {
             if (missedTargetEvent != null)
@@ -313,14 +333,15 @@ namespace SparringManager.Scenarios
         /// <param name="DisplayObject">Object that show/Unshow the hit</param>
         protected virtual void HitManager(GameObject DisplayObject)
         {
-            if (TimeToHit && hitted == false)
+            if (timeToHit && hitted == false)
             {
                 SetHit(DisplayObject);
             }
-            else if (tTime >= timeBeforeHit && hitted == false)
+            else if (tTime >= timeBeforeHit + deltaHit && hitted == false)
             {
                 UnsetHit(DisplayObject);
                 MissedTarget();
+                print("MISSED");
             }
             else
             {
@@ -340,7 +361,7 @@ namespace SparringManager.Scenarios
 
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 1000);
 
-            if (rayOnTarget && TimeToHit && hitted == false && hit.collider.gameObject == objectToHit)
+            if (rayOnTarget && timeToHit && hitted == false && hit.collider.gameObject == objectToHit)
             {
                 reactTime = tTime - timeBeforeHit;
                 TargetHitted();
@@ -371,7 +392,7 @@ namespace SparringManager.Scenarios
         }
 
         /// <summary>
-        /// Manage actions when an hit i recieved
+        /// Manage actions when an hit is recieved
         /// </summary>
         public virtual void TargetTouched()
         {
@@ -379,6 +400,9 @@ namespace SparringManager.Scenarios
             timeBeforeHit = tTime + 1 / (1 + scenario.rythme) * 100;
         }
 
+        /// <summary>
+        /// Manage actions when an hit isn't hitted in time
+        /// </summary>
         public virtual void TargetMissed()
         {
             timeBeforeHit = tTime + 1 / (1 + scenario.rythme) * 100;

@@ -21,15 +21,17 @@ namespace SparringManager.Device
         public GameObject bag;
         public GameObject ground;
 
-        private GameObject _GymnaseRep;
-        private GameObject _movuino;
+        private GameObject _gymnaseProjection;
+        private GameObject[] _movuino;
         private GameObject _polar;
         private GameObject _viveTracker;
         private GameObject _scenarioPlayedController;
 
-        public GameObject movuino { get { return _movuino;  } }
+        public GameObject[] movuino { get { return _movuino;  } }
         public GameObject polar { get { return _polar;  } }
         public GameObject viveTracker { get { return _viveTracker;  } }
+
+        public GameObject gymnaseProjection { get { return _gymnaseProjection; } }
 
         private string _idPlayer;
 
@@ -48,21 +50,18 @@ namespace SparringManager.Device
             //Instantiation of Devices if Struct.OnOff = On
             _viveTracker = InstantiateDevice<ViveTrackerManager>(_structPlayerScene.StructViveTracker, this.gameObject, _idPlayer);
             _polar = InstantiateDevice<Polar>(_structPlayerScene.StructPolar, player, "/" + _idPlayer);
-            
+
+            _movuino = new GameObject[NbMovuino];
+            int i = 0;
             foreach (StructMovuino mov in _structPlayerScene.StructMovuino)
             {
-                _movuino = InstantiateDevice<Movuino>(mov, player, "/" + _idPlayer + mov.Id);
+                _movuino[i] = InstantiateDevice<Movuino>(mov, player, "/" + _idPlayer + mov.Id);
+                i++;
             }
-
-            _GymnaseRep = InstantiateDevice<GymnaseBasicProjection>(_structPlayerScene.StructGymnaseRepresentation, this.gameObject, _idPlayer);
+            _gymnaseProjection = InstantiateDevice<GymnaseBasicProjection>(_structPlayerScene.StructGymnaseRepresentation, this.gameObject, _idPlayer);
 
         }
-        private void FixedUpdate()
-        {
 
-            
-        }
-        
         public void Init(StructPlayerScene structPlayerScene)
         {
             //Init the structure of the Playercene

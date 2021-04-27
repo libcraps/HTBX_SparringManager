@@ -20,51 +20,14 @@ namespace SparringManager.Scenarios
         [SerializeField]
         protected GameObject _prefabScenarioComposant;
 
-        /// <summary>
-        /// Composant of the scenario that have the scenario behaviour
-        /// </summary>
-        public virtual GameObject PrefabScenarioComposant
-        {
-            get
-            {
-                return _prefabScenarioComposant;
-            }
-            set
-            {
-                _prefabScenarioComposant = value;
-            }
-        }
-        /// <summary>
-        /// Scenario Object
-        /// </summary>
-        protected Scenario scenario;
+        protected GameObject playerPrefab;
 
-        public Scenario Scenario { get { return scenario;  } }
 
-        protected ScenarioDisplayBehaviour scenarioBehaviour;
-
-        public ScenarioDisplayBehaviour scenarioBehavior
-        {
-            get { return scenarioBehaviour; }
-        }
+        #region PlayerScene
         /// <summary>
-        /// Arc where the hitbox is operational (from the center to +/- operationalArc/2)
+        /// PlayerSceneController component of the playerScene
         /// </summary>
-        protected int operationalArea;
-        /// <summary>
-        /// number of apparition of the scenario
-        /// </summary>
-        protected static int nbApparition;
-
-        /// <summary>
-        /// Stock all the data of the scenario (movuinos, consigne, player mouvement, hit...etc) cf doc of DataSessionPlayerq
-        /// </summary>
-        protected DataSessionPlayer dataSessionPlayer;
-
-        /// <summary>
-        /// Component DataManager of the PlayerScene object
-        /// </summary>
-        protected DataManager dataManagerComponent;
+        protected PlayerSceneController playerSceneController;
 
         /// <summary>
         /// Movuinos present in the scene for the scenario
@@ -85,18 +48,52 @@ namespace SparringManager.Scenarios
         /// Number of movuinos
         /// </summary>
         protected int nbMovuino;
+        #endregion
+
+
+
+        /// <summary>
+        /// Scenario Object
+        /// </summary>
+        protected Scenario scenario;
+
+
+        protected ScenarioDisplayBehaviour scenarioBehaviour;
+
+
+        /// <summary>
+        /// Arc where the hitbox is operational (from the center to +/- operationalArc/2)
+        /// </summary>
+        protected int operationalArea;
+        /// <summary>
+        /// number of apparition of the scenario
+        /// </summary>
+        protected static int nbApparition;
+
+        /// <summary>
+        /// Stock all the data of the scenario (movuinos, consigne, player mouvement, hit...etc) cf doc of DataSessionPlayerq
+        /// </summary>
+        protected DataSessionPlayer dataSessionPlayer;
+
+        /// <summary>
+        /// Component DataManager of the PlayerScene object
+        /// </summary>
+        protected DataManager dataManagerComponent;
+
+
 
         /// <summary>
         /// RenderCamera
         /// </summary>
-        protected GameObject renderCameraObject;
+        protected GameObject _renderCameraObject;
 
-        protected ImpactManager renderCameraIM;
+        
+
 
         /// <summary>
         /// range of the render camera
         /// </summary>
-        protected float rangeSize;
+        protected float _rangeSize;
 
         /// <summary>
         /// time variable where we stock the previous time
@@ -112,23 +109,52 @@ namespace SparringManager.Scenarios
         /// reactionTime of the player
         /// </summary>
         protected float reactTime;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Composant of the scenario that have the scenario behaviour
+        /// </summary>
+        public virtual GameObject PrefabScenarioComposant
+        {
+            get
+            {
+                return _prefabScenarioComposant;
+            }
+            set
+            {
+                _prefabScenarioComposant = value;
+            }
+        }
+
+        public ScenarioDisplayBehaviour scenarioBehavior
+        {
+            get { return scenarioBehaviour; }
+        }
+
+        public Scenario Scenario { get { return scenario; } }
+
+        /// <summary>
+        /// ImpactManagerComponent of the renderCamera
+        /// </summary>
+        public ImpactManager renderCameraIM { get { return _renderCameraObject.GetComponent<ImpactManager>(); } }
 
         /// <summary>
         /// hit variable, True if hitted, " " if not
         /// </summary>
-        protected virtual object hitDataValue 
-        { 
+        protected virtual object hitDataValue
+        {
             get
             {
                 if (scenarioBehaviour.hitted == true)
                 {
                     return true;
-                } 
+                }
                 else
                 {
                     return " ";
                 }
-            } 
+            }
         }
 
         /// <value>Start time of the scenario</value>
@@ -137,22 +163,26 @@ namespace SparringManager.Scenarios
         /// <value>Get the consigne of the scenario</value>
         public abstract float consigne { get; }
 
-        public float RangeSize { get { return rangeSize; } }
-        public GameObject RenderCameraObject { get { return renderCameraObject; } }
+        public float rangeSize { get { return _rangeSize; } }
+        public GameObject renderCameraObject { get { return _renderCameraObject; } }
+
         #endregion
+
         #region Methods
 
-        #region Unity implemented Methods
+        #region Unity implemented methods
         /// <summary>
         /// Initialize some variables
         /// </summary>
         protected virtual void Awake()
         {
-            operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
-            nbMovuino = this.gameObject.GetComponentInParent<DeviceManager>().NbMovuino;
-            renderCameraObject = this.gameObject.GetComponentInParent<DeviceManager>().RenderCamera;
-            renderCameraIM = renderCameraObject.GetComponent<ImpactManager>();
-            rangeSize = renderCameraObject.GetComponent<Camera>().orthographicSize;
+            playerPrefab = this.gameObject.transform.parent.gameObject;
+            playerSceneController = playerPrefab.GetComponent<DeviceManager>().PlayerScene.GetComponent<PlayerSceneController>();
+
+            operationalArea = playerPrefab.GetComponent<SessionManager>().OperationalArea;
+            nbMovuino = playerSceneController.NbMovuino;
+            _renderCameraObject = playerPrefab.GetComponent<DeviceManager>().RenderCamera;
+            _rangeSize = _renderCameraObject.GetComponent<Camera>().orthographicSize;
             nbApparition += 1;
         }
         protected virtual void Start()
@@ -185,7 +215,7 @@ namespace SparringManager.Scenarios
             dataManagerComponent.DataBase.Add(dataSessionPlayer.DataTable);
             dataManagerComponent.EndScenarioForData = true;
 
-            GetComponentInParent<SessionManager>().EndScenario = true;
+            playerPrefab.GetComponent<SessionManager>().EndScenario = true;
 
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
@@ -225,16 +255,16 @@ namespace SparringManager.Scenarios
             movuino = new Movuino[nbMovuino];
             for (int i = 0; i < nbMovuino; i++)
             {
-                movuino[i] = GameObject.FindGameObjectsWithTag("Movuino")[i].GetComponent<Movuino>();
+                movuino[i] = playerSceneController.movuino[i].GetComponent<Movuino>();
                 dataSessionPlayer.DataSessionMovuino[i].id = movuino[i].id; //We need the id of the movuino to have different column names and identifie thmen
                 dataSessionPlayer.DataSessionMovuinoXMM[i].id = movuino[i].id;
             }
 
             //Polar
-            polar = GameObject.FindGameObjectWithTag("Polar").GetComponent<Polar>();
+            polar = playerSceneController.polar.GetComponent<Polar>();
 
             //ViveTracker
-            viveTrackerManager = GameObject.Find("ViveTrackerManager(Clone)").GetComponent<ViveTrackerManager>();
+            viveTrackerManager = playerSceneController.viveTracker.GetComponent<ViveTrackerManager>();
         }
 
         /// <summary>
