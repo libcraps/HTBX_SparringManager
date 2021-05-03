@@ -1,0 +1,23 @@
+--> General :
+  - Date :  : 03/05/2021 14:29:35
+  - Athlete :  : Joshua
+  - File path :  : .\_data\Joshua\
+  - Nb scenarios :  : 5
+
+
+--> Scenario_SplHitLine(Clone)_1 :
+  - ScenarioPrefab : Scenario_SplHitLine (UnityEngine.GameObject)
+  - TimerScenario : 10
+  - Speed : 25
+  - Rythme : 100
+  - FixPosHit : True
+
+
+--> Scenario_HitLine(Clone)_3 :
+  - ScenarioPrefab : Scenario_HitLine (UnityEngine.GameObject)
+  - TimerScenario : 8
+  - Speed : 30
+  - Rythme : 5
+  - FixPosHit : True
+
+

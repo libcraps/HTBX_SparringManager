@@ -1,0 +1,23 @@
+--> General :
+  - Date :  : 03/05/2021 14:29:35
+  - Athlete :  : Albert
+  - File path :  : .\_data\Albert\
+  - Nb scenarios :  : 5
+
+
+--> Scenario_CrossLine(Clone)_2 :
+  - ScenarioPrefab : Scenario_CrossLine (UnityEngine.GameObject)
+  - TimerScenario : 10
+  - Speed : -25
+  - Rythme : 100
+  - FixPosHit : True
+
+
+--> Scenario_HitLine(Clone)_4 :
+  - ScenarioPrefab : Scenario_HitLine (UnityEngine.GameObject)
+  - TimerScenario : 8
+  - Speed : 30
+  - Rythme : 5
+  - FixPosHit : True
+
+
