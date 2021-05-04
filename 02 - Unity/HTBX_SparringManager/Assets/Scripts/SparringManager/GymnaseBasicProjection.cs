@@ -33,13 +33,13 @@ namespace SparringManager.Device
 
         private PlayerSceneController playerSceneController;
         private SessionManager sessionManager;
-        private ScenarioController _scenarioPlayedController 
+        private LineScenarioController _scenarioPlayedController 
         { 
             get 
             { 
-                if (Convert.ToBoolean(sessionManager.scenarioPlayed.GetComponent<ScenarioController>()))
+                if (Convert.ToBoolean(sessionManager.scenarioPlayed.GetComponent<LineScenarioController>()))
                 {
-                    return sessionManager.scenarioPlayed.GetComponent<ScenarioController>();
+                    return sessionManager.scenarioPlayed.GetComponent<LineScenarioController>();
                 } 
                 else
                 {
@@ -48,7 +48,7 @@ namespace SparringManager.Device
             } 
         }
 
-        private ScenarioDisplayBehaviour _scenarioPlayedDisplay;
+        private LineDisplayBehaviour _scenarioPlayedDisplay;
 
         bool _isScenarioRunning;
 

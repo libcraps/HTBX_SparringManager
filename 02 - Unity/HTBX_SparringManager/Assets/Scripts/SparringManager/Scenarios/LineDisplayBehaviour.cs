@@ -8,11 +8,11 @@ namespace SparringManager.Scenarios
     /// Abstract class for ScenarioBehaviour component, each scenario controller will dispose this attributs and methods (public and protected) 
     /// </summary>
     /// <remarks>By default it is adapted for Line scenarios</remarks>
-    public abstract class ScenarioDisplayBehaviour : MonoBehaviour
+    public abstract class LineDisplayBehaviour : MonoBehaviour
     {
         #region Attributs
         protected GeneriqueScenarioStruct structScenari;
-        protected ScenarioController scenarioController;
+        protected LineScenarioController scenarioController;
         protected Scenario scenario;
 
         protected GameObject _objectToHit;
@@ -88,7 +88,7 @@ namespace SparringManager.Scenarios
         #region Unity Methods
         protected virtual void Awake()
         {
-            scenarioController = this.gameObject.GetComponentInParent<ScenarioController>();
+            scenarioController = this.gameObject.GetComponentInParent<LineScenarioController>();
             operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
             scenario = scenarioController.Scenario;
 

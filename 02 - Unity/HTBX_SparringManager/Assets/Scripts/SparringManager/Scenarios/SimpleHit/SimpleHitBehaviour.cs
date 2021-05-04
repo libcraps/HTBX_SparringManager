@@ -5,7 +5,7 @@ namespace SparringManager.Scenarios.SimpleHit
     /// <summary>
     /// Class that manage the prefab object that will represent an hit
     /// </summary>
-    public class SimpleHitBehaviour : ScenarioDisplayBehaviour
+    public class SimpleHitBehaviour : LineDisplayBehaviour
     {
         [SerializeField]
         private GameObject _prefabObject;

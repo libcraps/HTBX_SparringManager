@@ -7,8 +7,8 @@ namespace SparringManager.Scenarios
     /// Manage the behaviour of the SplHitLine.
     /// </summary>
     /// <remarks>Essentialy it moves the line, instantiates the hit and it makes sure that the line stays in the range of the camera</remarks>
-    /// <inheritdoc cref="ScenarioDisplayBehaviour"/>
-    public class SplHitLineBehaviour : ScenarioDisplayBehaviour
+    /// <inheritdoc cref="LineDisplayBehaviour"/>
+    public class SplHitLineBehaviour : LineDisplayBehaviour
     {
         [SerializeField]
         public static int scaleMaxValue = 45;

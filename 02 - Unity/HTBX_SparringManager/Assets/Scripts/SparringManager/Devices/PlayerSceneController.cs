@@ -25,12 +25,10 @@ namespace SparringManager.Device
         private GameObject[] _movuino;
         private GameObject _polar;
         private GameObject _viveTracker;
-        private GameObject _scenarioPlayedController;
 
         public GameObject[] movuino { get { return _movuino;  } }
         public GameObject polar { get { return _polar;  } }
         public GameObject viveTracker { get { return _viveTracker;  } }
-
         public GameObject gymnaseProjection { get { return _gymnaseProjection; } }
 
         private string _idPlayer;

@@ -12,7 +12,7 @@ namespace SparringManager.Scenarios.HitLine
     /// <summary>
     /// Manage the scenario HitLine.
     /// </summary>
-    public class HitLineController : ScenarioController
+    public class HitLineController : LineScenarioController
     {
         #region Attributs
         //----------- ATTRIBUTS ---------------------- 

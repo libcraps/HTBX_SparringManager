@@ -13,7 +13,7 @@ namespace SparringManager.Scenarios.CrossLine
     /// Manage the scenario CrossLine.
     /// </summary>
     /// <inheritdoc cref="ScenarioControllerBehaviour"/>
-    public class CrossLineController : ScenarioController
+    public class CrossLineController : LineScenarioController
     {
         #region Attributs
         //----------- ATTRIBUTS ----------------------

@@ -9,8 +9,8 @@ namespace SparringManager.Scenarios.HitLine
     /// Manage the behaviour of the HitLine.
     /// </summary>
     /// <remarks>Essentialy it moves the line, instantiates the hit and it makes sure that the line stays in the range of the camera</remarks>
-    /// <inheritdoc cref="ScenarioDisplayBehaviour"/>
-    public class HitLineBehaviour : ScenarioDisplayBehaviour
+    /// <inheritdoc cref="LineDisplayBehaviour"/>
+    public class HitLineBehaviour : LineDisplayBehaviour
     {
 
         protected override void Awake()

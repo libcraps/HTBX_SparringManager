@@ -14,7 +14,7 @@ namespace SparringManager.Scenarios
     /// <summary>
     /// Abstract class of a ScenarioController, each scenario controller will dispose this attributs and methods (public and protected) 
     /// </summary>
-    public abstract class ScenarioController : MonoBehaviour
+    public abstract class LineScenarioController : MonoBehaviour
     {
         #region Attributs
         [SerializeField]
@@ -28,14 +28,17 @@ namespace SparringManager.Scenarios
         /// PlayerSceneController component of the playerScene
         /// </summary>
         protected PlayerSceneController playerSceneController;
+
         /// <summary>
         /// Movuinos present in the scene for the scenario
         /// </summary>
         protected Movuino[] movuino;
+
         /// <summary>
         /// polar presents in the scene for the scenario
         /// </summary>
         protected Polar polar;
+
         /// <summary>
         /// Manage all vivetrackers present in the scene for the scenario
         /// </summary>
@@ -52,7 +55,7 @@ namespace SparringManager.Scenarios
         /// </summary>
         protected Scenario scenario;
 
-        protected ScenarioDisplayBehaviour scenarioBehaviour;
+        protected LineDisplayBehaviour scenarioBehaviour;
 
         /// <summary>
         /// Arc where the hitbox is operational (from the center to +/- operationalArc/2)
@@ -72,7 +75,7 @@ namespace SparringManager.Scenarios
         /// Component DataManager of the PlayerPrefab object
         /// </summary>
         protected DataManager dataManagerComponent;
-
+        
         /// <summary>
         /// RenderCamera
         /// </summary>
@@ -115,7 +118,7 @@ namespace SparringManager.Scenarios
             }
         }
 
-        public ScenarioDisplayBehaviour scenarioBehavior
+        public LineDisplayBehaviour scenarioBehavior
         {
             get { return scenarioBehaviour; }
         }
@@ -173,8 +176,10 @@ namespace SparringManager.Scenarios
             _rangeSize = _renderCameraObject.GetComponent<Camera>().orthographicSize;
             nbApparition += 1;
         }
+
         protected virtual void Start()
         {
+            //Devices 
             GetDevices();
             //Initialisation of the time and the acceleration
             tTime = Time.time - startTimeScenario;
@@ -187,7 +192,7 @@ namespace SparringManager.Scenarios
             _pos3d.z = this.gameObject.transform.position.z + 100f;
 
             var go = Instantiate(_prefabScenarioComposant, _pos3d, Quaternion.identity, this.gameObject.transform);
-            scenarioBehaviour = go.GetComponent<ScenarioDisplayBehaviour>();
+            scenarioBehaviour = go.GetComponent<LineDisplayBehaviour>();
             scenarioBehaviour.Init(Scenario.structScenari);
             Destroy(go, Scenario.timerScenario);
         }
@@ -227,6 +232,7 @@ namespace SparringManager.Scenarios
             //Initialize this Class
             //Scenario controller
             scenario = new Scenario(structScenarios);
+
             //Data
             dataSessionPlayer = new DataSessionPlayer(nbMovuino);
             dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataManager.StructToDictionary<GeneriqueScenarioStruct>(Scenario.structScenari);

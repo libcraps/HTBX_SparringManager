@@ -34,7 +34,7 @@ namespace SparringManager.Scenarios.SimpleLine
     /// Manage the scenario SimpleLine.
     /// </summary>
     /// <inheritdoc cref="ScenarioControllerBehaviour"/>
-    public class SimpleLineController : ScenarioController
+    public class SimpleLineController : LineScenarioController
     {
         #region Attributs
         //----------- ATTRIBUTS ----------------------

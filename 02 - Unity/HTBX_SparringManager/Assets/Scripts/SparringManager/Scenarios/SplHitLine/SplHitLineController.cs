@@ -17,7 +17,7 @@ namespace SparringManager.SplHitLine
     /// Manage the scenario SplHitLine.
     /// </summary>
     /// <inheritdoc cref="ScenarioControllerBehaviour"/>
-    public class SplHitLineController : ScenarioController
+    public class SplHitLineController : LineScenarioController
     {
         #region Attributs
         //----------- ATTRIBUTS ----------------------

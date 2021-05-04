@@ -31,7 +31,23 @@ namespace SparringManager
 
         public GameObject scenarioPlayed;
 
-        public ImpactManager renderCameraIM;
+        public ImpactManager renderCameraIM
+        {
+            get
+            {
+                if (Convert.ToBoolean(_deviceManager.RenderCamera.GetComponent<ImpactManager>()))
+                {
+                    return _deviceManager.RenderCamera.GetComponent<ImpactManager>();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private bool cameraInstantiated;
+
 
         #endregion
         #region Methods
@@ -50,6 +66,21 @@ namespace SparringManager
             EndScenario = true; //We initialise to true in order to go in the loop
         }
 
+        private void FixedUpdate()
+        {
+            if (Convert.ToBoolean(renderCameraIM) && cameraInstantiated == false)
+            {
+                cameraInstantiated = true;
+                ImpactManager.onInteractPoint += LaunchScenario; //Launch scenario when Hit
+            }
+            else if (!Convert.ToBoolean(renderCameraIM) && cameraInstantiated == true)
+            {
+                cameraInstantiated = false;
+                ImpactManager.onInteractPoint -= LaunchScenario;
+            }
+        }
+
+
         private void OnEnable()
         {
             ImpactManager.onInteractPoint += LaunchScenario; //Launch scenario when Hit
@@ -59,6 +90,7 @@ namespace SparringManager
         {
             ImpactManager.onInteractPoint -= LaunchScenario; //Launch scenario when Hit
         }
+
 
         /// <summary>
         /// Method that instantaiates scenarios
@@ -71,7 +103,7 @@ namespace SparringManager
         {
             scenarioPlayed = Instantiate(strucObject.ScenarioPrefab, pos3d, Quaternion.identity, referenceGameObject.transform);
 
-            scenarioPlayed.GetComponent<ScenarioController>().Init(strucObject);
+            scenarioPlayed.GetComponent<LineScenarioController>().Init(strucObject);
             Destroy(scenarioPlayed, strucObject.TimerScenario);
 
             Debug.Log(scenarioPlayed.name + " has been instantiated");

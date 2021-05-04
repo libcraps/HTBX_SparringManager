@@ -10,7 +10,7 @@ namespace SparringManager.Scenarios.SimpleLine
     /// Manage the behaviour of the SimpleLine.
     /// </summary>
     /// <remarks>Essentialy it moves the line and it makes sure that the line stays in the range of the camera</remarks>
-    public class SimpleLineBehaviour : ScenarioDisplayBehaviour
+    public class SimpleLineBehaviour : LineDisplayBehaviour
     {
         //General variables of a MovingLine
         protected override void FixedUpdate()

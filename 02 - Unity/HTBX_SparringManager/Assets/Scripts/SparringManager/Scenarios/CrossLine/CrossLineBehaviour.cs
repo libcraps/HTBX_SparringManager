@@ -7,8 +7,8 @@ namespace SparringManager.Scenarios.CrossLine
     /// Manage the behaviour of the CrossLine.
     /// </summary>
     /// <remarks>Essentialy it moves the line, instantiates the hit and it makes sure that the line stays in the range of the camera</remarks>
-    /// <inheritdoc cref="ScenarioDisplayBehaviour"/>
-    public class CrossLineBehaviour : ScenarioDisplayBehaviour
+    /// <inheritdoc cref="LineDisplayBehaviour"/>
+    public class CrossLineBehaviour : LineDisplayBehaviour
     {
         //General variables of a MovingLine
         GameObject VertLineObject;

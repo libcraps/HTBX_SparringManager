@@ -13,7 +13,7 @@ namespace SparringManager.Scenarios.SimpleHit
     /// Manage the scenario HitLine.
     /// </summary>
     /// <inheritdoc cref="ScenarioControllerBehaviour"/>
-    public class SimpleHitController : ScenarioController
+    public class SimpleHitController : LineScenarioController
     {
         #region Attributs
 
