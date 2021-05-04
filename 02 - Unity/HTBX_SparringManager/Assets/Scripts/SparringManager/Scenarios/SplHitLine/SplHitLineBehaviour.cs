@@ -26,15 +26,15 @@ namespace SparringManager.Scenarios
         protected override void Awake()
         {
             base.Awake();
-            _barDown = this.gameObject.transform.GetChild(1).gameObject;
-            _barUp = this.gameObject.transform.GetChild(0).gameObject;
+            _barDown = dictGameObjects["DownLine"];
+            _barUp = dictGameObjects["UpLine"];
 
         }
 
         protected override void Start()
         {
-            base.Start();
             SetObjectToHit();
+            //StartCoroutine(AnimateScenario());
         }
 
         protected override void FixedUpdate()
@@ -49,6 +49,7 @@ namespace SparringManager.Scenarios
             }
 
             HitManager(_objectToHit);
+
         }
 
         /// <summary>

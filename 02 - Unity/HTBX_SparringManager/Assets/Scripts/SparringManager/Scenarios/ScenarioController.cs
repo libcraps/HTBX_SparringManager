@@ -28,17 +28,14 @@ namespace SparringManager.Scenarios
         /// PlayerSceneController component of the playerScene
         /// </summary>
         protected PlayerSceneController playerSceneController;
-
         /// <summary>
         /// Movuinos present in the scene for the scenario
         /// </summary>
         protected Movuino[] movuino;
-
         /// <summary>
         /// polar presents in the scene for the scenario
         /// </summary>
         protected Polar polar;
-
         /// <summary>
         /// Manage all vivetrackers present in the scene for the scenario
         /// </summary>
@@ -50,21 +47,17 @@ namespace SparringManager.Scenarios
         protected int nbMovuino;
         #endregion
 
-
-
         /// <summary>
         /// Scenario Object
         /// </summary>
         protected Scenario scenario;
 
-
         protected ScenarioDisplayBehaviour scenarioBehaviour;
-
 
         /// <summary>
         /// Arc where the hitbox is operational (from the center to +/- operationalArc/2)
         /// </summary>
-        protected int operationalArea;
+        protected int _operationalArea;
         /// <summary>
         /// number of apparition of the scenario
         /// </summary>
@@ -76,19 +69,14 @@ namespace SparringManager.Scenarios
         protected DataSessionPlayer dataSessionPlayer;
 
         /// <summary>
-        /// Component DataManager of the PlayerScene object
+        /// Component DataManager of the PlayerPrefab object
         /// </summary>
         protected DataManager dataManagerComponent;
-
-
 
         /// <summary>
         /// RenderCamera
         /// </summary>
         protected GameObject _renderCameraObject;
-
-        
-
 
         /// <summary>
         /// range of the render camera
@@ -179,7 +167,7 @@ namespace SparringManager.Scenarios
             playerPrefab = this.gameObject.transform.parent.gameObject;
             playerSceneController = playerPrefab.GetComponent<DeviceManager>().PlayerScene.GetComponent<PlayerSceneController>();
 
-            operationalArea = playerPrefab.GetComponent<SessionManager>().OperationalArea;
+            _operationalArea = playerPrefab.GetComponent<SessionManager>().OperationalArea;
             nbMovuino = playerSceneController.NbMovuino;
             _renderCameraObject = playerPrefab.GetComponent<DeviceManager>().RenderCamera;
             _rangeSize = _renderCameraObject.GetComponent<Camera>().orthographicSize;

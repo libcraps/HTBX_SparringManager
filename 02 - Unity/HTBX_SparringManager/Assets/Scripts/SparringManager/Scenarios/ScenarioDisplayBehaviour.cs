@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace SparringManager.Scenarios
 {
     /// <summary>
     /// Abstract class for ScenarioBehaviour component, each scenario controller will dispose this attributs and methods (public and protected) 
     /// </summary>
+    /// <remarks>By default it is adapted for Line scenarios</remarks>
     public abstract class ScenarioDisplayBehaviour : MonoBehaviour
     {
         #region Attributs
@@ -15,7 +17,10 @@ namespace SparringManager.Scenarios
 
         protected GameObject _objectToHit;
 
-        protected Dictionary<string, GameObject> dictGameObjects;
+        /// <summary>
+        /// Dictionary that contains every scenario objects
+        /// </summary>
+        protected Dictionary<string, GameObject> _dictGameObjects;
 
         /// <summary>
         /// Velocity of this object
@@ -36,14 +41,6 @@ namespace SparringManager.Scenarios
         protected float startTimeScenario;
 
         /// <summary>
-        /// Range of the RenderCamera of the PlayerScene of this object
-        /// </summary>
-        public float rangeSize;
-        /// <summary>
-        /// RenderCamera of the PlayerPrefab of this object
-        /// </summary>
-        public GameObject renderCamera;
-        /// <summary>
         /// Part of the bag that is operational
         /// </summary>
         protected int operationalArea;
@@ -55,6 +52,7 @@ namespace SparringManager.Scenarios
 
 
         #region Properties
+        public Dictionary<string, GameObject> dictGameObjects { get { return _dictGameObjects; } }
         public GameObject objectToHit
         {
             get
@@ -91,13 +89,11 @@ namespace SparringManager.Scenarios
         protected virtual void Awake()
         {
             scenarioController = this.gameObject.GetComponentInParent<ScenarioController>();
-            scenario = scenarioController.Scenario;
-            startTimeScenario = scenario.startTimeScenario;
-            renderCamera = scenarioController.renderCameraObject;
             operationalArea = this.gameObject.GetComponentInParent<SessionManager>().OperationalArea;
+            scenario = scenarioController.Scenario;
 
 
-            tTime = Time.time - startTimeScenario;
+            tTime = Time.time - scenario.startTimeScenario;
             previousTime = tTime;
 
             deltaTimeChangeMovement = 1;
@@ -105,22 +101,29 @@ namespace SparringManager.Scenarios
             timeBeforeHit = tTime + 1/(1+scenario.rythme)*100;
 
             //Get every objects of the scenario
-            dictGameObjects = new Dictionary<string, GameObject>();
+            _dictGameObjects = new Dictionary<string, GameObject>();
             for (int i=0; i< gameObject.transform.childCount; i++)
             {
                 GameObject go = gameObject.transform.GetChild(i).gameObject;
-                dictGameObjects[go.name] = go;
+                _dictGameObjects[go.name] = go;
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         protected virtual void Start()
         {
 
         }
 
+        /// <summary>
+        /// Default : actualize time, keep object in camera range and hitted = false
+        /// </summary>
         protected virtual void FixedUpdate()
         {
-            tTime = Time.time - startTimeScenario;
+            tTime = Time.time - scenario.startTimeScenario;
             ObjectInCameraRange(this.gameObject);
             hitted = false;
         }
@@ -163,7 +166,7 @@ namespace SparringManager.Scenarios
             objPos3d.y = obj.transform.localPosition.y;
             objPos3d.z = obj.transform.localPosition.z;
 
-            float area = operationalArea / (float)360.0 * scenarioController.rangeSize;
+            float area = operationalArea / 360.0f * scenarioController.rangeSize;
 
             if ((int)area == scenarioController.rangeSize)
             {
@@ -208,7 +211,7 @@ namespace SparringManager.Scenarios
         }
 
         /// <summary>
-        /// Move this object by changing his velocity
+        /// Move object by changing his velocity
         /// </summary>
         /// <param name="objectVelocity"></param>
         protected virtual void MoveObject(GameObject obj, Vector3 objectVelocity)
@@ -322,6 +325,9 @@ namespace SparringManager.Scenarios
                 missedTargetEvent();
         }
 
+        /// <summary>
+        /// Indicates wich objects you have to hit
+        /// </summary>
         protected virtual void SetObjectToHit()
         {
 
@@ -341,7 +347,6 @@ namespace SparringManager.Scenarios
             {
                 UnsetHit(DisplayObject);
                 MissedTarget();
-                print("MISSED");
             }
             else
             {
@@ -356,7 +361,7 @@ namespace SparringManager.Scenarios
         protected virtual void GetHit(Vector2 position2d_)
         {
             RaycastHit hit;
-            Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, renderCamera.transform.position.z - 10);
+            Vector3 rayCastOrigin = new Vector3(position2d_.x, position2d_.y, scenarioController.renderCameraObject.transform.position.z - 10);
             Vector3 rayCastDirection = new Vector3(0, 0, 1);
 
             bool rayOnTarget = Physics.Raycast(rayCastOrigin, rayCastDirection, out hit, 1000);

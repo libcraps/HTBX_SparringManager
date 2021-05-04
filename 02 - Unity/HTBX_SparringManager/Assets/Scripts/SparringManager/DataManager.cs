@@ -106,8 +106,6 @@ namespace SparringManager.Data
             _sessionSumUp = new Dictionary<string, Dictionary<string, string>>();
             _generaralSectionSumUp = new Dictionary<string, string>();
             _dataBase = new List<DataTable>();
-
-            EndScenarioForData = false;
         }
         private void OnDestroy()
         {
@@ -120,17 +118,18 @@ namespace SparringManager.Data
                 }
                 DicoToTXT(_sessionSumUp, _filePath + "SessionSumUp.txt");
                 //_dataManager.ToCSV(_dataManager.DataBase[_indexScenario - 1], ".\\_data\\" + GetNameScenarioI(_indexScenario - 1) + ".csv");
-                ToCSVGlobal(_dataBase, _filePath+ "GlobalSessionData.csv");
+                ToCSVGlobal(_dataBase, _filePath + "GlobalSessionData.csv");
                 //ToCSVGlobal(Database_static, _filePath + "GlobalSessionData_TEST.csv");
 
             }
         }
 
+
         //--> Methods we use to stock data in file
         public void ToCSV(DataTable dtDataTable, string strFilePath)
         {
             /*
-             * Stock une DataTable in a csv
+             * Stock a DataTable in a csv
              */
             StreamWriter sw = new StreamWriter(strFilePath, false);
             //headers    

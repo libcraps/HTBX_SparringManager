@@ -127,6 +127,7 @@ namespace SparringManager.Device
             }
             else if (!Convert.ToBoolean(_scenarioPlayedController) && _isScenarioRunning == true)
             {
+                SetDefaultMaterial();
                 _isScenarioRunning = false;
                 _scenarioPlayedController.scenarioBehavior.targetHittedEvent -= DisplayTargetHitted;
                 _scenarioPlayedController.scenarioBehavior.missedTargetEvent -= DisplayTargetMissed;
@@ -169,11 +170,8 @@ namespace SparringManager.Device
         {
             MeshRenderer bagMesh = _bagZone.transform.Find("ExteriorCircle").gameObject.GetComponent<MeshRenderer>();
 
-            for (int i = 0; i < 10; i++)
-            {
-                bagMesh.material = glowGreenMaterial;
-                yield return null;
-            }
+            bagMesh.material = glowGreenMaterial;
+            yield return new WaitForSeconds(0.25f);
             bagMesh.material = glowWhiteMaterial;
         }
 
@@ -181,32 +179,19 @@ namespace SparringManager.Device
         {
             MeshRenderer bagMesh = _bagZone.transform.Find("ExteriorCircle").gameObject.GetComponent<MeshRenderer>();
 
-            for (int i = 0; i < 20; i++)
-            {
-                bagMesh.material = glowRedMaterial;
-                yield return null;
-            }
+            bagMesh.material = glowRedMaterial;
+            yield return new WaitForSeconds(0.5f);
             bagMesh.material = glowWhiteMaterial;
         }
 
         void DisplayTargetHitted()
         {
-            if (currentCoroutine != null)
-            {
-                StopCoroutine(currentCoroutine);
-            }
-            currentCoroutine = displayOnBagZoneHit();
-            StartCoroutine(currentCoroutine);
+            StartCoroutine(displayOnBagZoneHit());
         }
 
         void DisplayTargetMissed()
         {
-            if (currentCoroutine != null)
-            {
-                StopCoroutine(currentCoroutine);
-            }
-            currentCoroutine = displayTargetMissedHit();
-            StartCoroutine(currentCoroutine);
+            StartCoroutine(displayTargetMissedHit());
         }
 
         void DisplayTarget(GameObject display)
@@ -219,6 +204,12 @@ namespace SparringManager.Device
         {
             MeshRenderer vectMesh = _vectorConsigne.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
             vectMesh.material = glowBlueMaterial;
+        }
+
+        void SetDefaultMaterial()
+        {
+            _vectorConsigne.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = glowBlueMaterial;
+            _bagZone.transform.Find("ExteriorCircle").gameObject.GetComponent<MeshRenderer>().material = glowWhiteMaterial;
         }
 
     }

@@ -16,7 +16,6 @@ namespace SparringManager
     /// <para>Instantiates every PlayerCamera from the <paramref name="StructPlayerCamera[]">MainStructure</paramref></para>
     public class MainEnvironnement : MonoBehaviour
     {
-
         [SerializeField]
         private GameObject _prefabPlayerPrefab;
 
@@ -64,7 +63,7 @@ namespace SparringManager
         void Awake()
         {
             //Instantiate and initailize component of the player camera
-            GameObject _coachCamera = GameObject.Find("CoachCamera");
+            _coachCamera = GameObject.Find("CoachCamera");
             GameObject clonePlayerPrefab;
             Vector3 posPlayerPrefab = new Vector3();
 

@@ -18,8 +18,8 @@ namespace SparringManager.Scenarios.CrossLine
         {
             base.Awake();
 
-            VertLineObject = GameObject.Find(this.gameObject.transform.GetChild(0).name);
-            HorizLineObject = GameObject.Find(this.gameObject.transform.GetChild(1).name);
+            VertLineObject = dictGameObjects["VerticalLine"];
+            HorizLineObject = dictGameObjects["HorizontalLine"];
             SetObjectToHit();
         }
 
