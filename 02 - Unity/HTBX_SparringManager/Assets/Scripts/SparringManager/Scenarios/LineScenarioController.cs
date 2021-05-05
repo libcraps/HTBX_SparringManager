@@ -20,11 +20,6 @@ namespace SparringManager.Scenarios
         #region Attributs
         public new LineScenarioBehaviour scenarioBehaviour { get { return (LineScenarioBehaviour)_scenarioBehaviour;  } }
 
-        /// <summary>
-        /// tTime
-        /// </summary>
-        protected float tTime;
-
         #endregion
 
         #region Properties

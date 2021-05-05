@@ -31,6 +31,7 @@ namespace SparringManager.Scenarios.SimpleHit
         protected override void FixedUpdate()
         {
             base.FixedUpdate(); //StockData
+            scenarioBehaviour.hitted = false;
         }
         protected override void OnDestroy()
         {
@@ -40,7 +41,6 @@ namespace SparringManager.Scenarios.SimpleHit
             GetComponentInParent<SessionManager>().EndScenario = true;
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
-
 
     }
 }

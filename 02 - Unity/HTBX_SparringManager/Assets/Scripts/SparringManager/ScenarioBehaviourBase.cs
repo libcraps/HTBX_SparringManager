@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace SparringManager.Scenarios
 {
-
+    /// <summary>
+    /// Abstract class for a scenariobehaviour
+    /// </summary>
+    /// <remarks>Globally it contains global information</remarks>
     public abstract class ScenarioBehaviourBase : MonoBehaviour
     {
         protected ScenarioControllerBase scenarioController;

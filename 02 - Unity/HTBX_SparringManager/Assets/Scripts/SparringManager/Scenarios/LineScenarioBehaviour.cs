@@ -108,7 +108,7 @@ namespace SparringManager.Scenarios
         {
             tTime = Time.time - scenario.startTimeScenario;
             ObjectInCameraRange(this.gameObject);
-            hitted = false;
+            
         }
 
         protected virtual void OnDestroy()

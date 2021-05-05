@@ -24,6 +24,11 @@ namespace SparringManager.Scenarios
         protected ScenarioBehaviourBase _scenarioBehaviour;
 
         /// <summary>
+        /// tTime
+        /// </summary>
+        protected float tTime;
+
+        /// <summary>
         /// RenderCamera
         /// </summary>
         protected GameObject _renderCameraObject;
@@ -155,6 +160,7 @@ namespace SparringManager.Scenarios
 
             //PlayerScene
             _playerSceneController = _deviceManagerComponent.PlayerScene.GetComponent<PlayerSceneController>();
+            nbMovuino = _playerSceneController.movuino.Length;
 
             //Data
             dataSessionPlayer = new DataSessionPlayer(nbMovuino);

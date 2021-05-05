@@ -38,6 +38,7 @@ namespace SparringManager.Scenarios.HitLine
         protected override void FixedUpdate()
         {
             base.FixedUpdate(); //StockData and time update
+            scenarioBehaviour.hitted = false;
         }
         protected override void OnDestroy()
         {
