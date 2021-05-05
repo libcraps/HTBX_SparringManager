@@ -9,27 +9,22 @@ namespace SparringManager.Scenarios.HitLine
     /// Manage the behaviour of the HitLine.
     /// </summary>
     /// <remarks>Essentialy it moves the line, instantiates the hit and it makes sure that the line stays in the range of the camera</remarks>
-    /// <inheritdoc cref="LineDisplayBehaviour"/>
-    public class HitLineBehaviour : LineDisplayBehaviour
+    /// <inheritdoc cref="LineScenarioBehaviour"/>
+    public class HitLineBehaviour : LineScenarioBehaviour
     {
 
-        protected override void Awake()
+        protected override void Start()
         {
-            base.Awake();
-            SetObjectToHit();
+            base.Start();
+            _objectToHit = this.gameObject;
         }
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            MoveObject(this.gameObject, fixPosHitValue * objectVelocity);
+            MoveObject(this.gameObject, fixPosHitValue * _objectVelocity);
             HitManager(this.gameObject);
         }
 
-
-        protected override void SetObjectToHit()
-        {
-            _objectToHit = this.gameObject;
-        }
 
     }
 }

@@ -7,14 +7,16 @@ using SparringManager.Device;
 
 namespace SparringManager.Scenarios
 {
+    /// <summary>
+    /// Abstract class that represents a scenario
+    /// </summary>
     public abstract class ScenarioControllerBase : MonoBehaviour
     {
         #region Attributs
         /// <summary>
         /// Prefab of the scenario that is instantiated
         /// </summary>
-        [SerializeField]
-        protected GameObject _prefabScenarioComposant;
+        [SerializeField] protected GameObject _prefabScenarioComposant;
 
         protected ScenarioBehaviourBase _scenarioBehaviour;
 
@@ -22,6 +24,11 @@ namespace SparringManager.Scenarios
         /// RenderCamera
         /// </summary>
         protected GameObject _renderCameraObject;
+
+        /// <summary>
+        /// Range of the RenderCamera.
+        /// </summary>
+        protected float _rangeSize;
 
         /// <summary>
         /// Scenario Object
@@ -92,8 +99,31 @@ namespace SparringManager.Scenarios
         #endregion
 
         #region Properties
+        public GameObject renderCameraObject { get { return _renderCameraObject;  } }
 
+        public float rangeSize { get { return _rangeSize;  } }
         public Scenario scenario { get { return _scenario; } }
+
+        /// <summary>
+        /// Component DataManager of the PlayerPrefab object
+        /// </summary>
+        public DataManager dataManagerComponent { get { return _dataManagerComponent; } }
+
+        /// <summary>
+        /// Component DeviceManager of the PlayerPrefab Object
+        /// </summary>
+        public DeviceManager deviceManagerComponent { get { return _deviceManagerComponent; } }
+
+        /// <summary>
+        /// Component SessionManager of the PlayerPrefab Object
+        /// </summary>
+        public SessionManager sessionManagerComponent { get { return _sessionManagerComponent;  } }
+
+        /// <summary>
+        /// ScenarioBehaviour of the scenario
+        /// </summary>
+        public ScenarioBehaviourBase scenarioBehaviour { get { return _scenarioBehaviour;  } }
+
 
         #endregion
 
@@ -105,15 +135,20 @@ namespace SparringManager.Scenarios
         /// <param name="structScenarios"></param>
         public virtual void Init(GeneriqueScenarioStruct structScenarios)
         {
+            _nbApparition += 1;
             //Initialize this Class
             //Scenario controller
             _scenario = new Scenario(structScenarios);
 
             //Device
-            _playerPrefab = this.gameObject.transform.parent.gameObject;
+            _playerPrefab = transform.parent.gameObject;
             _deviceManagerComponent = _playerPrefab.GetComponent<DeviceManager>();
             _sessionManagerComponent = _playerPrefab.GetComponent<SessionManager>();
             _dataManagerComponent = _playerPrefab.GetComponent< DataManager>();
+
+            //Camera
+            _renderCameraObject = _deviceManagerComponent.RenderCamera;
+            _rangeSize = _renderCameraObject.GetComponent<Camera>().orthographicSize;
 
             //PlayerScene
             _playerSceneController = _deviceManagerComponent.PlayerScene.GetComponent<PlayerSceneController>();
@@ -124,11 +159,31 @@ namespace SparringManager.Scenarios
             _dataManagerComponent.AddContentToSumUp(this.name + "_" + _nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp);
         }
 
-
         /// <summary>
         /// Method to handle data
         /// </summary>
-        public abstract void StockData();
+        protected abstract void StockData();
+
+        /// <summary>
+        /// Search and get other devices in the scene
+        /// </summary>
+        protected virtual void GetDevices()
+        {
+            //movuino
+            movuino = new Movuino[nbMovuino];
+            for (int i = 0; i < nbMovuino; i++)
+            {
+                movuino[i] = _playerSceneController.movuino[i].GetComponent<Movuino>();
+                dataSessionPlayer.DataSessionMovuino[i].id = movuino[i].id; //We need the id of the movuino to have different column names and identifie thmen
+                dataSessionPlayer.DataSessionMovuinoXMM[i].id = movuino[i].id;
+            }
+
+            //Polar
+            polar = _playerSceneController.polar.GetComponent<Polar>();
+
+            //ViveTracker
+            viveTrackerManager = _playerSceneController.viveTracker.GetComponent<ViveTrackerManager>();
+        }
         #endregion
     }
 

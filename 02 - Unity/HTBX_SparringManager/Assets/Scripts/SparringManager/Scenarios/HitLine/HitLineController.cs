@@ -20,14 +20,10 @@ namespace SparringManager.Scenarios.HitLine
         //Scenario
         private new HitLineBehaviour scenarioBehaviour { get 
             { 
-                return (HitLineBehaviour)base.scenarioBehaviour; 
-            }
-            set
-            {
-                base.scenarioBehaviour = value;
+                return (HitLineBehaviour)_scenarioBehaviour; 
             }
         }
-        public override float consigne { get { return Scenario.PosToAngle(rangeSize, base.scenarioBehaviour.transform.localPosition.x); } }
+        public override float consigne { get { return scenario.PosToAngle(rangeSize, base._scenarioBehaviour.transform.localPosition.x); } }
 
         #endregion
 
@@ -35,11 +31,6 @@ namespace SparringManager.Scenarios.HitLine
         //------------ METHODS -------------------
         //General Methods
         #region Unity Methods
-        protected override void Awake()
-        {
-            base.Awake();
-            //INITIALISATION OF VARIABLES 
-        }
         protected override void Start()
         {
             base.Start();
@@ -47,10 +38,6 @@ namespace SparringManager.Scenarios.HitLine
         protected override void FixedUpdate()
         {
             base.FixedUpdate(); //StockData and time update
-
-            //Behaviour Management
-            
-            //RandomizeParametersLineMovement(scenario.accelerationMax, scenario.deltaTimeMin, scenario.deltaTimeMax);
         }
         protected override void OnDestroy()
         {

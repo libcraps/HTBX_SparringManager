@@ -7,7 +7,6 @@ namespace SparringManager.Scenarios
 
     public abstract class ScenarioBehaviourBase : MonoBehaviour
     {
-        protected GeneriqueScenarioStruct structScenari;
         protected ScenarioControllerBase scenarioController;
         protected Scenario scenario;
 
@@ -16,14 +15,16 @@ namespace SparringManager.Scenarios
         /// </summary>
         protected Dictionary<string, GameObject> dictGameObjects;
 
+        /// <summary>
+        /// Part of the bag that is operational
+        /// </summary>
+        protected int operationalArea;
 
-        public virtual void Init(GeneriqueScenarioStruct scenarioStruct)
+        public virtual void Init()
         {
             scenarioController = GetComponentInParent<ScenarioControllerBase>();
+            operationalArea = scenarioController.sessionManagerComponent.OperationalArea;
             scenario = scenarioController.scenario;
-
-            //initialisation
-            this.structScenari = scenarioStruct;
 
             //Get every objects of the scenario
             dictGameObjects = new Dictionary<string, GameObject>();

@@ -124,9 +124,10 @@ namespace SparringManager
                 {
                     //InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, pos3d_);   ---> TO CHOOSE <---
                     InstantiateAndBuildScenario(_scenarios[_indexScenario], this.gameObject, this.gameObject.transform.position);
+                    EndScenario = false;
                     _indexScenario += 1;
                 }
-                EndScenario = false;
+                
             }
         }
 

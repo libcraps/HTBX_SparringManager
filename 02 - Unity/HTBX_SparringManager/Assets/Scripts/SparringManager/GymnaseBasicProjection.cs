@@ -9,7 +9,7 @@ namespace SparringManager.Device
 {
 
     /// <summary>
-    /// Class that manage a basic projection of an Hitbox session's on the gymnase connecté
+    /// Class that manage a basic projection of an Hitbox session's with Line scenarios on the gymnase connecté
     /// </summary>
     /// <remarks>It needs one GymnaseBasicProjection per Player</remarks>
     /// <remarks>To add another projetcion you have to create it</remarks>
@@ -48,7 +48,7 @@ namespace SparringManager.Device
             } 
         }
 
-        private LineDisplayBehaviour _scenarioPlayedDisplay;
+        private ScenarioBehaviourBase _scenarioPlayedDisplay;
 
         bool _isScenarioRunning;
 
@@ -120,19 +120,19 @@ namespace SparringManager.Device
             if (Convert.ToBoolean(_scenarioPlayedController) && _isScenarioRunning == false)
             {
                 _isScenarioRunning = true;
-                _scenarioPlayedController.scenarioBehavior.setHitEvent += DisplayTarget;
-                _scenarioPlayedController.scenarioBehavior.missedTargetEvent += DisplayTargetMissed;
-                _scenarioPlayedController.scenarioBehavior.unsetHitEvent += UndisplayTarget;
-                _scenarioPlayedController.scenarioBehavior.targetHittedEvent += DisplayTargetHitted;
+                _scenarioPlayedController.scenarioBehaviour.setHitEvent += DisplayTarget;
+                _scenarioPlayedController.scenarioBehaviour.missedTargetEvent += DisplayTargetMissed;
+                _scenarioPlayedController.scenarioBehaviour.unsetHitEvent += UndisplayTarget;
+                _scenarioPlayedController.scenarioBehaviour.targetHittedEvent += DisplayTargetHitted;
             }
             else if (!Convert.ToBoolean(_scenarioPlayedController) && _isScenarioRunning == true)
             {
                 SetDefaultMaterial();
                 _isScenarioRunning = false;
-                _scenarioPlayedController.scenarioBehavior.targetHittedEvent -= DisplayTargetHitted;
-                _scenarioPlayedController.scenarioBehavior.missedTargetEvent -= DisplayTargetMissed;
-                _scenarioPlayedController.scenarioBehavior.setHitEvent -= DisplayTarget;
-                _scenarioPlayedController.scenarioBehavior.unsetHitEvent -= UndisplayTarget;
+                _scenarioPlayedController.scenarioBehaviour.targetHittedEvent -= DisplayTargetHitted;
+                _scenarioPlayedController.scenarioBehaviour.missedTargetEvent -= DisplayTargetMissed;
+                _scenarioPlayedController.scenarioBehaviour.setHitEvent -= DisplayTarget;
+                _scenarioPlayedController.scenarioBehaviour.unsetHitEvent -= UndisplayTarget;
             }
 
             //makeBeat();

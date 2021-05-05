@@ -18,28 +18,13 @@ namespace SparringManager.Scenarios.CrossLine
         #region Attributs
         //----------- ATTRIBUTS ----------------------
         //Scenario
-        private new CrossLineBehaviour scenarioBehaviour
-        {
-            get
-            {
-                return (CrossLineBehaviour)base.scenarioBehaviour;
-            }
-            set
-            {
-                base.scenarioBehaviour = value;
-            }
-        }
-        public override float consigne { get { return Scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
+        private new CrossLineBehaviour scenarioBehaviour { get { return (CrossLineBehaviour)_scenarioBehaviour; } }
+        public override float consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
         #endregion
 
         #region Methods
         //------------ METHODS -------------------
         //General Methods
-        protected override void Awake()
-        {
-            base.Awake();
-        }
-
         protected override void Start()
         {
             base.Start();

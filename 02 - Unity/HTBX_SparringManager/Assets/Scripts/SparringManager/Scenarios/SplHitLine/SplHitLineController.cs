@@ -25,23 +25,14 @@ namespace SparringManager.SplHitLine
         {
             get
             {
-                return (SplHitLineBehaviour)base.scenarioBehaviour;
-            }
-            set
-            {
-                base.scenarioBehaviour = value;
+                return (SplHitLineBehaviour)_scenarioBehaviour;
             }
         }
-        public override float consigne { get { return Scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
+        public override float consigne { get { return scenario.PosToAngle(rangeSize, scenarioBehaviour.transform.localPosition.x); } }
         #endregion
 
         //--------------------------    METHODS     ----------------------------------------
         // ---> General Methods
-        protected override void Awake()
-        {
-            base.Awake();
-            //INITIALISATION OF VARIABLES 
-        }
         protected override void Start()
         {
             base.Start();

@@ -5,22 +5,15 @@ namespace SparringManager.Scenarios.SimpleHit
     /// <summary>
     /// Class that manage the prefab object that will represent an hit
     /// </summary>
-    public class SimpleHitBehaviour : LineDisplayBehaviour
+    public class SimpleHitBehaviour : LineScenarioBehaviour
     {
+        /// <summary>
+        /// Hit display
+        /// </summary>
         [SerializeField]
         private GameObject _prefabObject;
 
         public GameObject prefabObject { get { return _prefabObject; } }
-
-        protected override void Awake()
-        {
-            base.Awake();
-        }
-
-        protected override void FixedUpdate()
-        {
-            base.FixedUpdate();
-        }
 
         /// <summary>
         /// Insantiate an impact on the bag when it is hitted.

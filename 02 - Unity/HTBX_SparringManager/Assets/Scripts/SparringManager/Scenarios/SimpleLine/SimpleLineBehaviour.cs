@@ -10,17 +10,13 @@ namespace SparringManager.Scenarios.SimpleLine
     /// Manage the behaviour of the SimpleLine.
     /// </summary>
     /// <remarks>Essentialy it moves the line and it makes sure that the line stays in the range of the camera</remarks>
-    public class SimpleLineBehaviour : LineDisplayBehaviour
+    public class SimpleLineBehaviour : LineScenarioBehaviour
     {
         //General variables of a MovingLine
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            MoveObject(this.gameObject, objectVelocity);
-        }
-        public override void Init(GeneriqueScenarioStruct structScenari)
-        {
-            this.structScenari = structScenari;
+            MoveObject(this.gameObject, _objectVelocity);
         }
 
     }

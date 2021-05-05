@@ -7,8 +7,8 @@ namespace SparringManager.Scenarios
     /// Manage the behaviour of the SplHitLine.
     /// </summary>
     /// <remarks>Essentialy it moves the line, instantiates the hit and it makes sure that the line stays in the range of the camera</remarks>
-    /// <inheritdoc cref="LineDisplayBehaviour"/>
-    public class SplHitLineBehaviour : LineDisplayBehaviour
+    /// <inheritdoc cref="LineScenarioBehaviour"/>
+    public class SplHitLineBehaviour : LineScenarioBehaviour
     {
         [SerializeField]
         public static int scaleMaxValue = 45;
@@ -23,16 +23,9 @@ namespace SparringManager.Scenarios
         private GameObject _barUp;
         private GameObject _barDown;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            _barDown = dictGameObjects["DownLine"];
-            _barUp = dictGameObjects["UpLine"];
-
-        }
-
         protected override void Start()
         {
+            base.Start();
             SetObjectToHit();
             //StartCoroutine(AnimateScenario());
         }
@@ -40,8 +33,8 @@ namespace SparringManager.Scenarios
         protected override void FixedUpdate()
         {
             base.FixedUpdate(); //time update
-            MoveObject(this.gameObject, fixPosHitValue * objectVelocity);
-
+            MoveObject(this.gameObject, fixPosHitValue * _objectVelocity);
+            print(_objectVelocity);
 
             if (_objectToHit == null || _objectToHit.GetComponent<TargetMovingBar>().activated == false)
             {
@@ -119,6 +112,13 @@ namespace SparringManager.Scenarios
         public override void TargetTouched()
         {
             base.TargetTouched();
+        }
+
+        public override void Init()
+        {
+            base.Init();
+            _barDown = dictGameObjects["DownLine"];
+            _barUp = dictGameObjects["UpLine"];
         }
 
 

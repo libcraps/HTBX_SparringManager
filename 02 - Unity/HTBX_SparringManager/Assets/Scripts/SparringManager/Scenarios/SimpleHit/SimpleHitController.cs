@@ -22,11 +22,6 @@ namespace SparringManager.Scenarios.SimpleHit
         #endregion
 
         //---------- METHODS ----------
-        protected override void Awake()
-        {
-            base.Awake();
-            //INITIALISATION OF VARIABLES 
-        }
         //General Methods
         protected override void Start()
         {

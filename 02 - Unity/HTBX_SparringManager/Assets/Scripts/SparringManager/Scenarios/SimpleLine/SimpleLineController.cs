@@ -45,24 +45,20 @@ namespace SparringManager.Scenarios.SimpleLine
         {
             get
             {
-                return (SimpleLineBehaviour)base.scenarioBehaviour;
+                return (SimpleLineBehaviour)base._scenarioBehaviour;
             }
             set
             {
-                base.scenarioBehaviour = value;
+                base._scenarioBehaviour = value;
             }
         }
 
-        public override float consigne { get { return Scenario.PosToAngle(rangeSize, base.scenarioBehaviour.transform.localPosition.x); }}
+        public override float consigne { get { return scenario.PosToAngle(rangeSize, base._scenarioBehaviour.transform.localPosition.x); }}
         #endregion
 
         #region Methods
         //------------ METHODS -------------------
         //General Methods
-        protected override void Awake()
-        {
-            base.Awake();
-        }
         protected override void Start()
         {
             base.Start();
