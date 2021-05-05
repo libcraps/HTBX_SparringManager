@@ -52,24 +52,22 @@ namespace SparringManager
         #endregion
         #region Methods
         //----------------------    METHODS    -------------------------------
-        // ---> General Methods
-        private void Awake()
-        {
-            _dataManager = GetComponent<DataManager>();
-            _deviceManager = GetComponent<DeviceManager>();
-        }
         void Start()
         {
             //DATA MANAGER
+            _dataManager = GetComponent<DataManager>();
             _dataManager.InitGeneralSectionSumUp(_name, _dataManager.FilePath, NbScenarios); //DataManager completed
             _indexScenario = 0;
             EndScenario = true; //We initialise to true in order to go in the loop
         }
 
+        /*
         private void FixedUpdate()
         {
+
             if (Convert.ToBoolean(renderCameraIM) && cameraInstantiated == false)
             {
+                print("OOOOOOOOOOOOOOOK");
                 cameraInstantiated = true;
                 ImpactManager.onInteractPoint += LaunchScenario; //Launch scenario when Hit
             }
@@ -79,7 +77,7 @@ namespace SparringManager
                 ImpactManager.onInteractPoint -= LaunchScenario;
             }
         }
-
+        */
 
         private void OnEnable()
         {
@@ -90,7 +88,6 @@ namespace SparringManager
         {
             ImpactManager.onInteractPoint -= LaunchScenario; //Launch scenario when Hit
         }
-
 
         /// <summary>
         /// Method that instantaiates scenarios

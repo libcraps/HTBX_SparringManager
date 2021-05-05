@@ -33,9 +33,6 @@ namespace SparringManager
 
         private int _indexSac;
 
-        /// <value>Structure of the PlayerScene</value>
-        public StructPlayerScene StructPlayerScene { get { return _structPlayerScene; } }
-
         /// <value>Get the RenderCamera unity object of the PlayerCamera</value>
         public GameObject RenderCamera
         {
@@ -62,10 +59,6 @@ namespace SparringManager
         #endregion
 
         #region Methods
-        private void Awake()
-        {
-            
-        }
         private void Start()
         {
              int nbPlayer = GetComponentInParent<MainEnvironnement>().NbPlayer;

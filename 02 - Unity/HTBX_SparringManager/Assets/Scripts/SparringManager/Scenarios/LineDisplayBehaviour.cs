@@ -132,6 +132,27 @@ namespace SparringManager.Scenarios
         {
             Debug.Log(this.gameObject.name + "has been destroyed");
         }
+
+        /// <summary>
+        /// Subsribe to differents event
+        /// </summary>
+        private void OnEnable()
+        {
+            ImpactManager.onInteractPoint += GetHit;
+            targetHittedEvent += TargetTouched;
+            missedTargetEvent += TargetMissed;
+            setHitEvent += DisplayHit;
+            unsetHitEvent += UndisplayHit;
+        }
+
+        private void OnDisable()
+        {
+            ImpactManager.onInteractPoint -= GetHit;
+            targetHittedEvent -= TargetTouched;
+            missedTargetEvent -= TargetMissed;
+            setHitEvent -= DisplayHit;
+            unsetHitEvent -= UndisplayHit;
+        }
         #endregion 
 
 
@@ -245,24 +266,9 @@ namespace SparringManager.Scenarios
             }
         }
 
-        #region Hitting Methods
-        private void OnEnable()
-        {
-            ImpactManager.onInteractPoint += GetHit;
-            targetHittedEvent += TargetTouched;
-            missedTargetEvent += TargetMissed;
-            setHitEvent += DisplayHit;
-            unsetHitEvent += UndisplayHit;
-        }
 
-        private void OnDisable()
-        {
-            ImpactManager.onInteractPoint -= GetHit;
-            targetHittedEvent -= TargetTouched;
-            missedTargetEvent -= TargetMissed;
-            setHitEvent -= DisplayHit;
-            unsetHitEvent -= UndisplayHit;
-        }
+
+        #region Hitting Methods
 
         public delegate void TargetHittedEvent();
         /// <summary>

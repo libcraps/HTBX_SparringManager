@@ -10,9 +10,33 @@ namespace SparringManager.Scenarios
     public abstract class ScenarioControllerBase : MonoBehaviour
     {
         #region Attributs
+        /// <summary>
+        /// Prefab of the scenario that is instantiated
+        /// </summary>
         [SerializeField]
         protected GameObject _prefabScenarioComposant;
 
+        protected ScenarioBehaviourBase scenarioBehaviour;
+
+        /// <summary>
+        /// RenderCamera
+        /// </summary>
+        protected GameObject _renderCameraObject;
+
+        /// <summary>
+        /// Scenario Object
+        /// </summary>
+        protected Scenario scenario;
+
+        /// <summary>
+        /// number of apparition of the scenario
+        /// </summary>
+        protected static int nbApparition;
+
+        #region PlayerPrefab
+        /// <summary>
+        /// PlayerPrefab 
+        /// </summary>
         protected GameObject playerPrefab;
 
         /// <summary>
@@ -26,9 +50,17 @@ namespace SparringManager.Scenarios
         protected DataManager dataManagerComponent;
 
         /// <summary>
-        /// RenderCamera
+        /// Component DeviceManager of the PlayerPrefab Object
         /// </summary>
-        protected GameObject _renderCameraObject;
+        protected DeviceManager deviceManagerComponent;
+
+        /// <summary>
+        /// Component SessionManager of the PlayerPrefab Object
+        /// </summary>
+        protected SessionManager sessionManagerComponent;
+        #endregion
+
+
 
         #region PlayerScene
         /// <summary>
@@ -59,9 +91,39 @@ namespace SparringManager.Scenarios
 
         #endregion
 
-        public abstract void Init(GeneriqueScenarioStruct structScenarios);
+        #region Methods
 
+        /// <summary>
+        /// Method that inits the scenario controller
+        /// </summary>
+        /// <param name="structScenarios"></param>
+        public virtual void Init(GeneriqueScenarioStruct structScenarios)
+        {
+            //Initialize this Class
+            //Scenario controller
+            scenario = new Scenario(structScenarios);
+
+            //Device
+            playerPrefab = this.gameObject.transform.parent.gameObject;
+            deviceManagerComponent = playerPrefab.GetComponent<DeviceManager>();
+            sessionManagerComponent = playerPrefab.GetComponent<SessionManager>();
+            dataManagerComponent = playerPrefab.GetComponent< DataManager>();
+
+            //PlayerScene
+            playerSceneController = deviceManagerComponent.PlayerScene.GetComponent<PlayerSceneController>();
+
+            //Data
+            dataSessionPlayer = new DataSessionPlayer(nbMovuino);
+            dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataManager.StructToDictionary<GeneriqueScenarioStruct>(scenario.structScenari);
+            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp);
+        }
+
+
+        /// <summary>
+        /// Method to handle data
+        /// </summary>
         public abstract void StockData();
+        #endregion
     }
 
 }
