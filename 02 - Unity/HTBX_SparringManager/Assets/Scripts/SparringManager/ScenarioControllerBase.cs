@@ -18,6 +18,9 @@ namespace SparringManager.Scenarios
         /// </summary>
         [SerializeField] protected GameObject _prefabScenarioComposant;
 
+        /// <summary>
+        /// ScenarioBehaviour of this scenario
+        /// </summary>
         protected ScenarioBehaviourBase _scenarioBehaviour;
 
         /// <summary>
