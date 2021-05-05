@@ -98,11 +98,11 @@ namespace SparringManager.Scenarios
 
             deltaTimeChangeMovement = 1;
             objectVelocity = new Vector3(scenario.speed, 0, 0);
-            timeBeforeHit = tTime + 1/(1+scenario.rythme)*100;
+            timeBeforeHit = tTime + 1 / (1 + scenario.rythme) * 100;
 
             //Get every objects of the scenario
             _dictGameObjects = new Dictionary<string, GameObject>();
-            for (int i=0; i< gameObject.transform.childCount; i++)
+            for (int i = 0; i < gameObject.transform.childCount; i++)
             {
                 GameObject go = gameObject.transform.GetChild(i).gameObject;
                 _dictGameObjects[go.name] = go;

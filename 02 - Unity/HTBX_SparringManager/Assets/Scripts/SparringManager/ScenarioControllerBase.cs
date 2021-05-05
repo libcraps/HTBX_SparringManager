@@ -16,7 +16,7 @@ namespace SparringManager.Scenarios
         [SerializeField]
         protected GameObject _prefabScenarioComposant;
 
-        protected ScenarioBehaviourBase scenarioBehaviour;
+        protected ScenarioBehaviourBase _scenarioBehaviour;
 
         /// <summary>
         /// RenderCamera
@@ -26,18 +26,18 @@ namespace SparringManager.Scenarios
         /// <summary>
         /// Scenario Object
         /// </summary>
-        protected Scenario scenario;
+        protected Scenario _scenario;
 
         /// <summary>
         /// number of apparition of the scenario
         /// </summary>
-        protected static int nbApparition;
+        protected static int _nbApparition;
 
         #region PlayerPrefab
         /// <summary>
         /// PlayerPrefab 
         /// </summary>
-        protected GameObject playerPrefab;
+        protected GameObject _playerPrefab;
 
         /// <summary>
         /// Stock all the data of the scenario (movuinos, consigne, player mouvement, hit...etc) cf doc of DataSessionPlayerq
@@ -47,17 +47,17 @@ namespace SparringManager.Scenarios
         /// <summary>
         /// Component DataManager of the PlayerPrefab object
         /// </summary>
-        protected DataManager dataManagerComponent;
+        protected DataManager _dataManagerComponent;
 
         /// <summary>
         /// Component DeviceManager of the PlayerPrefab Object
         /// </summary>
-        protected DeviceManager deviceManagerComponent;
+        protected DeviceManager _deviceManagerComponent;
 
         /// <summary>
         /// Component SessionManager of the PlayerPrefab Object
         /// </summary>
-        protected SessionManager sessionManagerComponent;
+        protected SessionManager _sessionManagerComponent;
         #endregion
 
 
@@ -66,7 +66,7 @@ namespace SparringManager.Scenarios
         /// <summary>
         /// PlayerSceneController component of the playerScene
         /// </summary>
-        protected PlayerSceneController playerSceneController;
+        protected PlayerSceneController _playerSceneController;
 
         /// <summary>
         /// Movuinos present in the scene for the scenario
@@ -91,6 +91,12 @@ namespace SparringManager.Scenarios
 
         #endregion
 
+        #region Properties
+
+        public Scenario scenario { get { return _scenario; } }
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -101,21 +107,21 @@ namespace SparringManager.Scenarios
         {
             //Initialize this Class
             //Scenario controller
-            scenario = new Scenario(structScenarios);
+            _scenario = new Scenario(structScenarios);
 
             //Device
-            playerPrefab = this.gameObject.transform.parent.gameObject;
-            deviceManagerComponent = playerPrefab.GetComponent<DeviceManager>();
-            sessionManagerComponent = playerPrefab.GetComponent<SessionManager>();
-            dataManagerComponent = playerPrefab.GetComponent< DataManager>();
+            _playerPrefab = this.gameObject.transform.parent.gameObject;
+            _deviceManagerComponent = _playerPrefab.GetComponent<DeviceManager>();
+            _sessionManagerComponent = _playerPrefab.GetComponent<SessionManager>();
+            _dataManagerComponent = _playerPrefab.GetComponent< DataManager>();
 
             //PlayerScene
-            playerSceneController = deviceManagerComponent.PlayerScene.GetComponent<PlayerSceneController>();
+            _playerSceneController = _deviceManagerComponent.PlayerScene.GetComponent<PlayerSceneController>();
 
             //Data
             dataSessionPlayer = new DataSessionPlayer(nbMovuino);
             dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataManager.StructToDictionary<GeneriqueScenarioStruct>(scenario.structScenari);
-            dataManagerComponent.AddContentToSumUp(this.name + "_" + nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp);
+            _dataManagerComponent.AddContentToSumUp(this.name + "_" + _nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp);
         }
 
 
