@@ -80,6 +80,7 @@ namespace SparringManager.Scenarios
             tTime = Time.time - scenario.startTimeScenario;
 
             StockData();
+            scenarioBehaviour.hitted = false;
         }
         protected virtual void OnDestroy()
         {

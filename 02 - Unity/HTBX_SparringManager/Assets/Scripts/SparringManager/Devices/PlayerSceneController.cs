@@ -60,12 +60,25 @@ namespace SparringManager.Device
 
         }
 
+        /// <summary>
+        /// Init the structure of the Playercene
+        /// </summary>
+        /// <param name="structPlayerScene"></param>
         public void Init(StructPlayerScene structPlayerScene)
         {
             //Init the structure of the Playercene
             _structPlayerScene = structPlayerScene;
         }
 
+        /// <summary>
+        /// Instantiate a DeviceBehaviour type object in the scene 
+        /// </summary>
+        /// <remarks>At the moment it is : Vive, movuino, polar and gymnase projection</remarks>
+        /// <typeparam name="ClassDevice">DeviceBehaviour type</typeparam>
+        /// <param name="structure">Structure of settings that initializes the object</param>
+        /// <param name="parent">Parent of the future instantiated object</param>
+        /// <param name="id">Id of the device</param>
+        /// <returns></returns>
         GameObject InstantiateDevice<ClassDevice>(IStructDevice structure, GameObject parent, string id) 
             where ClassDevice : DeviceBehaviour
         {
