@@ -34,7 +34,7 @@ namespace SparringManager
         private int _indexSac;
 
         /// <value>Get the RenderCamera unity object of the PlayerCamera</value>
-        public GameObject RenderCamera
+        public GameObject renderCamera
         {
             get
             {
@@ -42,7 +42,7 @@ namespace SparringManager
             }
         }
         /// <value>Get the PlayerScene unity object of the PlayerCamera</value>
-        public GameObject PlayerScene
+        public GameObject playerScene
         {
             get
             {
@@ -51,8 +51,7 @@ namespace SparringManager
         }
 
         /// <value>Get the number of movuinos of the PlayerScene</value>
-        public int NbMovuino { get { return _structPlayerScene.StructMovuino.Length; } }
-
+        public int nbMovuino { get { return _structPlayerScene.StructMovuino.Length; } }
 
         Vector3 _posRenderCamera; //Position of the RenderCamera
         Vector3 _posPlayerScene; //Position of the PlayerScene

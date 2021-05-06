@@ -13,7 +13,7 @@ namespace SparringManager.Device
     /// </summary>
     /// <remarks>It needs one GymnaseBasicProjection per Player</remarks>
     /// <remarks>To add another projetcion you have to create it</remarks>
-    public class GymnaseBasicProjection : DeviceBehaviour
+    public class GymnaseBasicProjection : GymnaseProjection
     {
         [SerializeField]
         private Material glowRedMaterial;
@@ -32,6 +32,10 @@ namespace SparringManager.Device
         private GameObject playerPrefab;
 
         private PlayerSceneController playerSceneController;
+
+        /// <summary>
+        /// Allows us to get acces to the scenario played
+        /// </summary>
         private SessionManager sessionManager;
         private LineScenarioController _scenarioPlayedController 
         { 
@@ -109,7 +113,7 @@ namespace SparringManager.Device
         {
             playerPrefab = this.gameObject.transform.parent.parent.gameObject;
             sessionManager = playerPrefab.GetComponent<SessionManager>();
-            playerSceneController = playerPrefab.GetComponent<DeviceManager>().PlayerScene.GetComponent<PlayerSceneController>(); ;
+            playerSceneController = playerPrefab.GetComponent<DeviceManager>().playerScene.GetComponent<PlayerSceneController>(); ;
             
         }
         

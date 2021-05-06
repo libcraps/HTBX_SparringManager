@@ -97,13 +97,13 @@ namespace SparringManager.Scenarios
         protected override void StockData()
         {
             dataSessionPlayer.DataSessionScenario.StockData(tTime, consigne);
-            dataSessionPlayer.DataSessionViveTracker.StockData(tTime, viveTrackerManager.angle);
+            dataSessionPlayer.DataSessionViveTracker.StockData(tTime, _viveTrackerManager.angle);
             dataSessionPlayer.DataSessionHit.StockData(tTime, hitDataValue);
-            dataSessionPlayer.DataSessionPolar.StockData(tTime, polar.oscData.bpm);
-            for (int i = 0; i < nbMovuino; i++)
+            dataSessionPlayer.DataSessionPolar.StockData(tTime, _polar.oscData.bpm);
+            for (int i = 0; i < _nbMovuino; i++)
             {
-                dataSessionPlayer.DataSessionMovuino[i].StockData(tTime, movuino[i].MovuinoSensorData.accelerometer, movuino[i].MovuinoSensorData.gyroscope, movuino[i].MovuinoSensorData.magnetometer);
-                dataSessionPlayer.DataSessionMovuinoXMM[i].StockData(tTime, movuino[i].MovuinoXMM.gestId, movuino[i].MovuinoXMM.gestProg);
+                dataSessionPlayer.DataSessionMovuino[i].StockData(tTime, _movuino[i].MovuinoSensorData.accelerometer, _movuino[i].MovuinoSensorData.gyroscope, _movuino[i].MovuinoSensorData.magnetometer);
+                dataSessionPlayer.DataSessionMovuinoXMM[i].StockData(tTime, _movuino[i].MovuinoXMM.gestId, _movuino[i].MovuinoXMM.gestProg);
             }
         }
         #endregion

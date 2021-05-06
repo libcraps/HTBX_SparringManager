@@ -17,7 +17,7 @@
   <Class Name="OSC" Collapsed="true">
     <Position X="29.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQBAAAAACABAgAZAFAAgEAwAAAACKAABABIAAKgIEI=</HashCode>
+      <HashCode>AAQBAAAAACABAgAJAFAAAEAgAAAAAIAAAABIAACgIEI=</HashCode>
       <FileName>Assets\OSC\OSC.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -248,7 +248,7 @@
   <Class Name="SparringManager.DeviceManager" Collapsed="true">
     <Position X="32.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CgAAEAgAACAAAAggAAAAAQAABAAAAAAAAAADIACIAAA=</HashCode>
+      <HashCode>AgAAEAgAACAAAAgACAAAIAAABAEAAAAAAAADIACIAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\DeviceManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -358,13 +358,6 @@
       <FileName>Assets\Scripts\SparringManager\ScenarioBehaviourBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SparringManager.Scenarios.ScenarioControllerBase" Collapsed="true">
-    <Position X="5" Y="6.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>A0AAAABAAABAAAAQAQAACARAEgFBAgGMBIASQgAAAAA=</HashCode>
-      <FileName>Assets\Scripts\SparringManager\ScenarioControllerBase.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="SparringManager.Scenarios.LineScenarioBehaviour" Collapsed="true">
     <Position X="5" Y="12.5" Width="1.5" />
     <TypeIdentifier>
@@ -375,7 +368,7 @@
   <Class Name="SparringManager.Scenarios.LineScenarioController" Collapsed="true">
     <Position X="5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAAiAAAAAAAAAAAIAAAAABAEAEAAAAQAAAAAA=</HashCode>
+      <HashCode>AAABAAAAAiAAAAAAAAAAAIAAAAAAAEAEAAAAQAAAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\LineScenarioController.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -461,6 +454,13 @@
     <TypeIdentifier>
       <HashCode>AAABAAAAAiAAAAAAAAAAAIAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>Assets\Scripts\SparringManager\Scenarios\SplHitLine\SplHitLineController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SparringManager.Scenarios.ScenarioControllerBase" Collapsed="true">
+    <Position X="5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>A0AAAABAAARAAAAQAQAACARAEgBBggUMAIASQgAAAAA=</HashCode>
+      <FileName>Assets\Scripts\SparringManager\ScenarioControllerBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="SparringManager.Serial.Example.TargetControllerHitEventArgs" Collapsed="true">
@@ -584,7 +584,7 @@
   <Delegate Name="OscMessageHandler" Collapsed="true">
     <Position X="29.25" Y="11" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\OSC\OSC.cs</FileName>
     </TypeIdentifier>
   </Delegate>

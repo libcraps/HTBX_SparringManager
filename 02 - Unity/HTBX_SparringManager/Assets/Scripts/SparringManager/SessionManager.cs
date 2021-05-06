@@ -35,9 +35,9 @@ namespace SparringManager
         {
             get
             {
-                if (Convert.ToBoolean(_deviceManager.RenderCamera.GetComponent<ImpactManager>()))
+                if (Convert.ToBoolean(_deviceManager.renderCamera.GetComponent<ImpactManager>()))
                 {
-                    return _deviceManager.RenderCamera.GetComponent<ImpactManager>();
+                    return _deviceManager.renderCamera.GetComponent<ImpactManager>();
                 }
                 else
                 {

@@ -56,7 +56,7 @@ namespace SparringManager.Device
                 _movuino[i] = InstantiateDevice<Movuino>(mov, player, "/" + _idPlayer + mov.Id);
                 i++;
             }
-            _gymnaseProjection = InstantiateDevice<GymnaseBasicProjection>(_structPlayerScene.StructGymnaseRepresentation, this.gameObject, _idPlayer);
+            _gymnaseProjection = InstantiateDevice<GymnaseProjection>(_structPlayerScene.StructGymnaseRepresentation, this.gameObject, _idPlayer);
 
         }
 

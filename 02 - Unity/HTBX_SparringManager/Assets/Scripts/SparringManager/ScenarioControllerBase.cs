@@ -86,47 +86,47 @@ namespace SparringManager.Scenarios
         /// <summary>
         /// Movuinos present in the scene for the scenario
         /// </summary>
-        protected Movuino[] movuino;
+        protected Movuino[] _movuino;
 
         /// <summary>
         /// polar presents in the scene for the scenario
         /// </summary>
-        protected Polar polar;
+        protected Polar _polar;
 
         /// <summary>
         /// Manage all vivetrackers present in the scene for the scenario
         /// </summary>
-        protected ViveTrackerManager viveTrackerManager;
+        protected ViveTrackerManager _viveTrackerManager;
+
+        /// <summary>
+        /// GymnaseProjection of the scene
+        /// </summary>
+        protected GymnaseProjection _gymnaseProjection;
 
         /// <summary>
         /// Number of movuinos
         /// </summary>
-        protected int nbMovuino;
+        protected int _nbMovuino;
         #endregion
 
         #endregion
 
         #region Properties
         public GameObject renderCameraObject { get { return _renderCameraObject;  } }
-
         public float rangeSize { get { return _rangeSize;  } }
         public Scenario scenario { get { return _scenario; } }
-
         /// <summary>
         /// Component DataManager of the PlayerPrefab object
         /// </summary>
         public DataManager dataManagerComponent { get { return _dataManagerComponent; } }
-
         /// <summary>
         /// Component DeviceManager of the PlayerPrefab Object
         /// </summary>
         public DeviceManager deviceManagerComponent { get { return _deviceManagerComponent; } }
-
         /// <summary>
         /// Component SessionManager of the PlayerPrefab Object
         /// </summary>
         public SessionManager sessionManagerComponent { get { return _sessionManagerComponent;  } }
-
         /// <summary>
         /// ScenarioBehaviour of the scenario
         /// </summary>
@@ -155,15 +155,15 @@ namespace SparringManager.Scenarios
             _dataManagerComponent = _playerPrefab.GetComponent< DataManager>();
 
             //Camera
-            _renderCameraObject = _deviceManagerComponent.RenderCamera;
+            _renderCameraObject = _deviceManagerComponent.renderCamera;
             _rangeSize = _renderCameraObject.GetComponent<Camera>().orthographicSize;
 
             //PlayerScene
-            _playerSceneController = _deviceManagerComponent.PlayerScene.GetComponent<PlayerSceneController>();
-            nbMovuino = _playerSceneController.movuino.Length;
+            _playerSceneController = _deviceManagerComponent.playerScene.GetComponent<PlayerSceneController>();
+            _nbMovuino = _playerSceneController.movuino.Length;
 
             //Data
-            dataSessionPlayer = new DataSessionPlayer(nbMovuino);
+            dataSessionPlayer = new DataSessionPlayer(_nbMovuino);
             dataSessionPlayer.DataSessionScenario.scenarioSumUp = DataManager.StructToDictionary<GeneriqueScenarioStruct>(scenario.structScenari);
             _dataManagerComponent.AddContentToSumUp(this.name + "_" + _nbApparition, dataSessionPlayer.DataSessionScenario.scenarioSumUp);
         }
@@ -179,19 +179,22 @@ namespace SparringManager.Scenarios
         protected virtual void GetDevices()
         {
             //movuino
-            movuino = new Movuino[nbMovuino];
-            for (int i = 0; i < nbMovuino; i++)
+            _movuino = new Movuino[_nbMovuino];
+            for (int i = 0; i < _nbMovuino; i++)
             {
-                movuino[i] = _playerSceneController.movuino[i].GetComponent<Movuino>();
-                dataSessionPlayer.DataSessionMovuino[i].id = movuino[i].id; //We need the id of the movuino to have different column names and identifie thmen
-                dataSessionPlayer.DataSessionMovuinoXMM[i].id = movuino[i].id;
+                _movuino[i] = _playerSceneController.movuino[i].GetComponent<Movuino>();
+                dataSessionPlayer.DataSessionMovuino[i].id = _movuino[i].id; //We need the id of the movuino to have different column names and identifie thmen
+                dataSessionPlayer.DataSessionMovuinoXMM[i].id = _movuino[i].id;
             }
 
             //Polar
-            polar = _playerSceneController.polar.GetComponent<Polar>();
+            _polar = _playerSceneController.polar.GetComponent<Polar>();
 
             //ViveTracker
-            viveTrackerManager = _playerSceneController.viveTracker.GetComponent<ViveTrackerManager>();
+            _viveTrackerManager = _playerSceneController.viveTracker.GetComponent<ViveTrackerManager>();
+
+            //Gymnase
+            _gymnaseProjection = _playerSceneController.gymnaseProjection.GetComponent<GymnaseProjection>();
         }
         #endregion
     }

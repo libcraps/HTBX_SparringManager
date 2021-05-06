@@ -17,7 +17,7 @@ namespace SparringManager
     public class MainEnvironnement : MonoBehaviour
     {
         [SerializeField]
-        private GameObject _prefabPlayerPrefab;
+        private GameObject _playerPrefab;
 
         [SerializeField]
         private bool _exportInFile;
@@ -76,7 +76,7 @@ namespace SparringManager
 
             for (int i = 0; i< NbPlayer; i++)
             {
-                clonePlayerPrefab = Instantiate(_prefabPlayerPrefab, posPlayerPrefab, Quaternion.identity, this.gameObject.transform); 
+                clonePlayerPrefab = Instantiate(_playerPrefab, posPlayerPrefab, Quaternion.identity, this.gameObject.transform); 
                 clonePlayerPrefab.GetComponent<SessionManager>().Init(_mainStructure[i].Scenarios, _mainStructure[i].operationalArea, _mainStructure[i].Name, _exportInFile);
                 clonePlayerPrefab.GetComponent<DeviceManager>().Init(_mainStructure[i].StructHitBox, _mainStructure[i].StructPlayerScene, _mainStructure[i].Name, i);
                 clonePlayerPrefab.GetComponent<DataManager>().Init(_exportInFile, ".\\_data\\" + _mainStructure[i].Name+"\\");
